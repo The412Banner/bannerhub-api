@@ -5,7 +5,7 @@
  * Usage:
  *   npm run convert-drivers
  *
- * Place .zip driver files in .tmp_drivers/ directory, then run this script.
+ * Place .zip or .tzst driver files in .tmp_drivers/ directory, then run this script.
  * The script will:
  *   1. Convert each .zip to .tzst format (matching existing driver format)
  *   2. Calculate MD5 hash and file size
@@ -195,26 +195,28 @@ async function main() {
     console.log(`Creating ${TMP_DRIVERS_DIR}/ directory...`)
     mkdirSync(TMP_DRIVERS_DIR, { recursive: true })
     console.log(
-      `\n${colors.yellow}Place your .zip driver files in ${TMP_DRIVERS_DIR}/ and run again.${colors.reset}`,
+      `\n${colors.yellow}Place your .zip or .tzst driver files in ${TMP_DRIVERS_DIR}/ and run again.${colors.reset}`,
     )
     return
   }
 
-  // Find all .zip files
-  const zipFiles = readdirSync(TMP_DRIVERS_DIR).filter((f) =>
-    f.endsWith('.zip'),
-  )
+  // Find all .zip and .tzst files
+  const allFiles = readdirSync(TMP_DRIVERS_DIR)
+  const zipFiles = allFiles.filter((f) => f.endsWith('.zip'))
+  const tzstFiles = allFiles.filter((f) => f.endsWith('.tzst'))
 
-  if (zipFiles.length === 0) {
-    console.log(`${colors.yellow}No .zip files found in ${TMP_DRIVERS_DIR}/${colors.reset}`)
+  if (zipFiles.length === 0 && tzstFiles.length === 0) {
+    console.log(`${colors.yellow}No .zip or .tzst files found in ${TMP_DRIVERS_DIR}/${colors.reset}`)
     console.log(
-      `\nPlace your .zip driver files in ${TMP_DRIVERS_DIR}/ and run again.`,
+      `\nPlace your .zip or .tzst driver files in ${TMP_DRIVERS_DIR}/ and run again.`,
     )
     return
   }
 
-  console.log(`Found ${colors.bold}${zipFiles.length}${colors.reset} .zip file(s):\n`)
-  zipFiles.forEach((f) => console.log(`  ${colors.dim}•${colors.reset} ${f}`))
+  const totalFiles = zipFiles.length + tzstFiles.length
+  console.log(`Found ${colors.bold}${totalFiles}${colors.reset} driver file(s):\n`)
+  zipFiles.forEach((f) => console.log(`  ${colors.dim}•${colors.reset} ${f} ${colors.dim}(zip → tzst)${colors.reset}`))
+  tzstFiles.forEach((f) => console.log(`  ${colors.dim}•${colors.reset} ${f} ${colors.dim}(ready)${colors.reset}`))
   console.log('')
 
   // Load custom components
@@ -230,6 +232,7 @@ async function main() {
   const newComponents: CustomComponent[] = []
   const createdFiles: string[] = []
 
+  // Process .zip files (convert to .tzst)
   for (const zipFile of zipFiles) {
     const zipPath = join(TMP_DRIVERS_DIR, zipFile)
     const driverName = basename(zipFile, '.zip')
@@ -266,6 +269,50 @@ async function main() {
       createdFiles.push(basename(tzstPath))
 
       console.log(`  ${colors.green}✓${colors.reset} Created: ${basename(tzstPath)}`)
+      console.log(`    ${colors.dim}ID: ${component.id} | MD5: ${md5.slice(0, 8)}... | Size: ${(parseInt(fileSize) / 1024 / 1024).toFixed(2)} MB${colors.reset}\n`)
+    } catch (error) {
+      console.error(
+        `  ${colors.red}✗ Error:${colors.reset} ${error instanceof Error ? error.message : error}\n`,
+      )
+    }
+  }
+
+  // Process .tzst files (already in correct format)
+  for (const tzstFile of tzstFiles) {
+    const tzstPath = join(TMP_DRIVERS_DIR, tzstFile)
+    const driverName = basename(tzstFile, '.tzst')
+
+    console.log(`${colors.blue}Adding:${colors.reset} ${tzstFile}`)
+
+    const exists = customComponentsData.components.some(
+      (c) => c.name === driverName || c.file_name === tzstFile,
+    )
+    if (exists) {
+      console.log(
+        `  ${colors.yellow}⚠ Skipping:${colors.reset} "${driverName}" already exists\n`,
+      )
+      continue
+    }
+
+    try {
+      const md5 = getMd5(tzstPath)
+      const fileSize = getFileSize(tzstPath)
+
+      const component: CustomComponent = {
+        id: nextId++,
+        name: driverName,
+        type: COMPONENT_TYPE_GPU_DRIVER,
+        version: '1.0.0',
+        version_code: 1,
+        file_name: tzstFile,
+        file_md5: md5,
+        file_size: fileSize,
+      }
+
+      newComponents.push(component)
+      createdFiles.push(tzstFile)
+
+      console.log(`  ${colors.green}✓${colors.reset} Ready: ${tzstFile}`)
       console.log(`    ${colors.dim}ID: ${component.id} | MD5: ${md5.slice(0, 8)}... | Size: ${(parseInt(fileSize) / 1024 / 1024).toFixed(2)} MB${colors.reset}\n`)
     } catch (error) {
       console.error(
