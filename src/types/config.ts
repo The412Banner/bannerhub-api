@@ -42,12 +42,12 @@ export const DEFAULT_CONFIG: BuildConfig = {
   defaultsFile: './data/defaults.json',
   executionConfigFile: './data/execution_config.json',
   outputDir: './',
-  githubRepo: 'Producdevity/gamehub-lite-api',
+  githubRepo: 'The412Banner/bannerhub-api',
   githubRelease: 'Components',
   cdnBaseUrl:
-    'https://github.com/Producdevity/gamehub-lite-api/releases/download/Components',
+    'https://github.com/The412Banner/bannerhub-api/releases/download/Components',
   logoUrl:
-    'https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
+    'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
   downloadMissing: false,
   downloadDir: './.tmp_components',
   timestamp: null,

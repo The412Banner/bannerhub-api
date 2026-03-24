@@ -4,7 +4,7 @@
   "data": {
     "downloads": [
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/box64-0.28-b1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/box64-0.28-b1.tzst",
         "file_md5": "a86826840ee879c662e54e9efc8f70ef",
         "file_name": "box64-0.28-b1.tzst",
         "file_size": "3440386",
@@ -13,7 +13,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/box64_0.31_b1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/box64_0.31_b1.tzst",
         "file_md5": "96eae3fb9ff6f471d4c6761e1d6cd214",
         "file_name": "box64_0.31_b1.tzst",
         "file_size": "3868724",
@@ -22,7 +22,7 @@
         "version": "1.0.1"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/box64_0.37_1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/box64_0.37_1.tzst",
         "file_md5": "b9dd3f72f7c1a2789f8a3fb92d0e9d71",
         "file_name": "box64_0.37_1.tzst",
         "file_size": "4172166",
@@ -31,7 +31,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Box64-0.37-b2.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Box64-0.37-b2.tzst",
         "file_md5": "bfb6b3914b8f7abb792d8acafa676861",
         "file_name": "Box64-0.37-b2.tzst",
         "file_size": "4272182",
@@ -40,7 +40,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Box64-0.38.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Box64-0.38.tzst",
         "file_md5": "7d91a3edb0b829b9359dd494754ab521",
         "file_name": "Box64-0.38.tzst",
         "file_size": "4279460",
@@ -49,7 +49,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Box64-0.39.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Box64-0.39.tzst",
         "file_md5": "30a7c5210e11f084430195a3a679e1e5",
         "file_name": "Box64-0.39.tzst",
         "file_size": "4321814",
@@ -58,7 +58,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex_20241214.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex_20241214.tzst",
         "file_md5": "c48e8cc6acb10ab8d969e5947bc78bce",
         "file_name": "Fex_20241214.tzst",
         "file_size": "2347087",
@@ -67,7 +67,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex_20250507.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex_20250507.tzst",
         "file_md5": "b758d7cd659ab685cc33c81765dba1c8",
         "file_name": "Fex_20250507.tzst",
         "file_size": "1578996",
@@ -76,7 +76,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex_20250728.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex_20250728.tzst",
         "file_md5": "18d03f4e28eb19090b0d1c85c34882c3",
         "file_name": "Fex_20250728.tzst",
         "file_size": "1613265",
@@ -85,7 +85,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex_20250802.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex_20250802.tzst",
         "file_md5": "4c7f9b539db9b3dd698303c9bdd0e967",
         "file_name": "Fex_20250802.tzst",
         "file_size": "1614799",
@@ -94,7 +94,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex_20250806.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex_20250806.tzst",
         "file_md5": "4733f5968925dd2b6c4f68de3bef9b57",
         "file_name": "Fex_20250806.tzst",
         "file_size": "1655022",
@@ -103,7 +103,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/fex-20250823.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fex-20250823.tzst",
         "file_md5": "c6b6475a231ab41fdc363e27fcd04fdc",
         "file_name": "fex-20250823.tzst",
         "file_size": "11734515",
@@ -112,7 +112,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/fex-20250910.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fex-20250910.tzst",
         "file_md5": "37a75036118dc0f14ad2ae1b6e1561fc",
         "file_name": "fex-20250910.tzst",
         "file_size": "11580702",
@@ -121,7 +121,7 @@
         "version": "1.0.1"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex-20250429.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex-20250429.tzst",
         "file_md5": "e49bb58ec8079bad3fff719d1bc1e480",
         "file_name": "Fex-20250429.tzst",
         "file_size": "1561757",
@@ -130,7 +130,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/fex-20251025.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fex-20251025.tzst",
         "file_md5": "6d24fdf3f9e18a40d99612583f97dcc7",
         "file_name": "fex-20251025.tzst",
         "file_size": "11580115",
@@ -139,7 +139,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex-20251029.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex-20251029.tzst",
         "file_md5": "6cc2b329633dfbc95f23ea702cf84bd2",
         "file_name": "Fex-20251029.tzst",
         "file_size": "9997734",
@@ -148,7 +148,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex-20251120.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex-20251120.tzst",
         "file_md5": "ac5f526cc50cc8311bc5c46975f37cda",
         "file_name": "Fex-20251120.tzst",
         "file_size": "11759588",
@@ -157,7 +157,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/fex-20251128.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fex-20251128.tzst",
         "file_md5": "194f1014ebd3e2748908f00d327e9ff4",
         "file_name": "fex-20251128.tzst",
         "file_size": "11887563",
@@ -166,7 +166,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/fex-20251217.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fex-20251217.tzst",
         "file_md5": "bc508d00a4d352f4e9de6a902aa104bb",
         "file_name": "fex-20251217.tzst",
         "file_size": "12078347",
@@ -175,7 +175,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fex-20260103.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex-20260103.tzst",
         "file_md5": "ca83779fa610be7ba0f19e6b305a0e8b",
         "file_name": "Fex-20260103.tzst",
         "file_size": "12339743",
@@ -184,16 +184,16 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/FEXCore-2603.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/FEXCore-2603.tzst",
         "file_md5": "31f991a5cb68566a04f6325aefacd83b",
         "file_name": "FEXCore-2603.tzst",
         "file_size": "2301090",
-        "name": "FEXCore-2603.tzst",
+        "name": "FEXCore-2603",
         "type": 1,
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8Elite2-842.6.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8Elite2-842.6.tzst",
         "file_md5": "d2c18569d828ba8b7c66804aa8be2d54",
         "file_name": "8Elite2-842.6.tzst",
         "file_size": "12569637",
@@ -202,7 +202,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8eGen5-842.8.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8eGen5-842.8.tzst",
         "file_md5": "f69bfda11b5ada8e6542e94896570193",
         "file_name": "8eGen5-842.8.tzst",
         "file_size": "12568832",
@@ -211,7 +211,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.21.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.21.tzst",
         "file_md5": "8b3b76091655365ff514cd83f304b1ae",
         "file_name": "8E-800.21.tzst",
         "file_size": "12208881",
@@ -220,7 +220,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.22.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.22.tzst",
         "file_md5": "26b4555e4f448a0ec27456a95a0b73de",
         "file_name": "8E-800.22.tzst",
         "file_size": "15933548",
@@ -229,7 +229,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.26.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.26.tzst",
         "file_md5": "d4029c11848250c9cf2fa414af69b070",
         "file_name": "8E-800.26.tzst",
         "file_size": "15935451",
@@ -238,7 +238,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.30.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.30.tzst",
         "file_md5": "bb606c1fe35d3940fceae7ea803eb645",
         "file_name": "8E-800.30.tzst",
         "file_size": "15934211",
@@ -247,7 +247,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.33.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.33.tzst",
         "file_md5": "b4584974ec4cb22f4d17086b743716f6",
         "file_name": "8E-800.33.tzst",
         "file_size": "15933767",
@@ -256,7 +256,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.34.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.34.tzst",
         "file_md5": "be48b56d8e864eb93830136af70c5236",
         "file_name": "8E-800.34.tzst",
         "file_size": "15934823",
@@ -265,7 +265,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.35.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.35.tzst",
         "file_md5": "8276b4e2460c5b2fee187c36532f2d66",
         "file_name": "8E-800.35.tzst",
         "file_size": "15933847",
@@ -274,7 +274,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.36.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.36.tzst",
         "file_md5": "5d25fe77ac69e3614b8727d84df18f27",
         "file_name": "8E-800.36.tzst",
         "file_size": "15935422",
@@ -283,7 +283,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.40.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.40.tzst",
         "file_md5": "7ac95a1d40b14848b06ddb557651a632",
         "file_name": "8E-800.40.tzst",
         "file_size": "15935709",
@@ -292,7 +292,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-800.46.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-800.46.tzst",
         "file_md5": "5958b00cc388e63f3a6e91badba73af9",
         "file_name": "8E-800.46.tzst",
         "file_size": "15934254",
@@ -301,7 +301,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8Elite-800.51.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8Elite-800.51.tzst",
         "file_md5": "e6e9a52477d35cacaeb362bdc3d4e1ce",
         "file_name": "8Elite-800.51.tzst",
         "file_size": "15971361",
@@ -310,7 +310,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/a8xx-gen8-V16.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a8xx-gen8-V16.tzst",
         "file_md5": "f5f5816260b32b3ed69d0246a9812088",
         "file_name": "a8xx-gen8-V16.tzst",
         "file_size": "2559682",
@@ -319,7 +319,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/a8xx-gen8-V20.5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a8xx-gen8-V20.5.tzst",
         "file_md5": "4f971029be22e0fca6892d909e70220e",
         "file_name": "a8xx-gen8-V20.5.tzst",
         "file_size": "2562750",
@@ -328,7 +328,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/a8xx-gen8-V21.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a8xx-gen8-V21.tzst",
         "file_md5": "d424df9034254600c3975d0bf0e907bb",
         "file_name": "a8xx-gen8-V21.tzst",
         "file_size": "2594106",
@@ -337,7 +337,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/adreno_762.10.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/adreno_762.10.tzst",
         "file_md5": "4e046e11d23c2f403cb85453180ccf0e",
         "file_name": "adreno_762.10.tzst",
         "file_size": "11721623",
@@ -346,7 +346,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/8E-805.0.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8E-805.0.tzst",
         "file_md5": "7056ec506ea9bf4d90406a1652bf85c3",
         "file_name": "8E-805.0.tzst",
         "file_size": "12305296",
@@ -355,7 +355,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Adreno_814.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Adreno_814.tzst",
         "file_md5": "406561f447d490c271c3dfbf01d1ccff",
         "file_name": "Adreno_814.tzst",
         "file_size": "17172070",
@@ -364,7 +364,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Adreno_819.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Adreno_819.tzst",
         "file_md5": "1f6a77e48d03c4e1f86d0bab6258cb6c",
         "file_name": "Adreno_819.tzst",
         "file_size": "12606757",
@@ -373,7 +373,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mesa-turnip-flushall-V26.1.0-git.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mesa-turnip-flushall-V26.1.0-git.tzst",
         "file_md5": "68c1d81066284d7bf9dbe60af48eb014",
         "file_name": "mesa-turnip-flushall-V26.1.0-git.tzst",
         "file_size": "2303857",
@@ -382,7 +382,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mesa-turnip-main-flushall-V26.1.0-git-hotfix.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mesa-turnip-main-flushall-V26.1.0-git-hotfix.tzst",
         "file_md5": "b75d423dd91255bdb78e160881807282",
         "file_name": "mesa-turnip-main-flushall-V26.1.0-git-hotfix.tzst",
         "file_size": "2299911",
@@ -391,7 +391,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mesa-turnip-main-noflushall-V26.1.0-git-hotfix.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mesa-turnip-main-noflushall-V26.1.0-git-hotfix.tzst",
         "file_md5": "6dc91f28394ff2b80e0c951b7f1b4893",
         "file_name": "mesa-turnip-main-noflushall-V26.1.0-git-hotfix.tzst",
         "file_size": "2300998",
@@ -400,7 +400,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mesa-turnip-main-V26.1.0-git.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mesa-turnip-main-V26.1.0-git.tzst",
         "file_md5": "5c7bbac6646c6a06106ceb4766f8099e",
         "file_name": "mesa-turnip-main-V26.1.0-git.tzst",
         "file_size": "2302921",
@@ -409,7 +409,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qcom-800.64.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qcom-800.64.tzst",
         "file_md5": "bed23f4587576f40ddc2a9a4f3f9b500",
         "file_name": "qcom-800.64.tzst",
         "file_size": "15972964",
@@ -418,7 +418,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/842.1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/842.1.tzst",
         "file_md5": "cf381367be6ad0e3a643ce18c5f60359",
         "file_name": "842.1.tzst",
         "file_size": "12638552",
@@ -427,7 +427,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qcom-842.13.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qcom-842.13.tzst",
         "file_md5": "b5af77f0407af1ad501994c9758ea23e",
         "file_name": "qcom-842.13.tzst",
         "file_size": "12635889",
@@ -436,7 +436,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qcom-842.16.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qcom-842.16.tzst",
         "file_md5": "90647d6df97ee5059625ba33de0721b5",
         "file_name": "qcom-842.16.tzst",
         "file_size": "12639579",
@@ -445,7 +445,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qcom-842.19.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qcom-842.19.tzst",
         "file_md5": "08b584ecdba28756c258c1e8f07e6418",
         "file_name": "qcom-842.19.tzst",
         "file_size": "12643197",
@@ -454,7 +454,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qcom-849.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qcom-849.tzst",
         "file_md5": "a103453b4e5aef0db45845a813745a44",
         "file_name": "qcom-849.tzst",
         "file_size": "12584954",
@@ -463,7 +463,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_a8xx.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_a8xx.tzst",
         "file_md5": "b38649f5bf073a125913b216a3e45d85",
         "file_name": "turnip_a8xx.tzst",
         "file_size": "2270853",
@@ -472,7 +472,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_Gen8_V19.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_Gen8_V19.tzst",
         "file_md5": "f72e2f1a0f9f26596901eafd38f6280c",
         "file_name": "Turnip_Gen8_V19.tzst",
         "file_size": "3325394",
@@ -481,7 +481,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_Gen8_V20.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_Gen8_V20.tzst",
         "file_md5": "b3e627c84bd1f447cb58723e020c7eb6",
         "file_name": "Turnip_Gen8_V20.tzst",
         "file_size": "3331097",
@@ -490,7 +490,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_Gen8_V21.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_Gen8_V21.tzst",
         "file_md5": "baf09224ec5babd106cdc53be0541839",
         "file_name": "Turnip_Gen8_V21.tzst",
         "file_size": "3328971",
@@ -499,7 +499,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_Gen8_V22.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_Gen8_V22.tzst",
         "file_md5": "de6e94ef746d9ca588c4908e9d81b3c4",
         "file_name": "Turnip_Gen8_V22.tzst",
         "file_size": "3327760",
@@ -508,7 +508,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_Gen8_V23.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_Gen8_V23.tzst",
         "file_md5": "587c437226338b6cad60e251d13d3af0",
         "file_name": "Turnip_Gen8_V23.tzst",
         "file_size": "3100163",
@@ -517,7 +517,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_Gen8_V24.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_Gen8_V24.tzst",
         "file_md5": "f84e5f917a6c9337439cf9c334ccd67b",
         "file_name": "Turnip_Gen8_V24.tzst",
         "file_size": "3119705",
@@ -526,7 +526,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_Gen8_V25.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_Gen8_V25.tzst",
         "file_md5": "dad66215792a1e64eea9f3fdb0aebe0f",
         "file_name": "Turnip_Gen8_V25.tzst",
         "file_size": "3123993",
@@ -535,7 +535,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_24.2.0_a32.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_24.2.0_a32.tzst",
         "file_md5": "39485b41dafea094894c8b41257cd626",
         "file_name": "turnip_24.2.0_a32.tzst",
         "file_size": "2092232",
@@ -544,7 +544,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_24.2.0_R19.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_24.2.0_R19.tzst",
         "file_md5": "eb3363dd5503db562a223d8abb5b6349",
         "file_name": "turnip_24.2.0_R19.tzst",
         "file_size": "2087294",
@@ -553,7 +553,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v24.2.0_R22.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v24.2.0_R22.tzst",
         "file_md5": "e02b7bfb961969dc08362db2f0d87cda",
         "file_name": "turnip_v24.2.0_R22.tzst",
         "file_size": "2139587",
@@ -562,7 +562,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v24.3.0_R2.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v24.3.0_R2.tzst",
         "file_md5": "be6cf6d3b34dbacb104977a4a19c91c3",
         "file_name": "turnip_v24.3.0_R2.tzst",
         "file_size": "2133990",
@@ -571,7 +571,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v24.3.0_R5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v24.3.0_R5.tzst",
         "file_md5": "c3fc3a2bb86d6c124aba25842a332035",
         "file_name": "turnip_v24.3.0_R5.tzst",
         "file_size": "2164910",
@@ -580,7 +580,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v24.3.0_R6.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v24.3.0_R6.tzst",
         "file_md5": "7699feacda5a6ddfe08b41c479e0a71a",
         "file_name": "turnip_v24.3.0_R6.tzst",
         "file_size": "2170812",
@@ -589,7 +589,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v24.3.0_R7.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v24.3.0_R7.tzst",
         "file_md5": "3e6b5770c01f805551631ab1cdffb4f0",
         "file_name": "turnip_v24.3.0_R7.tzst",
         "file_size": "2172945",
@@ -598,7 +598,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v24.3.0_R8.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v24.3.0_R8.tzst",
         "file_md5": "999fadda5f14d71d233b94da63a0cf04",
         "file_name": "turnip_v24.3.0_R8.tzst",
         "file_size": "2183700",
@@ -607,7 +607,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v24.3.0-R12.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v24.3.0-R12.tzst",
         "file_md5": "7ab071ebd07eee1e85303efc1ad38441",
         "file_name": "turnip_v24.3.0-R12.tzst",
         "file_size": "2215663",
@@ -616,7 +616,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.0.0_R1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.0.0_R1.tzst",
         "file_md5": "a56b24886555c6c5d30c93fdb7b0f8f3",
         "file_name": "turnip_v25.0.0_R1.tzst",
         "file_size": "2221425",
@@ -625,7 +625,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.0.0_R5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.0.0_R5.tzst",
         "file_md5": "29ef9220a035ba387dea2dc93d0d8f0b",
         "file_name": "turnip_v25.0.0_R5.tzst",
         "file_size": "2241462",
@@ -634,7 +634,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.0.0_R6.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.0.0_R6.tzst",
         "file_md5": "2eeceb80bebb808490f091ebc42cc1b3",
         "file_name": "Turnip_v25.0.0_R6.tzst",
         "file_size": "2250103",
@@ -643,7 +643,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.0.0_R8.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.0.0_R8.tzst",
         "file_md5": "4d7f95212f1caf771cb4c2f26a8501d5",
         "file_name": "turnip_v25.0.0_R8.tzst",
         "file_size": "2385679",
@@ -652,7 +652,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.1.0_R1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.1.0_R1.tzst",
         "file_md5": "de2c475652148b1e0d6c5f9cec3eaf2d",
         "file_name": "turnip_v25.1.0_R1.tzst",
         "file_size": "2385679",
@@ -661,7 +661,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.1.0_R5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.1.0_R5.tzst",
         "file_md5": "f9c7a45e12f4510235da58d05a85c6a6",
         "file_name": "turnip_v25.1.0_R5.tzst",
         "file_size": "3008368",
@@ -670,7 +670,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.1.0_R6.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.1.0_R6.tzst",
         "file_md5": "c60913ec7aa8587dbca4c3780c0cb281",
         "file_name": "Turnip_v25.1.0_R6.tzst",
         "file_size": "3013456",
@@ -679,7 +679,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R1.tzst",
         "file_md5": "7516bbbc0b26b7c041bb16e3839dde58",
         "file_name": "turnip_v25.2.0_R1.tzst",
         "file_size": "3018587",
@@ -688,7 +688,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R10.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R10.tzst",
         "file_md5": "7c2e5daf645075993d8fea54dad0e434",
         "file_name": "turnip_v25.2.0_R10.tzst",
         "file_size": "3055413",
@@ -697,7 +697,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R11.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R11.tzst",
         "file_md5": "39554434c109642bd5a8354f8459eae7",
         "file_name": "turnip_v25.2.0_R11.tzst",
         "file_size": "3071317",
@@ -706,7 +706,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R11_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R11_mem.tzst",
         "file_md5": "5fe38ffe4d2ee87413588107737e2408",
         "file_name": "turnip_v25.2.0_R11_mem.tzst",
         "file_size": "3069717",
@@ -715,7 +715,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R12.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R12.tzst",
         "file_md5": "b43bca68136975adbe07063b1b76b460",
         "file_name": "turnip_v25.2.0_R12.tzst",
         "file_size": "3155784",
@@ -724,7 +724,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R12_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R12_mem.tzst",
         "file_md5": "f173e8e1b5ae6d23b7237fd1502ed8f1",
         "file_name": "turnip_v25.2.0_R12_mem.tzst",
         "file_size": "3154389",
@@ -733,7 +733,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R13.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R13.tzst",
         "file_md5": "7d86ae0ac065fa81193f438da66cd26a",
         "file_name": "turnip_v25.2.0_R13.tzst",
         "file_size": "3159726",
@@ -742,7 +742,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R13_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R13_mem.tzst",
         "file_md5": "7b8509fef4d94fe93b5804fbbed3ed5f",
         "file_name": "turnip_v25.2.0_R13_mem.tzst",
         "file_size": "3155442",
@@ -751,7 +751,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R3_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R3_mem.tzst",
         "file_md5": "e61c513e8e0515a764d149309e5926c5",
         "file_name": "turnip_v25.2.0_R3_mem.tzst",
         "file_size": "3024354",
@@ -760,7 +760,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R4.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R4.tzst",
         "file_md5": "5118fb253ec606d6a82a05ad3fac9867",
         "file_name": "turnip_v25.2.0_R4.tzst",
         "file_size": "3030803",
@@ -769,7 +769,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R4_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R4_mem.tzst",
         "file_md5": "1e2f842021dd1baa5582579faa798870",
         "file_name": "turnip_v25.2.0_R4_mem.tzst",
         "file_size": "3028111",
@@ -778,7 +778,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R5.tzst",
         "file_md5": "49b2a2847e60b9bfc30712a7db6dd974",
         "file_name": "turnip_v25.2.0_R5.tzst",
         "file_size": "3041077",
@@ -787,7 +787,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.2.0_R5_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.2.0_R5_mem.tzst",
         "file_md5": "4655b7649951d9dbe45ab36724662bf6",
         "file_name": "turnip_v25.2.0_R5_mem.tzst",
         "file_size": "3040093",
@@ -796,7 +796,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.2.0_R6.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.2.0_R6.tzst",
         "file_md5": "58f624305ee4d509af53327adeb1300f",
         "file_name": "Turnip_v25.2.0_R6.tzst",
         "file_size": "3042645",
@@ -805,7 +805,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.2.0_R6_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.2.0_R6_mem.tzst",
         "file_md5": "994b355f5cc9f376ecf5eaac407b9b9c",
         "file_name": "Turnip_v25.2.0_R6_mem.tzst",
         "file_size": "3042189",
@@ -814,7 +814,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.2.0_R7.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.2.0_R7.tzst",
         "file_md5": "17360e23ae6604e492d6c0811fc26412",
         "file_name": "Turnip_v25.2.0_R7.tzst",
         "file_size": "3046875",
@@ -823,7 +823,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.2.0_R7_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.2.0_R7_mem.tzst",
         "file_md5": "f13dcee9ff59cb65dd1795c521d1a350",
         "file_name": "Turnip_v25.2.0_R7_mem.tzst",
         "file_size": "3042757",
@@ -832,7 +832,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.2.0_R8.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.2.0_R8.tzst",
         "file_md5": "6bf3a5a57cf3687713507bbaf7dae119",
         "file_name": "Turnip_v25.2.0_R8.tzst",
         "file_size": "3044922",
@@ -841,7 +841,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R10.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R10.tzst",
         "file_md5": "c8f6d049cbad544c5710cf7c1648527b",
         "file_name": "turnip_v25.3.0_R10.tzst",
         "file_size": "3167790",
@@ -850,7 +850,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R11.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R11.tzst",
         "file_md5": "4a17bb19d0ad821cb4f6e3018711a3a7",
         "file_name": "turnip_v25.3.0_R11.tzst",
         "file_size": "3159116",
@@ -859,7 +859,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R3.tzst",
         "file_md5": "29e41e0f27533c49279578a7146fef15",
         "file_name": "turnip_v25.3.0_R3.tzst",
         "file_size": "2396712",
@@ -868,7 +868,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R3_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R3_mem.tzst",
         "file_md5": "cfc9e3e5001d7a8301e6b3e24b1da983",
         "file_name": "turnip_v25.3.0_R3_mem.tzst",
         "file_size": "2394049",
@@ -877,7 +877,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R4.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R4.tzst",
         "file_md5": "75436fcaf1b25e80f4b9fd76f47492b8",
         "file_name": "turnip_v25.3.0_R4.tzst",
         "file_size": "2404678",
@@ -886,7 +886,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R4_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R4_mem.tzst",
         "file_md5": "3608c883dd18d3222a4b6ad5cc9bae4c",
         "file_name": "turnip_v25.3.0_R4_mem.tzst",
         "file_size": "2402366",
@@ -895,7 +895,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R5.tzst",
         "file_md5": "48e44390316796c2367fbdbc0b22e024",
         "file_name": "turnip_v25.3.0_R5.tzst",
         "file_size": "2412729",
@@ -904,7 +904,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R5_one_ui7_fix.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R5_one_ui7_fix.tzst",
         "file_md5": "6cc3988c46b0a4c62f1a6908c92b0d77",
         "file_name": "turnip_v25.3.0_R5_one_ui7_fix.tzst",
         "file_size": "2412731",
@@ -913,7 +913,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R6.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R6.tzst",
         "file_md5": "9f27e94ad2246ccee862c634f026a61d",
         "file_name": "turnip_v25.3.0_R6.tzst",
         "file_size": "2420795",
@@ -922,7 +922,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.3.0_R6_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.3.0_R6_mem.tzst",
         "file_md5": "d2be495da073c2bc9f83dbac84be99d5",
         "file_name": "Turnip_v25.3.0_R6_mem.tzst",
         "file_size": "2417741",
@@ -931,7 +931,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v25.3.0_R7.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v25.3.0_R7.tzst",
         "file_md5": "35d577e74fa5151ba5c29963b681e33a",
         "file_name": "Turnip_v25.3.0_R7.tzst",
         "file_size": "2434537",
@@ -940,7 +940,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R8.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R8.tzst",
         "file_md5": "f666036707a6e86ec62550a61557ad8f",
         "file_name": "turnip_v25.3.0_R8.tzst",
         "file_size": "2453338",
@@ -949,7 +949,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v25.3.0_R9.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.3.0_R9.tzst",
         "file_md5": "3f7580cd1e19adfec2d08bbb9fe4ad41",
         "file_name": "turnip_v25.3.0_R9.tzst",
         "file_size": "2455127",
@@ -958,7 +958,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.0.0_Autotuner.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.0.0_Autotuner.tzst",
         "file_md5": "21539eefd1b8685c875f0dee8f9fcdae",
         "file_name": "Turnip_v26.0.0_Autotuner.tzst",
         "file_size": "3133688",
@@ -967,7 +967,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.0.0_M1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.0.0_M1.tzst",
         "file_md5": "18abdc985fa77f264f94cfb7646acca5",
         "file_name": "Turnip_v26.0.0_M1.tzst",
         "file_size": "3063101",
@@ -976,7 +976,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R1.tzst",
         "file_md5": "1bdc40f0a00323c1b926b5bde8777ec0",
         "file_name": "turnip_v26.0.0_R1.tzst",
         "file_size": "3213849",
@@ -985,7 +985,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R1_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R1_mem.tzst",
         "file_md5": "f3516348c20ce5bffc8331f6ce262ad1",
         "file_name": "turnip_v26.0.0_R1_mem.tzst",
         "file_size": "3225145",
@@ -994,7 +994,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R2.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R2.tzst",
         "file_md5": "822e423fb4a7d8185b342fc641bdfa22",
         "file_name": "turnip_v26.0.0_R2.tzst",
         "file_size": "3168214",
@@ -1003,7 +1003,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R2_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R2_mem.tzst",
         "file_md5": "6c2513688fbd69a7931d8223aadf7c07",
         "file_name": "turnip_v26.0.0_R2_mem.tzst",
         "file_size": "3168192",
@@ -1012,7 +1012,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R3.tzst",
         "file_md5": "4f95628cbf9c50dabc79c561814b2a37",
         "file_name": "turnip_v26.0.0_R3.tzst",
         "file_size": "3179760",
@@ -1021,7 +1021,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R3_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R3_mem.tzst",
         "file_md5": "a7f624c8a6934369f6223fe4b1123b17",
         "file_name": "turnip_v26.0.0_R3_mem.tzst",
         "file_size": "3179833",
@@ -1030,7 +1030,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R4.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R4.tzst",
         "file_md5": "5723d4d80d400dc0149294ffd57659e6",
         "file_name": "turnip_v26.0.0_R4.tzst",
         "file_size": "3236014",
@@ -1039,7 +1039,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R4_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R4_mem.tzst",
         "file_md5": "3914feda79f173f1d06f9cd8d4985e5b",
         "file_name": "turnip_v26.0.0_R4_mem.tzst",
         "file_size": "3236086",
@@ -1048,7 +1048,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R5.tzst",
         "file_md5": "fdba91b3fbe57759cca4cb093f630966",
         "file_name": "turnip_v26.0.0_R5.tzst",
         "file_size": "3232121",
@@ -1057,7 +1057,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R5_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R5_mem.tzst",
         "file_md5": "869875410f35db7bbe9ddc4c33d4136f",
         "file_name": "turnip_v26.0.0_R5_mem.tzst",
         "file_size": "3230995",
@@ -1066,7 +1066,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R6.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R6.tzst",
         "file_md5": "9ac71ffd0fad2fb993d5b5f0addcdbce",
         "file_name": "turnip_v26.0.0_R6.tzst",
         "file_size": "3334467",
@@ -1075,7 +1075,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R6_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R6_mem.tzst",
         "file_md5": "ae878ef7c1ddba3b0f6b7e324fc749bf",
         "file_name": "turnip_v26.0.0_R6_mem.tzst",
         "file_size": "3332434",
@@ -1084,7 +1084,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R7.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R7.tzst",
         "file_md5": "2cdb59fcec897aa53d820c658e0a511a",
         "file_name": "turnip_v26.0.0_R7.tzst",
         "file_size": "3268186",
@@ -1093,7 +1093,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/turnip_v26.0.0_R7_mem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v26.0.0_R7_mem.tzst",
         "file_md5": "ca97fb2a4b71ab7d13e0e85330bff306",
         "file_name": "turnip_v26.0.0_R7_mem.tzst",
         "file_size": "3268186",
@@ -1102,7 +1102,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.0.0_R8.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.0.0_R8.tzst",
         "file_md5": "9bc8ff34acb8f392f35c46b7cba5e92f",
         "file_name": "Turnip_v26.0.0_R8.tzst",
         "file_size": "3238818",
@@ -1111,7 +1111,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.0.0_R8_Gmem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.0.0_R8_Gmem.tzst",
         "file_md5": "f89d390aa050a2907372366e3fdfe015",
         "file_name": "Turnip_v26.0.0_R8_Gmem.tzst",
         "file_size": "3237690",
@@ -1120,7 +1120,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.0.0_R8_Sysmem.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.0.0_R8_Sysmem.tzst",
         "file_md5": "442976f4056453bf203be6915e18e99f",
         "file_name": "Turnip_v26.0.0_R8_Sysmem.tzst",
         "file_size": "3237690",
@@ -1129,7 +1129,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.1.0.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.1.0.tzst",
         "file_md5": "23b31992b4ca3f49fc286c8c4c6ad1b7",
         "file_name": "Turnip_v26.1.0.tzst",
         "file_size": "3108412",
@@ -1138,7 +1138,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.1.0_a6xx_fix.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.1.0_a6xx_fix.tzst",
         "file_md5": "9ba59607f5ef174299dab7917853ae49",
         "file_name": "Turnip_v26.1.0_a6xx_fix.tzst",
         "file_size": "3107704",
@@ -1147,7 +1147,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.1.0_R2.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.1.0_R2.tzst",
         "file_md5": "b29cd6795c2d53d356aaa7d0dd935a32",
         "file_name": "Turnip_v26.1.0_R2.tzst",
         "file_size": "3118002",
@@ -1156,7 +1156,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.1.0_R3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.1.0_R3.tzst",
         "file_md5": "6b9ab9bf7d144adbe181b0d60581c306",
         "file_name": "Turnip_v26.1.0_R3.tzst",
         "file_size": "3118280",
@@ -1165,7 +1165,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Turnip_v26.1.0_R4.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Turnip_v26.1.0_R4.tzst",
         "file_md5": "95df6c09b30a5c464d089afb9c04676a",
         "file_name": "Turnip_v26.1.0_R4.tzst",
         "file_size": "3050122",
@@ -1174,7 +1174,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/v849.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/v849.tzst",
         "file_md5": "f07886cb8fdf8e12ffca385366d59e05",
         "file_name": "v849.tzst",
         "file_size": "3158401",
@@ -1183,7 +1183,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/v849_a6xx.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/v849_a6xx.tzst",
         "file_md5": "aac389cef11dfbf25786290d1ac18dc0",
         "file_name": "v849_a6xx.tzst",
         "file_size": "3159304",
@@ -1192,7 +1192,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/v863.1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/v863.1.tzst",
         "file_md5": "46f379a3be747348e27dd7db24a62399",
         "file_name": "v863.1.tzst",
         "file_size": "36782",
@@ -1201,7 +1201,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-0.96.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-0.96.tzst",
         "file_md5": "33983fdd3da95bf015deda2c76895820",
         "file_name": "dxvk-0.96.tzst",
         "file_size": "1918701",
@@ -1210,7 +1210,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-1.10.3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-1.10.3.tzst",
         "file_md5": "9924b076c98284cc8847cbf299fbeb5b",
         "file_name": "dxvk-1.10.3.tzst",
         "file_size": "3554248",
@@ -1219,7 +1219,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-1.10.3-arm64ec-async.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-1.10.3-arm64ec-async.tzst",
         "file_md5": "bfe83375bfbc2f45305002f0b1e5628c",
         "file_name": "dxvk-1.10.3-arm64ec-async.tzst",
         "file_size": "24981682",
@@ -1228,7 +1228,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-async-1.10.3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-async-1.10.3.tzst",
         "file_md5": "e6041eb8b5e8596e33bf0da1b9a4342f",
         "file_name": "dxvk-async-1.10.3.tzst",
         "file_size": "7850661",
@@ -1237,7 +1237,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-1.5.5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-1.5.5.tzst",
         "file_md5": "0b6e12d42e509a8e11f81c7f088ef225",
         "file_name": "dxvk-1.5.5.tzst",
         "file_size": "6317243",
@@ -1246,7 +1246,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-1.7.2.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-1.7.2.tzst",
         "file_md5": "5ed106cce8c2b9286e5e88e1f4184465",
         "file_name": "dxvk-1.7.2.tzst",
         "file_size": "3235100",
@@ -1255,7 +1255,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-1.7.3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-1.7.3.tzst",
         "file_md5": "c76838b52095c0dfb1cc8aa7e6bf309c",
         "file_name": "dxvk-1.7.3.tzst",
         "file_size": "6804952",
@@ -1264,7 +1264,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.2-4-gplasync.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.2-4-gplasync.tzst",
         "file_md5": "d27f2b3512214490602d763bd231cfd7",
         "file_name": "dxvk-2.2-4-gplasync.tzst",
         "file_size": "7953818",
@@ -1273,7 +1273,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.3.1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.3.1.tzst",
         "file_md5": "f63c6bc5062e6cefcb11ff14d103d9c1",
         "file_name": "dxvk-2.3.1.tzst",
         "file_size": "7909195",
@@ -1282,7 +1282,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-arm64ec-2.3.1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-arm64ec-2.3.1.tzst",
         "file_md5": "9a4b5dc49e5cd39aed2c56a6c728cbb1",
         "file_name": "dxvk-arm64ec-2.3.1.tzst",
         "file_size": "4399998",
@@ -1291,7 +1291,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.3.1-arm64ec-gplasync.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.3.1-arm64ec-gplasync.tzst",
         "file_md5": "f18b4a947ca6b85ef32d54c5c5a8d629",
         "file_name": "dxvk-2.3.1-arm64ec-gplasync.tzst",
         "file_size": "8487769",
@@ -1300,7 +1300,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-async-2.3.1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-async-2.3.1.tzst",
         "file_md5": "55c653ec6d8536dcac71dcfc2aecc299",
         "file_name": "dxvk-async-2.3.1.tzst",
         "file_size": "7914709",
@@ -1309,7 +1309,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.4.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.4.tzst",
         "file_md5": "1ba3cd07e1e37034eee0d8dcd9103d6d",
         "file_name": "dxvk-2.4.tzst",
         "file_size": "9082166",
@@ -1318,7 +1318,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.4-gplasync.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.4-gplasync.tzst",
         "file_md5": "e6fa1f9f8b6639ed1c60c0932a3508f4",
         "file_name": "dxvk-2.4-gplasync.tzst",
         "file_size": "4293441",
@@ -1327,7 +1327,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.4.1-arm64ec.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.4.1-arm64ec.tzst",
         "file_md5": "f3364dafaa2f1e01564df90f19441403",
         "file_name": "dxvk-2.4.1-arm64ec.tzst",
         "file_size": "9986477",
@@ -1336,7 +1336,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.5.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.5.tzst",
         "file_md5": "5660cbd4f7d2b8d703ed13f14236bbf5",
         "file_name": "dxvk-2.5.tzst",
         "file_size": "9251203",
@@ -1345,7 +1345,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.5-1-gplasync.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.5-1-gplasync.tzst",
         "file_md5": "d61736dfa3e465d8c54b3971eb69e124",
         "file_name": "dxvk-2.5-1-gplasync.tzst",
         "file_size": "9265279",
@@ -1354,7 +1354,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.5.3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.5.3.tzst",
         "file_md5": "7f625d301db9609685504348bbbec6a4",
         "file_name": "dxvk-2.5.3.tzst",
         "file_size": "4713404",
@@ -1363,7 +1363,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.6.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.6.tzst",
         "file_md5": "2fa9a67238f8af66ce5ffec9c2d737b2",
         "file_name": "dxvk-2.6.tzst",
         "file_size": "4708074",
@@ -1372,7 +1372,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.6-arm64ec-gplasync.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.6-arm64ec-gplasync.tzst",
         "file_md5": "c31c03deb9dbf4e383d3acaeef53635d",
         "file_name": "dxvk-2.6-arm64ec-gplasync.tzst",
         "file_size": "9094354",
@@ -1381,7 +1381,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-2.7.1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.7.1.tzst",
         "file_md5": "423cf59811d7228cd5fbd545d622bd69",
         "file_name": "dxvk-2.7.1.tzst",
         "file_size": "10249784",
@@ -1390,7 +1390,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-v1.11.0-async.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v1.11.0-async.tzst",
         "file_md5": "a37fad0a11761851655437a38e8d8557",
         "file_name": "dxvk-v1.11.0-async.tzst",
         "file_size": "7808927",
@@ -1399,7 +1399,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-v1.11.1-mali-fix.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v1.11.1-mali-fix.tzst",
         "file_md5": "9f83bc10819ff9636a7300dcd114ba87",
         "file_name": "dxvk-v1.11.1-mali-fix.tzst",
         "file_size": "7789100",
@@ -1408,7 +1408,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-v2.4.1-async.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.4.1-async.tzst",
         "file_md5": "d4303adb6e1844bfc5807ba8b01236da",
         "file_name": "dxvk-v2.4.1-async.tzst",
         "file_size": "9150064",
@@ -1417,7 +1417,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-v2.5.2-1-gplasync.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.5.2-1-gplasync.tzst",
         "file_md5": "589537ee2239396f4db76d142fc5495a",
         "file_name": "dxvk-v2.5.2-1-gplasync.tzst",
         "file_size": "9731037",
@@ -1426,7 +1426,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-v2.6-1-gplasync.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.6-1-gplasync.tzst",
         "file_md5": "8fbcefbb3e63c7b171fbb33e01deb9ca",
         "file_name": "dxvk-v2.6-1-gplasync.tzst",
         "file_size": "10238841",
@@ -1435,7 +1435,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-v2.6.2-1-async.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.6.2-1-async.tzst",
         "file_md5": "35b67d846a76b08e54b3b071f9e61310",
         "file_name": "dxvk-v2.6.2-1-async.tzst",
         "file_size": "10037215",
@@ -1444,7 +1444,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dxvk-v2.7.1-1-async.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.7.1-1-async.tzst",
         "file_md5": "28c475da895104fee43cebc9b80a3a6d",
         "file_name": "dxvk-v2.7.1-1-async.tzst",
         "file_size": "10256370",
@@ -1453,7 +1453,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/wined3d8.0.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wined3d8.0.tzst",
         "file_md5": "84e78270cdf324c22ca80495d8e2b9b2",
         "file_name": "wined3d8.0.tzst",
         "file_size": "3892377",
@@ -1462,7 +1462,7 @@
         "version": "1.1.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vkd3d-2.12.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-2.12.tzst",
         "file_md5": "4f3e99438281f7749cb2b8b2412c9d10",
         "file_name": "vkd3d-2.12.tzst",
         "file_size": "2643215",
@@ -1471,7 +1471,7 @@
         "version": "1.1.1"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vkd3d-2.13.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-2.13.tzst",
         "file_md5": "274a6e0b499c8f912205cf41e0be2f58",
         "file_name": "vkd3d-2.13.tzst",
         "file_size": "2654863",
@@ -1480,7 +1480,7 @@
         "version": "1.1.1"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vkd3d-proton-2.14.1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-proton-2.14.1.tzst",
         "file_md5": "4b5207e61ac2cd7132fa67abca84e7f1",
         "file_name": "vkd3d-proton-2.14.1.tzst",
         "file_size": "2959743",
@@ -1489,7 +1489,7 @@
         "version": "1.1.1"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vkd3d-proton-3.0a.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-proton-3.0a.tzst",
         "file_md5": "c2015804d631059ac2dfbff18e71fcde",
         "file_name": "vkd3d-proton-3.0a.tzst",
         "file_size": "5011478",
@@ -1498,7 +1498,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vkd3d-proton-3.0b.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-proton-3.0b.tzst",
         "file_md5": "53df43b4a543dad5b0e4b892954d66a9",
         "file_name": "vkd3d-proton-3.0b.tzst",
         "file_size": "5011555",
@@ -1507,7 +1507,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/A.Plague_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/A.Plague_Settings.tzst",
         "file_md5": "d29609bed803165de777bafa8cff629d",
         "file_name": "A.Plague_Settings.tzst",
         "file_size": "845",
@@ -1516,7 +1516,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Absolum.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Absolum.tzst",
         "file_md5": "a53518feaa1213130be8cf045537ceb6",
         "file_name": "Absolum.tzst",
         "file_size": "1675",
@@ -1525,7 +1525,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Alice_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Alice_Settings.tzst",
         "file_md5": "026ec394e980e628f71eb57b09abfa6d",
         "file_name": "Alice_Settings.tzst",
         "file_size": "29735",
@@ -1534,7 +1534,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/APlague_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/APlague_Settings.tzst",
         "file_md5": "81b8196420fe320086d7758c9404372e",
         "file_name": "APlague_Settings.tzst",
         "file_size": "34660",
@@ -1543,7 +1543,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/AssettoCorsa.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/AssettoCorsa.tzst",
         "file_md5": "194e04f85df76ecab9832b785b99023e",
         "file_name": "AssettoCorsa.tzst",
         "file_size": "3206710",
@@ -1552,7 +1552,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/base.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/base.tzst",
         "file_md5": "3d5c31b1346985d582f04d239004b4d7",
         "file_name": "base.tzst",
         "file_size": "40612198",
@@ -1561,7 +1561,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/BBQ_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/BBQ_Settings.tzst",
         "file_md5": "e86baf2b0664d3d89b198c9fcb733ead",
         "file_name": "BBQ_Settings.tzst",
         "file_size": "18258681",
@@ -1570,7 +1570,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/BLEACH.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/BLEACH.tzst",
         "file_md5": "f351015813a32259ae182ac43e4c18c3",
         "file_name": "BLEACH.tzst",
         "file_size": "18504",
@@ -1579,7 +1579,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Bt3_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Bt3_Settings.tzst",
         "file_md5": "b30deb3e6f472faf2f4be2d5778af14b",
         "file_name": "Bt3_Settings.tzst",
         "file_size": "995409",
@@ -1588,7 +1588,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Bt4_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Bt4_Settings.tzst",
         "file_md5": "391d91a4a1e1a91f444ff0a1e521cd51",
         "file_name": "Bt4_Settings.tzst",
         "file_size": "72910",
@@ -1597,7 +1597,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Cyberpunk2077.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Cyberpunk2077.tzst",
         "file_md5": "20592ce6c765d44fcc2677e4fecc72a3",
         "file_name": "Cyberpunk2077.tzst",
         "file_size": "41029",
@@ -1606,7 +1606,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/DARK_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/DARK_Settings.tzst",
         "file_md5": "3dbc98268cccfbe6a21500e15daa6531",
         "file_name": "DARK_Settings.tzst",
         "file_size": "9310345",
@@ -1615,7 +1615,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/DontStarve_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/DontStarve_Settings.tzst",
         "file_md5": "66f4c616a62aea2f83f3776fb5662ed9",
         "file_name": "DontStarve_Settings.tzst",
         "file_size": "657",
@@ -1624,7 +1624,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dyinglight_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dyinglight_Settings.tzst",
         "file_md5": "c1ef2ce110c16e540b772e96678f5311",
         "file_name": "dyinglight_Settings.tzst",
         "file_size": "1176",
@@ -1633,7 +1633,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/EuroTruck2_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/EuroTruck2_Settings.tzst",
         "file_md5": "1f09565d8d042bcec69323aebd2ab6f0",
         "file_name": "EuroTruck2_Settings.tzst",
         "file_size": "2560",
@@ -1642,7 +1642,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Fall_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fall_Settings.tzst",
         "file_md5": "ab9b0acfbeaccacba23a832bdb0096d6",
         "file_name": "Fall_Settings.tzst",
         "file_size": "549351",
@@ -1651,7 +1651,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/FIFA11_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/FIFA11_Settings.tzst",
         "file_md5": "a99457c4d28aebcb3eb688d807786652",
         "file_name": "FIFA11_Settings.tzst",
         "file_size": "22028",
@@ -1660,7 +1660,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/FINAL.FANTASY.7_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/FINAL.FANTASY.7_Settings.tzst",
         "file_md5": "724ee89efc09e42c40d15488ee50ad61",
         "file_name": "FINAL.FANTASY.7_Settings.tzst",
         "file_size": "1018",
@@ -1669,7 +1669,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/God_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/God_Settings.tzst",
         "file_md5": "f312222580f8849faad9e521d8d83693",
         "file_name": "God_Settings.tzst",
         "file_size": "3937096",
@@ -1678,7 +1678,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/goldberg.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/goldberg.tzst",
         "file_md5": "ecc9740c99861fd4227558afc107bb7d",
         "file_name": "goldberg.tzst",
         "file_size": "8714599",
@@ -1687,7 +1687,7 @@
         "version": "1.2"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/GrimDawnController_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/GrimDawnController_Settings.tzst",
         "file_md5": "3ea6e9806cc1b7ce249434cee78d3490",
         "file_name": "GrimDawnController_Settings.tzst",
         "file_size": "61334912",
@@ -1696,7 +1696,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Gta5_Setting.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Gta5_Setting.tzst",
         "file_md5": "870551a49cb491af5b1ea7b34af9f978",
         "file_name": "Gta5_Setting.tzst",
         "file_size": "1064",
@@ -1705,7 +1705,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/gta5_settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gta5_settings.tzst",
         "file_md5": "e1ee6cd17196e505953310a793b8ccc6",
         "file_name": "gta5_settings.tzst",
         "file_size": "3106",
@@ -1714,7 +1714,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/gta5_settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gta5_settings.tzst",
         "file_md5": "e1ee6cd17196e505953310a793b8ccc6",
         "file_name": "gta5_settings.tzst",
         "file_size": "3106",
@@ -1723,7 +1723,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/gujian3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gujian3.tzst",
         "file_md5": "cff349f49c97ad7183b5fc3199552a7a",
         "file_name": "gujian3.tzst",
         "file_size": "632",
@@ -1732,7 +1732,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Hzd_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Hzd_Settings.tzst",
         "file_md5": "563d3a4ce3085e0d718b0600f41b39ca",
         "file_name": "Hzd_Settings.tzst",
         "file_size": "2264951",
@@ -1741,7 +1741,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/ItTakesTwo.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ItTakesTwo.tzst",
         "file_md5": "38d1bd16398c5e2c6ef6fb1d064ac1d9",
         "file_name": "ItTakesTwo.tzst",
         "file_size": "13835",
@@ -1750,7 +1750,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Kena_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Kena_Settings.tzst",
         "file_md5": "bc72c3c58c670afc1d2f04bcd15ab90e",
         "file_name": "Kena_Settings.tzst",
         "file_size": "3531",
@@ -1759,7 +1759,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Massive_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Massive_Settings.tzst",
         "file_md5": "fa20b2979210b8f2e37c3900095260b1",
         "file_name": "Massive_Settings.tzst",
         "file_size": "261610",
@@ -1768,7 +1768,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mediafoundation_lite.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mediafoundation_lite.tzst",
         "file_md5": "570283343affa6668e57d3c88c959d77",
         "file_name": "mediafoundation_lite.tzst",
         "file_size": "2729180",
@@ -1777,7 +1777,7 @@
         "version": "1.1"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/MetroExodus_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/MetroExodus_Settings.tzst",
         "file_md5": "b1cd740e61ca79e7743755a37221b354",
         "file_name": "MetroExodus_Settings.tzst",
         "file_size": "3403",
@@ -1786,7 +1786,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mod.io_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mod.io_Settings.tzst",
         "file_md5": "3e20de8eb12a74bcbb41a815b84859a3",
         "file_name": "mod.io_Settings.tzst",
         "file_size": "471",
@@ -1795,7 +1795,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/MountandBlade2_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/MountandBlade2_Settings.tzst",
         "file_md5": "56fc3c89329fc14a09b09b98cf005383",
         "file_name": "MountandBlade2_Settings.tzst",
         "file_size": "5529",
@@ -1804,7 +1804,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Msmm_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Msmm_Settings.tzst",
         "file_md5": "e4c7e5bebcb3381f0133027134d51f17",
         "file_name": "Msmm_Settings.tzst",
         "file_size": "29829",
@@ -1813,7 +1813,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/NFS17.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/NFS17.tzst",
         "file_md5": "83dda09285a2054f707fd4fa3535c165",
         "file_name": "NFS17.tzst",
         "file_size": "118880",
@@ -1822,7 +1822,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Pal7s_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Pal7s_Settings.tzst",
         "file_md5": "33d9c13e03d358bc8d6a54ef17cfe6cc",
         "file_name": "Pal7s_Settings.tzst",
         "file_size": "76162",
@@ -1831,7 +1831,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Resident.Evil.3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Resident.Evil.3.tzst",
         "file_md5": "bcd58042f6dad5038e6b044538aaae6a",
         "file_name": "Resident.Evil.3.tzst",
         "file_size": "5631",
@@ -1840,7 +1840,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Rev_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Rev_Settings.tzst",
         "file_md5": "a889c50558991f086ff308a3b543b1ab",
         "file_name": "Rev_Settings.tzst",
         "file_size": "385595",
@@ -1849,7 +1849,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Riders_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Riders_Settings.tzst",
         "file_md5": "835f0f81689a451c68b05d22279b5a05",
         "file_name": "Riders_Settings.tzst",
         "file_size": "5579",
@@ -1858,7 +1858,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Rock_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Rock_Settings.tzst",
         "file_md5": "5182f7fa5baa82f7b65524eb682b3a23",
         "file_name": "Rock_Settings.tzst",
         "file_size": "8532232",
@@ -1867,7 +1867,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/sifu_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/sifu_Settings.tzst",
         "file_md5": "81d93f983ce0e2ad65e0ea0b76268e26",
         "file_name": "sifu_Settings.tzst",
         "file_size": "1617",
@@ -1876,7 +1876,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/SILENT.HILL.F.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/SILENT.HILL.F.tzst",
         "file_md5": "1a0b587288325ca4a29949af0222b745",
         "file_name": "SILENT.HILL.F.tzst",
         "file_size": "60445",
@@ -1885,7 +1885,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/SKR_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/SKR_Settings.tzst",
         "file_md5": "2a0597f2eb180cb9d2267c1d5093c9eb",
         "file_name": "SKR_Settings.tzst",
         "file_size": "109714",
@@ -1894,7 +1894,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/steamagent.tar.zst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/steamagent.tar.zst",
         "file_md5": "5a27f72e5e93f9b73b4c0d37bd5916cc",
         "file_name": "steamagent.tar.zst",
         "file_size": "1947595",
@@ -1903,7 +1903,7 @@
         "version": "1.0.8"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/TESV_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/TESV_Settings.tzst",
         "file_md5": "bdba9041455ed62ec9013edee142b784",
         "file_name": "TESV_Settings.tzst",
         "file_size": "4133",
@@ -1912,7 +1912,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/TheHinokamiChronicles2_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/TheHinokamiChronicles2_Settings.tzst",
         "file_md5": "46655c21cc8911f9c54f7a1aed926cab",
         "file_name": "TheHinokamiChronicles2_Settings.tzst",
         "file_size": "1657",
@@ -1921,7 +1921,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/TheWitcher2.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/TheWitcher2.tzst",
         "file_md5": "6465fcf36f660cf4134a0ee2606a6840",
         "file_name": "TheWitcher2.tzst",
         "file_size": "813073",
@@ -1930,7 +1930,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/TinasWonderlands_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/TinasWonderlands_Settings.tzst",
         "file_md5": "0085e7cae61107dcc51b5c3457fc6692",
         "file_name": "TinasWonderlands_Settings.tzst",
         "file_size": "3745",
@@ -1939,7 +1939,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Torchlight.II.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Torchlight.II.tzst",
         "file_md5": "747c4ed9595726421abc7c2b9ba0c779",
         "file_name": "Torchlight.II.tzst",
         "file_size": "202960",
@@ -1948,7 +1948,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Wine.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Wine.tzst",
         "file_md5": "8c434506ff7e8fbe72b207698d4940cb",
         "file_name": "Wine.tzst",
         "file_size": "69486",
@@ -1957,7 +1957,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/WRC.9.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/WRC.9.tzst",
         "file_md5": "43d05983f9cc23cd62824ada397a3503",
         "file_name": "WRC.9.tzst",
         "file_size": "331666",
@@ -1966,7 +1966,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/Wreckfest_Settings.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Wreckfest_Settings.tzst",
         "file_md5": "98b2e6918f362a024c2eb8e354af7d5b",
         "file_name": "Wreckfest_Settings.tzst",
         "file_size": "873",
@@ -1975,7 +1975,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/WUCHANG.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/WUCHANG.tzst",
         "file_md5": "f355b90beebafc1b2f251a0d4c2d27aa",
         "file_name": "WUCHANG.tzst",
         "file_size": "27969",
@@ -1984,7 +1984,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/WUKONG.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/WUKONG.tzst",
         "file_md5": "10fa8b5e104e32bd5f59b52e7dcf436f",
         "file_name": "WUKONG.tzst",
         "file_size": "28319",
@@ -1993,7 +1993,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/aairruntime.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/aairruntime.yml",
         "file_md5": "782d01b434cb87e3fe911c748d3a0e2e",
         "file_name": "aairruntime.yml",
         "file_size": "419",
@@ -2002,7 +2002,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/amstream.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/amstream.yml",
         "file_md5": "fbfa4c9189aeb5db699989bf35bd1463",
         "file_name": "amstream.yml",
         "file_size": "1424",
@@ -2011,7 +2011,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/art2k7min.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/art2k7min.yml",
         "file_md5": "69402b4b1b2ebb47824a8ccb576ceaa2",
         "file_name": "art2k7min.yml",
         "file_size": "420",
@@ -2020,7 +2020,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/art2kmin.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/art2kmin.yml",
         "file_md5": "cfeb9c4f2a376f265ee3cc6ab89e6106",
         "file_name": "art2kmin.yml",
         "file_size": "431",
@@ -2029,7 +2029,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/atmlib.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/atmlib.yml",
         "file_md5": "ca55c745bb06aae4f4e3449fed32e23a",
         "file_name": "atmlib.yml",
         "file_size": "558",
@@ -2038,7 +2038,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/cjkfonts.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/cjkfonts.yml",
         "file_md5": "fd3d7cfbff1e2f8325694c23d0f38c8a",
         "file_name": "cjkfonts.yml",
         "file_size": "4028",
@@ -2047,7 +2047,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/cnc-ddraw.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/cnc-ddraw.yml",
         "file_md5": "98d084fd7b915230a42ea49e3b115b2c",
         "file_name": "cnc-ddraw.yml",
         "file_size": "1867",
@@ -2056,7 +2056,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/d3dcompiler_42.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3dcompiler_42.yml",
         "file_md5": "399d1445bf0a6acea6a7a95be0b550bb",
         "file_name": "d3dcompiler_42.yml",
         "file_size": "1173",
@@ -2065,7 +2065,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/d3dcompiler_43.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3dcompiler_43.yml",
         "file_md5": "2f27055ae83c37366717b4a2847169d0",
         "file_name": "d3dcompiler_43.yml",
         "file_size": "727",
@@ -2074,7 +2074,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/d3dcompiler_46.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3dcompiler_46.yml",
         "file_md5": "328f925569cfbc754b859b8dd1689981",
         "file_name": "d3dcompiler_46.yml",
         "file_size": "1226",
@@ -2083,7 +2083,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/d3dcompiler_47.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3dcompiler_47.yml",
         "file_md5": "4e8fad5a4fd140fd776b51577543573f",
         "file_name": "d3dcompiler_47.yml",
         "file_size": "725",
@@ -2092,7 +2092,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/d3dx11.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3dx11.yml",
         "file_md5": "f42670a4e5d21bc635bcda58228aef40",
         "file_name": "d3dx11.yml",
         "file_size": "786",
@@ -2101,7 +2101,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/d3dx9.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3dx9.yml",
         "file_md5": "7bb573c4352c633fd183cb5e9f168b85",
         "file_name": "d3dx9.yml",
         "file_size": "1694",
@@ -2110,7 +2110,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/devenum.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/devenum.yml",
         "file_md5": "56165080cf8b32a66f68a06b992d3fa5",
         "file_name": "devenum.yml",
         "file_size": "848",
@@ -2119,7 +2119,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dirac.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dirac.yml",
         "file_md5": "4f53a1d9e18899bd70ede7490f2f9d23",
         "file_name": "dirac.yml",
         "file_size": "458",
@@ -2128,7 +2128,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/directmusic.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/directmusic.yml",
         "file_md5": "b459a7c782257c6438021649f9fd52a3",
         "file_name": "directmusic.yml",
         "file_size": "346",
@@ -2137,7 +2137,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/directplay.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/directplay.yml",
         "file_md5": "918c7a54903bb697c426482b43479a9b",
         "file_name": "directplay.yml",
         "file_size": "1713",
@@ -2146,7 +2146,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/directshow.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/directshow.yml",
         "file_md5": "da1604c1db8460b4163a25875dfeed9a",
         "file_name": "directshow.yml",
         "file_size": "275",
@@ -2155,7 +2155,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmband.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmband.yml",
         "file_md5": "bd2661e784aaeef48497114ef3a72894",
         "file_name": "dmband.yml",
         "file_size": "640",
@@ -2164,7 +2164,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmcompos.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmcompos.yml",
         "file_md5": "feaa61e7366f4a94a49195e2ccc06048",
         "file_name": "dmcompos.yml",
         "file_size": "650",
@@ -2173,7 +2173,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmime.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmime.yml",
         "file_md5": "642d0c6e353e38a82c3e5a3c366afc12",
         "file_name": "dmime.yml",
         "file_size": "635",
@@ -2182,7 +2182,7 @@
         "version": "dmime"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmloader.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmloader.yml",
         "file_md5": "ed57cb2a5a36cc5bdfc1030c720082d4",
         "file_name": "dmloader.yml",
         "file_size": "650",
@@ -2191,7 +2191,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmscript.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmscript.yml",
         "file_md5": "df1759c8cfe95a27f344e2a8b7bc7030",
         "file_name": "dmscript.yml",
         "file_size": "650",
@@ -2200,7 +2200,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmstyle.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmstyle.yml",
         "file_md5": "ba2768abd9419f8b801e512dbac5699b",
         "file_name": "dmstyle.yml",
         "file_size": "645",
@@ -2209,7 +2209,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmsynth.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmsynth.yml",
         "file_md5": "5b7ef503141fbbc0cdcb0912dc00c19c",
         "file_name": "dmsynth.yml",
         "file_size": "645",
@@ -2218,7 +2218,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmusic.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmusic.yml",
         "file_md5": "65100eacc5ae266c648ffd78c4ff313c",
         "file_name": "dmusic.yml",
         "file_size": "640",
@@ -2227,7 +2227,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dmusic32.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmusic32.yml",
         "file_md5": "a71702987d1e822712139c077cdb5d1b",
         "file_name": "dmusic32.yml",
         "file_size": "702",
@@ -2236,7 +2236,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet20.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet20.yml",
         "file_md5": "0d5262d73fb35b0140dd243923db2d7f",
         "file_name": "dotnet20.yml",
         "file_size": "878",
@@ -2245,7 +2245,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet20sp1.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet20sp1.yml",
         "file_md5": "9e5a174d1f24577910f5960e9ebd1670",
         "file_name": "dotnet20sp1.yml",
         "file_size": "981",
@@ -2254,7 +2254,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet35.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet35.yml",
         "file_md5": "205d3fd3c3369ea9c3aede1a6dad35ff",
         "file_name": "dotnet35.yml",
         "file_size": "728",
@@ -2263,7 +2263,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet35sp1.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet35sp1.yml",
         "file_md5": "0418f2d655954af00266c3f1e083e6f8",
         "file_name": "dotnet35sp1.yml",
         "file_size": "752",
@@ -2272,7 +2272,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet40.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet40.yml",
         "file_md5": "78506908dda3609d07f0446d48211b65",
         "file_name": "dotnet40.yml",
         "file_size": "1079",
@@ -2281,7 +2281,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet45.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet45.yml",
         "file_md5": "0ad45c7886af90fd2d3f2325da1bd3ae",
         "file_name": "dotnet45.yml",
         "file_size": "731",
@@ -2290,7 +2290,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet452.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet452.yml",
         "file_md5": "96b0de75f429d17a5c8c24e3313a4995",
         "file_name": "dotnet452.yml",
         "file_size": "766",
@@ -2299,7 +2299,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet46.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet46.yml",
         "file_md5": "a86e6a0d1618f2e5441699a77f7b15b8",
         "file_name": "dotnet46.yml",
         "file_size": "805",
@@ -2308,7 +2308,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet461.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet461.yml",
         "file_md5": "ead6f7e6dd1d4b00fe2d4be83b49eafb",
         "file_name": "dotnet461.yml",
         "file_size": "777",
@@ -2317,7 +2317,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet462.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet462.yml",
         "file_md5": "867604e9e12d26225450a06ec06ce5f9",
         "file_name": "dotnet462.yml",
         "file_size": "821",
@@ -2326,7 +2326,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet472.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet472.yml",
         "file_md5": "93eb08ee99602ca05e76714344a4d72b",
         "file_name": "dotnet472.yml",
         "file_size": "809",
@@ -2335,7 +2335,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet48.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet48.yml",
         "file_md5": "c286f1ec357c69f6bdf187b8259253bc",
         "file_name": "dotnet48.yml",
         "file_size": "797",
@@ -2344,7 +2344,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnet50.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnet50.yml",
         "file_md5": "f6d0ef7859067e09b0d7e29cbfcb7c8b",
         "file_name": "dotnet50.yml",
         "file_size": "901",
@@ -2353,7 +2353,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnetcore3.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnetcore3.yml",
         "file_md5": "a23b4c7bb87932afe472f05306152585",
         "file_name": "dotnetcore3.yml",
         "file_size": "984",
@@ -2362,7 +2362,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnetcoredesktop3.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnetcoredesktop3.yml",
         "file_md5": "2917aa7d20075e5bc64f019f0d6c4b2b",
         "file_name": "dotnetcoredesktop3.yml",
         "file_size": "1047",
@@ -2371,7 +2371,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnetcoredesktop6.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnetcoredesktop6.yml",
         "file_md5": "5fa75ab0ff48c0c85551149ef5400550",
         "file_name": "dotnetcoredesktop6.yml",
         "file_size": "1047",
@@ -2380,7 +2380,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnetcoredesktop7.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnetcoredesktop7.yml",
         "file_md5": "ed653bbb66806041e1830519e5f84efc",
         "file_name": "dotnetcoredesktop7.yml",
         "file_size": "1046",
@@ -2389,7 +2389,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dotnetcoredesktop8.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dotnetcoredesktop8.yml",
         "file_md5": "61c4694f9dd992551e3b2ecaec815d42",
         "file_name": "dotnetcoredesktop8.yml",
         "file_size": "1041",
@@ -2398,7 +2398,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dsdmo.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dsdmo.yml",
         "file_md5": "f908abb5995439deaff9f5a82abae9b9",
         "file_name": "dsdmo.yml",
         "file_size": "797",
@@ -2407,7 +2407,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dsound.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dsound.yml",
         "file_md5": "4ef76d20e6c4be2ff42005a354805d82",
         "file_name": "dsound.yml",
         "file_size": "591",
@@ -2416,7 +2416,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dswave.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dswave.yml",
         "file_md5": "f817927b634eeb3915dbef017a596ad8",
         "file_name": "dswave.yml",
         "file_size": "591",
@@ -2425,7 +2425,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/dx8vb.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dx8vb.yml",
         "file_md5": "6a2b4e175344f82d11f4b733b8d9e77d",
         "file_name": "dx8vb.yml",
         "file_size": "475",
@@ -2434,7 +2434,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/ffdshow.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ffdshow.yml",
         "file_md5": "eaa239c540b228c8ff237a88295019a4",
         "file_name": "ffdshow.yml",
         "file_size": "470",
@@ -2443,7 +2443,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/gdiplus.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gdiplus.yml",
         "file_md5": "4f4f7f053c8a7c29a577a1dba143d81f",
         "file_name": "gdiplus.yml",
         "file_size": "1244",
@@ -2452,7 +2452,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/gecko.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gecko.yml",
         "file_md5": "765bfc3fd099c3608fe14adfd977f5f7",
         "file_name": "gecko.yml",
         "file_size": "661",
@@ -2461,7 +2461,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/gfw.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gfw.yml",
         "file_md5": "a81b0b0b134d071cacf2c3faf3d094ba",
         "file_name": "gfw.yml",
         "file_size": "412",
@@ -2470,7 +2470,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/gmdls.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gmdls.yml",
         "file_md5": "a90121e51972a2224c8b86f292e7dd66",
         "file_name": "gmdls.yml",
         "file_size": "715",
@@ -2479,7 +2479,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/ie8_kb2936068.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ie8_kb2936068.yml",
         "file_md5": "2d3a19c8939755fa87c3bfe0996ad3c5",
         "file_name": "ie8_kb2936068.yml",
         "file_size": "581",
@@ -2488,7 +2488,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/iertutil.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/iertutil.yml",
         "file_md5": "2601d8eafdbe014691bb57c72ce284fc",
         "file_name": "iertutil.yml",
         "file_size": "1393",
@@ -2497,7 +2497,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/jet40.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/jet40.yml",
         "file_md5": "4081c29cceda4afca23af48d97d9e10c",
         "file_name": "jet40.yml",
         "file_size": "516",
@@ -2506,7 +2506,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/K-Lite.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/K-Lite.yml",
         "file_md5": "492db87ac2e9b3122f3db2ad03dd605c",
         "file_name": "K-Lite.yml",
         "file_size": "422",
@@ -2515,7 +2515,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/l3codecx.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/l3codecx.yml",
         "file_md5": "0329f91aea8c87c3a43e215dc7c84123",
         "file_name": "l3codecx.yml",
         "file_size": "505",
@@ -2524,7 +2524,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/lavfilters702.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/lavfilters702.yml",
         "file_md5": "8945fcbf1e987c62628f05f1bbc3e5ef",
         "file_name": "lavfilters702.yml",
         "file_size": "439",
@@ -2533,7 +2533,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/lavfilters741.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/lavfilters741.yml",
         "file_md5": "813233aaaa01693f6cd429265c85706e",
         "file_name": "lavfilters741.yml",
         "file_size": "439",
@@ -2542,7 +2542,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mdac28.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mdac28.yml",
         "file_md5": "5bfe5d937ce35a49aedebcc8daec7137",
         "file_name": "mdac28.yml",
         "file_size": "700",
@@ -2551,7 +2551,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mediafoundation.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mediafoundation.yml",
         "file_md5": "3fc5ebc3b449a2e0ac8922325e767baa",
         "file_name": "mediafoundation.yml",
         "file_size": "1426",
@@ -2560,7 +2560,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mfc40.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mfc40.yml",
         "file_md5": "9b1fce1029a3cb4dbb0a78b5888d7124",
         "file_name": "mfc40.yml",
         "file_size": "953",
@@ -2569,7 +2569,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mfc42.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mfc42.yml",
         "file_md5": "e7df704343416f9905028dbdb9bf42c5",
         "file_name": "mfc42.yml",
         "file_size": "709",
@@ -2578,7 +2578,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mono.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mono.yml",
         "file_md5": "e02f1ca1e23781c71f4a85596161621a",
         "file_name": "mono.yml",
         "file_size": "505",
@@ -2587,7 +2587,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mono-10.1.0.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mono-10.1.0.yml",
         "file_md5": "5a297af2e8061637e992d14b8f342b7f",
         "file_name": "mono-10.1.0.yml",
         "file_size": "509",
@@ -2596,7 +2596,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mono-10.3.0.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mono-10.3.0.yml",
         "file_md5": "d606ef52edc04f18b172a8542d599643",
         "file_name": "mono-10.3.0.yml",
         "file_size": "509",
@@ -2605,7 +2605,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mono-10.4.1.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mono-10.4.1.yml",
         "file_md5": "c7047732b6261572c7df94680698d2d8",
         "file_name": "mono-10.4.1.yml",
         "file_size": "491",
@@ -2614,7 +2614,7 @@
         "version": "1.0.1"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/msasn1.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/msasn1.yml",
         "file_md5": "4ee39d4875d3d297568a9b48145011c6",
         "file_name": "msasn1.yml",
         "file_size": "369",
@@ -2623,7 +2623,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/msftedit.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/msftedit.yml",
         "file_md5": "14120f30867685d47776d4893ae08a9c",
         "file_name": "msftedit.yml",
         "file_size": "1494",
@@ -2632,7 +2632,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/msls31.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/msls31.yml",
         "file_md5": "60764205b32a2bd2e726ce5097b78ae4",
         "file_name": "msls31.yml",
         "file_size": "547",
@@ -2641,7 +2641,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/mspatcha.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mspatcha.yml",
         "file_md5": "03d69473b0dfc14c10cbe2cec6ccf81b",
         "file_name": "mspatcha.yml",
         "file_size": "609",
@@ -2650,7 +2650,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/msxml3.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/msxml3.yml",
         "file_md5": "993555b5b9be8e563640cf413fa070d0",
         "file_name": "msxml3.yml",
         "file_size": "559",
@@ -2659,7 +2659,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/msxml4.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/msxml4.yml",
         "file_md5": "cd82a0528f2cc54ec0935222650881a7",
         "file_name": "msxml4.yml",
         "file_size": "651",
@@ -2668,7 +2668,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/msxml6.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/msxml6.yml",
         "file_md5": "6bc7c1c2e00d896e7f40995980453cae",
         "file_name": "msxml6.yml",
         "file_size": "1295",
@@ -2677,7 +2677,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/oalinst.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/oalinst.yml",
         "file_md5": "054077fd9e2e0cf623dfbee57ea85d4c",
         "file_name": "oalinst.yml",
         "file_size": "422",
@@ -2686,7 +2686,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/physx.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/physx.yml",
         "file_md5": "e69d8d250639e0175c01843c583cb019",
         "file_name": "physx.yml",
         "file_size": "538",
@@ -2695,7 +2695,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/powershell.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/powershell.yml",
         "file_md5": "bd128bd0fae3a8e177dc6f70ac82b36f",
         "file_name": "powershell.yml",
         "file_size": "934",
@@ -2704,7 +2704,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/powershell_core.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/powershell_core.yml",
         "file_md5": "14342b3b86063512f26cebd9cbf4288f",
         "file_name": "powershell_core.yml",
         "file_size": "917",
@@ -2713,7 +2713,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qasf.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qasf.yml",
         "file_md5": "f494b021d1ff9e9b2ede23b3c9b386f3",
         "file_name": "qasf.yml",
         "file_size": "1396",
@@ -2722,7 +2722,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qcap.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qcap.yml",
         "file_md5": "fb1949e9ff85c50ca88074c6ea8ba357",
         "file_name": "qcap.yml",
         "file_size": "1404",
@@ -2731,7 +2731,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qdvd.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qdvd.yml",
         "file_md5": "df6e06e295db4c656afe63ea22c36171",
         "file_name": "qdvd.yml",
         "file_size": "1410",
@@ -2740,7 +2740,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/qedit.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/qedit.yml",
         "file_md5": "33b1a69fec867be9ca5312ad99575e5f",
         "file_name": "qedit.yml",
         "file_size": "1384",
@@ -2749,7 +2749,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/quartz.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/quartz.yml",
         "file_md5": "8f9517777a732242271c8f33d802880c",
         "file_name": "quartz.yml",
         "file_size": "1410",
@@ -2758,7 +2758,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/quicktime72.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/quicktime72.yml",
         "file_md5": "c38ccc67d3916ad11742d3f595ac8381",
         "file_name": "quicktime72.yml",
         "file_size": "480",
@@ -2767,7 +2767,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/riched20.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/riched20.yml",
         "file_md5": "8cd21a26570e7750710e7f852b739d5d",
         "file_name": "riched20.yml",
         "file_size": "714",
@@ -2776,7 +2776,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/sqlite3.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/sqlite3.yml",
         "file_md5": "6c345372e6f762c81ede15cec5a781b7",
         "file_name": "sqlite3.yml",
         "file_size": "421",
@@ -2785,7 +2785,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/urlmon.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/urlmon.yml",
         "file_md5": "62ffd6725222d6bdc8b9098bd66bcfc4",
         "file_name": "urlmon.yml",
         "file_size": "1389",
@@ -2794,7 +2794,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vbrun6.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vbrun6.yml",
         "file_md5": "bf965ec29acb84ef13a30f58278ff3a4",
         "file_name": "vbrun6.yml",
         "file_size": "1137",
@@ -2803,7 +2803,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist2005.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2005.yml",
         "file_md5": "fc8c516a93a69f1ee119add6ffe22492",
         "file_name": "vcredist2005.yml",
         "file_size": "1121",
@@ -2812,7 +2812,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist2008.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2008.yml",
         "file_md5": "230efdf130d33f103d2db25be79ca839",
         "file_name": "vcredist2008.yml",
         "file_size": "1121",
@@ -2821,7 +2821,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist2010.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2010.yml",
         "file_md5": "36d3fd3ee6bd7a5290d09a9cc45c48b5",
         "file_name": "vcredist2010.yml",
         "file_size": "1065",
@@ -2830,7 +2830,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist2012.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2012.yml",
         "file_md5": "de244c2763e6d80c9587773f26a6e518",
         "file_name": "vcredist2012.yml",
         "file_size": "1071",
@@ -2839,7 +2839,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist2013.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2013.yml",
         "file_md5": "879107e90ead0ea22a5c7a20849c8865",
         "file_name": "vcredist2013.yml",
         "file_size": "1118",
@@ -2848,7 +2848,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist2015.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2015.yml",
         "file_md5": "4a5013a798aecc9004bc864d246566ba",
         "file_name": "vcredist2015.yml",
         "file_size": "2557",
@@ -2857,7 +2857,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist2019.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2019.yml",
         "file_md5": "f39ba8651acd6d4db7771843955bd74a",
         "file_name": "vcredist2019.yml",
         "file_size": "2244",
@@ -2866,7 +2866,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist2022.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2022.yml",
         "file_md5": "481d6eac7393ef2754cc5d791d8b0bca",
         "file_name": "vcredist2022.yml",
         "file_size": "1659",
@@ -2875,7 +2875,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist6.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist6.yml",
         "file_md5": "1513e15b0b391c7883e5744c39cb9d23",
         "file_name": "vcredist6.yml",
         "file_size": "2163",
@@ -2884,7 +2884,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/vcredist6sp6.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist6sp6.yml",
         "file_md5": "964124d0c227ed8ba10e3788cb26f665",
         "file_name": "vcredist6sp6.yml",
         "file_size": "1199",
@@ -2893,7 +2893,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/VulkanRT.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/VulkanRT.yml",
         "file_md5": "97cb1b29cb679f012753cd85b6280e27",
         "file_name": "VulkanRT.yml",
         "file_size": "562",
@@ -2902,7 +2902,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/webview2.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/webview2.yml",
         "file_md5": "8291f7a38f491b4e58bf25a69b8f5c5c",
         "file_name": "webview2.yml",
         "file_size": "601",
@@ -2911,7 +2911,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/win7.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/win7.yml",
         "file_md5": "ec539dd93c9dd1b61001f1f2cd511624",
         "file_name": "win7.yml",
         "file_size": "224",
@@ -2920,7 +2920,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/winhttp.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/winhttp.yml",
         "file_md5": "de29b718b1219b86007a4442a0e59f29",
         "file_name": "winhttp.yml",
         "file_size": "681",
@@ -2929,7 +2929,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/wininet.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wininet.yml",
         "file_md5": "65515ffb716b30547add582ceedd4abc",
         "file_name": "wininet.yml",
         "file_size": "1394",
@@ -2938,7 +2938,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/winXP.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/winXP.yml",
         "file_md5": "13f180bda9f957e53ae824c282a2a44c",
         "file_name": "winXP.yml",
         "file_size": "227",
@@ -2947,7 +2947,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/wsh57.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wsh57.yml",
         "file_md5": "73a8ef82e90deafdab264bddf354af34",
         "file_name": "wsh57.yml",
         "file_size": "935",
@@ -2956,7 +2956,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/xact.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xact.yml",
         "file_md5": "6b336757ce5aa1bc1aa955a57e215011",
         "file_name": "xact.yml",
         "file_size": "3848",
@@ -2965,7 +2965,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/xact_x64.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xact_x64.yml",
         "file_md5": "2c17e8dfbb50a759d15e05163ec957d2",
         "file_name": "xact_x64.yml",
         "file_size": "3852",
@@ -2974,7 +2974,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/xinput.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xinput.yml",
         "file_md5": "64044fedba8ee9189c2941081adb59db",
         "file_name": "xinput.yml",
         "file_size": "889",
@@ -2983,7 +2983,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/XLiveRedist.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/XLiveRedist.yml",
         "file_md5": "e5b3840a2c149722510c915560d5cac7",
         "file_name": "XLiveRedist.yml",
         "file_size": "424",
@@ -2992,7 +2992,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/xna31.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xna31.yml",
         "file_md5": "8f8cc3d0e0594b05d71ea797406dd75e",
         "file_name": "xna31.yml",
         "file_size": "473",
@@ -3001,7 +3001,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/xna40.yml",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xna40.yml",
         "file_md5": "66f7a1f7bcd4c5419e8a62f753b382c0",
         "file_name": "xna40.yml",
         "file_size": "462",
@@ -3010,7 +3010,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/steam_9866232.tar.zst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/steam_9866232.tar.zst",
         "file_md5": "3d9d01362622a782a27ae691427b786c",
         "file_name": "steam_9866232.tar.zst",
         "file_size": "41192642",
@@ -3019,7 +3019,7 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/steam_9866233.tar.zst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/steam_9866233.tar.zst",
         "file_md5": "250a0996b2949022c44f274baa525411",
         "file_name": "steam_9866233.tar.zst",
         "file_size": "41821882",
