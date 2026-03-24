@@ -202,14 +202,14 @@ export function generateAllComponentList(
 }
 
 /**
- * Generate simulator/v2/getComponentList (Type 1 only)
+ * Generate simulator/v2/getComponentList (all types — GitHub Pages ignores query params)
  */
 export function generateComponentList(
   registry: ComponentRegistry,
   timestamp?: string
 ): ComponentListFile {
-  const type1Components = registry.getByType(ComponentType.BOX64_FEX);
-  const sorted = registry.sortByIdDescending(type1Components);
+  const allComponents = registry.getAllComponents();
+  const sorted = registry.sortByTypeAndIdDescending(allComponents);
   const list = sorted.map(toComponentListEntry);
 
   return {
