@@ -47,7 +47,7 @@ export const DEFAULT_CONFIG: BuildConfig = {
   cdnBaseUrl:
     'https://github.com/Producdevity/gamehub-lite-api/releases/download/Components',
   logoUrl:
-    'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
+    'https://github.com/Producdevity/gamehub-lite-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
   downloadMissing: false,
   downloadDir: './.tmp_components',
   timestamp: null,
