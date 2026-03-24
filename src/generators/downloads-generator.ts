@@ -12,7 +12,7 @@ function toDownloadEntry(component: Component): DownloadEntry {
     download_url: component.download_url,
     file_md5: component.file_md5,
     file_name: component.file_name,
-    file_size: component.file_size,
+    file_size: parseInt(component.file_size, 10) || 0,
     name: component.name,
     type: component.type,
     version: component.version,

@@ -13,7 +13,7 @@ function toManifestComponent(component: Component): ManifestComponent {
     download_url: component.download_url,
     file_md5: component.file_md5,
     file_name: component.file_name,
-    file_size: component.file_size,
+    file_size: parseInt(component.file_size, 10) || 0,
     id: component.id,
     is_ui: 1,
     logo: component.logo,

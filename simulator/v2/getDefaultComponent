@@ -10,7 +10,7 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-async-1.10.3.tzst",
       "file_md5": "e6041eb8b5e8596e33bf0da1b9a4342f",
       "file_name": "dxvk-async-1.10.3.tzst",
-      "file_size": "7850661",
+      "file_size": 7850661,
       "id": 24,
       "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
       "name": "dxvk-1.10.3-async",
@@ -24,7 +24,7 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-2.12.tzst",
       "file_md5": "4f3e99438281f7749cb2b8b2412c9d10",
       "file_name": "vkd3d-2.12.tzst",
-      "file_size": "2643215",
+      "file_size": 2643215,
       "id": 7,
       "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
       "name": "vkd3d-2.12",
@@ -38,7 +38,7 @@
       "download_url": "",
       "file_md5": "",
       "file_name": "",
-      "file_size": "",
+      "file_size": 0,
       "id": 0,
       "logo": "",
       "name": "",
@@ -52,7 +52,7 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/steam_9866233.tar.zst",
       "file_md5": "250a0996b2949022c44f274baa525411",
       "file_name": "steam_9866233.tar.zst",
-      "file_size": "41821882",
+      "file_size": 41821882,
       "id": 334,
       "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
       "name": "steam_9866233",
@@ -61,5 +61,5 @@
       "version_code": 1
     }
   },
-  "time": "1774365591"
+  "time": "1774366483"
 }

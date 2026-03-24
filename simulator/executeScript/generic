@@ -11,7 +11,7 @@
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-2.12.tzst",
         "file_md5": "4f3e99438281f7749cb2b8b2412c9d10",
         "file_name": "vkd3d-2.12.tzst",
-        "file_size": "2643215",
+        "file_size": 2643215,
         "id": 7,
         "is_base": 0,
         "is_ui": 1,
@@ -28,7 +28,7 @@
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/base.tzst",
         "file_md5": "3d5c31b1346985d582f04d239004b4d7",
         "file_name": "base.tzst",
-        "file_size": "40612198",
+        "file_size": 40612198,
         "id": 8,
         "is_base": 0,
         "is_ui": 1,
@@ -45,7 +45,7 @@
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-async-1.10.3.tzst",
         "file_md5": "e6041eb8b5e8596e33bf0da1b9a4342f",
         "file_name": "dxvk-async-1.10.3.tzst",
-        "file_size": "7850661",
+        "file_size": 7850661,
         "id": 24,
         "is_base": 0,
         "is_ui": 1,
@@ -62,7 +62,7 @@
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fex-20251025.tzst",
         "file_md5": "6d24fdf3f9e18a40d99612583f97dcc7",
         "file_name": "fex-20251025.tzst",
-        "file_size": "11580115",
+        "file_size": 11580115,
         "id": 345,
         "is_base": 0,
         "is_ui": 1,
@@ -177,5 +177,5 @@
     },
     "video_memory": 0
   },
-  "time": "1774365591"
+  "time": "1774366483"
 }

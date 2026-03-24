@@ -26,7 +26,7 @@ export interface ManifestComponent {
   type: ComponentTypeValue;
   download_url: string;
   file_md5: string;
-  file_size: string;
+  file_size: number;
   file_name: string;
   logo: string;
   is_ui: 1;
@@ -71,7 +71,7 @@ export interface DownloadEntry {
   version: string;
   download_url: string;
   file_name: string;
-  file_size: string;
+  file_size: number;
   file_md5: string;
 }
 
@@ -94,7 +94,7 @@ export interface AllComponentEntry {
   name: string;
   logo: string;
   file_md5: string;
-  file_size: string;
+  file_size: number;
   download_url: string;
   file_name: string;
   display_name: string;
@@ -121,7 +121,7 @@ export interface ComponentListEntry {
   logo: string;
   blurb: string;
   file_md5: string;
-  file_size: string;
+  file_size: number;
   download_url: string;
   file_name: string;
   display_name: string;
@@ -157,7 +157,7 @@ export interface DefaultComponentEntry {
   blurb: string;
   download_url: string;
   file_md5: string;
-  file_size: string;
+  file_size: number;
   file_name: string;
   display_name: string;
 }
@@ -172,7 +172,7 @@ export interface EmptyComponentEntry {
   blurb: '';
   download_url: '';
   file_md5: '';
-  file_size: '';
+  file_size: 0;
   file_name: '';
   display_name: '';
 }
@@ -225,7 +225,7 @@ export interface ExecuteComponent {
   blurb: string;
   download_url: string;
   file_md5: string;
-  file_size: string;
+  file_size: number;
   file_name: string;
   display_name: string;
   is_base: 0;
