@@ -4,14 +4,14 @@
   "data": {
     "categories": [
       {
-        "count": 21,
+        "count": 22,
         "display_name": "Box64 Emulators",
         "manifest_url": "/components/box64_manifest",
         "name": "box64",
         "type": 1
       },
       {
-        "count": 112,
+        "count": 107,
         "display_name": "GPU Drivers",
         "manifest_url": "/components/drivers_manifest",
         "name": "drivers",
@@ -39,20 +39,20 @@
         "type": 5
       },
       {
-        "count": 113,
+        "count": 117,
         "display_name": "System Libraries",
         "manifest_url": "/components/libraries_manifest",
         "name": "libraries",
         "type": 6
       },
       {
-        "count": 2,
+        "count": 1,
         "display_name": "Steam Components",
         "manifest_url": "/components/steam_manifest",
         "name": "steam",
         "type": 7
       }
     ],
-    "total_components": 336
+    "total_components": 335
   }
 }

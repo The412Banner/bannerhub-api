@@ -14,6 +14,7 @@ interface CustomComponentDefinition {
   file_name: string;
   file_md5: string;
   file_size: string;
+  download_url?: string;
   display_name?: string;
   blurb?: string;
 }
@@ -54,7 +55,7 @@ export function parseCustomComponents(
       file_name: custom.file_name,
       file_md5: custom.file_md5,
       file_size: custom.file_size,
-      download_url: `${config.cdnBaseUrl}/${custom.file_name}`,
+      download_url: custom.download_url || `${config.cdnBaseUrl}/${custom.file_name}`,
       logo: config.logoUrl,
       display_name: custom.display_name || custom.name,
     };
