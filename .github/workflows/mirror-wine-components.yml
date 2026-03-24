@@ -1,0 +1,47 @@
+name: Mirror Wine/Proton Components
+
+on:
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create Components release if it doesn't exist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view Components --repo ${{ github.repository }} > /dev/null 2>&1 || \
+          gh release create Components --repo ${{ github.repository }} \
+            --title "Components" \
+            --notes "Wine/Proton compatibility layer files mirrored from Producdevity/gamehub-lite-api." \
+            --prerelease
+
+      - name: Mirror Wine/Proton files
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SRC: https://github.com/Producdevity/gamehub-lite-api/releases/download/Components
+        run: |
+          FILES=(
+            "wine_9.5.tar.zst"
+            "wine_9.13.tar.zst"
+            "wine_9.16.tar.zst"
+            "wine_10.0.tar.zst"
+            "wine_10.6_arm64x-2.tar.zst"
+            "wine_proton_9.0_arm64x.tar.zst"
+            "wine_proton_9.0_x64.tar.zst"
+            "wine_proton10.0-arm64x-2.tar.zst"
+            "wine_proton_10.0_x64.tar.zst"
+          )
+          for FILE in "${FILES[@]}"; do
+            echo "Downloading $FILE..."
+            curl -fL "$SRC/$FILE" -o "$FILE"
+            echo "Uploading $FILE..."
+            gh release upload Components "$FILE" \
+              --repo ${{ github.repository }} \
+              --clobber
+            rm "$FILE"
+            echo "Done: $FILE"
+          done
