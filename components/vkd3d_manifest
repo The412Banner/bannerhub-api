@@ -9,7 +9,7 @@
     "components": [
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-proton-3.0b.tzst",
+        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/53df/43/b4/53df43b4a543dad5b0e4b892954d66a9.tzst",
         "file_md5": "53df43b4a543dad5b0e4b892954d66a9",
         "file_name": "vkd3d-proton-3.0b.tzst",
         "file_size": 5011555,
@@ -23,7 +23,7 @@
       },
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-proton-3.0a.tzst",
+        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/c201/58/04/c2015804d631059ac2dfbff18e71fcde.tzst",
         "file_md5": "c2015804d631059ac2dfbff18e71fcde",
         "file_name": "vkd3d-proton-3.0a.tzst",
         "file_size": 5011478,
@@ -37,7 +37,7 @@
       },
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-proton-2.14.1.tzst",
+        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/4b52/07/e6/vkd3d-proton-2.14.1.tzst",
         "file_md5": "4b5207e61ac2cd7132fa67abca84e7f1",
         "file_name": "vkd3d-proton-2.14.1.tzst",
         "file_size": 2959743,
@@ -51,7 +51,7 @@
       },
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-2.13.tzst",
+        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/274a/6e/0b/vkd3d-2.13.tzst",
         "file_md5": "274a6e0b499c8f912205cf41e0be2f58",
         "file_name": "vkd3d-2.13.tzst",
         "file_size": 2654863,
@@ -65,7 +65,7 @@
       },
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-2.12.tzst",
+        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape-test/pc_zst/4f3e/99/43/vkd3d-2.12.tzst",
         "file_md5": "4f3e99438281f7749cb2b8b2412c9d10",
         "file_name": "vkd3d-2.12.tzst",
         "file_size": 2643215,

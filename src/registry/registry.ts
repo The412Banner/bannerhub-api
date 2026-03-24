@@ -86,11 +86,10 @@ export class ComponentRegistry {
       originalDownloadUrl: component.download_url,
     });
 
-    // Rewrite download URL to GitHub CDN with a GitHub-compatible filename
+    // Preserve original download_url; only normalize file_name and logo
     const rewrittenComponent: Component = {
       ...component,
       file_name: githubFileName,
-      download_url: `${this.config.cdnBaseUrl}/${githubFileName}`,
       logo: this.config.logoUrl,
     };
 
