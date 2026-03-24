@@ -194,7 +194,7 @@ export function generateAllComponentList(
     code: 200,
     msg: 'Success',
     data: {
-      list,
+      list: JSON.stringify(list),
       total: list.length,
     },
     time: timestamp || getTimestamp(),
@@ -216,7 +216,7 @@ export function generateComponentList(
     code: 200,
     msg: 'Success',
     data: {
-      list,
+      list: JSON.stringify(list),
       total: list.length,
       page: 1,
       pageSize: 10,

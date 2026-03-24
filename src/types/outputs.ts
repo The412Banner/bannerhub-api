@@ -102,7 +102,7 @@ export interface AllComponentEntry {
 }
 
 export interface AllComponentListData {
-  list: AllComponentEntry[];
+  list: string;
   total: number;
 }
 
@@ -129,7 +129,7 @@ export interface ComponentListEntry {
 }
 
 export interface ComponentListData {
-  list: ComponentListEntry[];
+  list: string;
   total: number;
   page: 1;
   pageSize: 10;
