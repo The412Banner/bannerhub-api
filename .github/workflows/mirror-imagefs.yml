@@ -19,7 +19,7 @@ jobs:
             --notes "Component files mirrored from Producdevity/gamehub-lite-api." \
             --prerelease
 
-      - name: Mirror imagefs.zst and logo PNG
+      - name: Mirror imagefs.zst, logo PNG, and container sub_data files
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SRC: https://github.com/Producdevity/gamehub-lite-api/releases/download/Components
@@ -27,6 +27,14 @@ jobs:
           FILES=(
             "imagefs.zst"
             "45e60d211d35955bd045aabfded4e64b.png"
+            "66e25e9a8fde74e8feb4e3b2ba9f6201.tzst"
+            "830a254f9b3c92aa850a502621037ae9.tzst"
+            "7b17485af1933955f2cb82958b7d45b7.tzst"
+            "e78be524fd1b01fb7565eb01a9fd4187.tzst"
+            "6dcb13706c9c7720b074ee020ce39bbc.tzst"
+            "2ff6952b6eec0ef881e97bde57ddc8e6.tzst"
+            "ac15e5a378b17aefd93adf360e875494.tzst"
+            "83b3a2a16f7d643ce366c8ad686cbcf7.tzst"
           )
           for FILE in "${FILES[@]}"; do
             echo "Downloading $FILE..."
