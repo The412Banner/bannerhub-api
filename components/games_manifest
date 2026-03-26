@@ -387,7 +387,7 @@
       },
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Resident Evil 3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Resident%20Evil%203.tzst",
         "file_md5": "bcd58042f6dad5038e6b044538aaae6a",
         "file_name": "Resident.Evil.3.tzst",
         "file_size": 5631,
@@ -485,7 +485,7 @@
       },
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/WRC 9.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/WRC%209.tzst",
         "file_md5": "43d05983f9cc23cd62824ada397a3503",
         "file_name": "WRC.9.tzst",
         "file_size": 331666,
@@ -569,7 +569,7 @@
       },
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Torchlight II.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Torchlight%20II.tzst",
         "file_md5": "747c4ed9595726421abc7c2b9ba0c779",
         "file_name": "Torchlight.II.tzst",
         "file_size": 202960,
