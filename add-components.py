@@ -53,24 +53,33 @@ def md5_of_file(path):
 
 
 def extract_profile(path):
-    """Extract profile.json from a zstd-compressed tar (WCP/TZST)."""
+    """Extract profile.json from a WCP/TZST archive (zstd or xz/gz/bz2 tar)."""
     with tempfile.TemporaryDirectory() as tmp:
-        # Decompress with zstd first
+        # Try zstd first
         decompressed = os.path.join(tmp, "decompressed.tar")
         result = subprocess.run(
             ["zstd", "-d", path, "-o", decompressed, "-f"],
             capture_output=True,
         )
-        if result.returncode != 0:
-            raise RuntimeError(f"zstd failed: {result.stderr.decode()}")
+        if result.returncode == 0:
+            tar_path = decompressed
+        else:
+            # Fall back: let tar auto-detect compression (xz, gz, bz2)
+            tar_path = path
 
-        with tarfile.open(decompressed) as tf:
-            try:
-                member = tf.getmember("profile.json")
-            except KeyError:
+        try:
+            with tarfile.open(tar_path) as tf:
+                # Try with and without leading ./
+                for name in ("profile.json", "./profile.json"):
+                    try:
+                        member = tf.getmember(name)
+                        f = tf.extractfile(member)
+                        return json.load(f)
+                    except KeyError:
+                        continue
                 raise RuntimeError("No profile.json found inside archive")
-            f = tf.extractfile(member)
-            return json.load(f)
+        except Exception as e:
+            raise RuntimeError(f"Could not open archive: {e}")
 
 
 def resolve_type(profile):

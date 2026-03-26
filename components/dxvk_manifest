@@ -5,8 +5,22 @@
     "type": 3,
     "type_name": "dxvk",
     "display_name": "DXVK Layers",
-    "total": 41,
+    "total": 42,
     "components": [
+      {
+        "display_name": "2.6.2-arm64ec-gplasync",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0e52b83f4e97942aaafe330dbfaa741b.tzst",
+        "file_md5": "0e52b83f4e97942aaafe330dbfaa741b",
+        "file_name": "0e52b83f4e97942aaafe330dbfaa741b.tzst",
+        "file_size": 6799644,
+        "id": 1158,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "2.6.2-arm64ec-gplasync",
+        "type": 3,
+        "version": "2.6.2-arm64ec-gplasync",
+        "version_code": 1
+      },
       {
         "display_name": "2.7.1-1-gplasync-arm64ec",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b2c5d5daae9b81633699f69638ff070a.tzst",
