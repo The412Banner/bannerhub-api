@@ -1,0 +1,68 @@
+name: Mirror Bigeyes Components
+
+on:
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create Components release if it doesn't exist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view Components --repo ${{ github.repository }} > /dev/null 2>&1 || \
+          gh release create Components --repo ${{ github.repository }} \
+            --title "Components" \
+            --notes "Component files mirrored for BannerHub." \
+            --prerelease
+
+      - name: Mirror Bigeyes component files
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SRC: https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst
+        run: |
+          FILES=(
+            "1e2e/94/69/1e2e9469187a4d50221e6ce8ae4d2b7c.tzst"
+            "cd7f/e1/88/cd7fe18882bcc8d5e37a7893288f8703.tzst"
+            "331d/b9/43/331db94341bd49359ffd4cab3659c0b3.tzst"
+            "e41a/cf/12/e41acf1248a8e48411ce2b7f8c73dc65.tzst"
+            "36e6/7b/87/36e67b87b7597fb049edf3d18b62e353.tzst"
+            "b43c/7d/a0/b43c7da08a4557f041bdf54ed93d9d95.tzst"
+            "5657/96/c1/565796c13769026a2d1b12a777293f9e.tzst"
+            "8af0/e8/4d/8af0e84d372e9476c9359b119199690e.tzst"
+            "5aff/e6/40/5affe6408a75b2cdcded4fa91925d382.tzst"
+            "8de4/30/fb/8de430fb3f3842c0ca93ef6822028caf.tzst"
+            "3f0d/64/90/3f0d649069ae4cd51c3d03cfd2b44736.tzst"
+            "28f3/cc/ef/28f3ccef594f9cbdc06b9d5b428d7e7f.tzst"
+            "3245/65/ce/324565ce3f9e72e989428c78336ed5e7.tzst"
+            "012f/bd/c1/012fbdc108267acf65d5f8fdbb182532.tzst"
+            "ecfa/50/f7/ecfa50f7d3cc3001369299ad60276494.tzst"
+            "2090/11/1d/2090111d85c99cdf2ec9b077bfc1962f.tzst"
+            "24ba/60/5e/24ba605e127248c2c179f9ea2a2754df.tzst"
+            "aa75/f2/fc/aa75f2fc098cdcf5f46469a1bf21601f.tzst"
+            "a1dc/cd/50/a1dccd5030e568c8de54df220f3e17a5.tzst"
+            "aa96/5c/8f/aa965c8fa63847ffeaa53455340a6967.tzst"
+            "b21a/d1/44/b21ad144bf44a1783433dc2201ee6849.tzst"
+            "b9d4/a0/a9/b9d4a0a9ea2d975e08a384cbeb7c6a27.tzst"
+            "b8f9/8f/ce/b8f98fce654e728e73b1cd3730dc0532.tzst"
+            "2255/72/06/225572068f55a005c76262e7bf92a561.tzst"
+            "2dc1/89/e9/2dc189e9db794cbd49ce86c2d36770a1.tzst"
+            "43cc/fa/45/43ccfa4579f530d683ef72f9178a6ee2.tzst"
+            "0355/09/4c/0355094c7f329334e7957217b5514504.tzst"
+            "b87a/14/ee/b87a14ee2198ca19e45ae7f000e96a2e.tzst"
+            "6016/ff/e5/6016ffe562c7b534be32feb311c4f740.tzst"
+          )
+          for PATH_SUFFIX in "${FILES[@]}"; do
+            FILENAME=$(basename "$PATH_SUFFIX")
+            echo "Downloading $FILENAME..."
+            curl -fL "$SRC/$PATH_SUFFIX" -o "$FILENAME"
+            echo "Uploading $FILENAME..."
+            gh release upload Components "$FILENAME" \
+              --repo ${{ github.repository }} \
+              --clobber
+            rm "$FILENAME"
+            echo "Done: $FILENAME"
+          done

@@ -9,7 +9,7 @@
     "components": [
       {
         "display_name": "id Software",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/5657/96/c1/565796c13769026a2d1b12a777293f9e.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/565796c13769026a2d1b12a777293f9e.tzst",
         "file_md5": "565796c13769026a2d1b12a777293f9e",
         "file_name": "565796c13769026a2d1b12a777293f9e.tzst",
         "file_size": 212967,
@@ -23,7 +23,7 @@
       },
       {
         "display_name": "WRC10",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/b43c/7d/a0/b43c7da08a4557f041bdf54ed93d9d95.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b43c7da08a4557f041bdf54ed93d9d95.tzst",
         "file_md5": "b43c7da08a4557f041bdf54ed93d9d95",
         "file_name": "b43c7da08a4557f041bdf54ed93d9d95.tzst",
         "file_size": 1339,
@@ -37,7 +37,7 @@
       },
       {
         "display_name": "DeadSpace(2023)",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/331d/b9/43/331db94341bd49359ffd4cab3659c0b3.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/331db94341bd49359ffd4cab3659c0b3.tzst",
         "file_md5": "331db94341bd49359ffd4cab3659c0b3",
         "file_name": "331db94341bd49359ffd4cab3659c0b3.tzst",
         "file_size": 462261,
@@ -51,7 +51,7 @@
       },
       {
         "display_name": "ACM",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/1e2e/94/69/1e2e9469187a4d50221e6ce8ae4d2b7c.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/1e2e9469187a4d50221e6ce8ae4d2b7c.tzst",
         "file_md5": "1e2e9469187a4d50221e6ce8ae4d2b7c",
         "file_name": "1e2e9469187a4d50221e6ce8ae4d2b7c.tzst",
         "file_size": 991,
