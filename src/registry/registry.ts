@@ -175,7 +175,7 @@ export class ComponentRegistry {
   sortByTypeAndIdDescending(components: Component[]): Component[] {
     return [...components].sort((a, b) => {
       if (a.type !== b.type) return a.type - b.type;
-      return b.id - a.id;
+      return (a.name || '').localeCompare(b.name || '', undefined, { numeric: true, sensitivity: 'base' });
     });
   }
 
