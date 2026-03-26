@@ -7,7 +7,7 @@
     "dxvk": {
       "blurb": "",
       "display_name": "",
-      "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape-test/pc_zst/e604/1e/b8/dxvk-async-1.10.3.tzst",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-async-1.10.3.tzst",
       "file_md5": "e6041eb8b5e8596e33bf0da1b9a4342f",
       "file_name": "dxvk-async-1.10.3.tzst",
       "file_size": 7850661,
@@ -21,7 +21,7 @@
     "vkd3d": {
       "blurb": "",
       "display_name": "",
-      "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape-test/pc_zst/4f3e/99/43/vkd3d-2.12.tzst",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-2.12.tzst",
       "file_md5": "4f3e99438281f7749cb2b8b2412c9d10",
       "file_name": "vkd3d-2.12.tzst",
       "file_size": 2643215,
@@ -49,7 +49,7 @@
     "steamClient": {
       "blurb": "",
       "display_name": "",
-      "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/250a/09/96/steam_9866233.tar.zst",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/steam_9866233.tar.zst",
       "file_md5": "250a0996b2949022c44f274baa525411",
       "file_name": "steam_9866233.tar.zst",
       "file_size": 41821882,
@@ -61,5 +61,5 @@
       "version_code": 1
     }
   },
-  "time": "1774515904"
+  "time": "1774516521"
 }

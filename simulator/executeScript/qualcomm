@@ -8,7 +8,7 @@
         "base_type": 0,
         "blurb": "",
         "display_name": "",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape-test/pc_zst/4f3e/99/43/vkd3d-2.12.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-2.12.tzst",
         "file_md5": "4f3e99438281f7749cb2b8b2412c9d10",
         "file_name": "vkd3d-2.12.tzst",
         "file_size": 2643215,
@@ -25,7 +25,7 @@
         "base_type": 0,
         "blurb": "",
         "display_name": "",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/3d5c/31/b1/base.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/base.tzst",
         "file_md5": "3d5c31b1346985d582f04d239004b4d7",
         "file_name": "base.tzst",
         "file_size": 40612198,
@@ -42,7 +42,7 @@
         "base_type": 0,
         "blurb": "",
         "display_name": "",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape-test/pc_zst/55c6/53/ec/dxvk-async-2.3.1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-async-2.3.1.tzst",
         "file_md5": "55c653ec6d8536dcac71dcfc2aecc299",
         "file_name": "dxvk-async-2.3.1.tzst",
         "file_size": 7914709,
@@ -59,7 +59,7 @@
         "base_type": 0,
         "blurb": "",
         "display_name": "",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/6d24/fd/f3/fex-20251025.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fex-20251025.tzst",
         "file_md5": "6d24fdf3f9e18a40d99612583f97dcc7",
         "file_name": "fex-20251025.tzst",
         "file_size": 11580115,
@@ -76,7 +76,7 @@
         "base_type": 0,
         "blurb": "",
         "display_name": "",
-        "download_url": "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape-test/pc_zst/a56b/24/88/turnip_v25.0.0_R1.tzst",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.0.0_R1.tzst",
         "file_md5": "a56b24886555c6c5d30c93fdb7b0f8f3",
         "file_name": "turnip_v25.0.0_R1.tzst",
         "file_size": 2221425,
@@ -195,5 +195,5 @@
     },
     "video_memory": 0
   },
-  "time": "1774515904"
+  "time": "1774516521"
 }
