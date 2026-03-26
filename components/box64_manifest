@@ -8,7 +8,7 @@
     "total": 31,
     "components": [
       {
-        "display_name": "2510.1",
+        "display_name": "FEXCore-2510.1",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ad272409778c5c4988eb351cc0f7ca0c.tzst",
         "file_md5": "ad272409778c5c4988eb351cc0f7ca0c",
         "file_name": "ad272409778c5c4988eb351cc0f7ca0c.tzst",
@@ -16,13 +16,13 @@
         "id": 1159,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "2510.1",
+        "name": "FEXCore-2510.1",
         "type": 1,
         "version": "2510.1",
         "version_code": 1
       },
       {
-        "display_name": "0.4.1-fix",
+        "display_name": "Box64-0.4.1-fix",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4b6f415713ea9c4307aac0d880f1cd39.tzst",
         "file_md5": "4b6f415713ea9c4307aac0d880f1cd39",
         "file_name": "4b6f415713ea9c4307aac0d880f1cd39.tzst",
@@ -30,13 +30,13 @@
         "id": 1157,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "0.4.1-fix",
+        "name": "Box64-0.4.1-fix",
         "type": 1,
         "version": "0.4.1-fix",
         "version_code": 1
       },
       {
-        "display_name": "2603",
+        "display_name": "FEXCore-2603",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst",
         "file_md5": "6008bf7c3ced2cafda0d4cfeb89e4ca8",
         "file_name": "6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst",
@@ -44,13 +44,13 @@
         "id": 1156,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "2603",
+        "name": "FEXCore-2603",
         "type": 1,
         "version": "2603",
         "version_code": 1
       },
       {
-        "display_name": "2601-aabdded",
+        "display_name": "FEXCore-2601-aabdded",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b825cae37911cf67d04bc48f98e79872.tzst",
         "file_md5": "b825cae37911cf67d04bc48f98e79872",
         "file_name": "b825cae37911cf67d04bc48f98e79872.tzst",
@@ -58,13 +58,13 @@
         "id": 1155,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "2601-aabdded",
+        "name": "FEXCore-2601-aabdded",
         "type": 1,
         "version": "2601-aabdded",
         "version_code": 1
       },
       {
-        "display_name": "2509",
+        "display_name": "FEXCore-2509",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a35f4369e3d984d8976bee6c70a24ce9.tzst",
         "file_md5": "a35f4369e3d984d8976bee6c70a24ce9",
         "file_name": "a35f4369e3d984d8976bee6c70a24ce9.tzst",
@@ -72,13 +72,13 @@
         "id": 1154,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "2509",
+        "name": "FEXCore-2509",
         "type": 1,
         "version": "2509",
         "version_code": 1
       },
       {
-        "display_name": "2508",
+        "display_name": "FEXCore-2508",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/916808cdf7578f912f470a696d6530a0.tzst",
         "file_md5": "916808cdf7578f912f470a696d6530a0",
         "file_name": "916808cdf7578f912f470a696d6530a0.tzst",
@@ -86,13 +86,13 @@
         "id": 1153,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "2508",
+        "name": "FEXCore-2508",
         "type": 1,
         "version": "2508",
         "version_code": 1
       },
       {
-        "display_name": "250708",
+        "display_name": "FEXCore-2507",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e9c7fd7d4423f016117bf7123fa5b91e.tzst",
         "file_md5": "e9c7fd7d4423f016117bf7123fa5b91e",
         "file_name": "e9c7fd7d4423f016117bf7123fa5b91e.tzst",
@@ -100,13 +100,13 @@
         "id": 1152,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "250708",
+        "name": "FEXCore-2507",
         "type": 1,
         "version": "250708",
         "version_code": 1
       },
       {
-        "display_name": "241214",
+        "display_name": "FEXCore-2412",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/7135e13eec3f762ad16c3e60b4a22c4b.tzst",
         "file_md5": "7135e13eec3f762ad16c3e60b4a22c4b",
         "file_name": "7135e13eec3f762ad16c3e60b4a22c4b.tzst",
@@ -114,13 +114,13 @@
         "id": 1151,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "241214",
+        "name": "FEXCore-2412",
         "type": 1,
         "version": "241214",
         "version_code": 1
       },
       {
-        "display_name": "0.3.6-fix",
+        "display_name": "Box64-0.3.6-fix",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6926cf09b236b5a885435e3a47eac234.tzst",
         "file_md5": "6926cf09b236b5a885435e3a47eac234",
         "file_name": "6926cf09b236b5a885435e3a47eac234.tzst",
@@ -128,7 +128,7 @@
         "id": 1138,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "0.3.6-fix",
+        "name": "Box64-0.3.6-fix",
         "type": 1,
         "version": "0.3.6-fix",
         "version_code": 1

@@ -4,87 +4,6 @@
   "data": {
     "downloads": [
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6926cf09b236b5a885435e3a47eac234.tzst",
-        "file_md5": "6926cf09b236b5a885435e3a47eac234",
-        "file_name": "6926cf09b236b5a885435e3a47eac234.tzst",
-        "file_size": 7475260,
-        "name": "0.3.6-fix",
-        "type": 1,
-        "version": "0.3.6-fix"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4b6f415713ea9c4307aac0d880f1cd39.tzst",
-        "file_md5": "4b6f415713ea9c4307aac0d880f1cd39",
-        "file_name": "4b6f415713ea9c4307aac0d880f1cd39.tzst",
-        "file_size": 3372640,
-        "name": "0.4.1-fix",
-        "type": 1,
-        "version": "0.4.1-fix"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/7135e13eec3f762ad16c3e60b4a22c4b.tzst",
-        "file_md5": "7135e13eec3f762ad16c3e60b4a22c4b",
-        "file_name": "7135e13eec3f762ad16c3e60b4a22c4b.tzst",
-        "file_size": 1528749,
-        "name": "241214",
-        "type": 1,
-        "version": "241214"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e9c7fd7d4423f016117bf7123fa5b91e.tzst",
-        "file_md5": "e9c7fd7d4423f016117bf7123fa5b91e",
-        "file_name": "e9c7fd7d4423f016117bf7123fa5b91e.tzst",
-        "file_size": 2124187,
-        "name": "250708",
-        "type": 1,
-        "version": "250708"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/916808cdf7578f912f470a696d6530a0.tzst",
-        "file_md5": "916808cdf7578f912f470a696d6530a0",
-        "file_name": "916808cdf7578f912f470a696d6530a0.tzst",
-        "file_size": 4267456,
-        "name": "2508",
-        "type": 1,
-        "version": "2508"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a35f4369e3d984d8976bee6c70a24ce9.tzst",
-        "file_md5": "a35f4369e3d984d8976bee6c70a24ce9",
-        "file_name": "a35f4369e3d984d8976bee6c70a24ce9.tzst",
-        "file_size": 4085906,
-        "name": "2509",
-        "type": 1,
-        "version": "2509"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ad272409778c5c4988eb351cc0f7ca0c.tzst",
-        "file_md5": "ad272409778c5c4988eb351cc0f7ca0c",
-        "file_name": "ad272409778c5c4988eb351cc0f7ca0c.tzst",
-        "file_size": 3347004,
-        "name": "2510.1",
-        "type": 1,
-        "version": "2510.1"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b825cae37911cf67d04bc48f98e79872.tzst",
-        "file_md5": "b825cae37911cf67d04bc48f98e79872",
-        "file_name": "b825cae37911cf67d04bc48f98e79872.tzst",
-        "file_size": 1332792,
-        "name": "2601-aabdded",
-        "type": 1,
-        "version": "2601-aabdded"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst",
-        "file_md5": "6008bf7c3ced2cafda0d4cfeb89e4ca8",
-        "file_name": "6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst",
-        "file_size": 1335136,
-        "name": "2603",
-        "type": 1,
-        "version": "2603"
-      },
-      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/box64-0.28-b1.tzst",
         "file_md5": "a86826840ee879c662e54e9efc8f70ef",
         "file_name": "box64-0.28-b1.tzst",
@@ -92,6 +11,15 @@
         "name": "Box64-0.28-b1",
         "type": 1,
         "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6926cf09b236b5a885435e3a47eac234.tzst",
+        "file_md5": "6926cf09b236b5a885435e3a47eac234",
+        "file_name": "6926cf09b236b5a885435e3a47eac234.tzst",
+        "file_size": 7475260,
+        "name": "Box64-0.3.6-fix",
+        "type": 1,
+        "version": "0.3.6-fix"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/box64_0.31_b1.tzst",
@@ -146,6 +74,15 @@
         "name": "Box64-0.4.1-2",
         "type": 1,
         "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4b6f415713ea9c4307aac0d880f1cd39.tzst",
+        "file_md5": "4b6f415713ea9c4307aac0d880f1cd39",
+        "file_name": "4b6f415713ea9c4307aac0d880f1cd39.tzst",
+        "file_size": 3372640,
+        "name": "Box64-0.4.1-fix",
+        "type": 1,
+        "version": "0.4.1-fix"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex_20241214.tzst",
@@ -281,6 +218,69 @@
         "name": "Fex-20260321",
         "type": 1,
         "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/7135e13eec3f762ad16c3e60b4a22c4b.tzst",
+        "file_md5": "7135e13eec3f762ad16c3e60b4a22c4b",
+        "file_name": "7135e13eec3f762ad16c3e60b4a22c4b.tzst",
+        "file_size": 1528749,
+        "name": "FEXCore-2412",
+        "type": 1,
+        "version": "241214"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e9c7fd7d4423f016117bf7123fa5b91e.tzst",
+        "file_md5": "e9c7fd7d4423f016117bf7123fa5b91e",
+        "file_name": "e9c7fd7d4423f016117bf7123fa5b91e.tzst",
+        "file_size": 2124187,
+        "name": "FEXCore-2507",
+        "type": 1,
+        "version": "250708"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/916808cdf7578f912f470a696d6530a0.tzst",
+        "file_md5": "916808cdf7578f912f470a696d6530a0",
+        "file_name": "916808cdf7578f912f470a696d6530a0.tzst",
+        "file_size": 4267456,
+        "name": "FEXCore-2508",
+        "type": 1,
+        "version": "2508"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a35f4369e3d984d8976bee6c70a24ce9.tzst",
+        "file_md5": "a35f4369e3d984d8976bee6c70a24ce9",
+        "file_name": "a35f4369e3d984d8976bee6c70a24ce9.tzst",
+        "file_size": 4085906,
+        "name": "FEXCore-2509",
+        "type": 1,
+        "version": "2509"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ad272409778c5c4988eb351cc0f7ca0c.tzst",
+        "file_md5": "ad272409778c5c4988eb351cc0f7ca0c",
+        "file_name": "ad272409778c5c4988eb351cc0f7ca0c.tzst",
+        "file_size": 3347004,
+        "name": "FEXCore-2510.1",
+        "type": 1,
+        "version": "2510.1"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b825cae37911cf67d04bc48f98e79872.tzst",
+        "file_md5": "b825cae37911cf67d04bc48f98e79872",
+        "file_name": "b825cae37911cf67d04bc48f98e79872.tzst",
+        "file_size": 1332792,
+        "name": "FEXCore-2601-aabdded",
+        "type": 1,
+        "version": "2601-aabdded"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst",
+        "file_md5": "6008bf7c3ced2cafda0d4cfeb89e4ca8",
+        "file_name": "6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst",
+        "file_size": 1335136,
+        "name": "FEXCore-2603",
+        "type": 1,
+        "version": "2603"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d2c18569d828ba8b7c66804aa8be2d54.tzst",
@@ -1246,123 +1246,6 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/65d81dc54578a980c8424de0ad297193.tzst",
-        "file_md5": "65d81dc54578a980c8424de0ad297193",
-        "file_name": "65d81dc54578a980c8424de0ad297193.tzst",
-        "file_size": 6473244,
-        "name": "2.3.1-1-gplasync",
-        "type": 3,
-        "version": "2.3.1-1-gplasync"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5ebc435712155473430b0c4a93e33292.tzst",
-        "file_md5": "5ebc435712155473430b0c4a93e33292",
-        "file_name": "5ebc435712155473430b0c4a93e33292.tzst",
-        "file_size": 6732370,
-        "name": "2.3.1-1-gplasync-arm64ec",
-        "type": 3,
-        "version": "2.3.1-1-gplasync-arm64ec"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ab28f1764e4b09bfe205ca8bb21824d8.tzst",
-        "file_md5": "ab28f1764e4b09bfe205ca8bb21824d8",
-        "file_name": "ab28f1764e4b09bfe205ca8bb21824d8.tzst",
-        "file_size": 7224767,
-        "name": "2.4.1-1-gplasync",
-        "type": 3,
-        "version": "2.4.1-1-gplasync"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/59a10aa0db94a4508f70c3a86ca57b3c.tzst",
-        "file_md5": "59a10aa0db94a4508f70c3a86ca57b3c",
-        "file_name": "59a10aa0db94a4508f70c3a86ca57b3c.tzst",
-        "file_size": 7612876,
-        "name": "2.4.1-1-gplasync-arm64ec",
-        "type": 3,
-        "version": "2.4.1-1-gplasync-arm64ec"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/789213bb5f0b2ad5d650e4288a3ba7c5.tzst",
-        "file_md5": "789213bb5f0b2ad5d650e4288a3ba7c5",
-        "file_name": "789213bb5f0b2ad5d650e4288a3ba7c5.tzst",
-        "file_size": 8032187,
-        "name": "2.4.1-1-gplasync-arm64ec-pre-reg",
-        "type": 3,
-        "version": "2.4.1-1-gplasync-arm64ec-pre-reg"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ea36cee0e4e1008492ce9eb7d9fa3da5.tzst",
-        "file_md5": "ea36cee0e4e1008492ce9eb7d9fa3da5",
-        "file_name": "ea36cee0e4e1008492ce9eb7d9fa3da5.tzst",
-        "file_size": 7646114,
-        "name": "2.4.1-1-gplasync-pre-reg",
-        "type": 3,
-        "version": "2.4.1-1-gplasync-pre-reg"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dbbff17c3777deeaeca592bd2483d98a.tzst",
-        "file_md5": "dbbff17c3777deeaeca592bd2483d98a",
-        "file_name": "dbbff17c3777deeaeca592bd2483d98a.tzst",
-        "file_size": 7856283,
-        "name": "2.5.3-1-gplasync",
-        "type": 3,
-        "version": "2.5.3-1-gplasync"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ff82c8383294831760b65054ebc6403a.tzst",
-        "file_md5": "ff82c8383294831760b65054ebc6403a",
-        "file_name": "ff82c8383294831760b65054ebc6403a.tzst",
-        "file_size": 8233266,
-        "name": "2.5.3-1-gplasync-arm64ec",
-        "type": 3,
-        "version": "2.5.3-1-gplasync-arm64ec"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9e68f12b3437e225b1a9a974fa9d70b4.tzst",
-        "file_md5": "9e68f12b3437e225b1a9a974fa9d70b4",
-        "file_name": "9e68f12b3437e225b1a9a974fa9d70b4.tzst",
-        "file_size": 8159145,
-        "name": "2.6.2-1-gplasync",
-        "type": 3,
-        "version": "2.6.2-1-gplasync"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6f53b8657f6a213eebe4b2497457f828.tzst",
-        "file_md5": "6f53b8657f6a213eebe4b2497457f828",
-        "file_name": "6f53b8657f6a213eebe4b2497457f828.tzst",
-        "file_size": 8378263,
-        "name": "2.6.2-1-gplasync-arm64ec",
-        "type": 3,
-        "version": "2.6.2-1-gplasync-arm64ec"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0e52b83f4e97942aaafe330dbfaa741b.tzst",
-        "file_md5": "0e52b83f4e97942aaafe330dbfaa741b",
-        "file_name": "0e52b83f4e97942aaafe330dbfaa741b.tzst",
-        "file_size": 6799644,
-        "name": "2.6.2-arm64ec-gplasync",
-        "type": 3,
-        "version": "2.6.2-arm64ec-gplasync"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e24dbfd879ff0f2c972612ec45af3a7a.tzst",
-        "file_md5": "e24dbfd879ff0f2c972612ec45af3a7a",
-        "file_name": "e24dbfd879ff0f2c972612ec45af3a7a.tzst",
-        "file_size": 8359172,
-        "name": "2.7.1-1-gplasync",
-        "type": 3,
-        "version": "2.7.1-1-gplasync"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b2c5d5daae9b81633699f69638ff070a.tzst",
-        "file_md5": "b2c5d5daae9b81633699f69638ff070a",
-        "file_name": "b2c5d5daae9b81633699f69638ff070a.tzst",
-        "file_size": 8555891,
-        "name": "2.7.1-1-gplasync-arm64ec",
-        "type": 3,
-        "version": "2.7.1-1-gplasync-arm64ec"
-      },
-      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-0.96.tzst",
         "file_md5": "33983fdd3da95bf015deda2c76895820",
         "file_name": "dxvk-0.96.tzst",
@@ -1444,6 +1327,24 @@
         "version": "1.1.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/65d81dc54578a980c8424de0ad297193.tzst",
+        "file_md5": "65d81dc54578a980c8424de0ad297193",
+        "file_name": "65d81dc54578a980c8424de0ad297193.tzst",
+        "file_size": 6473244,
+        "name": "DXVK-2.3.1-1-gplasync",
+        "type": 3,
+        "version": "2.3.1-1-gplasync"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5ebc435712155473430b0c4a93e33292.tzst",
+        "file_md5": "5ebc435712155473430b0c4a93e33292",
+        "file_name": "5ebc435712155473430b0c4a93e33292.tzst",
+        "file_size": 6732370,
+        "name": "DXVK-2.3.1-1-gplasync-arm64ec",
+        "type": 3,
+        "version": "2.3.1-1-gplasync-arm64ec"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-arm64ec-2.3.1.tzst",
         "file_md5": "9a4b5dc49e5cd39aed2c56a6c728cbb1",
         "file_name": "dxvk-arm64ec-2.3.1.tzst",
@@ -1489,6 +1390,42 @@
         "version": "1.1.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ab28f1764e4b09bfe205ca8bb21824d8.tzst",
+        "file_md5": "ab28f1764e4b09bfe205ca8bb21824d8",
+        "file_name": "ab28f1764e4b09bfe205ca8bb21824d8.tzst",
+        "file_size": 7224767,
+        "name": "DXVK-2.4.1-1-gplasync",
+        "type": 3,
+        "version": "2.4.1-1-gplasync"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/59a10aa0db94a4508f70c3a86ca57b3c.tzst",
+        "file_md5": "59a10aa0db94a4508f70c3a86ca57b3c",
+        "file_name": "59a10aa0db94a4508f70c3a86ca57b3c.tzst",
+        "file_size": 7612876,
+        "name": "DXVK-2.4.1-1-gplasync-arm64ec",
+        "type": 3,
+        "version": "2.4.1-1-gplasync-arm64ec"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/789213bb5f0b2ad5d650e4288a3ba7c5.tzst",
+        "file_md5": "789213bb5f0b2ad5d650e4288a3ba7c5",
+        "file_name": "789213bb5f0b2ad5d650e4288a3ba7c5.tzst",
+        "file_size": 8032187,
+        "name": "DXVK-2.4.1-1-gplasync-arm64ec-pre-reg",
+        "type": 3,
+        "version": "2.4.1-1-gplasync-arm64ec-pre-reg"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ea36cee0e4e1008492ce9eb7d9fa3da5.tzst",
+        "file_md5": "ea36cee0e4e1008492ce9eb7d9fa3da5",
+        "file_name": "ea36cee0e4e1008492ce9eb7d9fa3da5.tzst",
+        "file_size": 7646114,
+        "name": "DXVK-2.4.1-1-gplasync-pre-reg",
+        "type": 3,
+        "version": "2.4.1-1-gplasync-pre-reg"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.4.1-arm64ec.tzst",
         "file_md5": "f3364dafaa2f1e01564df90f19441403",
         "file_name": "dxvk-2.4.1-arm64ec.tzst",
@@ -1525,6 +1462,24 @@
         "version": "1.1.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dbbff17c3777deeaeca592bd2483d98a.tzst",
+        "file_md5": "dbbff17c3777deeaeca592bd2483d98a",
+        "file_name": "dbbff17c3777deeaeca592bd2483d98a.tzst",
+        "file_size": 7856283,
+        "name": "DXVK-2.5.3-1-gplasync",
+        "type": 3,
+        "version": "2.5.3-1-gplasync"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ff82c8383294831760b65054ebc6403a.tzst",
+        "file_md5": "ff82c8383294831760b65054ebc6403a",
+        "file_name": "ff82c8383294831760b65054ebc6403a.tzst",
+        "file_size": 8233266,
+        "name": "DXVK-2.5.3-1-gplasync-arm64ec",
+        "type": 3,
+        "version": "2.5.3-1-gplasync-arm64ec"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.6.tzst",
         "file_md5": "2fa9a67238f8af66ce5ffec9c2d737b2",
         "file_name": "dxvk-2.6.tzst",
@@ -1543,6 +1498,33 @@
         "version": "1.1.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9e68f12b3437e225b1a9a974fa9d70b4.tzst",
+        "file_md5": "9e68f12b3437e225b1a9a974fa9d70b4",
+        "file_name": "9e68f12b3437e225b1a9a974fa9d70b4.tzst",
+        "file_size": 8159145,
+        "name": "DXVK-2.6.2-1-gplasync",
+        "type": 3,
+        "version": "2.6.2-1-gplasync"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6f53b8657f6a213eebe4b2497457f828.tzst",
+        "file_md5": "6f53b8657f6a213eebe4b2497457f828",
+        "file_name": "6f53b8657f6a213eebe4b2497457f828.tzst",
+        "file_size": 8378263,
+        "name": "DXVK-2.6.2-1-gplasync-arm64ec",
+        "type": 3,
+        "version": "2.6.2-1-gplasync-arm64ec"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0e52b83f4e97942aaafe330dbfaa741b.tzst",
+        "file_md5": "0e52b83f4e97942aaafe330dbfaa741b",
+        "file_name": "0e52b83f4e97942aaafe330dbfaa741b.tzst",
+        "file_size": 6799644,
+        "name": "DXVK-2.6.2-gplasync-arm64ec",
+        "type": 3,
+        "version": "2.6.2-arm64ec-gplasync"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/423cf59811d7228cd5fbd545d622bd69.tzst",
         "file_md5": "423cf59811d7228cd5fbd545d622bd69",
         "file_name": "dxvk-2.7.1.tzst",
@@ -1550,6 +1532,24 @@
         "name": "dxvk-2.7.1",
         "type": 3,
         "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e24dbfd879ff0f2c972612ec45af3a7a.tzst",
+        "file_md5": "e24dbfd879ff0f2c972612ec45af3a7a",
+        "file_name": "e24dbfd879ff0f2c972612ec45af3a7a.tzst",
+        "file_size": 8359172,
+        "name": "DXVK-2.7.1-1-gplasync",
+        "type": 3,
+        "version": "2.7.1-1-gplasync"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b2c5d5daae9b81633699f69638ff070a.tzst",
+        "file_md5": "b2c5d5daae9b81633699f69638ff070a",
+        "file_name": "b2c5d5daae9b81633699f69638ff070a.tzst",
+        "file_size": 8555891,
+        "name": "DXVK-2.7.1-1-gplasync-arm64ec",
+        "type": 3,
+        "version": "2.7.1-1-gplasync-arm64ec"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a37fad0a11761851655437a38e8d8557.tzst",

@@ -216,7 +216,7 @@ def main():
     subprocess.run(["git", "add", "-A"], cwd=SCRIPT_DIR)
     subprocess.run(["git", "commit", "-m", msg], cwd=SCRIPT_DIR)
     subprocess.run(["git", "push", "origin", "master"], cwd=SCRIPT_DIR)
-    subprocess.run(["git", "push", "origin", "main"], cwd=SCRIPT_DIR)
+    subprocess.run(["git", "push", "origin", "master:main"], cwd=SCRIPT_DIR)  # Pages serves from main
     print(f"\nDone. Pushed: {msg}")
 
 
