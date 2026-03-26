@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-Drop WCP/TZST files into ~/API/ then run this script.
+Drop WCP/TZST/ZIP files into ~/API/ then run this script.
 It will:
-  1. Extract profile.json from each file
-  2. Compute MD5 + file size
-  3. Rename to {md5}.tzst
-  4. Upload to the Components GitHub release
-  5. Add an entry to data/custom_components.json
-  6. Run npm run build
-  7. Commit + push to master
+  1. Extract profile.json or meta.json from each file
+  2. ZIP files (Turnip/adrenotools) are repacked as TZST automatically
+  3. Compute MD5 + file size
+  4. Rename to {md5}.tzst
+  5. Upload to the Components GitHub release
+  6. Add an entry to data/custom_components.json
+  7. Run npm run build
+  8. Commit + push to master + main
 """
 
 import hashlib
@@ -18,6 +19,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import zipfile
 
 REPO = "The412Banner/bannerhub-api"
 RELEASE_TAG = "Components"
@@ -26,7 +28,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 CUSTOM_JSON = os.path.join(SCRIPT_DIR, "data", "custom_components.json")
 RELEASE_BASE = f"https://github.com/{REPO}/releases/download/{RELEASE_TAG}"
 
-# Map profile.json type string → API int
+# Map type string → API int
 TYPE_MAP = {
     "fexcore": 1,
     "box64": 1,
@@ -52,28 +54,74 @@ def md5_of_file(path):
     return h.hexdigest()
 
 
+def is_zip(path):
+    with open(path, "rb") as f:
+        return f.read(2) == b"PK"
+
+
+def repack_zip_as_tzst(zip_path, tmp_dir):
+    """Extract ZIP contents and repack as .tar.zst. Returns path to tzst file."""
+    extract_dir = os.path.join(tmp_dir, "extracted")
+    os.makedirs(extract_dir)
+
+    with zipfile.ZipFile(zip_path) as zf:
+        zf.extractall(extract_dir)
+
+    tar_path = os.path.join(tmp_dir, "repacked.tar")
+    with tarfile.open(tar_path, "w") as tf:
+        for entry in sorted(os.listdir(extract_dir)):
+            tf.add(os.path.join(extract_dir, entry), arcname=entry)
+
+    tzst_path = os.path.join(tmp_dir, "repacked.tzst")
+    result = subprocess.run(
+        ["zstd", "-19", tar_path, "-o", tzst_path, "-f"],
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"zstd repack failed: {result.stderr.decode()}")
+
+    return tzst_path
+
+
+def read_meta_from_zip(zip_path):
+    """Read meta.json from a Turnip/adrenotools ZIP."""
+    with zipfile.ZipFile(zip_path) as zf:
+        names = zf.namelist()
+        for candidate in ("meta.json", "./meta.json"):
+            if candidate in names:
+                with zf.open(candidate) as f:
+                    return json.load(f)
+        raise RuntimeError("No meta.json found in ZIP")
+
+
+def meta_to_profile(meta, filename):
+    """Convert meta.json fields to a profile-like dict the rest of the script understands."""
+    # meta.json keys vary — try common ones
+    name = (meta.get("name") or meta.get("driverVersion") or
+            os.path.splitext(filename)[0])
+    version = meta.get("driverVersion") or meta.get("version") or "1.0.0"
+    return {
+        "name": name,
+        "versionName": version,
+        "type": "GPU",   # Turnip ZIPs are always GPU drivers
+    }
+
+
 def extract_profile(path):
     """Extract profile.json from a WCP/TZST archive (zstd or xz/gz/bz2 tar)."""
     with tempfile.TemporaryDirectory() as tmp:
-        # Try zstd first
         decompressed = os.path.join(tmp, "decompressed.tar")
         result = subprocess.run(
             ["zstd", "-d", path, "-o", decompressed, "-f"],
             capture_output=True,
         )
-        if result.returncode == 0:
-            tar_path = decompressed
-        else:
-            # Fall back: let tar auto-detect compression (xz, gz, bz2)
-            tar_path = path
+        tar_path = decompressed if result.returncode == 0 else path
 
         try:
             with tarfile.open(tar_path) as tf:
-                # Try with and without leading ./
                 for name in ("profile.json", "./profile.json"):
                     try:
-                        member = tf.getmember(name)
-                        f = tf.extractfile(member)
+                        f = tf.extractfile(tf.getmember(name))
                         return json.load(f)
                     except KeyError:
                         continue
@@ -83,13 +131,12 @@ def extract_profile(path):
 
 
 def resolve_type(profile):
-    """Return the API type int from profile.json."""
     raw = profile.get("type", "").lower()
     for key, val in TYPE_MAP.items():
         if key in raw:
             return val
-    # Ask user
-    print(f"  Unknown type '{profile.get('type')}'. Enter number (1=Box64/FEX 2=GPU 3=DXVK 4=VKD3D 5=Wine 6=Library 7=Steam): ", end="")
+    print(f"  Unknown type '{profile.get('type')}'. Enter number "
+          f"(1=Box64/FEX 2=GPU 3=DXVK 4=VKD3D 5=Wine 6=Library 7=Steam): ", end="")
     return int(input().strip())
 
 
@@ -114,12 +161,12 @@ def gh_upload(local_path, asset_name):
 def main():
     files = [
         f for f in os.listdir(API_DIR)
-        if f.lower().endswith((".wcp", ".tzst", ".tar.zst"))
+        if f.lower().endswith((".wcp", ".tzst", ".tar.zst", ".zip"))
         and not f.startswith(".")
     ]
 
     if not files:
-        print(f"No WCP/TZST files found in {API_DIR}")
+        print(f"No WCP/TZST/ZIP files found in {API_DIR}")
         sys.exit(0)
 
     print(f"Found {len(files)} file(s) in ~/API/\n")
@@ -134,36 +181,56 @@ def main():
         path = os.path.join(API_DIR, filename)
         print(f"Processing: {filename}")
 
+        upload_path = path  # may be replaced by repacked tzst
+        cleanup_upload = False
+
         try:
-            profile = extract_profile(path)
+            if filename.lower().endswith(".zip") or is_zip(path):
+                # Turnip/adrenotools ZIP — read meta.json, repack as tzst
+                print("  Detected ZIP format (Turnip/adrenotools) — repacking as TZST...")
+                meta = read_meta_from_zip(path)
+                profile = meta_to_profile(meta, filename)
+
+                tmp_dir = tempfile.mkdtemp()
+                tzst_path = repack_zip_as_tzst(path, tmp_dir)
+                upload_path = tzst_path
+                cleanup_upload = True
+            else:
+                profile = extract_profile(path)
         except Exception as e:
-            print(f"  ERROR reading profile.json: {e} — skipping")
+            print(f"  ERROR: {e} — skipping")
             continue
 
-        print(f"  profile.json: name={profile.get('name') or profile.get('versionName')} "
+        print(f"  profile: name={profile.get('name') or profile.get('versionName')} "
               f"type={profile.get('type')} version={profile.get('versionName', '1.0.0')}")
 
-        file_md5 = md5_of_file(path)
-        file_size = os.path.getsize(path)
+        file_md5 = md5_of_file(upload_path)
+        file_size = os.path.getsize(upload_path)
         asset_name = f"{file_md5}.tzst"
         download_url = f"{RELEASE_BASE}/{asset_name}"
 
-        # Check if already added
         existing = next((c for c in components if c["file_md5"] == file_md5), None)
         if existing:
-            print(f"  Already in custom_components.json as id={existing['id']} ({existing['name']}) — skipping upload")
+            print(f"  Already added as id={existing['id']} ({existing['name']}) — skipping")
             os.remove(path)
+            if cleanup_upload:
+                import shutil; shutil.rmtree(os.path.dirname(upload_path), ignore_errors=True)
             continue
 
-        # Rename locally for upload
-        renamed_path = os.path.join(API_DIR, asset_name)
-        os.rename(path, renamed_path)
+        # Rename/copy for upload
+        final_upload = os.path.join(API_DIR, asset_name)
+        if upload_path != path:
+            import shutil
+            shutil.copy2(upload_path, final_upload)
+        else:
+            os.rename(path, final_upload)
 
         try:
-            gh_upload(renamed_path, asset_name)
+            gh_upload(final_upload, asset_name)
         except Exception as e:
             print(f"  ERROR uploading: {e}")
-            os.rename(renamed_path, path)  # restore
+            if upload_path == path:
+                os.rename(final_upload, path)
             continue
 
         name = (profile.get("name") or profile.get("versionName") or
@@ -188,21 +255,25 @@ def main():
         added.append(entry)
         print(f"  Added: id={entry['id']} name={name} type={type_int} md5={file_md5}")
 
-        # Clean up renamed file
-        os.remove(renamed_path)
+        # Clean up
+        if os.path.exists(final_upload):
+            os.remove(final_upload)
+        if os.path.exists(path):
+            os.remove(path)
+        if cleanup_upload:
+            import shutil
+            shutil.rmtree(os.path.dirname(upload_path), ignore_errors=True)
 
     if not added:
         print("\nNothing new to add.")
         sys.exit(0)
 
-    # Write updated JSON
     with open(CUSTOM_JSON, "w") as f:
         json.dump(data, f, indent=2)
         f.write("\n")
 
     print(f"\nUpdated custom_components.json with {len(added)} new component(s)")
 
-    # npm run build
     print("\nRunning npm run build...")
     result = subprocess.run(["npm", "run", "build"], cwd=SCRIPT_DIR, capture_output=True, text=True)
     if result.returncode != 0:
@@ -210,13 +281,12 @@ def main():
         sys.exit(1)
     print("Build OK")
 
-    # git commit + push
     names = ", ".join(e["name"] for e in added)
     msg = f"feat: add {len(added)} component(s) — {names}"
     subprocess.run(["git", "add", "-A"], cwd=SCRIPT_DIR)
     subprocess.run(["git", "commit", "-m", msg], cwd=SCRIPT_DIR)
     subprocess.run(["git", "push", "origin", "master"], cwd=SCRIPT_DIR)
-    subprocess.run(["git", "push", "origin", "master:main"], cwd=SCRIPT_DIR)  # Pages serves from main
+    subprocess.run(["git", "push", "origin", "master:main"], cwd=SCRIPT_DIR)
     print(f"\nDone. Pushed: {msg}")
 
 
