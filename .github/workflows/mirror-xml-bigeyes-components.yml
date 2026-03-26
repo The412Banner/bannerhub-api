@@ -390,7 +390,6 @@ jobs:
             "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/simulator_other/VulkanRT-1.3.283.0-Installer.exe"
             "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/simulator_other/wine-mono-10.3.0-x86.msi"
             "https://zlyer-cdn-comps-en.bigeyes.com/ux-landscape/simulator_other/wine-mono-8.0.0-x86.msi"
-            "https://zlyer-cdn-comps-en.bigeyes.com/simulator_other/mono-10.4.1-x86.msi"
           )
           for URL in "${FILES[@]}"; do
             FILENAME=$(basename "$URL")
