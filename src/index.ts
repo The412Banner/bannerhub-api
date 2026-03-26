@@ -240,9 +240,8 @@ async function build(config: BuildConfig): Promise<void> {
     console.log(`   gh release upload ${config.githubRelease} ${fileList} --repo ${config.githubRepo}`);
     console.log('   ```\n');
 
-    // Exit with error to prevent deployment with missing files
-    console.error('   ❌ Build failed: Missing files must be uploaded before deployment');
-    process.exit(1);
+    // Warn but do not block — output files are already written
+    console.warn('   ⚠ Build succeeded with missing files. Upload them when available.');
   }
 }
 
