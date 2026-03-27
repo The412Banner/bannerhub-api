@@ -6,28 +6,45 @@ const SECRET_KEY = 'all-egg-shell-y7ZatUDk'
 // STEAM LIBRARY AUGMENTATION
 // Purpose: GameHub's backend only returns ~65 games it has
 // metadata for. This augments the library sync response with
-// the user's full Steam library via IPlayerService/GetOwnedGames.
+// the user's full Steam library via the public Steam community
+// XML endpoint — no API key required.
 //
-// Required CF Worker secrets/bindings:
-//   STEAM_API_KEY  — Steam Web API key (steamcommunity.com/dev/apikey)
+// Required CF Worker bindings:
 //   TOKEN_STORE    — KV namespace (already used for GameHub token)
 //
 // KV keys used:
 //   bannerhub_token          — existing: real GameHub token
 //   steam_user_steamid       — SteamID64 string for the user
-//   steam_games_cache        — JSON string: {appid: {name, img}} cache
+//                              (set automatically via smali patch after Steam login)
 //
 // Detection: library sync call has page_size=1000 in POST body.
 // ============================================================
 
-// Fetch full Steam owned games list for a SteamID64
-async function fetchSteamOwnedGames(apiKey, steamId) {
-  const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${apiKey}&steamid=${steamId}&include_appinfo=1&include_played_free_games=1&format=json`
+// Fetch full Steam owned games list using the public community XML endpoint.
+// Works for any public Steam profile — no API key needed.
+// Returns [{appid, name}] or null on failure.
+async function fetchSteamOwnedGames(steamId) {
+  const url = `https://steamcommunity.com/${steamId}/games/?tab=all&xml=1`
   try {
     const res = await fetch(url, { headers: { 'User-Agent': 'BannerHub/1.0' } })
     if (!res.ok) return null
-    const data = await res.json()
-    return data?.response?.games || null
+    const xml = await res.text()
+    // Parse <game> entries from XML: <appID>...</appID> <name>...</name>
+    const games = []
+    const gameRegex = /<game>([\s\S]*?)<\/game>/g
+    let match
+    while ((match = gameRegex.exec(xml)) !== null) {
+      const block = match[1]
+      const appIdMatch = block.match(/<appID>(\d+)<\/appID>/)
+      const nameMatch = block.match(/<name><!\[CDATA\[(.+?)\]\]><\/name>/) || block.match(/<name>(.+?)<\/name>/)
+      if (appIdMatch) {
+        games.push({
+          appid: parseInt(appIdMatch[1], 10),
+          name: nameMatch ? nameMatch[1] : `App ${appIdMatch[1]}`,
+        })
+      }
+    }
+    return games.length ? games : null
   } catch (e) {
     return null
   }
@@ -73,16 +90,12 @@ async function augmentSteamLibrary(gamehubBody, env) {
     // Collect appids already in the GameHub list
     const knownIds = new Set(cardList.map(c => String(c.id || c.steam_appid || '')).filter(Boolean))
 
-    // Get stored SteamID64
+    // Get stored SteamID64 (set by app smali patch after Steam login)
     const steamId = await env.TOKEN_STORE.get('steam_user_steamid')
     if (!steamId) return gamehubBody
 
-    // Get Steam API key from env secret
-    const apiKey = env.STEAM_API_KEY
-    if (!apiKey) return gamehubBody
-
-    // Fetch full Steam library
-    const steamGames = await fetchSteamOwnedGames(apiKey, steamId)
+    // Fetch full Steam library — no API key needed
+    const steamGames = await fetchSteamOwnedGames(steamId)
     if (!steamGames || !steamGames.length) return gamehubBody
 
     // Identify missing games (in Steam but not in GameHub's list)

@@ -41,12 +41,7 @@ App → CF Worker → GitHub Pages (static routes)
 | `GAMEHUB_EMAIL` | GameHub account email for token refresh | CF dashboard / wrangler |
 | `MAILTM_EMAIL` | Mail.tm OTP inbox | CF dashboard / wrangler |
 | `MAILTM_PASSWORD` | Mail.tm OTP inbox password | CF dashboard / wrangler |
-| `STEAM_API_KEY` | Steam Web API key for `IPlayerService/GetOwnedGames` | CF dashboard / wrangler |
-
-### Adding STEAM_API_KEY
-
-1. Get a free Steam Web API key at: `https://steamcommunity.com/dev/apikey`
-2. Add to the Worker via CF REST API or wrangler (no wrangler.toml — see deploy command below).
+~~`STEAM_API_KEY`~~ | ~~Steam Web API key~~ | **Not needed** — replaced by public XML endpoint |
 
 ---
 
@@ -110,17 +105,13 @@ Worker → App: augmented response with all owned games
 ### Steam API Call
 
 ```
-GET https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/
-  ?key={STEAM_API_KEY}
-  &steamid={steam_user_steamid from KV}
-  &include_appinfo=1
-  &include_played_free_games=1
-  &format=json
+GET https://steamcommunity.com/{steamid}/games/?tab=all&xml=1
 ```
 
-Returns: `{response: {game_count: N, games: [{appid, name, playtime_forever, img_icon_url, ...}]}}`
+Returns XML with all owned games: `<appID>`, `<name>` per `<game>` entry.
 
-**Limitation:** Only works for public Steam profiles. Private profiles return 0 games from this endpoint with a third-party API key.
+- **No API key required**
+- **Limitation:** Only works for public Steam profiles. Private profiles return no games.
 
 ### Injected Card Format (CardItemData)
 
