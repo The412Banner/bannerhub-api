@@ -2,6 +2,16 @@
 
 Static JSON API and Cloudflare Worker proxy for the [BannerHub](https://github.com/The412Banner/bannerhub) Android app. Replaces GameHub's original Chinese servers with a fully self-hosted, privacy-respecting backend.
 
+## Why use the BannerHub API?
+
+Every component (DXVK, VKD3D, Box64, FEXCore, GPU drivers, libraries) downloads directly from GitHub Releases — no login, no Chinese servers, no third-party CDNs, no Big-Eyes CDN links, no Zygler URLs. Always available regardless of GameHub server status.
+
+![BannerHub API component catalog](https://github.com/The412Banner/BannerHub/releases/download/v2.7.4/bannerhub_catalog.png)
+
+## BannerHub vs BH-Lite
+
+![BannerHub vs BH-Lite feature comparison](https://github.com/The412Banner/BannerHub/releases/download/v2.7.4/bannerhub_compare.png)
+
 ## Live Endpoints
 
 | Service | URL |
