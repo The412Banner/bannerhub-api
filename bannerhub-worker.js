@@ -2,6 +2,113 @@ const GITHUB_BASE = 'https://the412banner.github.io/bannerhub-api'
 const GAMEHUB_API = 'https://landscape-api.vgabc.com'
 const SECRET_KEY = 'all-egg-shell-y7ZatUDk'
 
+// ============================================================
+// STEAM LIBRARY AUGMENTATION
+// Purpose: GameHub's backend only returns ~65 games it has
+// metadata for. This augments the library sync response with
+// the user's full Steam library via IPlayerService/GetOwnedGames.
+//
+// Required CF Worker secrets/bindings:
+//   STEAM_API_KEY  — Steam Web API key (steamcommunity.com/dev/apikey)
+//   TOKEN_STORE    — KV namespace (already used for GameHub token)
+//
+// KV keys used:
+//   bannerhub_token          — existing: real GameHub token
+//   steam_user_steamid       — SteamID64 string for the user
+//   steam_games_cache        — JSON string: {appid: {name, img}} cache
+//
+// Detection: library sync call has page_size=1000 in POST body.
+// ============================================================
+
+// Fetch full Steam owned games list for a SteamID64
+async function fetchSteamOwnedGames(apiKey, steamId) {
+  const url = `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${apiKey}&steamid=${steamId}&include_appinfo=1&include_played_free_games=1&format=json`
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': 'BannerHub/1.0' } })
+    if (!res.ok) return null
+    const data = await res.json()
+    return data?.response?.games || null
+  } catch (e) {
+    return null
+  }
+}
+
+// Build a CardItemData-compatible game object for injection
+// Uses Steam CDN for images. jump_type/source match Steam games in GameHub.
+function buildSteamCard(appid, name) {
+  const cdn = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}`
+  return {
+    id: String(appid),
+    game_name: name || `Steam App ${appid}`,
+    game_cover_image: `${cdn}/header.jpg`,
+    content_img: `${cdn}/header.jpg`,
+    square_image: `${cdn}/library_600x900.jpg`,
+    game_back_image: `${cdn}/library_hero.jpg`,
+    source: 'steam',
+    jump_type: '',
+    card_param: '',
+    is_display_title: true,
+    is_display_price: false,
+    is_display_btn: false,
+    is_pay: false,
+    is_play_video: false,
+  }
+}
+
+// Augment a GameHub library sync response with missing Steam games
+async function augmentSteamLibrary(gamehubBody, env) {
+  try {
+    // Parse GameHub response
+    let respData
+    try { respData = JSON.parse(gamehubBody) } catch (e) { return gamehubBody }
+    if (!respData?.data) return gamehubBody
+
+    // Get card_list — may be a JSON string or a real array
+    let cardList = respData.data.card_list
+    if (typeof cardList === 'string') {
+      try { cardList = JSON.parse(cardList) } catch (e) { return gamehubBody }
+    }
+    if (!Array.isArray(cardList)) return gamehubBody
+
+    // Collect appids already in the GameHub list
+    const knownIds = new Set(cardList.map(c => String(c.id || c.steam_appid || '')).filter(Boolean))
+
+    // Get stored SteamID64
+    const steamId = await env.TOKEN_STORE.get('steam_user_steamid')
+    if (!steamId) return gamehubBody
+
+    // Get Steam API key from env secret
+    const apiKey = env.STEAM_API_KEY
+    if (!apiKey) return gamehubBody
+
+    // Fetch full Steam library
+    const steamGames = await fetchSteamOwnedGames(apiKey, steamId)
+    if (!steamGames || !steamGames.length) return gamehubBody
+
+    // Identify missing games (in Steam but not in GameHub's list)
+    const missing = steamGames.filter(g => !knownIds.has(String(g.appid)))
+    if (!missing.length) return gamehubBody
+
+    // Build card objects for missing games
+    const injected = missing.map(g => buildSteamCard(g.appid, g.name))
+
+    // Merge into response
+    const merged = [...cardList, ...injected]
+    if (typeof respData.data.card_list === 'string') {
+      respData.data.card_list = JSON.stringify(merged)
+    } else {
+      respData.data.card_list = merged
+    }
+    if (respData.data.total !== undefined) {
+      respData.data.total = merged.length
+    }
+
+    return JSON.stringify(respData)
+  } catch (e) {
+    return gamehubBody
+  }
+}
+
 // Minimal MD5 implementation for Cloudflare Workers
 function md5(str) {
   function safeAdd(x, y) { const lsw=(x&0xffff)+(y&0xffff); return (((x>>16)+(y>>16)+(lsw>>16))<<16)|(lsw&0xffff) }
@@ -107,6 +214,27 @@ export default {
     const time = Math.floor(Date.now() / 1000).toString()
 
     try {
+      // steam/steamid/store: app sends SteamID64 after login → stored in KV
+      // POST body: {steam_id: "76561198..."}
+      // Called by BannerHub smali patch after successful Steam login.
+      if (url.pathname === '/steam/steamid/store') {
+        try {
+          const body = await request.json()
+          const steamId = String(body.steam_id || '').trim()
+          if (steamId && /^\d{17}$/.test(steamId)) {
+            await env.TOKEN_STORE.put('steam_user_steamid', steamId)
+            return new Response(
+              JSON.stringify({ code: 200, msg: 'ok', time }),
+              { headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+            )
+          }
+        } catch (e) {}
+        return new Response(
+          JSON.stringify({ code: 400, msg: 'invalid steam_id', time }),
+          { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+        )
+      }
+
       // jwt/refresh/token: read real token from shared KV
       if (url.pathname === '/jwt/refresh/token') {
         try {
@@ -217,7 +345,24 @@ export default {
         body: forwardBody,
       })
 
-      const resBody = await res.text()
+      let resBody = await res.text()
+
+      // Steam library augmentation: intercept when page_size=1000 (library sync)
+      // GameHub's backend returns only ~65 games it has metadata for.
+      // We augment with the user's full Steam library via GetOwnedGames.
+      if (
+        request.method === 'POST' &&
+        forwardBody &&
+        res.ok
+      ) {
+        try {
+          const parsedFwd = JSON.parse(forwardBody)
+          if (parsedFwd.page_size === 1000 && parsedFwd.page === 1 && !parsedFwd.steam_appids) {
+            resBody = await augmentSteamLibrary(resBody, env)
+          }
+        } catch (e) {}
+      }
+
       return new Response(resBody, {
         status: res.status,
         headers: { 'Content-Type': 'application/json', ...corsHeaders },
