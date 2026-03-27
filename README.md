@@ -120,6 +120,30 @@ bannerhub-api/
 2. Run `npm run build`
 3. Upload the component file to the Components release
 
+## Component Hosting — Verified GitHub-Only
+
+Every downloadable component file (DXVK, VKD3D, Box64, FEXCore, GPU drivers, libraries) is hosted exclusively on GitHub Releases under this repository:
+
+```
+https://github.com/The412Banner/bannerhub-api/releases/download/Components/{filename}
+```
+
+**No third-party CDNs are used for component downloads.** All component `download_url` fields in every manifest point to `github.com` — verified by scanning all JSON manifests.
+
+### Full URL audit
+
+| Domain | Where used | Component downloads? |
+|--------|-----------|----------------------|
+| `github.com/The412Banner/bannerhub-api` | All component files | ✅ Yes — only download host |
+| `landscape-api.vgabc.com` | Cloudflare Worker proxy → GameHub backend (game listings, Steam card) | ❌ No |
+| `steamcommunity.com` | Steam library XML feed (Steam game list augmentation) | ❌ No |
+| `cdn.cloudflare.steamstatic.com` | Steam game box art / header images | ❌ No |
+| `dl.winehq.org` | Wine library reference links in `data/` manifest | ❌ No |
+| `download.microsoft.com` | vcredist, dotnet library references in `data/` manifest | ❌ No |
+| `proxy.usebottles.com` | Some library entries in `data/` manifest | ❌ No |
+
+No Big-Eyes CDN links. No Zygler URLs. No undisclosed third-party file hosts.
+
 ## Privacy
 
 No user data, analytics, or tracking. Contains only public component manifests, open-source configuration, and CDN download links.
