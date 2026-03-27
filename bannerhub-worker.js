@@ -51,17 +51,43 @@ function generateSignature(params) {
   return md5(str)
 }
 
-// Routes that stay on GitHub Pages (BannerHub-specific static endpoints)
+// Routes that stay on GitHub Pages (all bannerhub-api static endpoints)
 const GITHUB_ROUTES = new Set([
-  '/simulator/v2/getComponentList',
+  '/base/getBaseInfo',
+  '/card/getCtsList',
+  '/card/getGameIcon',
+  '/card/getNewsList',
+  '/card/getTopPlatform',
+  '/cloud/game/check_user_timer',
+  '/components/box64_manifest',
+  '/components/downloads',
+  '/components/drivers_manifest',
+  '/components/dxvk_manifest',
+  '/components/games_manifest',
+  '/components/index',
+  '/components/libraries_manifest',
+  '/components/steam_manifest',
+  '/components/vkd3d_manifest',
+  '/devices/getDevicesList',
+  '/email/login',
+  '/ems/send',
+  '/game/checkLocalHandTourGame',
+  '/game/cts/report',
+  '/game/getDnsIpPool',
+  '/game/getGameCircleList',
+  '/game/getSteamHost/index',
+  '/game/userVideoNum',
+  '/heartbeat/game/getUserPlayTimeList',
+  '/heartbeat/game/start',
+  '/simulator/getTabList',
   '/simulator/v2/getAllComponentList',
+  '/simulator/v2/getComponentList',
   '/simulator/v2/getContainerList',
   '/simulator/v2/getDefaultComponent',
   '/simulator/v2/getImagefsDetail',
-  '/simulator/executeScript',
-  '/simulator/getTabList',
-  '/vtouch/startType',
-  '/components/index',
+  '/upgrade/getAppUpgradeApk',
+  '/user/info',
+  '/vtouch/startType_steam',
 ])
 
 export default {
