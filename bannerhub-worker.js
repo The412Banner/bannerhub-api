@@ -3,6 +3,274 @@ const GAMEHUB_API = 'https://landscape-api.vgabc.com'
 const SECRET_KEY = 'all-egg-shell-y7ZatUDk'
 
 // ============================================================
+// CHAT MODERATION & ROUTING
+// Routes: POST /chat/send, POST /chat/report, GET /chat/rooms
+// Required CF Worker secrets: SUPABASE_URL, SUPABASE_SERVICE_KEY
+// Required CF KV bindings: TOKEN_STORE (already bound)
+// KV keys used:
+//   rl:{username}            — rate limit counter (TTL 60s)
+//   last:{username}          — last message content (TTL 60s)
+//   rep:{username}:{msgId}   — report dedup (TTL 7 days)
+// ============================================================
+
+const KNOWN_ROOMS = new Set(['general','english','spanish','portuguese','russian','chinese','japanese'])
+
+// ── Profanity word lists (normalised lowercase) ───────────────────────────────
+// English
+const BAD_WORDS_EN = ['fuck','shit','cunt','nigger','nigga','faggot','fag','cock','pussy',
+  'asshole','bitch','bastard','whore','slut','motherfucker','motherfucking','dick','prick',
+  'wanker','twat','bollocks','arse','retard','spastic','kike','chink','spic','wetback',
+  'cracker','honky','tranny','shemale','rape','raping','rapist','pedophile','paedophile',
+  'nonce','clit','blowjob','handjob','rimjob','cumshot','creampie','jizz','cum','titties',
+  'tits','boobs','dildo','vibrator','anal','anus','rectum','scrotum','testicle','penis',
+  'vagina','vulva','labia','orgasm','masturbate','masturbation','ejaculate','ejaculation',
+  'pornography','pornographic','xxx','nude','naked','nudity','erection','boner']
+// Spanish
+const BAD_WORDS_ES = ['puta','coño','mierda','joder','hostia','cabron','cabrón','pendejo',
+  'chingada','chingar','verga','polla','culo','maricón','maricon','puto','zorra','follar',
+  'coger','culero','pinche','mamada','chinga','carajo','hijoputa','gilipollas','capullo',
+  'gilipolla','mamón','marica','travesti','pederasta','violacion','violación']
+// Portuguese
+const BAD_WORDS_PT = ['porra','caralho','fodase','foder','buceta','merda','cuzao','cuzão',
+  'viado','bicha','puta','vadia','safado','safada','desgraçado','desgraçada','filho da puta',
+  'filha da puta','otario','otário','corno','cu','pau','xoxota','piroca','babaca']
+// Russian (romanised)
+const BAD_WORDS_RU = ['blyad','blyadt','pizda','pizdets','khuy','khui','ebal','ebat','nahuy',
+  'poshel','pidoras','pidor','govno','suka','zalupa','mudak','mudila','yebat','yebany',
+  'ублюдок','блядь','пизда','хуй','ебать','гавно','сука','мудак','пидор','педик']
+// Chinese (pinyin + chars)
+const BAD_WORDS_ZH = ['cao','shabi','tama','tamade','wocao','niubi','niuma','ta ma de',
+  '操','傻逼','他妈的','我操','牛逼','日你','滚','狗日','妈逼','干你','草泥马']
+// Japanese (romaji + kana)
+const BAD_WORDS_JA = ['kichiku','kisama','kiero','shine','aho','baka','chikushō','chinpira',
+  'chinpo','manko','unko','kusoyaro','kutabare','omanko','yariman','売春','強姦','レイプ']
+
+const ALL_BAD_WORDS = [
+  ...BAD_WORDS_EN, ...BAD_WORDS_ES, ...BAD_WORDS_PT,
+  ...BAD_WORDS_RU, ...BAD_WORDS_ZH, ...BAD_WORDS_JA
+]
+
+// ── Explicit/sexual content keywords ─────────────────────────────────────────
+const EXPLICIT_WORDS = ['porn','porno','pornhub','xvideos','xnxx','onlyfans','camgirl',
+  'sexting','nude pic','nude photo','send nudes','naked pic','sex video','sex tape',
+  'child porn','cp ','lolicon','shota','hentai','incest','bestiality','zoophilia',
+  'snuff','gore','自慰','性交','강간','포르노']
+
+// ── Leet-speak normalisation ──────────────────────────────────────────────────
+function normaliseLeet(text) {
+  return text
+    .toLowerCase()
+    .replace(/\u200b|\u200c|\u200d|\ufeff/g, '') // strip zero-width chars
+    .replace(/@/g, 'a')
+    .replace(/3/g, 'e')
+    .replace(/1/g, 'i')
+    .replace(/0/g, 'o')
+    .replace(/\$/g, 's')
+    .replace(/5/g, 's')
+    .replace(/7/g, 't')
+    .replace(/4/g, 'a')
+    .replace(/ph/g, 'f')
+    .replace(/\*/g, '')
+    .replace(/\./g, '')
+    .replace(/_/g, '')
+    .replace(/-/g, '')
+}
+
+// ── Filter check ──────────────────────────────────────────────────────────────
+function containsBadWord(text) {
+  const norm = normaliseLeet(text)
+  for (const word of ALL_BAD_WORDS) {
+    if (norm.includes(normaliseLeet(word))) return true
+  }
+  return false
+}
+
+function containsExplicit(text) {
+  const lower = text.toLowerCase()
+  for (const word of EXPLICIT_WORDS) {
+    if (lower.includes(word)) return true
+  }
+  return false
+}
+
+function containsSpam(text) {
+  // Repeated single char 7+ times
+  if (/(.)\1{6,}/.test(text)) return true
+  // URL/invite links
+  if (/(https?:\/\/|discord\.gg|t\.me|bit\.ly|tinyurl|invite\.gg)/i.test(text)) return true
+  // All caps > 10 chars (>80% uppercase)
+  const letters = text.replace(/[^a-zA-Z]/g, '')
+  if (letters.length > 10) {
+    const upperCount = (text.match(/[A-Z]/g) || []).length
+    if (upperCount / letters.length > 0.8) return true
+  }
+  return false
+}
+
+// ── Supabase helper ───────────────────────────────────────────────────────────
+async function supabaseQuery(env, method, path, body) {
+  const res = await fetch(`${env.SUPABASE_URL}/rest/v1${path}`, {
+    method,
+    headers: {
+      'apikey': env.SUPABASE_SERVICE_KEY,
+      'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': method === 'POST' ? 'return=representation' : 'return=minimal',
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  })
+  const text = await res.text()
+  try { return { ok: res.ok, status: res.status, data: JSON.parse(text) } }
+  catch (e) { return { ok: res.ok, status: res.status, data: text } }
+}
+
+// ── POST /chat/send ───────────────────────────────────────────────────────────
+async function handleChatSend(request, env, corsHeaders) {
+  const time = Math.floor(Date.now() / 1000).toString()
+  let body
+  try { body = await request.json() } catch (e) {
+    return new Response(JSON.stringify({ error: 'invalid_json', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  const { room, username, content } = body
+
+  // 1. Validate fields
+  if (!KNOWN_ROOMS.has(room)) {
+    return new Response(JSON.stringify({ error: 'invalid_room', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+  if (!username || !/^[a-zA-Z0-9_]{2,24}$/.test(username)) {
+    return new Response(JSON.stringify({ error: 'invalid_username', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+  if (!content || content.trim().length === 0 || content.length > 500) {
+    return new Response(JSON.stringify({ error: 'invalid_content', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 2. Rate limit — max 3 messages per 60 seconds
+  const rlKey = `rl:${username}`
+  const rlRaw = await env.TOKEN_STORE.get(rlKey)
+  const rlCount = rlRaw ? parseInt(rlRaw, 10) : 0
+  if (rlCount >= 3) {
+    return new Response(JSON.stringify({ error: 'rate_limit', time }),
+      { status: 429, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+  await env.TOKEN_STORE.put(rlKey, String(rlCount + 1), { expirationTtl: 60 })
+
+  // 3. Duplicate message check
+  const lastKey = `last:${username}`
+  const lastMsg = await env.TOKEN_STORE.get(lastKey)
+  if (lastMsg === content.trim()) {
+    return new Response(JSON.stringify({ error: 'duplicate_message', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 4. Spam check
+  if (containsSpam(content)) {
+    return new Response(JSON.stringify({ error: 'filtered', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 5. Profanity check
+  if (containsBadWord(content)) {
+    return new Response(JSON.stringify({ error: 'filtered', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 6. Explicit content check
+  if (containsExplicit(content)) {
+    return new Response(JSON.stringify({ error: 'filtered', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 7. Insert into Supabase
+  const result = await supabaseQuery(env, 'POST', '/messages', {
+    room, username, content: content.trim()
+  })
+  if (!result.ok) {
+    return new Response(JSON.stringify({ error: 'db_error', time }),
+      { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 8. Store last message for duplicate check
+  await env.TOKEN_STORE.put(lastKey, content.trim(), { expirationTtl: 60 })
+
+  return new Response(JSON.stringify({ ok: true, time }),
+    { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+}
+
+// ── POST /chat/report ─────────────────────────────────────────────────────────
+async function handleChatReport(request, env, corsHeaders) {
+  const time = Math.floor(Date.now() / 1000).toString()
+  let body
+  try { body = await request.json() } catch (e) {
+    return new Response(JSON.stringify({ error: 'invalid_json', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  const { message_id, reporter_username } = body
+
+  if (!message_id || !reporter_username) {
+    return new Response(JSON.stringify({ error: 'missing_fields', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+  if (!/^[a-zA-Z0-9_]{2,24}$/.test(reporter_username)) {
+    return new Response(JSON.stringify({ error: 'invalid_username', time }),
+      { status: 400, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 1. Check for duplicate report via KV
+  const repKey = `rep:${reporter_username}:${message_id}`
+  const alreadyReported = await env.TOKEN_STORE.get(repKey)
+  if (alreadyReported) {
+    return new Response(JSON.stringify({ error: 'already_reported', time }),
+      { status: 409, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 2. Insert report row
+  const insertResult = await supabaseQuery(env, 'POST', '/reports', {
+    message_id, reporter_username
+  })
+  // 23505 = unique violation (already reported in DB)
+  if (!insertResult.ok) {
+    return new Response(JSON.stringify({ error: 'already_reported', time }),
+      { status: 409, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+
+  // 3. Store dedup key in KV (7 days)
+  await env.TOKEN_STORE.put(repKey, '1', { expirationTtl: 604800 })
+
+  // 4. Count total reports for this message
+  const countResult = await supabaseQuery(env, 'GET',
+    `/reports?message_id=eq.${encodeURIComponent(message_id)}&select=id`, null)
+  const reportCount = Array.isArray(countResult.data) ? countResult.data.length : 0
+
+  // 5. Auto-hide at 3+ reports
+  if (reportCount >= 3) {
+    await supabaseQuery(env, 'PATCH',
+      `/messages?id=eq.${encodeURIComponent(message_id)}`,
+      { hidden: true })
+  }
+
+  return new Response(JSON.stringify({ ok: true, time }),
+    { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+}
+
+// ── GET /chat/rooms ───────────────────────────────────────────────────────────
+async function handleChatRooms(env, corsHeaders) {
+  const result = await supabaseQuery(env, 'GET',
+    '/rooms?select=id,name,flag_emoji,sort_order&order=sort_order.asc', null)
+  if (!result.ok) {
+    return new Response(JSON.stringify({ error: 'db_error' }),
+      { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+  }
+  return new Response(JSON.stringify(result.data),
+    { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+}
+
+// ============================================================
 // STEAM LIBRARY AUGMENTATION
 // Purpose: GameHub's backend only returns ~65 games it has
 // metadata for. This augments the library sync response with
@@ -211,6 +479,19 @@ const GITHUB_ROUTES = new Set([
 ])
 
 export default {
+  async scheduled(event, env, ctx) {
+    // Keep-alive ping — fires every 5 minutes via cron trigger
+    // Prevents Supabase free tier from pausing due to inactivity
+    try {
+      await fetch(`${env.SUPABASE_URL}/rest/v1/rooms?select=id&limit=1`, {
+        headers: {
+          'apikey': env.SUPABASE_SERVICE_KEY,
+          'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+        }
+      })
+    } catch (e) {}
+  },
+
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
 
@@ -227,6 +508,44 @@ export default {
     const time = Math.floor(Date.now() / 1000).toString()
 
     try {
+      // ── Chat routes ────────────────────────────────────────────────────────
+      if (url.pathname === '/chat/send') {
+        if (request.method !== 'POST') {
+          return new Response(JSON.stringify({ error: 'method_not_allowed' }),
+            { status: 405, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        return handleChatSend(request, env, corsHeaders)
+      }
+
+      if (url.pathname === '/chat/report') {
+        if (request.method !== 'POST') {
+          return new Response(JSON.stringify({ error: 'method_not_allowed' }),
+            { status: 405, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        return handleChatReport(request, env, corsHeaders)
+      }
+
+      if (url.pathname === '/chat/rooms') {
+        return handleChatRooms(env, corsHeaders)
+      }
+
+      // ── Keep-alive ping (scheduled cron calls this) ─────────────────────────
+      if (url.pathname === '/chat/keepalive') {
+        try {
+          await fetch(`${env.SUPABASE_URL}/rest/v1/rooms?select=id&limit=1`, {
+            headers: {
+              'apikey': env.SUPABASE_SERVICE_KEY,
+              'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+            }
+          })
+          return new Response(JSON.stringify({ ok: true }),
+            { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        } catch (e) {
+          return new Response(JSON.stringify({ ok: false }),
+            { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+      }
+
       // steam/steamid/store: app sends SteamID64 after login → stored in KV
       // POST body: {steam_id: "76561198..."}
       // Called by BannerHub smali patch after successful Steam login.
