@@ -238,45 +238,45 @@
       "version_code": 1
     },
     {
-      "display_name": "wine11.0-x64-1-test",
+      "display_name": "wine11.0-x64-2-test2",
       "download_url": "https://github.com/The412Banner/gamehub-wine/releases/download/Containers/wine_11.0.tar.zst",
-      "file_md5": "9505c6cc4dffeeb9daa47aaf0cd3f680",
+      "file_md5": "716c7e2c9f6d192992f55a4b7b422ea3",
       "file_name": "wine_11.0.tar.zst",
-      "file_size": "50959058",
+      "file_size": "50960628",
       "framework": "X64",
       "framework_type": "stable",
       "id": 22,
       "is_steam": 2,
       "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-      "name": "wine11.0-x64-1-test",
+      "name": "wine11.0-x64-2-test2",
       "sub_data": {
-        "sub_file_name": "9505c6cc4dffeeb9daa47aaf0cd3f680.tzst",
-        "sub_download_url": "https://github.com/The412Banner/gamehub-wine/releases/download/Containers/9505c6cc4dffeeb9daa47aaf0cd3f680.tzst",
-        "sub_file_md5": "7861b56ed786f089fae2d653684ecd3f"
+        "sub_file_name": "716c7e2c9f6d192992f55a4b7b422ea3.tzst",
+        "sub_download_url": "https://github.com/The412Banner/gamehub-wine/releases/download/Containers/716c7e2c9f6d192992f55a4b7b422ea3.tzst",
+        "sub_file_md5": "496dfc0c8c35e53569efe5fb628ab673"
       },
       "version": "1.0.0",
       "version_code": 1
     },
     {
-      "display_name": "wine11.0-arm64x-1-test",
+      "display_name": "wine11.0-arm64x-2-test2",
       "download_url": "https://github.com/The412Banner/gamehub-wine/releases/download/Containers/wine_11.0_arm64x.tar.zst",
-      "file_md5": "c8cd9ad9994a0a1c599c937071bff5fd",
+      "file_md5": "aa36176412bb149fc61fff65fc0f2723",
       "file_name": "wine_11.0_arm64x.tar.zst",
-      "file_size": "46652789",
+      "file_size": "46651760",
       "framework": "arm64X",
       "framework_type": "stable",
       "id": 23,
       "is_steam": 2,
       "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-      "name": "wine11.0-arm64x-1-test",
+      "name": "wine11.0-arm64x-2-test2",
       "sub_data": {
-        "sub_file_name": "c8cd9ad9994a0a1c599c937071bff5fd.tzst",
-        "sub_download_url": "https://github.com/The412Banner/gamehub-wine/releases/download/Containers/c8cd9ad9994a0a1c599c937071bff5fd.tzst",
-        "sub_file_md5": "34ca93a81b6bc1aaa14508d2c78f248e"
+        "sub_file_name": "aa36176412bb149fc61fff65fc0f2723.tzst",
+        "sub_download_url": "https://github.com/The412Banner/gamehub-wine/releases/download/Containers/aa36176412bb149fc61fff65fc0f2723.tzst",
+        "sub_file_md5": "8f33c630c56a25c6503b1b2d27f1757e"
       },
       "version": "1.0.0",
       "version_code": 1
     }
   ],
-  "time": "1774737433"
+  "time": "1775048660"
 }
