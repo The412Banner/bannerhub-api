@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Box64-0.3.6-fix",
+    "type": "Box64",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6926cf09b236b5a885435e3a47eac234.tzst"
+  },
+  {
+    "name": "Box64-0.4.1-2",
+    "type": "Box64",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/cd7fe18882bcc8d5e37a7893288f8703.tzst"
+  },
+  {
+    "name": "Box64-0.4.1-fix",
+    "type": "Box64",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4b6f415713ea9c4307aac0d880f1cd39.tzst"
+  },
+  {
+    "name": "Fex-20260321",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e41acf1248a8e48411ce2b7f8c73dc65.tzst"
+  },
+  {
+    "name": "FEXCore-2412",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/7135e13eec3f762ad16c3e60b4a22c4b.tzst"
+  },
+  {
+    "name": "FEXCore-2507",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e9c7fd7d4423f016117bf7123fa5b91e.tzst"
+  },
+  {
+    "name": "FEXCore-2508",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/916808cdf7578f912f470a696d6530a0.tzst"
+  },
+  {
+    "name": "FEXCore-2509",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a35f4369e3d984d8976bee6c70a24ce9.tzst"
+  },
+  {
+    "name": "FEXCore-2510.1",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ad272409778c5c4988eb351cc0f7ca0c.tzst"
+  },
+  {
+    "name": "FEXCore-2601-aabdded",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b825cae37911cf67d04bc48f98e79872.tzst"
+  },
+  {
+    "name": "FEXCore-2603",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst"
+  },
+  {
+    "name": "DXVK-2.3.1-1-gplasync",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/65d81dc54578a980c8424de0ad297193.tzst"
+  },
+  {
+    "name": "DXVK-2.4.1-1-gplasync",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ab28f1764e4b09bfe205ca8bb21824d8.tzst"
+  },
+  {
+    "name": "DXVK-2.4.1-1-gplasync-pre-reg",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ea36cee0e4e1008492ce9eb7d9fa3da5.tzst"
+  },
+  {
+    "name": "DXVK-2.5.3-1-gplasync",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dbbff17c3777deeaeca592bd2483d98a.tzst"
+  },
+  {
+    "name": "DXVK-2.6.2-1-gplasync",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9e68f12b3437e225b1a9a974fa9d70b4.tzst"
+  },
+  {
+    "name": "DXVK-2.7.1-1-gplasync",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e24dbfd879ff0f2c972612ec45af3a7a.tzst"
+  },
+  {
+    "name": "DXVK-2.3.1-1-gplasync-arm64ec",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5ebc435712155473430b0c4a93e33292.tzst"
+  },
+  {
+    "name": "DXVK-2.4.1-1-gplasync-arm64ec",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/59a10aa0db94a4508f70c3a86ca57b3c.tzst"
+  },
+  {
+    "name": "DXVK-2.4.1-1-gplasync-arm64ec-pre-reg",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/789213bb5f0b2ad5d650e4288a3ba7c5.tzst"
+  },
+  {
+    "name": "DXVK-2.5.3-1-gplasync-arm64ec",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ff82c8383294831760b65054ebc6403a.tzst"
+  },
+  {
+    "name": "DXVK-2.6.2-1-gplasync-arm64ec",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6f53b8657f6a213eebe4b2497457f828.tzst"
+  },
+  {
+    "name": "DXVK-2.6.2-gplasync-arm64ec",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0e52b83f4e97942aaafe330dbfaa741b.tzst"
+  },
+  {
+    "name": "DXVK-2.7.1-1-gplasync-arm64ec",
+    "type": "DXVK",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b2c5d5daae9b81633699f69638ff070a.tzst"
+  }
+]
