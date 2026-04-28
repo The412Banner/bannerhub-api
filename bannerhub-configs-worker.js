@@ -162,7 +162,7 @@ async function handleList(url, env) {
   entries.sort((a, b) => b.votes !== a.votes ? b.votes - a.votes : b.timestamp - a.timestamp);
 
   if (env.CONFIG_KV) {
-    await kvPut(env.CONFIG_KV, cacheKey, JSON.stringify(entries), { expirationTtl: 900 });
+    await kvPut(env.CONFIG_KV, cacheKey, JSON.stringify(entries), { expirationTtl: 180 });
   }
   return json(entries);
 }
