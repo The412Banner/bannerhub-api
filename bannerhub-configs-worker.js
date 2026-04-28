@@ -162,7 +162,7 @@ async function handleList(url, env) {
   entries.sort((a, b) => b.votes !== a.votes ? b.votes - a.votes : b.timestamp - a.timestamp);
 
   if (env.CONFIG_KV) {
-    await kvPut(env.CONFIG_KV, cacheKey, JSON.stringify(entries), { expirationTtl: 180 });
+    await kvPut(env.CONFIG_KV, cacheKey, JSON.stringify(entries), { expirationTtl: 900 });
   }
   return json(entries);
 }
@@ -336,11 +336,10 @@ async function handleDownload(url, env) {
   if (!res.ok) return json({ error: "Config not found" }, 404);
   const text = await res.text();
 
-  if (sha && env.CONFIG_KV) {
+  if (sha && env.CONFIG_KV && Math.random() < 0.1) {
     try {
       const cur = parseInt(await env.CONFIG_KV.get("downloads:" + sha) || "0");
-      await kvPut(env.CONFIG_KV, "downloads:" + sha, String(cur + 1));
-      await kvDelete(env.CONFIG_KV, "cache:list:" + game);
+      await kvPut(env.CONFIG_KV, "downloads:" + sha, String(cur + 10));
     } catch (e) { /* skip */ }
   }
 
@@ -371,7 +370,6 @@ async function handleVote(request, env) {
   const newCount = current + 1;
   await kvPut(env.CONFIG_KV, "votes:" + sha, String(newCount));
   await kvPut(env.CONFIG_KV, ipKey, "1", { expirationTtl: 86400 });
-  if (game) await kvDelete(env.CONFIG_KV, "cache:list:" + game);
 
   return json({ success: true, votes: newCount });
 }
