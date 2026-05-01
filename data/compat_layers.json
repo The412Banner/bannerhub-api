@@ -55,6 +55,11 @@
     "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst"
   },
   {
+    "name": "Fex_20260428",
+    "type": "FEXCore",
+    "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6c73748ec3b5ef321604bb758b1c5afb.tzst"
+  },
+  {
     "name": "DXVK-2.3.1-1-gplasync",
     "type": "DXVK",
     "remoteUrl": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/65d81dc54578a980c8424de0ad297193.tzst"

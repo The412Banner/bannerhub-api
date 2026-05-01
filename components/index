@@ -4,7 +4,7 @@
   "data": {
     "categories": [
       {
-        "count": 31,
+        "count": 32,
         "display_name": "Box64 Emulators",
         "manifest_url": "/components/box64_manifest",
         "name": "box64",
@@ -53,6 +53,6 @@
         "type": 7
       }
     ],
-    "total_components": 501
+    "total_components": 502
   }
 }

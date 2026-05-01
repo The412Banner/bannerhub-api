@@ -2320,6 +2320,18 @@
       "display_name": "Qualcomm 863.1"
     },
     {
+      "id": 1294,
+      "name": "Fex_20260428",
+      "type": 1,
+      "version": "1.0.1",
+      "version_code": 1,
+      "file_name": "6c73748ec3b5ef321604bb758b1c5afb.tzst",
+      "file_md5": "6c73748ec3b5ef321604bb758b1c5afb",
+      "file_size": "2202281",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6c73748ec3b5ef321604bb758b1c5afb.tzst",
+      "display_name": "Fex_20260428"
+    },
+    {
       "id": 1293,
       "name": "Mesa Turnip Gen8 v9",
       "type": 2,

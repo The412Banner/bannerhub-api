@@ -5,8 +5,22 @@
     "type": 1,
     "type_name": "box64",
     "display_name": "Box64 Emulators",
-    "total": 31,
+    "total": 32,
     "components": [
+      {
+        "display_name": "Fex_20260428",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6c73748ec3b5ef321604bb758b1c5afb.tzst",
+        "file_md5": "6c73748ec3b5ef321604bb758b1c5afb",
+        "file_name": "6c73748ec3b5ef321604bb758b1c5afb.tzst",
+        "file_size": 2202281,
+        "id": 1294,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "Fex_20260428",
+        "type": 1,
+        "version": "1.0.1",
+        "version_code": 1
+      },
       {
         "display_name": "FEXCore-2510.1",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ad272409778c5c4988eb351cc0f7ca0c.tzst",

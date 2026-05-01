@@ -148,6 +148,15 @@
         "version": "1.0.1"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6c73748ec3b5ef321604bb758b1c5afb.tzst",
+        "file_md5": "6c73748ec3b5ef321604bb758b1c5afb",
+        "file_name": "6c73748ec3b5ef321604bb758b1c5afb.tzst",
+        "file_size": 2202281,
+        "name": "Fex_20260428",
+        "type": 1,
+        "version": "1.0.1"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex-20250429.tzst",
         "file_md5": "e49bb58ec8079bad3fff719d1bc1e480",
         "file_name": "Fex-20250429.tzst",
@@ -4513,6 +4522,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 501
+    "total": 502
   }
 }
