@@ -46,14 +46,14 @@
         "type": 6
       },
       {
-        "count": 2,
+        "count": 3,
         "display_name": "Steam Components",
         "manifest_url": "/components/steam_manifest",
         "name": "steam",
         "type": 7
       },
       {
-        "count": 1,
+        "count": 0,
         "display_name": "Steam Client",
         "manifest_url": "/components/steam_client_manifest",
         "name": "steam_client",
