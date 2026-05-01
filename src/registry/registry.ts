@@ -39,7 +39,7 @@ export class ComponentRegistry {
     this.config = config;
 
     // Initialize type maps
-    for (let type = 1; type <= 7; type++) {
+    for (let type = 1; type <= 8; type++) {
       this.componentsByType.set(type as ComponentTypeValue, []);
     }
   }
@@ -145,7 +145,7 @@ export class ComponentRegistry {
    */
   getCountsByType(): Record<ComponentTypeValue, number> {
     const counts: Record<number, number> = {};
-    for (let type = 1; type <= 7; type++) {
+    for (let type = 1; type <= 8; type++) {
       counts[type] = this.getCountByType(type as ComponentTypeValue);
     }
     return counts as Record<ComponentTypeValue, number>;

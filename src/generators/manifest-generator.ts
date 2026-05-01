@@ -57,7 +57,7 @@ export function generateAllManifests(
 ): Map<string, ManifestFile> {
   const manifests = new Map<string, ManifestFile>();
 
-  for (let type = 1; type <= 7; type++) {
+  for (let type = 1; type <= 8; type++) {
     const typeValue = type as ComponentTypeValue;
     const meta = COMPONENT_TYPE_META[typeValue];
     const manifest = generateManifest(registry, typeValue);

@@ -9,6 +9,7 @@ export const ComponentType = {
   GAMES: 5,
   LIBRARIES: 6,
   STEAM: 7,
+  STEAM_CLIENT: 8,
 } as const;
 
 export type ComponentTypeValue = (typeof ComponentType)[keyof typeof ComponentType];
@@ -54,6 +55,11 @@ export const COMPONENT_TYPE_META: Record<
     name: 'steam',
     displayName: 'Steam Components',
     manifest: 'steam_manifest',
+  },
+  [ComponentType.STEAM_CLIENT]: {
+    name: 'steam_client',
+    displayName: 'Steam Client',
+    manifest: 'steam_client_manifest',
   },
 };
 

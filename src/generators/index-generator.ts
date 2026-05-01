@@ -10,7 +10,7 @@ import { COMPONENT_TYPE_META } from '../types/index.js';
 export function generateIndex(registry: ComponentRegistry): IndexFile {
   const categories: IndexCategory[] = [];
 
-  for (let type = 1; type <= 7; type++) {
+  for (let type = 1; type <= 8; type++) {
     const typeValue = type as ComponentTypeValue;
     const meta = COMPONENT_TYPE_META[typeValue];
     const count = registry.getCountByType(typeValue);

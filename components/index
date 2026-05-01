@@ -32,7 +32,7 @@
         "type": 4
       },
       {
-        "count": 63,
+        "count": 64,
         "display_name": "Game Patches",
         "manifest_url": "/components/games_manifest",
         "name": "games",
@@ -51,8 +51,15 @@
         "manifest_url": "/components/steam_manifest",
         "name": "steam",
         "type": 7
+      },
+      {
+        "count": 1,
+        "display_name": "Steam Client",
+        "manifest_url": "/components/steam_client_manifest",
+        "name": "steam_client",
+        "type": 8
       }
     ],
-    "total_components": 502
+    "total_components": 504
   }
 }

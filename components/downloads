@@ -3280,6 +3280,15 @@
         "version": "1.0.8"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e31b0c0ee0057dfc45dd22652d494f12.tzst",
+        "file_md5": "e31b0c0ee0057dfc45dd22652d494f12",
+        "file_name": "e31b0c0ee0057dfc45dd22652d494f12.tzst",
+        "file_size": 970765,
+        "name": "SteamAgent2",
+        "type": 5,
+        "version": "1.0.1"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/TESV_Settings.tzst",
         "file_md5": "bdba9041455ed62ec9013edee142b784",
         "file_name": "TESV_Settings.tzst",
@@ -4520,8 +4529,17 @@
         "name": "steam_9866233",
         "type": 7,
         "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/08c498cef5c15d710d253681751068c1.tzst",
+        "file_md5": "08c498cef5c15d710d253681751068c1",
+        "file_name": "08c498cef5c15d710d253681751068c1.tzst",
+        "file_size": 64897035,
+        "name": "steam_client_0403",
+        "type": 8,
+        "version": "1.0.0"
       }
     ],
-    "total": 502
+    "total": 504
   }
 }

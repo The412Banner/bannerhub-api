@@ -2320,6 +2320,30 @@
       "display_name": "Qualcomm 863.1"
     },
     {
+      "id": 1296,
+      "name": "steam_client_0403",
+      "type": 8,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "08c498cef5c15d710d253681751068c1.tzst",
+      "file_md5": "08c498cef5c15d710d253681751068c1",
+      "file_size": "64897035",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/08c498cef5c15d710d253681751068c1.tzst",
+      "display_name": "steam_client_0403"
+    },
+    {
+      "id": 1295,
+      "name": "SteamAgent2",
+      "type": 5,
+      "version": "1.0.1",
+      "version_code": 2,
+      "file_name": "e31b0c0ee0057dfc45dd22652d494f12.tzst",
+      "file_md5": "e31b0c0ee0057dfc45dd22652d494f12",
+      "file_size": "970765",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e31b0c0ee0057dfc45dd22652d494f12.tzst",
+      "display_name": "SteamAgent2"
+    },
+    {
       "id": 1294,
       "name": "Fex_20260428",
       "type": 1,
