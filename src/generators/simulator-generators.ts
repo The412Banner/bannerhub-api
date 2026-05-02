@@ -7,6 +7,7 @@ import type {
   ComponentListFile,
   ComponentListEntry,
   ContainerListFile,
+  ContainerDetailFile,
   DefaultComponentFile,
   DefaultComponentEntry,
   EmptyComponentEntry,
@@ -262,6 +263,28 @@ export function generateContainerList(
     data: orderedContainers,
     time: timestamp || getTimestamp(),
   };
+}
+
+/**
+ * Generate simulator/v2/getContainerDetail/<id> — one file per container
+ * Used by GameHub 6.0 (BaseResult<EnvLayerEntity> shape).
+ * Map<id, ContainerDetailFile> so the writer can serialize each as its own file.
+ */
+export function generateContainerDetails(
+  registry: ComponentRegistry,
+  timestamp?: string
+): Map<number, ContainerDetailFile> {
+  const out = new Map<number, ContainerDetailFile>();
+  const ts = timestamp || getTimestamp();
+  for (const container of registry.containers) {
+    out.set(container.id, {
+      code: 200,
+      msg: 'Success',
+      data: toOrderedContainer(container),
+      time: ts,
+    });
+  }
+  return out;
 }
 
 /**

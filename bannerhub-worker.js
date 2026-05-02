@@ -609,6 +609,22 @@ export default {
         return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
+      // GameHub 6.0: getContainerDetail?id=N → serve per-id static file
+      if (url.pathname === '/simulator/v2/getContainerDetail') {
+        let id = null
+        if (request.method === 'POST') {
+          try { const body = await request.json(); id = body.id } catch (e) {}
+        } else {
+          id = url.searchParams.get('id')
+        }
+        if (id == null || !/^\d+$/.test(String(id))) {
+          return new Response(JSON.stringify({ code: 400, msg: 'Missing or invalid id', data: null, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        const res = await fetch(`${GITHUB_BASE}/simulator/v2/getContainerDetail/${id}`)
+        if (!res.ok) return new Response(JSON.stringify({ code: 404, msg: 'Container not found', data: null, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+      }
+
       // getComponentList: filter by type
       if (url.pathname === '/simulator/v2/getComponentList') {
         let type = null

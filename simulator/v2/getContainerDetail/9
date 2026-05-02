@@ -1,0 +1,25 @@
+{
+  "code": 200,
+  "msg": "Success",
+  "data": {
+    "display_name": "proton9.0-arm64x-3",
+    "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_proton_9.0_arm64x.tar.zst",
+    "file_md5": "2ff6952b6eec0ef881e97bde57ddc8e6",
+    "file_name": "wine_proton_9.0_arm64x.tar.zst",
+    "file_size": "211725844",
+    "framework": "arm64X",
+    "framework_type": "proton",
+    "id": 9,
+    "is_steam": 1,
+    "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+    "name": "proton9.0-arm64x-3",
+    "sub_data": {
+      "sub_file_name": "2ff6952b6eec0ef881e97bde57ddc8e6.tzst",
+      "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ae9d3f0c04341ac4fbb933f1ce4b6409.tzst",
+      "sub_file_md5": "ae9d3f0c04341ac4fbb933f1ce4b6409"
+    },
+    "version": "1.0.0",
+    "version_code": 1
+  },
+  "time": "1777741221"
+}

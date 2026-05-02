@@ -1,0 +1,20 @@
+{
+  "code": 200,
+  "msg": "Success",
+  "data": {
+    "display_name": "proton11.0-arm64x",
+    "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_proton_11.0_arm64x.tar.zst",
+    "file_md5": "ffcaf1de4ad715449f36fa3e80f8f44c",
+    "file_name": "wine_proton_11.0_arm64x.tar.zst",
+    "file_size": "240592439",
+    "framework": "arm64X",
+    "framework_type": "proton",
+    "id": 11,
+    "is_steam": 1,
+    "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+    "name": "proton11.0-arm64x",
+    "version": "1.0.0",
+    "version_code": 1
+  },
+  "time": "1777741221"
+}

@@ -1,0 +1,25 @@
+{
+  "code": 200,
+  "msg": "Success",
+  "data": {
+    "display_name": "wine9.16-x64-2",
+    "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_9.16.tar.zst",
+    "file_md5": "830a254f9b3c92aa850a502621037ae9",
+    "file_name": "wine_9.16.tar.zst",
+    "file_size": "153061370",
+    "framework": "X64",
+    "framework_type": "stable",
+    "id": 7,
+    "is_steam": 2,
+    "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+    "name": "wine9.16-x64-2",
+    "sub_data": {
+      "sub_file_name": "830a254f9b3c92aa850a502621037ae9.tzst",
+      "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/830a254f9b3c92aa850a502621037ae9.tzst",
+      "sub_file_md5": "74409280a831e9841f74488cb7c1bab4"
+    },
+    "version": "1.0.0",
+    "version_code": 1
+  },
+  "time": "1777741221"
+}

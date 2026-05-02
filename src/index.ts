@@ -12,6 +12,7 @@ import {
   generateAllComponentList,
   generateComponentList,
   generateContainerList,
+  generateContainerDetails,
   generateDefaultComponent,
   generateImagefsDetail,
   generateExecuteScript,
@@ -172,6 +173,15 @@ async function build(config: BuildConfig): Promise<void> {
     'simulator/v2/getContainerList',
     generateContainerList(registry, timestamp)
   );
+
+  // GameHub 6.0: per-id container detail (BaseResult<EnvLayerEntity>)
+  for (const [id, file] of generateContainerDetails(registry, timestamp)) {
+    writeOutput(
+      config.outputDir,
+      `simulator/v2/getContainerDetail/${id}`,
+      file
+    );
+  }
 
   writeOutput(
     config.outputDir,

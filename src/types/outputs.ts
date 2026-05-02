@@ -144,6 +144,12 @@ export type ComponentListFile = ApiResponseWithTime<ComponentListData>;
 export type ContainerListFile = ApiResponseWithTime<Container[]>;
 
 // ============================================================================
+// GetContainerDetail (simulator/v2/getContainerDetail?id=N) — GameHub 6.0
+// ============================================================================
+
+export type ContainerDetailFile = ApiResponseWithTime<Container>;
+
+// ============================================================================
 // GetDefaultComponent (simulator/v2/getDefaultComponent)
 // ============================================================================
 
