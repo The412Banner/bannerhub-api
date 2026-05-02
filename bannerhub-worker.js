@@ -625,7 +625,7 @@ export default {
         return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
-      // getComponentList: filter by type
+      // getComponentList: filter by type, strip 5.x-only fields for 6.0 parser
       if (url.pathname === '/simulator/v2/getComponentList') {
         let type = null
         if (request.method === 'POST') {
@@ -636,12 +636,30 @@ export default {
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
         if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: '[]', total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
         const data = await res.json()
-        if (type && data.data && data.data.list) {
+        if (data.data && data.data.list) {
+          try {
+            let all = JSON.parse(data.data.list)
+            if (type) all = all.filter(i => i.type === type)
+            // is_ui and gpu_range are 5.x-only fields; 6.0 EnvLayerEntity has
+            // no such fields and kotlinx default-strict parsing throws on them.
+            for (const e of all) { delete e.is_ui; delete e.gpu_range }
+            data.data.list = JSON.stringify(all)
+            data.data.total = all.length
+          } catch (e) {}
+        }
+        return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+      }
+
+      // getAllComponentList: strip 5.x-only is_ui field for 6.0 kotlinx parser
+      if (url.pathname === '/simulator/v2/getAllComponentList') {
+        const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
+        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: '[]', total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        const data = await res.json()
+        if (data.data && data.data.list) {
           try {
             const all = JSON.parse(data.data.list)
-            const filtered = all.filter(i => i.type === type)
-            data.data.list = JSON.stringify(filtered)
-            data.data.total = filtered.length
+            for (const e of all) delete e.is_ui
+            data.data.list = JSON.stringify(all)
           } catch (e) {}
         }
         return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
