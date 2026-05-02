@@ -646,9 +646,25 @@ export default {
         return e
       }
 
+      // Unwrap the static catalog's 5.x list-of-string wrapper into a real
+      // JSON array, so 6.0 kotlinx-strict can deserialize it. EnvListData.list
+      // is typed Ljava/util/List; (EnvListData.smali:36); BaseResult<List<...>>
+      // expects data to BE the array (i9f.smali:2413, nhn.smali:932). A
+      // stringified list throws "expected JSON array, got String".
+      const parseListField = (data) => {
+        if (!data || data.list == null) return []
+        if (Array.isArray(data.list)) return data.list
+        if (typeof data.list === 'string') {
+          try { return JSON.parse(data.list) } catch (e) { return [] }
+        }
+        return []
+      }
+
       // getComponentList: filter by type, reshape for 6.0 parser.
       // Body may be JSON or form-urlencoded — 6.0 client uses form-urlencoded
       // (see i9f.smali:485 — pl6.J builder writes "type"/"page"/"page_size").
+      // Response shape: BaseResult<EnvListData<EnvLayerEntity>> — list MUST be
+      // a real JSON array, not stringified.
       if (url.pathname === '/simulator/v2/getComponentList') {
         let type = null
         if (request.method === 'POST') {
@@ -665,33 +681,38 @@ export default {
           if (v != null && v !== '') type = Number(v)
         }
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
-        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: '[]', total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: [], total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
         const data = await res.json()
-        if (data.data && data.data.list) {
-          try {
-            let all = JSON.parse(data.data.list)
-            if (type) all = all.filter(i => i.type === type)
-            for (const e of all) reshapeFor60(e)
-            data.data.list = JSON.stringify(all)
-            data.data.total = all.length
-          } catch (e) {}
-        }
-        return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        let all = parseListField(data.data)
+        if (type) all = all.filter(i => i.type === type)
+        for (const e of all) reshapeFor60(e)
+        return new Response(JSON.stringify({
+          code: data.code ?? 200,
+          msg: data.msg ?? 'Success',
+          data: {
+            list: all,
+            total: all.length,
+            page: data.data?.page ?? 1,
+            pageSize: data.data?.pageSize ?? all.length,
+          },
+          time,
+        }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
-      // getAllComponentList: reshape for 6.0 parser
+      // getAllComponentList: reshape for 6.0 parser.
+      // Response shape: BaseResult<List<EnvLayerEntity>> — data IS the array.
       if (url.pathname === '/simulator/v2/getAllComponentList') {
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
-        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: '[]', total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: [], time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
         const data = await res.json()
-        if (data.data && data.data.list) {
-          try {
-            const all = JSON.parse(data.data.list)
-            for (const e of all) reshapeFor60(e)
-            data.data.list = JSON.stringify(all)
-          } catch (e) {}
-        }
-        return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        const all = parseListField(data.data)
+        for (const e of all) reshapeFor60(e)
+        return new Response(JSON.stringify({
+          code: data.code ?? 200,
+          msg: data.msg ?? 'Success',
+          data: all,
+          time,
+        }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
       // Other GitHub Pages static routes
