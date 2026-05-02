@@ -646,13 +646,23 @@ export default {
         return e
       }
 
-      // getComponentList: filter by type, reshape for 6.0 parser
+      // getComponentList: filter by type, reshape for 6.0 parser.
+      // Body may be JSON or form-urlencoded — 6.0 client uses form-urlencoded
+      // (see i9f.smali:485 — pl6.J builder writes "type"/"page"/"page_size").
       if (url.pathname === '/simulator/v2/getComponentList') {
         let type = null
         if (request.method === 'POST') {
-          try { const body = await request.json(); type = body.type } catch (e) {}
+          const raw = await request.clone().text()
+          try {
+            type = JSON.parse(raw).type
+          } catch (e) {
+            const params = new URLSearchParams(raw)
+            const v = params.get('type')
+            if (v != null && v !== '') type = Number(v)
+          }
         } else {
-          type = Number(url.searchParams.get('type')) || null
+          const v = url.searchParams.get('type')
+          if (v != null && v !== '') type = Number(v)
         }
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
         if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: '[]', total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
