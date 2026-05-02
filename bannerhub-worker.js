@@ -638,62 +638,31 @@ export default {
       }
 
       // Reshape a 5.x EnvLayer item to satisfy 6.0 kotlinx-strict EnvLayerEntity.
-      //
-      // Three jobs:
-      //  1. Strip dead 5.x fields (is_ui, gpu_range) the 6.0 deserializer rejects.
-      //  2. Rename snake_case keys to the camelCase names the 6.0 EnvLayerEntity
-      //     declares (display_name → displayName, etc.). Without this rename the
-      //     kotlinx-strict deserializer aborts the WHOLE list on the first entry
-      //     because the required `displayName`/`downloadUrl`/etc. fields are
-      //     "missing", and zero COMPONENT:* keys land in
-      //     sp_winemu_unified_resources.xml. Confirmed against vanilla on-device
-      //     XML which uses camelCase verbatim.
-      //  3. Inject required-but-missing 6.0 fields (fileType, framework,
-      //     frameworkType, isSteam, status, blurb, upgradeMsg, subData, base,
-      //     state).
-      //
-      // Idempotent: re-running only fills undefineds, never overwrites real values.
-      const renameKey = (obj, from, to) => {
-        if (obj[from] !== undefined && obj[to] === undefined) {
-          obj[to] = obj[from]
-          delete obj[from]
-        } else if (obj[from] !== undefined) {
-          delete obj[from] // both present — drop the snake_case duplicate
-        }
-      }
+      // Strips dead 5.x fields (is_ui, gpu_range) and injects 6.0 required fields
+      // missing from the static catalog (fileType, framework, framework_type,
+      // is_steam, status, blurb, upgrade_msg, sub_data, base). Without these,
+      // every 6.0 component-list parse throws and zero COMPONENT:* keys land in
+      // sp_winemu_unified_resources.xml.
       const reshapeFor60 = (e) => {
-        // 1. Strip 5.x dead fields
         delete e.is_ui
         delete e.gpu_range
-
-        // 2. snake_case → camelCase (every required EnvLayerEntity field that
-        //    the static catalog ships in 5.x form)
-        renameKey(e, 'display_name', 'displayName')
-        renameKey(e, 'download_url', 'downloadUrl')
-        renameKey(e, 'file_md5', 'fileMd5')
-        renameKey(e, 'file_name', 'fileName')
-        renameKey(e, 'file_size', 'fileSize')
-        renameKey(e, 'framework_type', 'frameworkType')
-        renameKey(e, 'is_steam', 'isSteam')
-        renameKey(e, 'sub_data', 'subData')
-        renameKey(e, 'upgrade_msg', 'upgradeMsg')
-        renameKey(e, 'version_code', 'versionCode')
-
-        // 3. Defaults for required fields the static catalog doesn't ship.
-        //    `state` defaults to "None" (Lcom/xiaoji/egggame/common/winemu/bean/
-        //    State;->None). `fileType=0` for the Wine prefix scaffold (base) —
-        //    the unpacker uses base-layout extractor for that and flat-package
-        //    extractor for everything else (fileType=4).
-        if (e.fileType === undefined) e.fileType = (e.name === 'base') ? 0 : 4
+        if (e.fileType === undefined) {
+          // 'base' is the Wine prefix scaffold (40 MB tarball with system32/
+          // syswow64 layout); upstream catalog (`data/sp_winemu_all_components12
+          // .xml:147`) marks it fileType=0 so the unpacker uses the base-layout
+          // extractor. Other components default to fileType=4 (single package).
+          // Without this special case the unpacker lays base out flat and
+          // markRepoDownloaded(base) returns false → launch fails on first run.
+          e.fileType = (e.name === 'base') ? 0 : 4
+        }
         if (e.framework === undefined) e.framework = ''
-        if (e.frameworkType === undefined) e.frameworkType = ''
-        if (e.isSteam === undefined) e.isSteam = 0
+        if (e.framework_type === undefined) e.framework_type = ''
+        if (e.is_steam === undefined) e.is_steam = 0
         if (e.status === undefined) e.status = 0
         if (e.blurb === undefined) e.blurb = ''
-        if (e.upgradeMsg === undefined) e.upgradeMsg = ''
-        if (e.subData === undefined) e.subData = null
+        if (e.upgrade_msg === undefined) e.upgrade_msg = ''
+        if (e.sub_data === undefined) e.sub_data = null
         if (e.base === undefined) e.base = null
-        if (e.state === undefined) e.state = 'None'
         return e
       }
 
