@@ -719,88 +719,18 @@ export default {
         }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
-      // getAllComponentList: merge BannerHub curated catalog with upstream
-      // Xiaoji catalog. BannerHub entries win on name collision; remaining
-      // upstream entries fall through unchanged so 6.0 sees `base`,
-      // `vkd3d-2.12`, `dxvk-2.3.1-async`, `Fex-20251025`,
-      // `turnip_v25.0.0_R1`, etc. without us having to mirror every component.
-      // Upstream failure is non-fatal — degrades to BannerHub-only.
+      // getAllComponentList: reshape for 6.0 parser.
       // Response shape: BaseResult<List<EnvLayerEntity>> — data IS the array.
       if (url.pathname === '/simulator/v2/getAllComponentList') {
-        // Clone the inbound body once so both upstream call and any later
-        // logging can read it; .text()/.json() drain the original.
-        const inboundBody = request.method === 'POST' ? await request.clone().text() : null
-
-        // 1. BannerHub curated catalog (GitHub Pages static)
-        const ghPromise = fetch(`${GITHUB_BASE}${url.pathname}`)
-          .then(r => r.ok ? r.json() : { code: 200, msg: 'Success', data: [] })
-          .catch(() => ({ code: 200, msg: 'Success', data: [] }))
-
-        // 2. Upstream Xiaoji catalog — real token + regenerated signature.
-        // Mirrors the default-tail proxy logic at the bottom of the handler
-        // so this single endpoint can fall through without changing routing.
-        const upstreamPromise = (async () => {
-          try {
-            let realToken = 'fake-token'
-            try {
-              const tokenDataStr = await env.TOKEN_STORE.get('bannerhub_token')
-              if (tokenDataStr) realToken = JSON.parse(tokenDataStr).token
-            } catch (e) {}
-
-            let forwardBody = null
-            if (inboundBody !== null) {
-              try {
-                const bodyJson = JSON.parse(inboundBody)
-                if ('token' in bodyJson) {
-                  bodyJson.token = realToken
-                  const sigParams = {}
-                  for (const [k, v] of Object.entries(bodyJson)) {
-                    if (k !== 'sign') sigParams[k] = v
-                  }
-                  bodyJson.sign = generateSignature(sigParams)
-                  forwardBody = JSON.stringify(bodyJson)
-                } else {
-                  forwardBody = inboundBody
-                }
-              } catch (e) {
-                forwardBody = inboundBody
-              }
-            }
-
-            const r = await fetch(`${GAMEHUB_API}${url.pathname}${url.search}`, {
-              method: request.method,
-              headers: { 'Content-Type': 'application/json' },
-              body: forwardBody,
-            })
-            if (!r.ok) return []
-            const j = await r.json()
-            // Upstream returns 6.0 shape directly: data IS the array.
-            // Older shape (data.list) handled by parseListField as fallback.
-            return Array.isArray(j.data) ? j.data : parseListField(j.data)
-          } catch (e) {
-            return []
-          }
-        })()
-
-        const [ghJson, upstreamList] = await Promise.all([ghPromise, upstreamPromise])
-        const ours = parseListField(ghJson.data)
-
-        // 3. Merge — BannerHub entries first, upstream-only entries appended.
-        const ourNames = new Set(ours.map(e => e?.name).filter(Boolean))
-        const merged = [
-          ...ours,
-          ...upstreamList.filter(e => e?.name && !ourNames.has(e.name)),
-        ]
-
-        // 4. Reshape every entry for the 6.0 strict parser. reshapeFor60 is
-        // idempotent (only fills undefined fields + strips dead 5.x fields),
-        // so applying it to upstream entries that already match 6.0 is safe.
-        for (const e of merged) reshapeFor60(e)
-
+        const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
+        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: [], time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        const data = await res.json()
+        const all = parseListField(data.data)
+        for (const e of all) reshapeFor60(e)
         return new Response(JSON.stringify({
-          code: ghJson.code ?? 200,
-          msg: ghJson.msg ?? 'Success',
-          data: merged,
+          code: data.code ?? 200,
+          msg: data.msg ?? 'Success',
+          data: all,
           time,
         }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
