@@ -686,6 +686,12 @@ export default {
       // Response shape: BaseResult<EnvListData<EnvLayerEntity>> — list MUST be
       // a real JSON array, not stringified.
       if (url.pathname === '/simulator/v2/getComponentList') {
+        // 5.x: pass upstream catalog through unchanged (preserves is_ui,
+        // gpu_range, native list shape). Only 6.0 needs filtering + reshape.
+        if (!is60) {
+          const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
+          return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
         let type = null
         if (request.method === 'POST') {
           const raw = await request.clone().text()
@@ -736,6 +742,14 @@ export default {
       // wrong 6.0 assumption — corrected 2026-05-02 after on-device XML
       // showed 11 entries vs vanilla's ~340 COMPONENT entries.
       if (url.pathname === '/simulator/v2/getAllComponentList') {
+        // 5.x: pass upstream catalog through unchanged. The EnvListData wrapper
+        // + reshape are only required by 6.0's kotlinx-strict deserializer;
+        // 5.x's tolerant Gson parser accepts the native upstream shape with
+        // is_ui/gpu_range intact. Gating restores pre-bc09862 5.x behavior.
+        if (!is60) {
+          const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
+          return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
         if (!res.ok) {
           return new Response(JSON.stringify({
