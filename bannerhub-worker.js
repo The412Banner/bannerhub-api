@@ -720,17 +720,42 @@ export default {
       }
 
       // getAllComponentList: reshape for 6.0 parser.
-      // Response shape: BaseResult<List<EnvLayerEntity>> — data IS the array.
+      //
+      // ACTUAL response shape per l13.smali:861 cast:
+      //   BaseResult<EnvListData<EnvLayerEntity>>
+      //
+      // EnvListData has fields {list, page, page_size, total} (per
+      // EnvListData.smali:97-131). The 6.0 client deserializes `data` as
+      // EnvListData<EnvLayerEntity> via EnvListData$$serializer — passing a
+      // bare JSON array for `data` causes the cast to fail silently, the
+      // entire COMPONENT category never persists, and
+      // sp_winemu_unified_resources.xml stays empty for COMPONENT:* keys
+      // (only CONTAINER:* and IMAGE_FS:* land via their separate endpoints).
+      //
+      // Earlier `data: [array]` shape (5.x bare-list) was inherited from a
+      // wrong 6.0 assumption — corrected 2026-05-02 after on-device XML
+      // showed 11 entries vs vanilla's ~340 COMPONENT entries.
       if (url.pathname === '/simulator/v2/getAllComponentList') {
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
-        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: [], time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        if (!res.ok) {
+          return new Response(JSON.stringify({
+            code: 200, msg: 'Success',
+            data: { list: [], page: 1, page_size: 0, total: 0 },
+            time,
+          }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
         const data = await res.json()
         const all = parseListField(data.data)
         for (const e of all) reshapeFor60(e)
         return new Response(JSON.stringify({
           code: data.code ?? 200,
           msg: data.msg ?? 'Success',
-          data: all,
+          data: {
+            list: all,
+            page: data.data?.page ?? 1,
+            page_size: data.data?.page_size ?? all.length,
+            total: data.data?.total ?? all.length,
+          },
           time,
         }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
