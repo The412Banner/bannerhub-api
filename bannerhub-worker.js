@@ -495,6 +495,18 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
 
+    // 6.0 client gate: patched 6.0 APK prefixes every relative path with "v6/"
+    // (smali patch on zdb.b in bannerhub-revanced). Strip the prefix here so
+    // existing handlers don't need to know about it; record `is60` for the
+    // few endpoints that need a 6.0-only response variant (firmware 1.3.4,
+    // future-only swaps). 5.x clients never carry the prefix and stay on the
+    // default branch.
+    let is60 = false
+    if (url.pathname.startsWith('/v6/')) {
+      is60 = true
+      url.pathname = url.pathname.slice(3) // keep the leading slash
+    }
+
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -634,7 +646,15 @@ export default {
       const reshapeFor60 = (e) => {
         delete e.is_ui
         delete e.gpu_range
-        if (e.fileType === undefined) e.fileType = 4
+        if (e.fileType === undefined) {
+          // 'base' is the Wine prefix scaffold (40 MB tarball with system32/
+          // syswow64 layout); upstream catalog (`data/sp_winemu_all_components12
+          // .xml:147`) marks it fileType=0 so the unpacker uses the base-layout
+          // extractor. Other components default to fileType=4 (single package).
+          // Without this special case the unpacker lays base out flat and
+          // markRepoDownloaded(base) returns false → launch fails on first run.
+          e.fileType = (e.name === 'base') ? 0 : 4
+        }
         if (e.framework === undefined) e.framework = ''
         if (e.framework_type === undefined) e.framework_type = ''
         if (e.is_steam === undefined) e.is_steam = 0
@@ -713,6 +733,35 @@ export default {
           data: all,
           time,
         }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+      }
+
+      // getImagefsDetail: serves Firmware metadata. 5.x stays on 1.3.3 (proxied
+      // from the static file). 6.0 (is60) gets 1.3.4 from a separate release
+      // asset so both versions coexist on the GitHub release without 5.x ever
+      // being upgraded. Single endpoint, branch on the /v6/ gate.
+      if (url.pathname === '/simulator/v2/getImagefsDetail') {
+        if (is60) {
+          return new Response(JSON.stringify({
+            code: 200,
+            msg: 'Success',
+            data: {
+              id: 1,
+              version: '1.3.4',
+              version_code: 24,
+              name: 'Firmware',
+              logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
+              upgrade_msg: '',
+              blurb: '',
+              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_v134.zst',
+              file_md5: '76a186c04196c0ffe31ea1ab88705b83',
+              file_size: '168890206',
+              file_name: 'imagefs.zst',
+              display_name: 'Firmware',
+            },
+            time,
+          }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        // 5.x falls through to GITHUB_ROUTES static proxy below.
       }
 
       // Other GitHub Pages static routes
