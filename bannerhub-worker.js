@@ -625,7 +625,28 @@ export default {
         return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
-      // getComponentList: filter by type, strip 5.x-only fields for 6.0 parser
+      // Reshape a 5.x EnvLayer item to satisfy 6.0 kotlinx-strict EnvLayerEntity.
+      // Strips dead 5.x fields (is_ui, gpu_range) and injects 6.0 required fields
+      // missing from the static catalog (fileType, framework, framework_type,
+      // is_steam, status, blurb, upgrade_msg, sub_data, base). Without these,
+      // every 6.0 component-list parse throws and zero COMPONENT:* keys land in
+      // sp_winemu_unified_resources.xml.
+      const reshapeFor60 = (e) => {
+        delete e.is_ui
+        delete e.gpu_range
+        if (e.fileType === undefined) e.fileType = 4
+        if (e.framework === undefined) e.framework = ''
+        if (e.framework_type === undefined) e.framework_type = ''
+        if (e.is_steam === undefined) e.is_steam = 0
+        if (e.status === undefined) e.status = 0
+        if (e.blurb === undefined) e.blurb = ''
+        if (e.upgrade_msg === undefined) e.upgrade_msg = ''
+        if (e.sub_data === undefined) e.sub_data = null
+        if (e.base === undefined) e.base = null
+        return e
+      }
+
+      // getComponentList: filter by type, reshape for 6.0 parser
       if (url.pathname === '/simulator/v2/getComponentList') {
         let type = null
         if (request.method === 'POST') {
@@ -640,9 +661,7 @@ export default {
           try {
             let all = JSON.parse(data.data.list)
             if (type) all = all.filter(i => i.type === type)
-            // is_ui and gpu_range are 5.x-only fields; 6.0 EnvLayerEntity has
-            // no such fields and kotlinx default-strict parsing throws on them.
-            for (const e of all) { delete e.is_ui; delete e.gpu_range }
+            for (const e of all) reshapeFor60(e)
             data.data.list = JSON.stringify(all)
             data.data.total = all.length
           } catch (e) {}
@@ -650,7 +669,7 @@ export default {
         return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
-      // getAllComponentList: strip 5.x-only is_ui field for 6.0 kotlinx parser
+      // getAllComponentList: reshape for 6.0 parser
       if (url.pathname === '/simulator/v2/getAllComponentList') {
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
         if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: '[]', total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
@@ -658,7 +677,7 @@ export default {
         if (data.data && data.data.list) {
           try {
             const all = JSON.parse(data.data.list)
-            for (const e of all) delete e.is_ui
+            for (const e of all) reshapeFor60(e)
             data.data.list = JSON.stringify(all)
           } catch (e) {}
         }
