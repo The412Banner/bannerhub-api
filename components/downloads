@@ -2236,6 +2236,15 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/c1ea3d759308447a808949ff54abc02a.tzst",
+        "file_md5": "c1ea3d759308447a808949ff54abc02a",
+        "file_name": "c1ea3d759308447a808949ff54abc02a.tzst",
+        "file_size": 3210246,
+        "name": "Turnip_v26.2.0_R1",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9b5a941f7d5f3893be49b9c530621696.tzst",
         "file_md5": "9b5a941f7d5f3893be49b9c530621696",
         "file_name": "9b5a941f7d5f3893be49b9c530621696.tzst",
@@ -4540,6 +4549,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 504
+    "total": 505
   }
 }
