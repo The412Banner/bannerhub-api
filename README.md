@@ -145,7 +145,7 @@ if (url.pathname.startsWith('/v6/')) {
 
 ### Component types in 6.0 — what we know
 
-5.x type ints (the table immediately above this section) are **mostly** identical in 6.0, but only one is empirically confirmed by direct on-device evidence. Type 7 is the first known divergence.
+5.x type ints (the table immediately above this section) are **mostly** identical in 6.0. Types 1–4 are now empirically confirmed by direct on-device evidence (picker → download → game launch). Types 5–6 act as background dependencies in both versions and haven't been independently re-tested. Type 7 is the first known divergence.
 
 | Type | Category | 6.0 status |
 |---|---|---|
