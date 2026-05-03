@@ -95,7 +95,7 @@ The original 5.3.5 type schema as the BannerHub app and BH-Lite consume it. **Ga
 | 2 | GPU Drivers | Turnip, Adreno, Mali drivers |
 | 3 | DXVK | DirectX 9/10/11 → Vulkan |
 | 4 | VKD3D | Direct3D 12 → Vulkan |
-| 5 | Games | Game-specific patches/configs |
+| 5 | Games / Steam agents | Per-game patches and configs, plus Steam agents (`steamagent`, `SteamAgent2`) |
 | 6 | Libraries | Windows DLLs for Wine |
 | 7 | Steam | Steam client components — retyped from 8 → 7 in commit `ca40378` for 5.3.5 compatibility |
 
@@ -145,7 +145,7 @@ if (url.pathname.startsWith('/v6/')) {
 
 ### Component types in 6.0 — what we know
 
-5.x type ints (the table immediately above this section) are **mostly** identical in 6.0. Types 1–4 are now empirically confirmed by direct on-device evidence (picker → download → game launch). Types 5–6 act as background dependencies in both versions and haven't been independently re-tested. Steam is the first known divergence: 5.3.5 uses type 7, 6.0 uses type 8.
+5.x type ints (the table immediately above this section) are **mostly** identical in 6.0. Types 1–5 are confirmed identical to 5.3.5 by direct on-device evidence. Type 6 (libraries / runtime deps) acts as a background dependency in both versions and hasn't been independently re-tested. Steam is the only known divergence: 5.3.5 uses type 7, 6.0 uses type 8.
 
 | Type | Category | 6.0 status |
 |---|---|---|
@@ -153,7 +153,7 @@ if (url.pathname.startsWith('/v6/')) {
 | 2 | GPU Drivers | ✅ **confirmed live** — non-default Turnip picked in 6.0 picker, downloaded, and used to launch a game on device |
 | 3 | DXVK | ✅ **confirmed live** — non-default DXVK picked, downloaded, and used to launch a D3D9/10/11 game on device |
 | 4 | VKD3D | ✅ **confirmed live** — non-default VKD3D picked, downloaded, and used to launch a D3D12 game on device |
-| 5 | Games / Settings | 🟡 **assumed identical** |
+| 5 | Games / Steam agents | ✅ **confirmed live** — same category in both 5.3.5 and 6.0; holds per-game settings packs **and** Steam agents (`steamagent`, `SteamAgent2`) |
 | 6 | Libraries / Runtime deps | 🟡 **assumed identical** |
 | 8 | Steam *(was type 7 in 5.3.5)* | ✅ **confirmed live** — Worker remaps type 7 → 8 on `/v6/` and `steam_client_0403` is picker-visible, downloads, and runs Steam games on device. `steam_client_0403` originally shipped at type 8 (commit `d694e1a`) before the 5.3.5 retype to 7; 6.0 kept the pre-retype convention. |
 
@@ -161,7 +161,7 @@ if (url.pathname.startsWith('/v6/')) {
 
 #### `remapSteamFor60` — type 7 → 8
 
-Every Steam *client* in the catalog ships at type 7 (5.3.5 convention). On `/v6/`, `remapSteamFor60` promotes `e.type === 7` to `e.type = 8` before the type filter runs (so a 6.0 client requesting `type=8` actually receives them). Steam *agents* (type 5: `steamagent`, `SteamAgent2`) are intentionally untouched — different category, classification still TBD.
+Every Steam *client* in the catalog ships at type 7 (5.3.5 convention). On `/v6/`, `remapSteamFor60` promotes `e.type === 7` to `e.type = 8` before the type filter runs (so a 6.0 client requesting `type=8` actually receives them). Steam *agents* (type 5: `steamagent`, `SteamAgent2`) are intentionally untouched — type 5 is the correct category for them in both 5.3.5 and 6.0.
 
 #### `keepForSteamClientAllowlist60` — only `steam_client_0403`
 
@@ -189,7 +189,6 @@ const ALLOWED_STEAM_CLIENTS = new Set(['steam_client_0403'])
 
 ### Known gaps
 
-- **Steam agents at type 5 are almost certainly mistyped** in both 5.3.5 and 6.0. Real category unknown.
 - **No probe yet for type 9+ categories** XiaoJi may have introduced in the KMP rewrite.
 
 ## Directory Structure
