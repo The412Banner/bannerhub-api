@@ -155,7 +155,7 @@ if (url.pathname.startsWith('/v6/')) {
 | 4 | VKD3D | ✅ **confirmed live** — non-default VKD3D picked, downloaded, and used to launch a D3D12 game on device |
 | 5 | Games / Settings | 🟡 **assumed identical** |
 | 6 | Libraries / Runtime deps | 🟡 **assumed identical** |
-| 8 | Steam *(was type 7 in 5.3.5)* | ❓ **probe in flight** — type-7 entries do not surface in 6.0's Steam picker, so the Worker **remaps type 7 → 8** on `/v6/`. `steam_client_0403` originally shipped at type 8 (commit `d694e1a`) before the 5.3.5 retype to 7, so 6.0 likely kept the pre-retype convention. On-device confirmation pending. |
+| 8 | Steam *(was type 7 in 5.3.5)* | ✅ **confirmed live** — Worker remaps type 7 → 8 on `/v6/` and `steam_client_0403` is picker-visible, downloads, and runs Steam games on device. `steam_client_0403` originally shipped at type 8 (commit `d694e1a`) before the 5.3.5 retype to 7; 6.0 kept the pre-retype convention. |
 
 ### Steam handling on 6.0
 
@@ -173,7 +173,7 @@ const ALLOWED_STEAM_CLIENTS = new Set(['steam_client_0403'])
 
 #### `is_steam` defaulting
 
-`reshapeFor60` defaults the `is_steam` field to `0` on every entry that doesn't carry it (which is currently every entry in our catalog). Whether the 6.0 picker requires `is_steam=1` on Steam clients is still un-probed; if the type-8 remap alone proves insufficient on device, this is the next variable to flip.
+`reshapeFor60` defaults the `is_steam` field to `0` on every entry that doesn't carry it (which is currently every entry in our catalog). The type-8 remap alone is sufficient for 6.0 to surface and use Steam clients, so `is_steam=1` is currently unnecessary.
 
 #### BannerHub-fork JavaSteam integration
 
@@ -189,10 +189,8 @@ const ALLOWED_STEAM_CLIENTS = new Set(['steam_client_0403'])
 
 ### Known gaps
 
-- **Type 8 not yet on-device confirmed.** The remap deploys cleanly; whether the 6.0 Steam picker actually queries type 8 is pending a device test.
-- **`is_steam` is universally `0` right now.** If type 8 alone doesn't surface clients, this is the next variable.
 - **Steam agents at type 5 are almost certainly mistyped** in both 5.3.5 and 6.0. Real category unknown.
-- **No probe yet for type 8+ categories** XiaoJi may have introduced in the KMP rewrite.
+- **No probe yet for type 9+ categories** XiaoJi may have introduced in the KMP rewrite.
 
 ## Directory Structure
 
