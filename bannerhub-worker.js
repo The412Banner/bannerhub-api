@@ -688,6 +688,24 @@ export default {
         if (e.type === 7) e.type = 8
       }
 
+      // 6.0-only Steam-client allowlist.
+      //
+      // Upstream's catalog still ships steam_9866232 and steam_9866233
+      // alongside steam_client_0403, all at type=7 → promoted to type=8 by
+      // remapSteamFor60 above. For 6.0 we want the picker to surface only
+      // steam_client_0403 (the canonical/working one); the 9866* clients
+      // are kept in the 5.x pass-through response for back-compat but
+      // filtered from /v6/ responses entirely.
+      //
+      // Returns true to KEEP, false to DROP. Drop only Steam clients
+      // (post-remap type=8) that are NOT the allowlisted name. Anything
+      // else (every non-Steam entry, plus steam_client_0403 itself) is
+      // kept untouched. Inverted check on type lets us add more allowed
+      // Steam-client names later by extending ALLOWED_STEAM_CLIENTS.
+      const ALLOWED_STEAM_CLIENTS = new Set(['steam_client_0403'])
+      const keepForSteamClientAllowlist60 = (e) =>
+        e.type !== 8 || ALLOWED_STEAM_CLIENTS.has(e.name)
+
       // Unwrap the static catalog's 5.x list-of-string wrapper into a real
       // JSON array, so 6.0 kotlinx-strict can deserialize it. EnvListData.list
       // is typed Ljava/util/List; (EnvListData.smali:36); BaseResult<List<...>>
@@ -735,6 +753,9 @@ export default {
         // Promote Steam clients (type=7 in 5.3.5) to type=8 BEFORE the type
         // filter, so a 6.0 client requesting type=8 actually receives them.
         for (const e of all) remapSteamFor60(e)
+        // 6.0 Steam-client allowlist: keep only steam_client_0403, drop
+        // upstream's steam_9866232/233 from /v6/ responses.
+        all = all.filter(keepForSteamClientAllowlist60)
         if (type) all = all.filter(i => i.type === type)
         for (const e of all) reshapeFor60(e)
         return new Response(JSON.stringify({
@@ -784,8 +805,12 @@ export default {
           }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
         }
         const data = await res.json()
-        const all = parseListField(data.data)
-        for (const e of all) { remapSteamFor60(e); reshapeFor60(e) }
+        let all = parseListField(data.data)
+        for (const e of all) remapSteamFor60(e)
+        // 6.0 Steam-client allowlist: keep only steam_client_0403, drop
+        // upstream's steam_9866232/233 from /v6/ responses.
+        all = all.filter(keepForSteamClientAllowlist60)
+        for (const e of all) reshapeFor60(e)
         return new Response(JSON.stringify({
           code: data.code ?? 200,
           msg: data.msg ?? 'Success',
