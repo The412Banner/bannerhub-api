@@ -142,7 +142,7 @@ if (url.pathname.startsWith('/v6/')) {
 | `is_ui`, `gpu_range` | Stripped — these are 5.x fields the 6.0 deserializer rejects |
 | `fileType` | Pinned to `0` for the `base` entry (Wine prefix scaffold extractor); `4` for everything else (single-package extractor) |
 | `framework`, `framework_type`, `blurb`, `upgrade_msg` | Defaulted to empty string when missing |
-| `is_steam`, `status` | Defaulted to `0` when missing |
+| `status` | Defaulted to `0` when missing |
 | `sub_data`, `base` | Defaulted to `null` when missing |
 
 ### Component types in 6.0 — what we know
@@ -175,9 +175,18 @@ Upstream's catalog ships `steam_9866232` and `steam_9866233` alongside `steam_cl
 const ALLOWED_STEAM_CLIENTS = new Set(['steam_client_0403'])
 ```
 
-#### `is_steam` defaulting
+#### `isSteam` on containers (not components)
 
-`reshapeFor60` defaults the `is_steam` field to `0` on every entry that doesn't carry it (which is currently every entry in our catalog). The type-8 remap alone is sufficient for 6.0 to surface and use Steam clients, so `is_steam=1` is currently unnecessary.
+GameHub 6.0 reads **`isSteam`** (camelCase) on **containers** (Wine/Proton runtime containers from `getContainerList`) — not on components. The flag tells the host which container can host the Steam client component. Components themselves carry no Steam-related field; type 8 alone (the remap above) is what makes Steam clients picker-visible to 6.0.
+
+The upstream catalog already carries the correct values in the snake-case `is_steam` field on each container. On `/v6/getContainerList` the Worker mirrors them to camelCase verbatim:
+
+| `isSteam` | Containers (6.0 + 5.3.5) |
+|---|---|
+| **1** | `proton10.0-x64-1`, `proton10.0-arm64x-2`, `proton9.0-x64-3`, `proton9.0-arm64x-3`, `proton11.0-arm64x`, `wine10.6-arm64x-2` (all Proton-based + the one Wine ARM64EC container) |
+| **2** | `wine9.5-x64-2`, `wine9.13-x64-2`, `wine9.16-x64-2`, `wine10.0-x64-2` (all plain Wine x64) |
+
+5.x clients hit the same upstream pass-through and continue to read snake-case `is_steam` only — no `isSteam` is added to their responses. (Earlier versions of `reshapeFor60` defaulted a snake-case `is_steam=0` on every component, which was dead code — 6.0 never read it. Removed.)
 
 #### BannerHub-fork JavaSteam integration
 
