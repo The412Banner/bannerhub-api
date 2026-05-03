@@ -145,7 +145,7 @@ if (url.pathname.startsWith('/v6/')) {
 
 ### Component types in 6.0 — what we know
 
-5.x type ints (the table immediately above this section) are **mostly** identical in 6.0. Types 1–4 are now empirically confirmed by direct on-device evidence (picker → download → game launch). Types 5–6 act as background dependencies in both versions and haven't been independently re-tested. Type 7 is the first known divergence.
+5.x type ints (the table immediately above this section) are **mostly** identical in 6.0. Types 1–4 are now empirically confirmed by direct on-device evidence (picker → download → game launch). Types 5–6 act as background dependencies in both versions and haven't been independently re-tested. Steam is the first known divergence: 5.3.5 uses type 7, 6.0 uses type 8.
 
 | Type | Category | 6.0 status |
 |---|---|---|
@@ -155,8 +155,7 @@ if (url.pathname.startsWith('/v6/')) {
 | 4 | VKD3D | ✅ **confirmed live** — non-default VKD3D picked, downloaded, and used to launch a D3D12 game on device |
 | 5 | Games / Settings | 🟡 **assumed identical** |
 | 6 | Libraries / Runtime deps | 🟡 **assumed identical** |
-| 7 | (was Steam in 5.3.5) | ❌ **not what 6.0 expects** — type-7 entries do not surface in 6.0's Steam picker. We currently **remap type 7 → 8** on `/v6/` as our first probe |
-| 8 | Steam (probing) | ❓ **probe in flight** — `steam_client_0403` shipped at type 8 historically (commit `d694e1a`) before the 5.3.5 retype to 7; on-device test pending |
+| 8 | Steam *(was type 7 in 5.3.5)* | ❓ **probe in flight** — type-7 entries do not surface in 6.0's Steam picker, so the Worker **remaps type 7 → 8** on `/v6/`. `steam_client_0403` originally shipped at type 8 (commit `d694e1a`) before the 5.3.5 retype to 7, so 6.0 likely kept the pre-retype convention. On-device confirmation pending. |
 
 ### Steam handling on 6.0
 
