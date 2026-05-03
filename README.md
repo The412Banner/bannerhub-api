@@ -95,8 +95,8 @@ The original 5.3.5 type schema as the BannerHub app and BH-Lite consume it. **Ga
 | 2 | GPU Drivers | Turnip, Adreno, Mali drivers |
 | 3 | DXVK | DirectX 9/10/11 → Vulkan |
 | 4 | VKD3D | Direct3D 12 → Vulkan |
-| 5 | Games / Steam agents | Per-game patches and configs, plus Steam agents (`steamagent`, `SteamAgent2`) |
-| 6 | Libraries | Windows DLLs for Wine |
+| 5 | Games | Game-specific patches/configs (per-game settings packs). Steam agents (`steamagent`, `SteamAgent2`) also live here. |
+| 6 | Libraries / Runtime deps | Windows DLLs for Wine — vcredist, dotnet, and similar runtime dependencies |
 | 7 | Steam | Steam client components — retyped from 8 → 7 in commit `ca40378` for 5.3.5 compatibility |
 
 ## GameHub 6.0 support
@@ -145,7 +145,7 @@ if (url.pathname.startsWith('/v6/')) {
 
 ### Component types in 6.0 — what we know
 
-5.x type ints (the table immediately above this section) are **mostly** identical in 6.0. Types 1–5 are confirmed identical to 5.3.5 by direct on-device evidence. Type 6 (libraries / runtime deps) acts as a background dependency in both versions and hasn't been independently re-tested. Steam is the only known divergence: 5.3.5 uses type 7, 6.0 uses type 8.
+5.x type ints (the table immediately above this section) are **mostly** identical in 6.0. Types 1–6 are now confirmed identical to 5.3.5 by direct on-device evidence. Steam clients are the only known divergence: 5.3.5 uses type 7, 6.0 uses type 8. (Steam agents — distinct from clients — stay at type 5 in both versions.)
 
 | Type | Category | 6.0 status |
 |---|---|---|
@@ -153,8 +153,8 @@ if (url.pathname.startsWith('/v6/')) {
 | 2 | GPU Drivers | ✅ **confirmed live** — non-default Turnip picked in 6.0 picker, downloaded, and used to launch a game on device |
 | 3 | DXVK | ✅ **confirmed live** — non-default DXVK picked, downloaded, and used to launch a D3D9/10/11 game on device |
 | 4 | VKD3D | ✅ **confirmed live** — non-default VKD3D picked, downloaded, and used to launch a D3D12 game on device |
-| 5 | Games / Steam agents | ✅ **confirmed live** — same category in both 5.3.5 and 6.0; holds per-game settings packs **and** Steam agents (`steamagent`, `SteamAgent2`) |
-| 6 | Libraries / Runtime deps | 🟡 **assumed identical** |
+| 5 | Games | ✅ **confirmed live** — Game-specific patches/configs (per-game settings packs); same category in both 5.3.5 and 6.0. Steam agents (`steamagent`, `SteamAgent2`) also live here. |
+| 6 | Libraries / Runtime deps | ✅ **confirmed live** — Windows DLLs for Wine: vcredist, dotnet components, and similar runtime dependencies; same category in both 5.3.5 and 6.0 |
 | 8 | Steam *(was type 7 in 5.3.5)* | ✅ **confirmed live** — Worker remaps type 7 → 8 on `/v6/` and `steam_client_0403` is picker-visible, downloads, and runs Steam games on device. `steam_client_0403` originally shipped at type 8 (commit `d694e1a`) before the 5.3.5 retype to 7; 6.0 kept the pre-retype convention. |
 
 ### Steam handling on 6.0
