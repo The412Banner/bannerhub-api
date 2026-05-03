@@ -666,6 +666,28 @@ export default {
         return e
       }
 
+      // 6.0-only Steam-client type remap.
+      //
+      // 5.3.5 ships Steam clients at type=7 (per ADDING_NEW_COMPONENTS.md +
+      // commit ca40378 "retype steam_client_0403 to type 7 for 5.3.5
+      // compatibility"). The 6.0 Steam picker does NOT surface our type=7
+      // entries — type 7 may have been reassigned in the KMP rewrite. We are
+      // probing type 8 first since steam_client_0403 originally shipped at
+      // type 8 (commit d694e1a "add type 8 (Steam Client)") before the 5.3.5
+      // retype, so 6.0 likely kept the pre-retype convention.
+      //
+      // Filter is type === 7 (catches steam_client_0403, steam_9866232,
+      // steam_9866233 — every Steam *client* in the catalog today, plus any
+      // future entry the upstream XML adds at type 7). Steam *agents* (type
+      // 5 today, e.g. SteamAgent2) are intentionally untouched — they are
+      // not Steam clients and may belong to a different 6.0 category.
+      //
+      // This runs only on the /v6/ path (where reshapeFor60 is called); the
+      // 5.x pass-through path keeps type=7 untouched, so 5.3.5 keeps working.
+      const remapSteamFor60 = (e) => {
+        if (e.type === 7) e.type = 8
+      }
+
       // Unwrap the static catalog's 5.x list-of-string wrapper into a real
       // JSON array, so 6.0 kotlinx-strict can deserialize it. EnvListData.list
       // is typed Ljava/util/List; (EnvListData.smali:36); BaseResult<List<...>>
@@ -710,6 +732,9 @@ export default {
         if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: [], total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
         const data = await res.json()
         let all = parseListField(data.data)
+        // Promote Steam clients (type=7 in 5.3.5) to type=8 BEFORE the type
+        // filter, so a 6.0 client requesting type=8 actually receives them.
+        for (const e of all) remapSteamFor60(e)
         if (type) all = all.filter(i => i.type === type)
         for (const e of all) reshapeFor60(e)
         return new Response(JSON.stringify({
@@ -760,7 +785,7 @@ export default {
         }
         const data = await res.json()
         const all = parseListField(data.data)
-        for (const e of all) reshapeFor60(e)
+        for (const e of all) { remapSteamFor60(e); reshapeFor60(e) }
         return new Response(JSON.stringify({
           code: data.code ?? 200,
           msg: data.msg ?? 'Success',
