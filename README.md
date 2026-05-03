@@ -147,6 +147,8 @@ if (url.pathname.startsWith('/v6/')) {
 
 5.x type ints (the table immediately above this section) are **mostly** identical in 6.0. Types 1–6 are now confirmed identical to 5.3.5 by direct on-device evidence. Steam clients are the only known divergence: 5.3.5 uses type 7, 6.0 uses type 8. (Steam agents — distinct from clients — stay at type 5 in both versions.)
 
+The full empirical receipt — every `COMPONENT:*` key the 6.0 host wrote to `sp_winemu_unified_resources.xml` on a real device, grouped by type — is checked in at [`data/sp_winemu_strings_by_type.txt`](data/sp_winemu_strings_by_type.txt).
+
 | Type | Category | 6.0 status |
 |---|---|---|
 | 1 | Box64 / FEX | ✅ **confirmed live** — bannerhub-revanced Component Manager v0.3.3 corrected `TYPE_BOX64/TYPE_FEXCORE` from 6 → 1; on-device registry shows entries persisted at type 1 |
