@@ -657,7 +657,10 @@ export default {
         }
         if (e.framework === undefined) e.framework = ''
         if (e.framework_type === undefined) e.framework_type = ''
-        if (e.is_steam === undefined) e.is_steam = 0
+        // NOTE: 6.0 reads `isSteam` (camelCase) on containers (getContainerList),
+        // not on components. Snake-case `is_steam` on components is read by
+        // nothing — removed. The container-side isSteam mirror lives in the
+        // dedicated getContainerList handler below.
         if (e.status === undefined) e.status = 0
         if (e.blurb === undefined) e.blurb = ''
         if (e.upgrade_msg === undefined) e.upgrade_msg = ''
@@ -851,6 +854,24 @@ export default {
           }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
         }
         // 5.x falls through to GITHUB_ROUTES static proxy below.
+      }
+
+      // getContainerList: 6.0 reads `isSteam` (camelCase) on each container to
+      // know which can host the Steam client component. The upstream catalog
+      // already carries the right values in the snake-case `is_steam` field
+      // (1 = Proton-based + Wine ARM64EC, 2 = plain Wine x64, 0 = neither).
+      // For /v6/, mirror is_steam → isSteam verbatim per container so the
+      // 6.0 client sees the field name it actually reads. 5.x clients fall
+      // through to the generic pass-through below and keep snake-case only.
+      if (is60 && url.pathname === '/simulator/v2/getContainerList') {
+        const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
+        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: [], time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        const data = await res.json()
+        const containers = Array.isArray(data?.data) ? data.data : []
+        for (const c of containers) {
+          if (typeof c.is_steam === 'number') c.isSteam = c.is_steam
+        }
+        return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
       // Other GitHub Pages static routes
