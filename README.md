@@ -150,9 +150,9 @@ if (url.pathname.startsWith('/v6/')) {
 | Type | Category | 6.0 status |
 |---|---|---|
 | 1 | Box64 / FEX | ✅ **confirmed live** — bannerhub-revanced Component Manager v0.3.3 corrected `TYPE_BOX64/TYPE_FEXCORE` from 6 → 1; on-device registry shows entries persisted at type 1 |
-| 2 | GPU Drivers | 🟡 **assumed identical** — 158 type-2 entries surface in 6.0 picker after the API redirect, but no vanilla cross-check |
-| 3 | DXVK | 🟡 **assumed identical** — `bannerhub-revanced` Component Manager classifies user-added DXVK components as type 3, but no vanilla on-device cross-check |
-| 4 | VKD3D | 🟡 **assumed identical** — same as above, classified as type 4 |
+| 2 | GPU Drivers | ✅ **confirmed live** — non-default Turnip picked in 6.0 picker, downloaded, and used to launch a game on device |
+| 3 | DXVK | ✅ **confirmed live** — non-default DXVK picked, downloaded, and used to launch a D3D9/10/11 game on device |
+| 4 | VKD3D | ✅ **confirmed live** — non-default VKD3D picked, downloaded, and used to launch a D3D12 game on device |
 | 5 | Games / Settings | 🟡 **assumed identical** |
 | 6 | Libraries / Runtime deps | 🟡 **assumed identical** |
 | 7 | (was Steam in 5.3.5) | ❌ **not what 6.0 expects** — type-7 entries do not surface in 6.0's Steam picker. We currently **remap type 7 → 8** on `/v6/` as our first probe |
