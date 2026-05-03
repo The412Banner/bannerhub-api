@@ -89,6 +89,8 @@ https://github.com/The412Banner/bannerhub-api/releases/download/Components/{file
 
 The original 5.3.5 type schema as the BannerHub app and BH-Lite consume it. **GameHub 6.0 reuses most of these but differs on type 7 — see [§ GameHub 6.0 support](#gamehub-60-support) for the 6.0-specific table.**
 
+The full empirical receipt — every component the upstream `sp_winemu_all_components12.xml` catalog ships, grouped by type — is checked in at [`data/sp_winemu_all_components12_by_type.txt`](data/sp_winemu_all_components12_by_type.txt).
+
 | Type | Name | Description |
 |------|------|-------------|
 | 1 | Box64/FEX | x86_64 emulators for ARM64 |
