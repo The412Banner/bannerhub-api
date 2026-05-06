@@ -25,7 +25,7 @@
         "type": 3
       },
       {
-        "count": 5,
+        "count": 7,
         "display_name": "VKD3D Proton",
         "manifest_url": "/components/vkd3d_manifest",
         "name": "vkd3d",
@@ -60,6 +60,6 @@
         "type": 8
       }
     ],
-    "total_components": 505
+    "total_components": 507
   }
 }

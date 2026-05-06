@@ -5,8 +5,36 @@
     "type": 4,
     "type_name": "vkd3d",
     "display_name": "VKD3D Proton",
-    "total": 5,
+    "total": 7,
     "components": [
+      {
+        "display_name": "vkd3d-proton-arm64ec-3.0.1",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/61957eab69e72d5ab1da83675bf5aee8.tzst",
+        "file_md5": "61957eab69e72d5ab1da83675bf5aee8",
+        "file_name": "61957eab69e72d5ab1da83675bf5aee8.tzst",
+        "file_size": 3144152,
+        "id": 1299,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "vkd3d-proton-arm64ec-3.0.1",
+        "type": 4,
+        "version": "1.0.0",
+        "version_code": 1
+      },
+      {
+        "display_name": "vkd3d-proton-3.0.1",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/83de62e6a0fa71012277af53efc106d5.tzst",
+        "file_md5": "83de62e6a0fa71012277af53efc106d5",
+        "file_name": "83de62e6a0fa71012277af53efc106d5.tzst",
+        "file_size": 3128035,
+        "id": 1298,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "vkd3d-proton-3.0.1",
+        "type": 4,
+        "version": "1.0.0",
+        "version_code": 1
+      },
       {
         "display_name": "",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/53df43b4a543dad5b0e4b892954d66a9.tzst",

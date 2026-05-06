@@ -2378,6 +2378,30 @@
       "file_size": "3210246",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/c1ea3d759308447a808949ff54abc02a.tzst",
       "display_name": "Turnip_v26.2.0_R1"
+    },
+    {
+      "id": 1298,
+      "name": "vkd3d-proton-3.0.1",
+      "type": 4,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "83de62e6a0fa71012277af53efc106d5.tzst",
+      "file_md5": "83de62e6a0fa71012277af53efc106d5",
+      "file_size": "3128035",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/83de62e6a0fa71012277af53efc106d5.tzst",
+      "display_name": "vkd3d-proton-3.0.1"
+    },
+    {
+      "id": 1299,
+      "name": "vkd3d-proton-arm64ec-3.0.1",
+      "type": 4,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "61957eab69e72d5ab1da83675bf5aee8.tzst",
+      "file_md5": "61957eab69e72d5ab1da83675bf5aee8",
+      "file_size": "3144152",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/61957eab69e72d5ab1da83675bf5aee8.tzst",
+      "display_name": "vkd3d-proton-arm64ec-3.0.1"
     }
   ]
 }
