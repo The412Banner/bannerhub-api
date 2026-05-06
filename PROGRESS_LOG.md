@@ -121,3 +121,19 @@ Box64/FEX:   32 entries, ends [1157, 1159, 1294]  ← Fex_20260428 at bottom
 ### Open follow-up
 
 - The registry method `sortByTypeAndIdDescending` is now even more of a misnomer (sorts asc for some types, by name for others). Worth renaming to `sortForListEndpoints` in a future cleanup pass. Skipped here to keep the diff minimal — name change would touch the two call sites in `simulator-generators.ts` and any future grep readers.
+
+## 2026-05-06 — WHITE A8xx Turnip backlog catalog adds (commit `f09f417`)
+
+Backfilled the whitebelyash/freedreno_turnip-CI A8xx Gen8 line from `tu_v25` (2026-04-15) through `tu_v26` (2026-05-05) — 5 entries, ids 1309-1313:
+
+| id | name | source release |
+|---|---|---|
+| 1309 | `WHITE_A8xx_Turnip_v25` | tu_v25 |
+| 1310 | `WHITE_A8xx_Turnip_v25.1` | tu_v25.1 |
+| 1311 | `WHITE_A8xx_Turnip_v25.2` | tu_v25.2 |
+| 1312 | `WHITE_A8xx_Turnip_v25.3` | tu_v25.3 |
+| 1313 | `WHITE_A8xx_Turnip_v26` | tu_v26 |
+
+### Naming convention codified
+
+`WHITE_` mirrors the `SMXZ_` precedent established earlier today. Both StevenMXZ and whitebelyash publish A8xx Gen8 turnip builds and would naming-collide without prefixes. Banners-Turnip remains the unprefixed default. Convention saved to memory (`feedback_bannerhub_api_driver_prefixes.md`) so future imports auto-apply.
