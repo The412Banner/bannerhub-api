@@ -1,4 +1,5 @@
 import type { ComponentRegistry } from '../registry/registry.js';
+import { PICKER_NEWEST_LAST_TYPES } from '../registry/registry.js';
 import type { ComponentTypeValue, Component } from '../types/index.js';
 import type { ManifestFile, ManifestComponent } from '../types/outputs.js';
 import { COMPONENT_TYPE_META } from '../types/index.js';
@@ -33,7 +34,9 @@ export function generateManifest(
 ): ManifestFile {
   const meta = COMPONENT_TYPE_META[type];
   const components = registry.getByType(type);
-  const sorted = registry.sortByIdDescending(components);
+  const sorted = PICKER_NEWEST_LAST_TYPES.has(type)
+    ? registry.sortByIdAscending(components)
+    : registry.sortByIdDescending(components);
   const manifestComponents = sorted.map(toManifestComponent);
 
   return {

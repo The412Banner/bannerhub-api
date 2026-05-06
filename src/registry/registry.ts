@@ -10,6 +10,13 @@ import type {
 import { COMPONENT_TYPE_META } from '../types/index.js';
 
 /**
+ * Picker types where newer entries should appear at the bottom of the list
+ * (Box64/FEX = 1, GPU drivers = 2, VKD3D = 4). Other types keep their default
+ * ordering (newest first for manifests, name-sorted for simulator endpoints).
+ */
+export const PICKER_NEWEST_LAST_TYPES = new Set<number>([1, 2, 4]);
+
+/**
  * Info about a component's original CDN URL (for downloading missing files)
  */
 export interface OriginalComponentInfo {
@@ -170,11 +177,23 @@ export class ComponentRegistry {
   }
 
   /**
-   * Sort components by type ascending, then ID descending within each type
+   * Sort components by ID ascending (newest last). Used for picker types where
+   * the app should surface newer entries at the bottom of the list.
+   */
+  sortByIdAscending(components: Component[]): Component[] {
+    return [...components].sort((a, b) => a.id - b.id);
+  }
+
+  /**
+   * Sort components for list endpoints: type ascending, then per-type ordering.
+   * Types in PICKER_NEWEST_LAST_TYPES sort by ID ascending so newer versions
+   * appear at the bottom of the picker; other types fall back to name with
+   * numeric collation.
    */
   sortByTypeAndIdDescending(components: Component[]): Component[] {
     return [...components].sort((a, b) => {
       if (a.type !== b.type) return a.type - b.type;
+      if (PICKER_NEWEST_LAST_TYPES.has(a.type)) return a.id - b.id;
       return (a.name || '').localeCompare(b.name || '', undefined, { numeric: true, sensitivity: 'base' });
     });
   }
