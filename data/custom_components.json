@@ -2510,6 +2510,66 @@
       "file_size": "1968518",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/1be53ad3fdd59fc80059733bcc0828a7.tzst",
       "display_name": "SMXZ_Turnip_Gen8_V30"
+    },
+    {
+      "id": 1309,
+      "name": "WHITE_A8xx_Turnip_v25",
+      "type": 2,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "b5b60d80634df93f6de99ffe991bf626.tzst",
+      "file_md5": "b5b60d80634df93f6de99ffe991bf626",
+      "file_size": "1966289",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b5b60d80634df93f6de99ffe991bf626.tzst",
+      "display_name": "WHITE_A8xx_Turnip_v25"
+    },
+    {
+      "id": 1310,
+      "name": "WHITE_A8xx_Turnip_v25.1",
+      "type": 2,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "6491db9c1814e071ad3c75794ee1e5db.tzst",
+      "file_md5": "6491db9c1814e071ad3c75794ee1e5db",
+      "file_size": "1966660",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6491db9c1814e071ad3c75794ee1e5db.tzst",
+      "display_name": "WHITE_A8xx_Turnip_v25.1"
+    },
+    {
+      "id": 1311,
+      "name": "WHITE_A8xx_Turnip_v25.2",
+      "type": 2,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "ff4ee65e3dab9eac690f46f78272d572.tzst",
+      "file_md5": "ff4ee65e3dab9eac690f46f78272d572",
+      "file_size": "1968409",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ff4ee65e3dab9eac690f46f78272d572.tzst",
+      "display_name": "WHITE_A8xx_Turnip_v25.2"
+    },
+    {
+      "id": 1312,
+      "name": "WHITE_A8xx_Turnip_v25.3",
+      "type": 2,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "00e8a6065fe71084e7a9ff720d400f81.tzst",
+      "file_md5": "00e8a6065fe71084e7a9ff720d400f81",
+      "file_size": "1967799",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/00e8a6065fe71084e7a9ff720d400f81.tzst",
+      "display_name": "WHITE_A8xx_Turnip_v25.3"
+    },
+    {
+      "id": 1313,
+      "name": "WHITE_A8xx_Turnip_v26",
+      "type": 2,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "dc8a11efde6f3fc234c893d60b7f256b.tzst",
+      "file_md5": "dc8a11efde6f3fc234c893d60b7f256b",
+      "file_size": "1980008",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dc8a11efde6f3fc234c893d60b7f256b.tzst",
+      "display_name": "WHITE_A8xx_Turnip_v26"
     }
   ]
 }
