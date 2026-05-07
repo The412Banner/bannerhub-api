@@ -137,3 +137,25 @@ Backfilled the whitebelyash/freedreno_turnip-CI A8xx Gen8 line from `tu_v25` (20
 ### Naming convention codified
 
 `WHITE_` mirrors the `SMXZ_` precedent established earlier today. Both StevenMXZ and whitebelyash publish A8xx Gen8 turnip builds and would naming-collide without prefixes. Banners-Turnip remains the unprefixed default. Convention saved to memory (`feedback_bannerhub_api_driver_prefixes.md`) so future imports auto-apply.
+
+## 2026-05-07 — Firmware 6.0 bump 1.3.4 → 1.3.5 (commit `687a9ac`)
+
+Replaced the 6.0 firmware served on the `/v6/` gate. Same single endpoint, same gating logic, just newer asset.
+
+### What changed
+- `bannerhub-worker.js` `getImagefsDetail` 6.0 branch:
+  - `version: '1.3.4'` → `'1.3.5'`
+  - `version_code: 24` → `25`
+  - `download_url`: `imagefs_v134.zst` → `imagefs_v135.zst`
+  - `file_md5`: `76a186c04196c0ffe31ea1ab88705b83` → `d2242c284e42cbbe49289caf4506b95d`
+  - `file_size`: `168,890,206` → `171,913,896` (~164 MB)
+- New asset uploaded to `Components` release on `The412Banner/bannerhub-api`. Source: user-provided `imagefs_v135.zst` from device.
+- `imagefs_v134.zst` kept on the release as rollback safety per user direction.
+
+### Deploy
+Curl REST PUT to `accounts/{acct}/workers/scripts/bannerhub-api` with KV-binding metadata block (per memory's no-wrangler pattern). `success: true`, etag `2668f3acc1bab28bd9f5656cc9b59b4860de0f5f268a15b0081e425412e61b95`.
+
+### Verification (live)
+- `GET /v6/simulator/v2/getImagefsDetail` → `version: "1.3.5"`, new url/md5/size ✅
+- `GET /simulator/v2/getImagefsDetail` (no `/v6/`) → `version: "1.3.3"` from static `imagefs.zst` (5.x path untouched) ✅
+- `HEAD imagefs_v135.zst` → 200, redirected to GitHub blob-storage CDN ✅
