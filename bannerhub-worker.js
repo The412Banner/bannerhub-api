@@ -881,6 +881,82 @@ export default {
         return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
+      // vjoy/Scheme cloud-share endpoints — these need a real GameHub auth
+      // token to reach upstream (without one, upstream returns
+      // {code:401, msg:"Please login first"} which the client surfaces as
+      // the "log in first" prompt).
+      //
+      // Captured request shape (2026-05-07): GET, no token header, no token
+      // in query, only `clientparams`/`sign`/`time` for integrity. The
+      // existing fall-through proxy strips all headers and never adds a
+      // token, so authenticated GETs always 401 today.
+      //
+      // Fix: forward the original request headers verbatim AND inject the
+      // shared `bannerhub_token` as a `token` header so upstream sees the
+      // request as authenticated.
+      if (
+        url.pathname.startsWith('/vcontroller/') ||
+        url.pathname === '/simulator/configList' ||
+        url.pathname === '/simulator/getConfigById' ||
+        url.pathname === '/simulator/shareConfig' ||
+        url.pathname === '/simulator/deleteShareConfig' ||
+        url.pathname === '/simulator/reportConfigApply' ||
+        url.pathname.startsWith('/readLayoutType/') ||
+        url.pathname.startsWith('/writeLayoutType/')
+      ) {
+        let realToken = 'fake-token'
+        try {
+          const tokenDataStr = await env.TOKEN_STORE.get('bannerhub_token')
+          if (tokenDataStr) realToken = JSON.parse(tokenDataStr).token
+        } catch (e) {}
+
+        const fwdHeaders = {}
+        for (const [k, v] of request.headers.entries()) {
+          // Drop hop-by-hop and CF-injected headers; keep clientparams/sign/time/etc.
+          const lk = k.toLowerCase()
+          if (lk === 'host' || lk === 'connection' || lk === 'content-length' ||
+              lk.startsWith('cf-') || lk.startsWith('x-forwarded') ||
+              lk === 'x-real-ip') continue
+          fwdHeaders[k] = v
+        }
+        fwdHeaders['token'] = realToken
+
+        let fwdBody = null
+        if (request.method === 'POST') {
+          fwdBody = await request.text()
+          // If the body has a token field, swap fake-token → real (existing
+          // pattern) and recompute the signature.
+          try {
+            const j = JSON.parse(fwdBody)
+            if ('token' in j) {
+              j.token = realToken
+              const sigParams = {}
+              for (const [k, v] of Object.entries(j)) {
+                if (k !== 'sign') sigParams[k] = v
+              }
+              j.sign = generateSignature(sigParams)
+              fwdBody = JSON.stringify(j)
+            }
+          } catch (e) {}
+        }
+
+        try {
+          const res = await fetch(`${GAMEHUB_API}${url.pathname}${url.search}`, {
+            method: request.method,
+            headers: fwdHeaders,
+            body: fwdBody,
+          })
+          return new Response(await res.text(), {
+            status: res.status,
+            headers: { 'Content-Type': 'application/json', ...corsHeaders },
+          })
+        } catch (e) {
+          return new Response(JSON.stringify({
+            code: 500, msg: `vjoy proxy error: ${e.message}`, time,
+          }), { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+      }
+
       // All other routes: proxy to GameHub API with real token + regenerated signature
       let realToken = 'fake-token'
       try {

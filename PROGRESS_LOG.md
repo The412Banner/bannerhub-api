@@ -159,3 +159,43 @@ Curl REST PUT to `accounts/{acct}/workers/scripts/bannerhub-api` with KV-binding
 - `GET /v6/simulator/v2/getImagefsDetail` → `version: "1.3.5"`, new url/md5/size ✅
 - `GET /simulator/v2/getImagefsDetail` (no `/v6/`) → `version: "1.3.3"` from static `imagefs.zst` (5.x path untouched) ✅
 - `HEAD imagefs_v135.zst` → 200, redirected to GitHub blob-storage CDN ✅
+
+## 2026-05-07 — vjoy/Scheme cloud-share login bypass (Worker-side)
+
+### Symptom
+6.0.1 added a "cloud share schemes / vjoy layouts" UI screen. On all BannerHub variants the screen showed **"Please login first"** even with our login bypass active. Proven via logcat:
+```
+VJoy_MainRecommend: loadFeedPage error(...): Business(code=401, message=Please login first)
+```
+
+### Diagnosis
+- **The 401 is server-side**, not a client gate. Bypass-login makes the *client* think it's logged in, so the client makes the request — but the request goes upstream **unauthenticated** and upstream rejects.
+- Captured the request shape via temporary debug-intercept that wrote to `bannerhub_debug_*` KV keys. The vjoy feed is `GET /v6/vcontroller/recommendMapList?game_id=0&is_official=2&page=1&page_size=20` with headers `clientparams`/`sign`/`time` for integrity but **no token header, no token in query, no Authorization**. The client just doesn't include any auth credential for this endpoint family.
+- Existing worker fall-through proxy strips ALL incoming headers (only sets `Content-Type`) and forwards GETs as-is with no token injection. Result: upstream sees an anonymous request → 401.
+
+### Fix
+New custom handler covering the full vjoy/Scheme endpoint family:
+- `vcontroller/*` (recommendMapList, shareMap, getMapByShareCode, etc.)
+- `simulator/configList`, `simulator/getConfigById`, `simulator/shareConfig`, `simulator/deleteShareConfig`, `simulator/reportConfigApply`
+- `readLayoutType/*`, `writeLayoutType/*`
+
+Handler logic:
+1. Read `bannerhub_token` from `TOKEN_STORE` KV (the rotating-real-token already maintained for other endpoints).
+2. Forward all original request headers verbatim, dropping only hop-by-hop and CF-injected ones (`host`, `connection`, `content-length`, `cf-*`, `x-forwarded*`, `x-real-ip`).
+3. Inject `token: <realToken>` header.
+4. For POST: also swap any in-body `token` field and recompute the `sign` via the existing `generateSignature()`.
+5. Forward to `landscape-api.vgabc.com`; pass response through.
+
+### Verification
+Live test with the captured request reproduces:
+```
+code: 200, msg: Success
+data: {list: [...real vjoy layouts...], page: 1, page_size: 20, total: ...}
+```
+Real entries returned: "GTA5专用按键" (id 1, downloadCount 14882), "Gamehub 2" (id 13, downloadCount 5355), etc.
+
+### Deploy
+Curl REST PUT to `accounts/{acct}/workers/scripts/bannerhub-api`. `success: true`.
+
+### Commit pending
+After device-confirm, push to master + main.
