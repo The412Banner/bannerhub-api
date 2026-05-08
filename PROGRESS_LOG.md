@@ -242,5 +242,13 @@ GameHub's new unified-resources XML (firmware 1.3.6 / GameHub 6.0.1) bumped `CON
 ### Why
 Proton 11 was the lone outlier in `containers.json` without a `sub_data` block — every other Proton/Wine container shipped one. With XiaoJi now publishing a companion tarball for it, our /v6/ clients should serve the same shape so the unpacker has access to whatever is in the new sub-file.
 
-### Verification pending
-After commit/push, GitHub Pages serves the updated static files, and the worker's `/v6/getContainerDetail?id=11` + `/v6/getContainerList` will reflect 1.0.1 with sub_data. No worker code change needed — both endpoints fetch the static files via `GITHUB_BASE`.
+### Verification (live)
+Pages deploy run `25572650189` succeeded in 9s after pushing master → main (master alone is not enough — Pages source is `main`).
+
+- `GET https://the412banner.github.io/bannerhub-api/simulator/v2/getContainerDetail/11` → `version: "1.0.1"`, `sub_data` populated ✅
+- `GET https://bannerhub-api.the412banner.workers.dev/v6/simulator/v2/getContainerDetail?id=11` → identical, with `sub_data` ✅
+- `GET https://bannerhub-api.the412banner.workers.dev/v6/simulator/v2/getContainerList` → id=11 entry has `sub_data` + `isSteam: 1` mirror ✅
+- `HEAD .../Components/f71af255a6cd68348da825dcd698df76.tzst` → 200, 32,316,723 B ✅
+
+### Worker not redeployed (intentional)
+`/v6/getContainerDetail` (worker.js:624-638) and `/v6/getContainerList` (worker.js:866-879) are pure proxies — every request runs `fetch(${GITHUB_BASE}${path})` against Pages. No worker-side cache, no inlined data. Worker picked up the new Pages content on the very next request post-deploy. Worker only needs a redeploy when its own behavior changes (new endpoint, new reshape rule, new gate). Catalog/data bumps ship via Pages alone.
