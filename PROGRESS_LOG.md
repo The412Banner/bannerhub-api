@@ -228,3 +228,19 @@ Curl REST PUT to `accounts/{acct}/workers/scripts/bannerhub-api` with the same K
 
 ### `base.tzst` verification (separate check, same day)
 User had a `base_136.tzst` in Downloads (40,612,198 B, MD5 `3d5c31b1346985d582f04d239004b4d7`); compared byte-for-byte against the live `base.tzst` the API serves at `Components/base.tzst`. Result: **byte-identical**. XiaoJi did not change the Wine-prefix scaffold for 1.3.6 — `libGameScopeVK.so` rebuild is the only payload delta. No worker change needed for `base`; existing entry id 8 / type 5 / version 1.0.0 / code 1 still points at the correct blob.
+
+## 2026-05-08 — Proton 11 ARM64EC v1.0.0 → v1.0.1 (sub_data added)
+
+GameHub's new unified-resources XML (firmware 1.3.6 / GameHub 6.0.1) bumped `CONTAINER:proton11.0-arm64x` from `version 1.0.0 / versionCode 1` to `version 1.0.1 / versionCode 2` and added a `subData` block — the only Proton container that previously lacked one. Main wine tarball (`wine_proton_11.0_arm64x.tar.zst`, md5 `ffcaf1de…44c`, 240,592,439 B) is unchanged: byte-for-byte identical between the upstream v1.0.0 release and the v1.0.1 file the user pulled today (verified via `cmp -l` exit 0 + matching SHA256).
+
+### What changed
+- New asset `f71af255a6cd68348da825dcd698df76.tzst` (32,316,723 B, md5 self-named) downloaded from `zlyer-cdn-comps-en.bigeyes.com/ux-landscape/pc_zst/f71a/f2/55/…` and uploaded to `Components` release on `The412Banner/bannerhub-api`.
+- `data/containers.json` id=11: bumped `version 1.0.0 → 1.0.1`, `version_code 1 → 2`, added `sub_data` block (sub_file_name = parent's md5 `ffcaf1de…44c.tzst` per convention; sub_download_url + sub_file_md5 = `f71af255…`).
+- `simulator/v2/getContainerDetail/11`: same three fields updated.
+- `simulator/v2/getContainerList`: id=11 entry updated identically.
+
+### Why
+Proton 11 was the lone outlier in `containers.json` without a `sub_data` block — every other Proton/Wine container shipped one. With XiaoJi now publishing a companion tarball for it, our /v6/ clients should serve the same shape so the unpacker has access to whatever is in the new sub-file.
+
+### Verification pending
+After commit/push, GitHub Pages serves the updated static files, and the worker's `/v6/getContainerDetail?id=11` + `/v6/getContainerList` will reflect 1.0.1 with sub_data. No worker code change needed — both endpoints fetch the static files via `GITHUB_BASE`.

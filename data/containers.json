@@ -176,8 +176,8 @@
   },
   {
     "id": 11,
-    "version": "1.0.0",
-    "version_code": 1,
+    "version": "1.0.1",
+    "version_code": 2,
     "name": "proton11.0-arm64x",
     "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
     "file_md5": "ffcaf1de4ad715449f36fa3e80f8f44c",
@@ -187,6 +187,11 @@
     "framework": "arm64X",
     "framework_type": "proton",
     "display_name": "proton11.0-arm64x",
-    "is_steam": 1
+    "is_steam": 1,
+    "sub_data": {
+      "sub_file_name": "ffcaf1de4ad715449f36fa3e80f8f44c.tzst",
+      "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f71af255a6cd68348da825dcd698df76.tzst",
+      "sub_file_md5": "f71af255a6cd68348da825dcd698df76"
+    }
   }
 ]
