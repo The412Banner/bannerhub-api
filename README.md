@@ -102,6 +102,7 @@ The full empirical receipt — every component the upstream `sp_winemu_all_compo
 | 7 | Steam | Steam client components — retyped from 8 → 7 in commit `ca40378` for 5.3.5 compatibility |
 
 ## GameHub 6.0 support
+*(current version: 6.0.1)*
 
 GameHub 6.0 (the KMP rewrite under `com.xiaoji.egggame`) hits the same Worker through a parallel code path that branches off a single signal: the `/v6/` path prefix.
 
