@@ -225,3 +225,6 @@ Curl REST PUT to `accounts/{acct}/workers/scripts/bannerhub-api` with the same K
 - `GET /v6/simulator/v2/getImagefsDetail` → `version: "1.3.6"`, new url/md5/size
 - `GET /simulator/v2/getImagefsDetail` (no `/v6/`) → still `version: "1.3.3"` from static `imagefs.zst` (5.x path untouched)
 - `HEAD imagefs_136.zst` on the Components release → 200
+
+### `base.tzst` verification (separate check, same day)
+User had a `base_136.tzst` in Downloads (40,612,198 B, MD5 `3d5c31b1346985d582f04d239004b4d7`); compared byte-for-byte against the live `base.tzst` the API serves at `Components/base.tzst`. Result: **byte-identical**. XiaoJi did not change the Wine-prefix scaffold for 1.3.6 — `libGameScopeVK.so` rebuild is the only payload delta. No worker change needed for `base`; existing entry id 8 / type 5 / version 1.0.0 / code 1 still points at the correct blob.

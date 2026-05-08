@@ -129,7 +129,7 @@ if (url.pathname.startsWith('/v6/')) {
 |---|---|---|
 | `simulator/v2/getAllComponentList` | Native upstream pass-through (`{list: <stringified>, total}`; `is_ui` / `gpu_range` preserved) | Wrapped as `BaseResult<EnvListData<EnvLayerEntity>>` — `{list, page, page_size, total}` with each entry passed through `reshapeFor60` (see below) |
 | `simulator/v2/getComponentList` | Native upstream pass-through | Form-urlencoded body parser (6.0 sends `type` as a `pl6.J` POST builder), filter by `type` after Steam remap, then reshape |
-| `simulator/v2/getImagefsDetail` | Firmware **1.3.3** (legacy) | Firmware **1.3.4** (~168 MB, versionCode 24) |
+| `simulator/v2/getImagefsDetail` | Firmware **1.3.3** (legacy, ~161 MB, versionCode 23) | Firmware **1.3.6** (~164 MB, versionCode 26) — bumped through 1.3.4 → 1.3.5 → 1.3.6, see PROGRESS_LOG. v134 + v135 assets retained on the `Components` release as rollback. |
 | `simulator/v2/getContainerDetail/{id}` | (not used) | Per-id static file lookup (6.0-only endpoint) |
 | All other endpoints (`chat/*`, `devices/*`, `card/*`, `cloud/*`, token-injected vgabc proxy, etc.) | Same handler — no `is60` divergence | Same handler — no `is60` divergence |
 
@@ -196,8 +196,8 @@ The upstream catalog already carries the correct values in the snake-case `is_st
 
 | Component | Detail |
 |---|---|
-| **base** (Wine prefix scaffold) | id 8, `fileType: 0`, ~40 MB (`base.tzst`). Same binary as 5.x — no `/v6/` override. |
-| **Firmware (imagefs)** | `1.3.4`, versionCode 24, ~168 MB. **6.0-only** — 5.x stays on 1.3.3. |
+| **base** (Wine prefix scaffold) | id 8, `fileType: 0`, ~40 MB (`base.tzst`, MD5 `3d5c31b1346985d582f04d239004b4d7`). Same binary as 5.x — no `/v6/` override. Confirmed byte-identical to XiaoJi's 1.3.6 base on 2026-05-08, so firmware bumps don't require a base swap. |
+| **Firmware (imagefs)** | `1.3.6`, versionCode 26, ~164 MB (171,913,961 B), MD5 `bc95fcb8dc02dac7d61e1be7dd374aeb`, asset `imagefs_136.zst`. **6.0-only** — 5.x stays on 1.3.3. |
 | **Container (Wine/Proton)** | One of 10 returned by `getContainerList`: `wine10.0-x64-2`, `wine9.5/9.13/9.16-x64-2`, `wine10.6-arm64x-2`, `proton10.0-arm64x-2`, plus 4 more. Same set 5.x sees. |
 
 ### Known gaps
