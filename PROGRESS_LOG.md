@@ -199,3 +199,29 @@ Curl REST PUT to `accounts/{acct}/workers/scripts/bannerhub-api`. `success: true
 
 ### Commit pending
 After device-confirm, push to master + main.
+
+## 2026-05-08 — Firmware 6.0 bump 1.3.5 → 1.3.6
+
+Same shape as the 1.3.4 → 1.3.5 cutover. Single endpoint touched, `/v6/` gate untouched, 5.x path stays on 1.3.3.
+
+### What changed
+- `bannerhub-worker.js` `getImagefsDetail` 6.0 branch:
+  - `version: '1.3.5'` → `'1.3.6'`
+  - `version_code: 25` → `26`
+  - `download_url`: `imagefs_v135.zst` → `imagefs_136.zst`
+  - `file_md5`: `d2242c284e42cbbe49289caf4506b95d` → `bc95fcb8dc02dac7d61e1be7dd374aeb`
+  - `file_size`: `171,913,896` → `171,913,961` (+65 bytes vs 1.3.5)
+- Comment block at line 501 + the endpoint comment updated `1.3.5` → `1.3.6`.
+- New asset `imagefs_136.zst` uploaded to `Components` release on `The412Banner/bannerhub-api`. Source: user-provided file in Downloads, dated 2026-05-08 04:23.
+- `imagefs_v135.zst` kept on the release as rollback safety per user direction (matches v134 retention pattern).
+
+### What's actually different in 1.3.6
+File listing identical to 1.3.5 (7,799 entries, byte-for-byte). The only meaningful delta is `usr/lib/libGameScopeVK.so` — rebuilt, **2,218,920 → 2,218,904 B (-16 B)**, MD5 `17993261…` → `6d611691…`. Same Vulkan ICD JSON (`api_version 1.3.216`). Looks like a quiet recompile of the AI Frame Generation compositor; no UI-surfaced version change.
+
+### Deploy
+Curl REST PUT to `accounts/{acct}/workers/scripts/bannerhub-api` with the same KV-binding metadata block as the v135 cutover.
+
+### Verification (live)
+- `GET /v6/simulator/v2/getImagefsDetail` → `version: "1.3.6"`, new url/md5/size
+- `GET /simulator/v2/getImagefsDetail` (no `/v6/`) → still `version: "1.3.3"` from static `imagefs.zst` (5.x path untouched)
+- `HEAD imagefs_136.zst` on the Components release → 200

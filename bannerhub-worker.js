@@ -498,7 +498,7 @@ export default {
     // 6.0 client gate: patched 6.0 APK prefixes every relative path with "v6/"
     // (smali patch on zdb.b in bannerhub-revanced). Strip the prefix here so
     // existing handlers don't need to know about it; record `is60` for the
-    // few endpoints that need a 6.0-only response variant (firmware 1.3.5,
+    // few endpoints that need a 6.0-only response variant (firmware 1.3.6,
     // future-only swaps). 5.x clients never carry the prefix and stay on the
     // default branch.
     let is60 = false
@@ -828,7 +828,7 @@ export default {
       }
 
       // getImagefsDetail: serves Firmware metadata. 5.x stays on 1.3.3 (proxied
-      // from the static file). 6.0 (is60) gets 1.3.5 from a separate release
+      // from the static file). 6.0 (is60) gets 1.3.6 from a separate release
       // asset so both versions coexist on the GitHub release without 5.x ever
       // being upgraded. Single endpoint, branch on the /v6/ gate.
       if (url.pathname === '/simulator/v2/getImagefsDetail') {
@@ -838,15 +838,15 @@ export default {
             msg: 'Success',
             data: {
               id: 1,
-              version: '1.3.5',
-              version_code: 25,
+              version: '1.3.6',
+              version_code: 26,
               name: 'Firmware',
               logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
               upgrade_msg: '',
               blurb: '',
-              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_v135.zst',
-              file_md5: 'd2242c284e42cbbe49289caf4506b95d',
-              file_size: '171913896',
+              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_136.zst',
+              file_md5: 'bc95fcb8dc02dac7d61e1be7dd374aeb',
+              file_size: '171913961',
               file_name: 'imagefs.zst',
               display_name: 'Firmware',
             },
