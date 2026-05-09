@@ -2570,6 +2570,18 @@
       "file_size": "1980008",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dc8a11efde6f3fc234c893d60b7f256b.tzst",
       "display_name": "WHITE_A8xx_Turnip_v26"
+    },
+    {
+      "id": 1314,
+      "name": "FEXCore-2605",
+      "type": 1,
+      "version": "2605",
+      "version_code": 1,
+      "file_name": "02fc4d33b36a3cb6df08030962303405.tzst",
+      "file_md5": "02fc4d33b36a3cb6df08030962303405",
+      "file_size": "1105631",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/02fc4d33b36a3cb6df08030962303405.tzst",
+      "display_name": "FEXCore-2605"
     }
   ]
 }

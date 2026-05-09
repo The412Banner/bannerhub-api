@@ -292,6 +292,15 @@
         "version": "2603"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/02fc4d33b36a3cb6df08030962303405.tzst",
+        "file_md5": "02fc4d33b36a3cb6df08030962303405",
+        "file_name": "02fc4d33b36a3cb6df08030962303405.tzst",
+        "file_size": 1105631,
+        "name": "FEXCore-2605",
+        "type": 1,
+        "version": "2605"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d2c18569d828ba8b7c66804aa8be2d54.tzst",
         "file_md5": "d2c18569d828ba8b7c66804aa8be2d54",
         "file_name": "8Elite2-842.6.tzst",
@@ -4693,6 +4702,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 521
+    "total": 522
   }
 }
