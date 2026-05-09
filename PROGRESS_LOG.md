@@ -252,3 +252,29 @@ Pages deploy run `25572650189` succeeded in 9s after pushing master → main (ma
 
 ### Worker not redeployed (intentional)
 `/v6/getContainerDetail` (worker.js:624-638) and `/v6/getContainerList` (worker.js:866-879) are pure proxies — every request runs `fetch(${GITHUB_BASE}${path})` against Pages. No worker-side cache, no inlined data. Worker picked up the new Pages content on the very next request post-deploy. Worker only needs a redeploy when its own behavior changes (new endpoint, new reshape rule, new gate). Catalog/data bumps ship via Pages alone.
+
+---
+
+## 2026-05-09 — `FEXCore-2605` added (commit `1f3dc69`)
+
+New FEXCore release dropped — added to the catalog via the standard `add-components.py` pipeline.
+
+### Catalog entry
+- **id 1314, name `FEXCore-2605`, type 1** (Box64/FEX), version `2605`, version_code 1
+- **file_md5** `02fc4d33b36a3cb6df08030962303405`, **file_size** 1,105,631 B (1.05 MB)
+- **download_url** `https://github.com/The412Banner/bannerhub-api/releases/download/Components/02fc4d33b36a3cb6df08030962303405.tzst`
+- Source `.wcp` came from `/storage/emulated/0/Download/FEXCore-2605.wcp` (1.62 MB before recompression)
+- Profile inside: `type=FEXCore`, `versionName=2605`, files `system32/libarm64ecfex.dll` + `system32/libwow64fex.dll` (so it slots straight into ARM64EC + WoW64 paths just like the prior 25xx/26xx entries)
+
+### One pre-step before running the script
+The upstream `profile.json` has no `name` field — the script's fallback uses `versionName` ("2605"), which would have committed as bare `"2605"` and required a post-hoc rename commit (cf. `4f88c6b`). Patched in `name: "FEXCore-2605"` before repacking, so the entry landed with the correct prefix on first commit. No follow-up rename needed.
+
+### Verification
+- `git log --oneline -1` → `1f3dc69 feat: add 1 component(s) — FEXCore-2605`
+- `git push origin master` ✅, `git push origin master:main` ✅ (Pages-from-main rule honored)
+- `HEAD https://github.com/The412Banner/bannerhub-api/releases/download/Components/02fc4d33b36a3cb6df08030962303405.tzst` → 302 redirect to release-assets blob ✅
+- `data/custom_components.json` entry present with id=1314 and matching md5
+- `npm run build` regenerated all manifest endpoints (script wouldn't have committed otherwise)
+
+### Worker not redeployed
+Catalog-only change. Pages serves the regenerated manifest files; the worker passes through unchanged. Same pattern as the Proton 11 v1.0.1 catalog bump on 2026-05-08.
