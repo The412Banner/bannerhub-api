@@ -828,7 +828,7 @@ export default {
       }
 
       // getImagefsDetail: serves Firmware metadata. 5.x stays on 1.3.3 (proxied
-      // from the static file). 6.0 (is60) gets 1.3.6 from a separate release
+      // from the static file). 6.0 (is60) gets 1.3.7 from a separate release
       // asset so both versions coexist on the GitHub release without 5.x ever
       // being upgraded. Single endpoint, branch on the /v6/ gate.
       if (url.pathname === '/simulator/v2/getImagefsDetail') {
@@ -838,15 +838,15 @@ export default {
             msg: 'Success',
             data: {
               id: 1,
-              version: '1.3.6',
-              version_code: 26,
+              version: '1.3.7',
+              version_code: 27,
               name: 'Firmware',
               logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
               upgrade_msg: '',
               blurb: '',
-              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_136.zst',
-              file_md5: 'bc95fcb8dc02dac7d61e1be7dd374aeb',
-              file_size: '171913961',
+              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_137.zst',
+              file_md5: '82e98261e4dbe0a59bbdf2d390ac771d',
+              file_size: '171913811',
               file_name: 'imagefs.zst',
               display_name: 'Firmware',
             },

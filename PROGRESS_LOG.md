@@ -278,3 +278,31 @@ The upstream `profile.json` has no `name` field — the script's fallback uses `
 
 ### Worker not redeployed
 Catalog-only change. Pages serves the regenerated manifest files; the worker passes through unchanged. Same pattern as the Proton 11 v1.0.1 catalog bump on 2026-05-08.
+
+---
+
+## 2026-05-10 — 6.0 Firmware v1.3.6 → v1.3.7 (worker /v6/ branch + sidecar)
+
+GameHub's unified-resources XML bumped `IMAGE_FS:Firmware` to `1.3.7 / versionCode 27`. Upstream payload at `https://uxdl.mac520.com/ux-landscape/pc_zst/82e9/82/61/imagefs.zst` (md5 `82e98261…`, 171,913,811 B). 5.x stays pinned at 1.3.3 — only the 6.0 worker branch + sidecar asset move.
+
+### What changed
+- New asset `imagefs_137.zst` (171,913,811 B, md5 `82e98261e4dbe0a59bbdf2d390ac771d`) uploaded to the `Components` release alongside the existing `imagefs_136.zst` (kept for rollback) and `imagefs.zst` (5.x's 1.3.3 binary, untouched).
+- `bannerhub-worker.js:830-857` inline `/v6/` JSON updated: `version 1.3.6 → 1.3.7`, `version_code 26 → 27`, `download_url …imagefs_136.zst → …imagefs_137.zst`, `file_md5 → 82e98261…`, `file_size → 171913811`. Comment bumped to "5.x stays on 1.3.3 / 6.0 gets 1.3.7."
+- Pages source (`data/imagefs.json` + `simulator/v2/getImagefsDetail`) **NOT changed** — 5.x must keep serving 1.3.3 per the 5.3.5-pinned variant strategy.
+
+### Incident note — restore during this session
+Initial draft of this change clobbered `imagefs.zst` on the release with 1.3.7 content (intending to ship Pages-side too). Caught before commit: 5.x clients in the wild would have failed md5 verification against the still-1.3.3 advertised manifest. Recovery:
+1. Pulled the original 1.3.3 binary from `Producdevity/gamehub-lite-api` release (mirror source from `0185126`, md5 `27fd5164…` confirmed) → re-uploaded as `imagefs.zst` to The412Banner release with `--clobber`.
+2. Reverted local edits to `data/imagefs.json` + `simulator/v2/getImagefsDetail` via `git checkout`.
+3. Re-uploaded 1.3.7 content under the sidecar name `imagefs_137.zst`.
+Live state restored before any clients saw the broken manifest/binary mismatch (window <10 min).
+
+### Verification (live)
+Worker deployment id `a5489569985749d69a87d6b58dd01fa2`, modified `2026-05-10T23:52:55Z`.
+- `GET /v6/simulator/v2/getImagefsDetail` → `version=1.3.7, vc=27, md5=82e98261…, size=171913811, url=…/imagefs_137.zst` ✅
+- `GET /simulator/v2/getImagefsDetail` (5.x) → `version=1.3.3, vc=23, md5=27fd5164…, size=168943620, url=…/imagefs.zst` ✅
+- `HEAD .../imagefs_137.zst` → 200, 171,913,811 B ✅
+- `HEAD .../imagefs.zst` → 200, 168,943,620 B (5.x intact) ✅
+
+### Pages not redeployed
+Source-of-truth files (`data/imagefs.json`, `simulator/v2/getImagefsDetail`) deliberately not changed — only `bannerhub-worker.js` committed. The 5.x manifest published from `main` is still pinned at 1.3.3.
