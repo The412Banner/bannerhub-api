@@ -372,3 +372,35 @@ All 10 containers in `containers.json` now carry a `sub_data` block. `wine10.6-a
 
 ### Worker not redeployed
 Container endpoints are pure pass-throughs (`/v6/getContainerDetail` proxies Pages verbatim; `/v6/getContainerList` only adds the `isSteam` camelCase mirror). Same deploy pattern as Proton 11 v1.0.1 catalog bump on 2026-05-08.
+
+---
+
+## 2026-05-10 — Fix: 5.x `getComponentList` server-side type filter
+
+Reported by user investigating `gamehub.lite` (5.3.5 BannerHub variant): GPU drivers / DXVK / VKD3D / Box64 tabs all showed every component instead of the type-specific subset. Root cause: the worker's 5.x branch on `/simulator/v2/getComponentList` proxied to Pages and dropped the `?type=N` query string. Pages is static, ignores query strings, and serves a single 535-entry file. Every tab got the same payload back.
+
+### Why the regression happened
+Pre-self-host (before `0185126` on 2026-03-26): worker forwarded to the upstream Xiaoji API, which filtered server-side. Self-host pivot moved the catalog to GitHub Pages — at that point the 5.x branch became a dumb pass-through. The `51ee1c0` v6-gate split on 2026-05-02 codified the dumb pass-through for 5.x and left filtering in place only on the `/v6/` branch (where the worker also reshapes/remaps/allowlists). Two months of every 5.x picker showing the full catalog.
+
+### What changed
+- `bannerhub-worker.js:731-757`: hoisted the `type` parsing out of the 6.0-only block (parses query string for GET, JSON body or form-urlencoded body for POST — both paths use the same parser).
+- New 5.x branch applies `all.filter(i => i.type === type)` against the parsed catalog from Pages, then re-stringifies `list` to preserve the legacy 5.x list-of-string wrapper (`parseListField` comment block).
+- No reshape, no Steam remap, no allowlist on 5.x — those remain 6.0-only. `is_ui` / `gpu_range` and snake_case fields stay intact.
+- 6.0 branch (lines 770+) unchanged structurally — it now re-uses the hoisted `type` variable.
+
+### Verification (live, deploy `49a92d4d5c084238989b31ba53aac469`)
+Every type 1–7 returns only its own type, list shape stays stringified:
+- `5.x ?type=1` → 34 entries, all type 1
+- `5.x ?type=2` → 265 entries, all type 2
+- `5.x ?type=3` → 44 entries, all type 3
+- `5.x ?type=4` → 7 entries, all type 4
+- `5.x ?type=5` → 65 entries, all type 5
+- `5.x ?type=6` → 117 entries, all type 6
+- `5.x ?type=7` → 3 entries, all type 7
+- `5.x` (no `?type`) → all 535 entries (matches upstream pass-through behavior)
+- `5.x POST form-urlencoded type=3` → 44 entries, all type 3 (covers POST clients too)
+- `6.0 /v6/ ?type=2` → 265 entries, real array (not stringified), reshape applied ✅
+- `6.0 /v6/ ?type=8` → 1 entry (`steam_client_0403`), Steam allowlist intact ✅
+
+### Client side: no app update needed
+The two app variants route to separate URL paths (5.x → bare, 6.0 → `/v6/…`) at the smali redirect level. Both already exist in the wild today — the fix lives entirely in the worker's `is60`-false branch. `gamehub.lite` users see filtered tabs on the next request after deploy.

@@ -729,12 +729,12 @@ export default {
       // Response shape: BaseResult<EnvListData<EnvLayerEntity>> — list MUST be
       // a real JSON array, not stringified.
       if (url.pathname === '/simulator/v2/getComponentList') {
-        // 5.x: pass upstream catalog through unchanged (preserves is_ui,
-        // gpu_range, native list shape). Only 6.0 needs filtering + reshape.
-        if (!is60) {
-          const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
-          return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
-        }
+        // Parse type from query OR POST body (form-urlencoded or JSON) — both
+        // 5.x and 6.0 clients send the filter here. 5.x used to rely on the
+        // upstream Xiaoji API to do the filter server-side; after the self-host
+        // pivot to GitHub Pages (commit 0185126), Pages is static and ignores
+        // query strings, so the 5.x pass-through quietly stopped filtering.
+        // Worker applies the filter for both branches now.
         let type = null
         if (request.method === 'POST') {
           const raw = await request.clone().text()
@@ -748,6 +748,30 @@ export default {
         } else {
           const v = url.searchParams.get('type')
           if (v != null && v !== '') type = Number(v)
+        }
+
+        // 5.x: filter the static catalog server-side, preserve 5.x shape
+        // (stringified `list`, snake_case fields, is_ui/gpu_range intact).
+        // Do NOT reshape/remap/allowlist — those are 6.0-only.
+        if (!is60) {
+          const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
+          if (!res.ok) {
+            return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: '[]', total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+          }
+          const data = await res.json()
+          let all = parseListField(data.data)
+          if (type) all = all.filter(i => i.type === type)
+          return new Response(JSON.stringify({
+            code: data.code ?? 200,
+            msg: data.msg ?? 'Success',
+            data: {
+              list: JSON.stringify(all),
+              total: all.length,
+              page: data.data?.page ?? 1,
+              pageSize: data.data?.pageSize ?? all.length,
+            },
+            time,
+          }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
         }
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
         if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: { list: [], total: 0, page: 1, pageSize: 10 }, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
