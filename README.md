@@ -1,4 +1,6 @@
 # BannerHub API
+[![Discord](https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&logoColor=white)](https://discord.gg/n8S4G2WZQ4)
+
 
 Static JSON API and Cloudflare Worker proxy for the [BannerHub](https://github.com/The412Banner/bannerhub) Android app. Replaces GameHub's original Chinese servers with a fully self-hosted, privacy-respecting backend.
 
@@ -268,3 +270,8 @@ No Big-Eyes CDN links. No Zygler URLs. No undisclosed third-party file hosts.
 ## Privacy
 
 No user data, analytics, or tracking. Contains only public component manifests, open-source configuration, and CDN download links.
+
+
+## Community
+
+Join our Discord: https://discord.gg/n8S4G2WZQ4
