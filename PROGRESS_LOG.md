@@ -437,3 +437,35 @@ Zero. BannerHub 3.7.1 (5.3.5) talks straight to `landscape-api*.vgabc.com` — t
 
 ### Release-notes ripple
 The "Imported games have no cover art by default" warning carried in `bannerhub-revanced` v1.0.0-600 / v1.0.1-601 / v1.0.0-602 release notes should be dropped from the next ReVanced stable's notes — fix is server-side and live for all existing patched APKs without an app update.
+
+## 2026-05-11 — Custom DXVK additions (1.9.4-async, 1.7.3-async)
+
+User had two older async-patched DXVK builds in Winlator `.wcp` format (xz-compressed tar) sitting in the Termux home: `dxvk-1.9.4-async.wcp` and `dxvk-1.7.3-async.wcp`.
+
+### Why they needed repacking
+The `.wcp` files are Winlator container packages with a `profile.json` manifest at the root + `system32/`/`syswow64/` DLL trees. BannerHub-API's existing DXVK entries are GameHub-format `.tzst` — same DLL layout, zstd compression, **no manifest** (GameHub's container import just unpacks the trees straight into the wine prefix; a stray `profile.json` would land as noise in the prefix root). Wrapping format was the only blocker — DLLs (`d3d9`/`d3d10`/`d3d10_1`/`d3d10core`/`d3d11`/`dxgi`) are valid PE binaries that drop in unchanged.
+
+### Repack pipeline
+For each file:
+1. `xz -dc <file>.wcp | tar -xf -` into a scratch dir
+2. Delete `profile.json`
+3. `tar -cf - system32 syswow64 | zstd -19 -o <tmp>.tzst`
+4. `md5sum <tmp>.tzst` → use that as the final filename per repo convention
+5. `gh release upload Components <md5>.tzst --repo The412Banner/bannerhub-api`
+
+### Resulting entries (`data/custom_components.json`)
+| id | name | display_name | md5 | size |
+|---|---|---|---|---|
+| 1328 | DXVK-1.9.4-async | DXVK-1.9.4-async | `acb1b8a2f851285747443a0d4b7b0629` | 3,346,298 B |
+| 1329 | DXVK-1.7.3-async | DXVK-1.7.3-async | `f74724b310f964e761f123b9863a815c` | 3,167,495 B |
+
+Both `type: 3`, `version_code: 1`. Built with `npm run build` — `dxvk_manifest` total 44 → 46.
+
+### Push
+- Commit `a356629` on `master` (after rebase onto upstream's Discord README commit `0cbf752`).
+- `master` fast-forwarded onto `main` (Pages serves from `main`).
+- Live verification: `curl https://raw.githubusercontent.com/The412Banner/bannerhub-api/main/components/dxvk_manifest` → total 46, both IDs visible. Asset URLs return HTTP 302 (redirect to release CDN).
+
+### Notes
+- Author email amended from `d.roethlein88@gmail.com` (private on GitHub, push rejected) → `205237651+The412Banner@users.noreply.github.com` to match prior commits.
+- These are older DXVK series (1.x) — most existing entries are 2.3.1 / 2.4.1 / 2.5.x / 2.6.x / 2.7.1. Useful as fallbacks on games that regress on newer DXVK.
