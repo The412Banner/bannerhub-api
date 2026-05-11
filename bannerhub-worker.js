@@ -918,6 +918,14 @@ export default {
       // Fix: forward the original request headers verbatim AND inject the
       // shared `bannerhub_token` as a `token` header so upstream sees the
       // request as authenticated.
+      // /simulator/getLocalGameDetail is the PC-EXE import recognition call
+      // (POST body: LocalImportGameArgs{file_str, other_file_str}). Vanilla
+      // 6.0 hits landscape-api.vgabc.com directly and receives a populated
+      // LocalGameInfoSvrEntity (logo/cover_image/back_image/hero_capsule/
+      // square_image), so imported games show cover art. Under the generic
+      // fall-through proxy, all client headers (clientparams/sign/time) get
+      // stripped, upstream treats the request as anonymous, and the response
+      // is empty data → imported games land with no art.
       if (
         url.pathname.startsWith('/vcontroller/') ||
         url.pathname === '/simulator/configList' ||
@@ -925,6 +933,7 @@ export default {
         url.pathname === '/simulator/shareConfig' ||
         url.pathname === '/simulator/deleteShareConfig' ||
         url.pathname === '/simulator/reportConfigApply' ||
+        url.pathname === '/simulator/getLocalGameDetail' ||
         url.pathname.startsWith('/readLayoutType/') ||
         url.pathname.startsWith('/writeLayoutType/')
       ) {
