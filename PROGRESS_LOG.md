@@ -404,3 +404,36 @@ Every type 1–7 returns only its own type, list shape stays stringified:
 
 ### Client side: no app update needed
 The two app variants route to separate URL paths (5.x → bare, 6.0 → `/v6/…`) at the smali redirect level. Both already exist in the wild today — the fix lives entirely in the worker's `is60`-false branch. `gamehub.lite` users see filtered tabs on the next request after deploy.
+
+## 2026-05-11 — getLocalGameDetail forwarded with auth headers (commit `79d3d0d`, deploy `5fd6c6a7b34c47b8b7bd75b091fb43ba`)
+
+### Symptom
+Imported PC games on the patched 6.0 client (`bannerhub-revanced` gamehub-602-build) landed with no cover art. Vanilla GameHub 6.0 (Genshin-package APK talking directly to `landscape-api.vgabc.com`) showed full cover art on the same imports.
+
+### Investigation
+- Smali analysis of `GameHub_6.0.2.apk` traced the import flow:
+  - `Lmf0;` = `AppNavKey.PcImportEdit` (carries only `exePath`)
+  - `Lj46;` = the Compose lambda dispatching the screen — reads `Lmf0;->d` and calls `Ljc5;->e(String, Lq3g;, Composer, Int)V`
+  - `Lq3g;` = the ViewModel — Koin-injected, holds `LocalGameInfoSvrEntity` recognition result
+- `q3g.smali:1203` literal `"simulator/getLocalGameDetail"` followed at `:402-407` by construction of `LocalImportGameArgs(fileStr, otherFileStr)` (POST body).
+- Response schema `LocalGameInfoSvrEntity` (`com/xiaoji/egggame/game/domain/model/`) has `game_id`, `steam_appid`, `name`, `logo`, `cover_image`, `back_image`, `description`, `square_image`, `hero_capsule` — every cover-art field is here.
+- Vanilla logcat (`com.miHoYo.GenshinImpact`) captured `DISPOSE overlay=mf0` twice for two imports, plus in-flight Ktor CancellationException at dismissal — confirming the call fires. URL itself isn't logged (Ktor logging off on vanilla), but smali evidence was airtight.
+
+### Root cause
+The worker's `/v6/` prefix is stripped at line 507. `/v6/simulator/getLocalGameDetail` then hit the generic fall-through proxy (line ~984 "All other routes") which forwards body with token-swap but sets `forwardHeaders = { 'Content-Type': 'application/json' }` — every client header (`clientparams`/`sign`/`time`) gets dropped. Upstream `landscape-api.vgabc.com/simulator/getLocalGameDetail` treated the request as anonymous and returned empty `data` (no recognition match), so the ViewModel surfaced a blank entity → blank cover art on the library tile.
+
+### Fix
+Added `url.pathname === '/simulator/getLocalGameDetail'` to the existing vjoy/Scheme authenticated-proxy condition (block originally added in `0792400`). That branch already does the right thing:
+- copies inbound headers verbatim (drops only Host/CF/X-Forwarded-* hop-by-hop)
+- injects `token: <bannerhub_token>` from KV
+- for POSTs with a body-side `token` field, swaps + re-signs (no-op here — `LocalImportGameArgs` has only `file_str` + `other_file_str`)
+- forwards to `landscape-api.vgabc.com/simulator/getLocalGameDetail` and pipes the response back
+
+### Verification (live)
+Device-confirmed on the `com.xiaoji.egggame` build (`bannerhub-revanced` gamehub-602-build) immediately after deploy — imported games now show cover art.
+
+### 5.x impact
+Zero. BannerHub 3.7.1 (5.3.5) talks straight to `landscape-api*.vgabc.com` — the worker isn't on its network path. Even if a 5.x client somehow hit the worker, the new condition fires only for the literal path, and 5.x's import flow has its own code path unrelated to the worker.
+
+### Release-notes ripple
+The "Imported games have no cover art by default" warning carried in `bannerhub-revanced` v1.0.0-600 / v1.0.1-601 / v1.0.0-602 release notes should be dropped from the next ReVanced stable's notes — fix is server-side and live for all existing patched APKs without an app update.
