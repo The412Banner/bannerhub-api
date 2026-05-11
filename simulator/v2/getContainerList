@@ -94,6 +94,11 @@
       "is_steam": 1,
       "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
       "name": "wine10.6-arm64x-2",
+      "sub_data": {
+        "sub_file_name": "aeb9ee7dccf887d5d543963ce823f1cc.tzst",
+        "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/758f0f8dbdb9935a261ca0730f119540.tzst",
+        "sub_file_md5": "758f0f8dbdb9935a261ca0730f119540"
+      },
       "version": "1.0.0",
       "version_code": 1
     },
@@ -198,5 +203,5 @@
       "version_code": 2
     }
   ],
-  "time": "1778458356"
+  "time": "1778458977"
 }

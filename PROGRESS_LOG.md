@@ -344,5 +344,21 @@ Catalog-only change. Both 5.x (Pages pass-through) and 6.0 (`/v6/` reshape) pick
 ### Note on `GOOD` (id 1316)
 Type-5 (Games/Settings) entry with an unusually terse name and 25.5 MB payload. Flagged at diff time but added per user request — review on device before assuming it's a real settings pack vs an upstream test artifact.
 
-### Unaddressed delta (deferred)
-`CONTAINER:wine10.6-arm64x-2` (id=6) now ships a `subData` block upstream (`subFileMd5 758f0f8dbdb9935a261ca0730f119540`, `10.6_arm64x-2_warm_up_pkg.tzst`). Our `containers.json` id=6 still has `sub_data: null`. Same shape change Proton 11 got on 2026-05-08 — not mirrored this session per scope.
+### Unaddressed delta — RESOLVED below
+~~`CONTAINER:wine10.6-arm64x-2` (id=6) `sub_data` mirror~~ — addressed in the follow-up commit (next section).
+
+---
+
+## 2026-05-10 — wine10.6-arm64x-2 `sub_data` mirror (final container without one)
+
+GameHub's unified XML now ships `CONTAINER:wine10.6-arm64x-2` with a `subData` companion — the same shape change Proton 11 got on 2026-05-08 (`8351de2`). After this commit, all 10 containers in `containers.json` carry a `sub_data` block.
+
+### What changed
+- New asset `758f0f8dbdb9935a261ca0730f119540.tzst` (110,075,894 B / 105 MB, md5 self-named) downloaded from `uxdl.mac520.com/ux-landscape/pc_zst/758f/0f/8d/…` and uploaded to the `Components` release on `The412Banner/bannerhub-api`. Upstream `subFileName` was `10.6_arm64x-2_warm_up_pkg.tzst`; mirrored under the canonical md5-named filename per release convention.
+- `data/containers.json` id=6 (`wine10.6-arm64x-2`): added `sub_data` block — `sub_file_name = aeb9ee7dccf887d5d543963ce823f1cc.tzst` (parent md5 per convention), `sub_download_url` pointing at our `758f0f8d….tzst`, `sub_file_md5 = 758f0f8dbdb9935a261ca0730f119540`.
+- `simulator/v2/getContainerDetail/6` + `getContainerList` regenerated via `npm run build` — main wine tarball untouched.
+
+### Why
+wine10.6 was the only outlier in `containers.json` without a `sub_data` block after the Proton 11 fix. Upstream now publishes one. Our `/v6/` clients should serve the same shape so the unpacker has access to whatever's in the warm-up package (likely fast-path runtime preload, naming consistent with the Proton 11 sidecar).
+
+### Verification (post-deploy section appended after push)

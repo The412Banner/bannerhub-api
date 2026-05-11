@@ -92,7 +92,12 @@
     "framework": "arm64X",
     "framework_type": "stable",
     "display_name": "wine10.6-arm64x-2",
-    "is_steam": 1
+    "is_steam": 1,
+    "sub_data": {
+      "sub_file_name": "aeb9ee7dccf887d5d543963ce823f1cc.tzst",
+      "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/758f0f8dbdb9935a261ca0730f119540.tzst",
+      "sub_file_md5": "758f0f8dbdb9935a261ca0730f119540"
+    }
   },
   {
     "id": 2,
