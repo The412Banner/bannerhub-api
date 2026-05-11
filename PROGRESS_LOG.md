@@ -361,4 +361,14 @@ GameHub's unified XML now ships `CONTAINER:wine10.6-arm64x-2` with a `subData` c
 ### Why
 wine10.6 was the only outlier in `containers.json` without a `sub_data` block after the Proton 11 fix. Upstream now publishes one. Our `/v6/` clients should serve the same shape so the unpacker has access to whatever's in the warm-up package (likely fast-path runtime preload, naming consistent with the Proton 11 sidecar).
 
-### Verification (post-deploy section appended after push)
+### Verification (live, commit `bbb4381`)
+Pages build status `built`. Verified end-to-end:
+- `GET /v6/simulator/v2/getContainerDetail?id=6` → `sub_data` populated with the new sidecar URL/md5 ✅
+- `GET /simulator/v2/getContainerList` (5.x via Pages) → id=6 entry includes the `sub_data` block ✅
+- `HEAD .../Components/758f0f8dbdb9935a261ca0730f119540.tzst` → 200, 110,075,894 B ✅
+- Main wine tarball `wine_10.6_arm64x-2.tar.zst` (md5 `aeb9ee7d…`, 220,083,873 B) unchanged.
+
+All 10 containers in `containers.json` now carry a `sub_data` block. `wine10.6-arm64x-2` was the last outlier post-Proton-11.
+
+### Worker not redeployed
+Container endpoints are pure pass-throughs (`/v6/getContainerDetail` proxies Pages verbatim; `/v6/getContainerList` only adds the `isSteam` camelCase mirror). Same deploy pattern as Proton 11 v1.0.1 catalog bump on 2026-05-08.
