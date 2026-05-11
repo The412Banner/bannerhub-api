@@ -5,21 +5,35 @@
     "type": 5,
     "type_name": "games",
     "display_name": "Game Patches",
-    "total": 64,
+    "total": 65,
     "components": [
       {
+        "display_name": "GOOD",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5c4e8b3c447f3015bcadd12e94a5c23f.tzst",
+        "file_md5": "5c4e8b3c447f3015bcadd12e94a5c23f",
+        "file_name": "5c4e8b3c447f3015bcadd12e94a5c23f.tzst",
+        "file_size": 25508581,
+        "id": 1316,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "GOOD",
+        "type": 5,
+        "version": "1.0.0",
+        "version_code": 1
+      },
+      {
         "display_name": "SteamAgent2",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e31b0c0ee0057dfc45dd22652d494f12.tzst",
-        "file_md5": "e31b0c0ee0057dfc45dd22652d494f12",
-        "file_name": "e31b0c0ee0057dfc45dd22652d494f12.tzst",
-        "file_size": 970765,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/216fccca808125c3c1eaf910cdbc32dd.tzst",
+        "file_md5": "216fccca808125c3c1eaf910cdbc32dd",
+        "file_name": "216fccca808125c3c1eaf910cdbc32dd.tzst",
+        "file_size": 969498,
         "id": 1295,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "SteamAgent2",
         "type": 5,
-        "version": "1.0.1",
-        "version_code": 2
+        "version": "1.0.2",
+        "version_code": 3
       },
       {
         "display_name": "Wine Proton 10.0 (x64)",

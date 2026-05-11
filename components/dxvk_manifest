@@ -5,8 +5,36 @@
     "type": 3,
     "type_name": "dxvk",
     "display_name": "DXVK Layers",
-    "total": 42,
+    "total": 44,
     "components": [
+      {
+        "display_name": "dxvk-1.12.0-sarek-dyasync",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a84304e53659142aa820558a51ec7640.tzst",
+        "file_md5": "a84304e53659142aa820558a51ec7640",
+        "file_name": "a84304e53659142aa820558a51ec7640.tzst",
+        "file_size": 6255786,
+        "id": 1321,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "dxvk-1.12.0-sarek-dyasync",
+        "type": 3,
+        "version": "1.0.0",
+        "version_code": 1
+      },
+      {
+        "display_name": "dxvk-1.12.0-sarek",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/580d0b9ce2bead84f33c7c1a790854ba.tzst",
+        "file_md5": "580d0b9ce2bead84f33c7c1a790854ba",
+        "file_name": "580d0b9ce2bead84f33c7c1a790854ba.tzst",
+        "file_size": 9789808,
+        "id": 1320,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "dxvk-1.12.0-sarek",
+        "type": 3,
+        "version": "1.0.0",
+        "version_code": 1
+      },
       {
         "display_name": "DXVK-2.6.2-gplasync-arm64ec",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0e52b83f4e97942aaafe330dbfaa741b.tzst",

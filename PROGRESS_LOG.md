@@ -306,3 +306,43 @@ Worker deployment id `a5489569985749d69a87d6b58dd01fa2`, modified `2026-05-10T23
 
 ### Pages not redeployed
 Source-of-truth files (`data/imagefs.json`, `simulator/v2/getImagefsDetail`) deliberately not changed — only `bannerhub-worker.js` committed. The 5.x manifest published from `main` is still pinned at 1.3.3.
+
+---
+
+## 2026-05-10 — Catalog sync vs upstream unified XML (14 components)
+
+Diffed live `sp_winemu_unified_resources.xml` (firmware 1.3.7 / GameHub 6.0) against our `data/sp_winemu_all_components12.xml` + `data/custom_components.json`. Deltas: 1 version bump + 13 new components. All 14 mirrored to the Components release at md5-named filenames.
+
+### SteamAgent2 — version bump
+- `data/custom_components.json` id=1295 bumped: `version 1.0.1 → 1.0.2`, `version_code 2 → 3`, `file_md5 e31b0c0e… → 216fccca808125c3c1eaf910cdbc32dd`, `file_size 970765 → 969498`, `file_name e31b0c0e….tzst → 216fccca….tzst`, `download_url` re-pointed at new asset.
+- New asset uploaded; old `e31b0c0e….tzst` left on release (no rollback signal yet).
+
+### 13 new components (ids 1315–1327)
+
+| id | name | type | md5 | size |
+|---|---|---|---|---|
+| 1315 | `Fex_20260509` | 1 (FEX) | `413f44586f2fccaf93a2792f6198495d` | 1,675,639 |
+| 1316 | `GOOD` | 5 (Games) | `5c4e8b3c447f3015bcadd12e94a5c23f` | 25,508,581 |
+| 1317 | `Turnip_26.2.0_R3_OneUI` | 2 (GPU) | `6894a06d588c2cf485f2a3ad1103d1df` | 2,431,230 |
+| 1318 | `Turnip_v26.1.0_R6` | 2 | `38b2d5398d927470009ff5a66967811d` | 3,114,826 |
+| 1319 | `Turnip_v26.2.0_R3` | 2 | `65ea8b61f2313c3b76c3fac205322a4f` | 2,430,930 |
+| 1320 | `dxvk-1.12.0-sarek` | 3 (DXVK) | `580d0b9ce2bead84f33c7c1a790854ba` | 9,789,808 |
+| 1321 | `dxvk-1.12.0-sarek-dyasync` | 3 | `a84304e53659142aa820558a51ec7640` | 6,255,786 |
+| 1322 | `turnip_v26.1.0_b10` | 2 | `05743ec8d638c60cf7329060c94d09c5` | 2,352,100 |
+| 1323 | `turnip_v26.1.0_b11` | 2 | `e2b8d9aa9e3a64d67e24e0c4930d45cb` | 2,349,702 |
+| 1324 | `turnip_v26.1.0_b12` | 2 | `d6c6e7719f84ba2729c58f710e4783dc` | 3,226,771 |
+| 1325 | `turnip_v26.1.0_b7-git_2` (v1.0.2 vc3) | 2 | `143478654f8b8180fef596fbfa131552` | 2,318,118 |
+| 1326 | `turnip_v26.1.0_b9` | 2 | `3ae13ec0a178d3eeec7005d5c1388a80` | 2,352,436 |
+| 1327 | `turnip_v26.2.0_b1` | 2 | `5d92be400392ef2e16c42b4d0c24f680` | 2,432,554 |
+
+### Source workflow
+Per `ADDING_NEW_COMPONENTS.md`: appended to `data/custom_components.json`, uploaded binaries to `Components` release at the canonical `<md5>.tzst` filename, ran `npm run build` to regenerate 16+ manifest files. All 14 confirmed present in `simulator/v2/getAllComponentList` post-build (total entries 514 → 535).
+
+### Worker not redeployed
+Catalog-only change. Both 5.x (Pages pass-through) and 6.0 (`/v6/` reshape) pick up the new entries the moment Pages publishes from `main` — no worker logic touched. Same pattern as the FEXCore-2605 add on 2026-05-09 and the Proton 11 v1.0.1 bump on 2026-05-08.
+
+### Note on `GOOD` (id 1316)
+Type-5 (Games/Settings) entry with an unusually terse name and 25.5 MB payload. Flagged at diff time but added per user request — review on device before assuming it's a real settings pack vs an upstream test artifact.
+
+### Unaddressed delta (deferred)
+`CONTAINER:wine10.6-arm64x-2` (id=6) now ships a `subData` block upstream (`subFileMd5 758f0f8dbdb9935a261ca0730f119540`, `10.6_arm64x-2_warm_up_pkg.tzst`). Our `containers.json` id=6 still has `sub_data: null`. Same shape change Proton 11 got on 2026-05-08 — not mirrored this session per scope.
