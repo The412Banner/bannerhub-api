@@ -5,8 +5,36 @@
     "type": 3,
     "type_name": "dxvk",
     "display_name": "DXVK Layers",
-    "total": 44,
+    "total": 46,
     "components": [
+      {
+        "display_name": "DXVK-1.7.3-async",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f74724b310f964e761f123b9863a815c.tzst",
+        "file_md5": "f74724b310f964e761f123b9863a815c",
+        "file_name": "f74724b310f964e761f123b9863a815c.tzst",
+        "file_size": 3167495,
+        "id": 1329,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "DXVK-1.7.3-async",
+        "type": 3,
+        "version": "1.7.3-async",
+        "version_code": 1
+      },
+      {
+        "display_name": "DXVK-1.9.4-async",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/acb1b8a2f851285747443a0d4b7b0629.tzst",
+        "file_md5": "acb1b8a2f851285747443a0d4b7b0629",
+        "file_name": "acb1b8a2f851285747443a0d4b7b0629.tzst",
+        "file_size": 3346298,
+        "id": 1328,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "DXVK-1.9.4-async",
+        "type": 3,
+        "version": "1.9.4-async",
+        "version_code": 1
+      },
       {
         "display_name": "dxvk-1.12.0-sarek-dyasync",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a84304e53659142aa820558a51ec7640.tzst",

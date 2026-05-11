@@ -2738,6 +2738,30 @@
       "file_size": "2432554",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5d92be400392ef2e16c42b4d0c24f680.tzst",
       "display_name": "turnip_v26.2.0_b1"
+    },
+    {
+      "id": 1328,
+      "name": "DXVK-1.9.4-async",
+      "type": 3,
+      "version": "1.9.4-async",
+      "version_code": 1,
+      "file_name": "acb1b8a2f851285747443a0d4b7b0629.tzst",
+      "file_md5": "acb1b8a2f851285747443a0d4b7b0629",
+      "file_size": "3346298",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/acb1b8a2f851285747443a0d4b7b0629.tzst",
+      "display_name": "DXVK-1.9.4-async"
+    },
+    {
+      "id": 1329,
+      "name": "DXVK-1.7.3-async",
+      "type": 3,
+      "version": "1.7.3-async",
+      "version_code": 1,
+      "file_name": "f74724b310f964e761f123b9863a815c.tzst",
+      "file_md5": "f74724b310f964e761f123b9863a815c",
+      "file_size": "3167495",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f74724b310f964e761f123b9863a815c.tzst",
+      "display_name": "DXVK-1.7.3-async"
     }
   ]
 }
