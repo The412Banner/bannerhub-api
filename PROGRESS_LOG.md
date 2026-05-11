@@ -438,8 +438,14 @@ Zero. BannerHub 3.7.1 (5.3.5) talks straight to `landscape-api*.vgabc.com` — t
 ### Release-notes ripple
 The "Imported games have no cover art by default" warning carried in `bannerhub-revanced` v1.0.0-600 / v1.0.1-601 / v1.0.0-602 release notes should be dropped from the next ReVanced stable's notes — fix is server-side and live for all existing patched APKs without an app update.
 
-## 2026-05-11 — Custom DXVK additions (1.9.4-async, 1.7.3-async)
+## 2026-05-11 — Custom DXVK additions (1.9.4-async, 1.7.3-async) — Helio G99 fallback
 
+### Why these specifically
+Added **for Helio G99 users** (MediaTek SoC, Mali-G57 MC2 GPU — e.g. Retroid Pocket 4 Pro, Anbernic RG556, AYN Odin Lite, base Retroid Pocket 5). The existing DXVK lineup in BannerHub-API starts at 2.3.1 and is heavy on `gplasync` / `arm64ec` variants — those don't run well on Mali-G57-class silicon. The simpler 1.x async path is known to work where 2.x regresses.
+
+When triaging "DXVK crashes / glitches on G99" reports going forward: point users at id=1328 (1.9.4-async) first, id=1329 (1.7.3-async) as a further fallback.
+
+### Source files
 User had two older async-patched DXVK builds in Winlator `.wcp` format (xz-compressed tar) sitting in the Termux home: `dxvk-1.9.4-async.wcp` and `dxvk-1.7.3-async.wcp`.
 
 ### Why they needed repacking
@@ -468,4 +474,5 @@ Both `type: 3`, `version_code: 1`. Built with `npm run build` — `dxvk_manifest
 
 ### Notes
 - Author email amended from `d.roethlein88@gmail.com` (private on GitHub, push rejected) → `205237651+The412Banner@users.noreply.github.com` to match prior commits.
-- These are older DXVK series (1.x) — most existing entries are 2.3.1 / 2.4.1 / 2.5.x / 2.6.x / 2.7.1. Useful as fallbacks on games that regress on newer DXVK.
+- These are older DXVK series (1.x) — most existing entries are 2.3.1 / 2.4.1 / 2.5.x / 2.6.x / 2.7.1. Specifically chosen to give Helio G99 / Mali-G57-class users a working DXVK path (see "Why these specifically" above).
+- For BannerHub release-notes ripple: the next stable's notes should mention these as "older DXVK builds for Mali-based devices like Helio G99" rather than just generic legacy fallbacks.
