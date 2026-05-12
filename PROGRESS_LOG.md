@@ -476,3 +476,38 @@ Both `type: 3`, `version_code: 1`. Built with `npm run build` — `dxvk_manifest
 - Author email amended from `d.roethlein88@gmail.com` (private on GitHub, push rejected) → `205237651+The412Banner@users.noreply.github.com` to match prior commits.
 - These are older DXVK series (1.x) — most existing entries are 2.3.1 / 2.4.1 / 2.5.x / 2.6.x / 2.7.1. Specifically chosen to give Helio G99 / Mali-G57-class users a working DXVK path (see "Why these specifically" above).
 - For BannerHub release-notes ripple: the next stable's notes should mention these as "older DXVK builds for Mali-based devices like Helio G99" rather than just generic legacy fallbacks.
+
+
+## 2026-05-12 — base.tzst v1.0.0 → v1.0.1 mirror (40 MB → 83 MB)
+
+Upstream GameHub 5.3.5 / 6.0 catalogs ship base id=8 at version 1.0.1 (md5 `96df60f3cff612a9747e56cae9d4c6e8`, 83,424,612 B). We were still serving 1.0.0 (3d5c31b…4d7, 40,612,198 B) on every client path. Verified by inspecting a fresh GameHub 5.3.5 install's `<string name="base">` row.
+
+### Asset upload
+- Downloaded from upstream CDN: `https://uxdl.mac520.com/ux-landscape/pc_zst/96df/60/f3/96df60f3cff612a9747e56cae9d4c6e8.tzst`
+- md5 + size verified against upstream JSON before upload
+- Uploaded to `Components` release as **`base_v101.tzst`** (version-suffixed for rollback, same pattern as `imagefs_137.zst`)
+- Original `base.tzst` (40 MB v1.0.0) kept on the release as rollback artifact
+
+### Metadata bumped in nine files (lockstep)
+1. `components/games_manifest`
+2. `components/downloads`
+3. `data/sp_winemu_all_components12.xml` — inner entry + outer wrapper `"version":"1.0.0"` → `"1.0.1"`
+4. `simulator/executeScript/generic`
+5. `simulator/executeScript/generic_steam`
+6. `simulator/executeScript/qualcomm`
+7. `simulator/executeScript/qualcomm_steam`
+8. `simulator/v2/getComponentList`
+9. `simulator/v2/getAllComponentList`
+
+Field changes per row: `download_url` → `…/Components/base_v101.tzst`, `file_md5` → new, `file_size` → 83424612, `version` → 1.0.1, `version_code` → 2. **`file_name` stays "base.tzst"** (matches upstream convention; clients save local file as base.tzst regardless of URL).
+
+### Affected clients
+- **BannerHub 3.7.1** (GameHub 6.0.x base) — `/v6/` static-proxy path (worker ~660-668 just reshapes, doesn't pin a separate base)
+- **Bannerhub-Lite 1.0.2** (GameHub Lite 5.1.4 base) — `executeScript` Add-Game path
+
+### Push
+- Commit `9889ff6` on `main` → `master:main` push for Pages parity (Pages source = `main`).
+- Worker NOT redeployed — its `/v6/` base handling routes through Pages.
+
+### Lockstep gotcha
+Same trap as the imagefs `c8d7f21` miss (executeScript variants left stale for ~22 h). The script that did this bump (`base-tzst-mirror/bump.py`) enumerates all 9 paths from a single grep on the old md5 — anyone updating base metadata in the future should do the same enumeration to avoid leaving half the clients on the old version.
