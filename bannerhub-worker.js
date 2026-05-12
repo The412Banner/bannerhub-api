@@ -669,6 +669,17 @@ export default {
         // Force status=1 for upstream's "active/recommended" rotation (see
         // UPSTREAM_STATUS1 set below). Everything else stays at 0.
         e.status = UPSTREAM_STATUS1.has(e.name) ? 1 : 0
+        // Override stale .yml install scripts with mirrored upstream content.
+        // /v6/-only swap: 5.x continues to serve our static catalog values.
+        const yml = UPSTREAM_YML_OVERRIDES.get(e.name)
+        if (yml) {
+          e.file_md5 = yml.file_md5
+          e.file_size = yml.file_size
+          e.file_name = yml.file_name
+          e.version = yml.version
+          e.version_code = yml.version_code
+          e.download_url = yml.download_url
+        }
         if (e.blurb === undefined) e.blurb = ''
         if (e.upgrade_msg === undefined) e.upgrade_msg = ''
         if (e.sub_data === undefined) e.sub_data = null
@@ -735,6 +746,35 @@ export default {
         'Fex_20260509',
         'Turnip_v26.2.0_R3',
         'turnip_v26.1.0_R4',
+      ])
+
+      // Upstream Xiaoji /v6/ ships fresher versions of 17 .yml install scripts
+      // (vcredist*, mono*, gecko, physx, K-Lite, VulkanRT, XLiveRedist,
+      // cjkfonts, oalinst) than our static catalog. The .yml content is a
+      // dependency manifest read by the install task to fetch the actual
+      // installer (e.g. VC_redist.x64.exe from Microsoft). Mirror the fresher
+      // .yml files on our Components release (md5-named) so the 6.0 install
+      // task gets the up-to-date dependency list. /v6/-only swap — 5.x still
+      // serves our pre-existing v1.0.0 .yml entries via the raw passthrough.
+      // Update entries here when upstream bumps a .yml file.
+      const UPSTREAM_YML_OVERRIDES = new Map([
+        ['K-Lite', { file_md5: 'a408473ba1386cf39e15a7bb1b59827a', file_size: 392, file_name: 'a408473ba1386cf39e15a7bb1b59827a.yml', version: '1.0.6', version_code: 1143, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/a408473ba1386cf39e15a7bb1b59827a.yml' }],
+        ['VulkanRT', { file_md5: '9875d27394bd0395d71307f98f32075c', file_size: 547, file_name: '9875d27394bd0395d71307f98f32075c.yml', version: '1.0.1', version_code: 1493, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/9875d27394bd0395d71307f98f32075c.yml' }],
+        ['XLiveRedist', { file_md5: 'fb698a45d3a6ec01337cde14c931a723', file_size: 409, file_name: 'fb698a45d3a6ec01337cde14c931a723.yml', version: '1.0.1', version_code: 1593, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/fb698a45d3a6ec01337cde14c931a723.yml' }],
+        ['cjkfonts', { file_md5: 'a7907ac50b78a6de437e3eb6c1360037', file_size: 4013, file_name: 'a7907ac50b78a6de437e3eb6c1360037.yml', version: '1.0.1', version_code: 1000, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/a7907ac50b78a6de437e3eb6c1360037.yml' }],
+        ['gecko', { file_md5: '39bf8130cf0a66c8dd8c5e6358ad0004', file_size: 677, file_name: '39bf8130cf0a66c8dd8c5e6358ad0004.yml', version: '1.0.1', version_code: 2, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/39bf8130cf0a66c8dd8c5e6358ad0004.yml' }],
+        ['mono', { file_md5: 'b9d6016c3aab2bb836c8335b2e06a04b', file_size: 490, file_name: 'b9d6016c3aab2bb836c8335b2e06a04b.yml', version: '1.0.1', version_code: 941, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/b9d6016c3aab2bb836c8335b2e06a04b.yml' }],
+        ['mono-10.1.0', { file_md5: '294e578d4325b19d60e98f81012ecf3f', file_size: 494, file_name: '294e578d4325b19d60e98f81012ecf3f.yml', version: '1.0.1', version_code: 1061, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/294e578d4325b19d60e98f81012ecf3f.yml' }],
+        ['mono-10.3.0', { file_md5: '4862ad0883ef2dd6419f0f1ac38c225c', file_size: 494, file_name: '4862ad0883ef2dd6419f0f1ac38c225c.yml', version: '1.0.1', version_code: 2, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/4862ad0883ef2dd6419f0f1ac38c225c.yml' }],
+        ['mono-10.4.1', { file_md5: '294e578d4325b19d60e98f81012ecf3f', file_size: 494, file_name: '294e578d4325b19d60e98f81012ecf3f.yml', version: '1.0.3', version_code: 4, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/294e578d4325b19d60e98f81012ecf3f.yml' }],
+        ['oalinst', { file_md5: 'c131cd67a1f028c82dff21628a2f6c95', file_size: 407, file_name: 'c131cd67a1f028c82dff21628a2f6c95.yml', version: '1.0.1', version_code: 1938, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/c131cd67a1f028c82dff21628a2f6c95.yml' }],
+        ['physx', { file_md5: '6d9e00fa670ac3f5eedd0006b10040e5', file_size: 523, file_name: '6d9e00fa670ac3f5eedd0006b10040e5.yml', version: '1.0.1', version_code: 942, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/6d9e00fa670ac3f5eedd0006b10040e5.yml' }],
+        ['vcredist2005', { file_md5: '3ff1b801eaa4760b3c02830374ce2677', file_size: 1091, file_name: '3ff1b801eaa4760b3c02830374ce2677.yml', version: '1.0.1', version_code: 117, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/3ff1b801eaa4760b3c02830374ce2677.yml' }],
+        ['vcredist2008', { file_md5: 'dc4f22dd8028c6eba432ba8d46998c05', file_size: 1105, file_name: 'dc4f22dd8028c6eba432ba8d46998c05.yml', version: '1.0.1', version_code: 118, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/dc4f22dd8028c6eba432ba8d46998c05.yml' }],
+        ['vcredist2010', { file_md5: '315fd6cc33ca6ff33d795e501a63d6be', file_size: 1049, file_name: '315fd6cc33ca6ff33d795e501a63d6be.yml', version: '1.0.1', version_code: 120, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/315fd6cc33ca6ff33d795e501a63d6be.yml' }],
+        ['vcredist2012', { file_md5: 'b6498f6b34280ed2fb7e089e6eb74124', file_size: 1049, file_name: 'b6498f6b34280ed2fb7e089e6eb74124.yml', version: '1.0.1', version_code: 121, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/b6498f6b34280ed2fb7e089e6eb74124.yml' }],
+        ['vcredist2015', { file_md5: '09d2bd2947c16ba62f49db8bbfe4be6a', file_size: 2509, file_name: '09d2bd2947c16ba62f49db8bbfe4be6a.yml', version: '1.0.2', version_code: 945, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/09d2bd2947c16ba62f49db8bbfe4be6a.yml' }],
+        ['vcredist2022', { file_md5: '793aa93426d903a6526d434cd1652aa3', file_size: 1629, file_name: '793aa93426d903a6526d434cd1652aa3.yml', version: '1.0.1', version_code: 945, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/793aa93426d903a6526d434cd1652aa3.yml' }],
       ])
 
       // Unwrap the static catalog's 5.x list-of-string wrapper into a real
