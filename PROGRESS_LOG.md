@@ -544,3 +544,45 @@ Distribution across all 351 upstream COMPONENT entries: **fileType=4 universally
 
 ### Pending verification
 Brawlhalla launch on a freshly-rebuilt `bannerhub-revanced` 6.0.4 APK. User noted comparison was muddied by mixing 6.0.4 upstream XML with a 6.0.2 ReVanced build; rebuild against 6.0.4 base in progress. If install task still fails after this fix, next suspect is the `executeScript` handler which is currently shared between 5.x and 6.0 (no `/v6/` gate) and serves the static catalog files verbatim with `fileType=0`.
+
+## 2026-05-12 — Full upstream-XML audit + 2 follow-up `/v6/` reshape fixes
+
+User shared their on-device `sp_winemu_unified_resources.xml` from a working vanilla GameHub 6.0.x install (362 entries: 351 COMPONENT + 10 CONTAINER + 1 IMAGE_FS). Ran a full field-by-field audit of every shared entry between upstream and our `/v6/` response.
+
+### Headline findings
+
+**Set parity is clean:**
+- 0 upstream entries missing from our `/v6/` response
+- 176 BannerHub additions on top (Proton 11, custom Turnips, Box64/FEX variants, etc.)
+
+**`fileType` + `isSteam` now match upstream after this morning's two fixes (`ac8ae07`):** all 351/351 entries align.
+
+**Two real divergences remained after the morning fixes:**
+
+1. **`status` flag mismatch on 9 entries.** Upstream marks `status=1` on the "currently active / recommended" component per category — base, steam_client_0403, vkd3d-2.12, dxvk-2.3.1-async, vcredist2019, SteamAgent2, Fex_20260509, Turnip_v26.2.0_R3, turnip_v26.1.0_R4. We were defaulting every component to `status=0`. The install task likely gates "use this as the default for new containers" on this flag, which would have explained why base + steam_client_0403 + vkd3d-2.12 (the trio a Steam game install touches first) didn't auto-install cleanly even after `fileType=4` landed.
+
+2. **17 `.yml` install scripts on stale versions.** Upstream had bumped vcredist2005/8/10/12/15/22, mono / mono-10.1.0 / mono-10.3.0 / mono-10.4.1, gecko, physx, K-Lite, VulkanRT, XLiveRedist, cjkfonts, oalinst to fresher versions (most v1.0.1, K-Lite to v1.0.6, vcredist2015 to v1.0.2, mono-10.4.1 to v1.0.3). Our static catalog still served v1.0.0 across the board.
+
+### Fixes
+
+**Status fix** (`cb225c3`, deploy `fd8eaf4047324ae3acb44fb391a189b2`):
+- New `UPSTREAM_STATUS1` `Set<string>` of 9 names in the worker.
+- `reshapeFor60` forces `e.status = UPSTREAM_STATUS1.has(e.name) ? 1 : 0`.
+- Hardcoded set, needs manual maintenance if upstream rotates a recommended component.
+
+**`.yml` install-script sync** (`b0f23ac`, deploy `6fbbdfc71b59476b894fe075ef173b32`):
+- Downloaded all 17 upstream `.yml` files from `uxdl.mac520.com` (public CDN, MD5-verified).
+- 16 unique blobs (mono-10.1.0 and mono-10.4.1 share the same `294e578d…` content).
+- Uploaded to the `Components` GitHub release with md5-named filenames.
+- New `UPSTREAM_YML_OVERRIDES` `Map<string, OverrideSpec>` in the worker.
+- `reshapeFor60` looks up by name and overrides `file_md5`, `file_size`, `file_name`, `version`, `version_code`, `download_url` when a match is found.
+
+Both fixes are `/v6/`-only by construction (`reshapeFor60` only runs inside the `is60` branch). 5.x clients verified untouched on live deploy — still serve the pre-existing v1.0.0 `.yml` entries via the raw passthrough.
+
+### Remaining intentional differences (not bugs)
+- `downloadUrl` on 351/351 differs (github.com vs uxdl.mac520.com) — by design, same MD5 = same content.
+- `id` on 46 entries differs (different numbering schemes between BannerHub and upstream; doesn't affect functionality).
+- `fileName` cosmetic mismatches (`name.tzst` vs `<md5>.tzst`) on 52 entries.
+- `displayName` set to component name in our catalog, upstream uses empty string — cosmetic.
+- 4 game-settings entries (ACM, DeadSpace(2023), WRC10, id Software) categorized as type=6 in our catalog vs type=5 upstream — could cause UI misplacement under the "Games" category but not install failure. Not fixed in this round.
+- 2 binary mismatches outside the .yml sync: `steamagent` (same size, different MD5 — possibly repacked) and `vkd3d-proton-3.0.1` (real size diff: upstream 5.0 MB, ours 3.1 MB). Left alone pending decision on whether to mirror.
