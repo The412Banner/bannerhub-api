@@ -3217,13 +3217,13 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/base.tzst",
-        "file_md5": "3d5c31b1346985d582f04d239004b4d7",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/base_v101.tzst",
+        "file_md5": "96df60f3cff612a9747e56cae9d4c6e8",
         "file_name": "base.tzst",
-        "file_size": 40612198,
+        "file_size": 83424612,
         "name": "base",
         "type": 5,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/BBQ_Settings.tzst",
