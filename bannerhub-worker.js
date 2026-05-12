@@ -666,7 +666,9 @@ export default {
         // Container-side isSteam mirror still lives in the dedicated
         // getContainerList handler below (carries real 1/2 values per row).
         if (e.is_steam === undefined) e.is_steam = 0
-        if (e.status === undefined) e.status = 0
+        // Force status=1 for upstream's "active/recommended" rotation (see
+        // UPSTREAM_STATUS1 set below). Everything else stays at 0.
+        e.status = UPSTREAM_STATUS1.has(e.name) ? 1 : 0
         if (e.blurb === undefined) e.blurb = ''
         if (e.upgrade_msg === undefined) e.upgrade_msg = ''
         if (e.sub_data === undefined) e.sub_data = null
@@ -713,6 +715,27 @@ export default {
       const ALLOWED_STEAM_CLIENTS = new Set(['steam_client_0403'])
       const keepForSteamClientAllowlist60 = (e) =>
         e.type !== 8 || ALLOWED_STEAM_CLIENTS.has(e.name)
+
+      // Upstream Xiaoji /v6/ marks 9 specific components with `status=1` (the
+      // "currently active / recommended" flag — one per slot per category).
+      // Verified 2026-05-12 against the user's on-device unified resources
+      // XML from vanilla GameHub 6.0.x: every other component is status=0.
+      // Without this set our /v6/ defaults everything to 0, which appears to
+      // suppress the install task's "use this default" path for base +
+      // steam_client_0403 + vkd3d-2.12 and likely contributed to "task
+      // install components failed" on Brawlhalla. Update this set when
+      // upstream rotates a recommended component.
+      const UPSTREAM_STATUS1 = new Set([
+        'base',
+        'steam_client_0403',
+        'vkd3d-2.12',
+        'dxvk-2.3.1-async',
+        'vcredist2019',
+        'SteamAgent2',
+        'Fex_20260509',
+        'Turnip_v26.2.0_R3',
+        'turnip_v26.1.0_R4',
+      ])
 
       // Unwrap the static catalog's 5.x list-of-string wrapper into a real
       // JSON array, so 6.0 kotlinx-strict can deserialize it. EnvListData.list
