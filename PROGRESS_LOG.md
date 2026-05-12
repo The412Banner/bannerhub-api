@@ -511,3 +511,36 @@ Field changes per row: `download_url` → `…/Components/base_v101.tzst`, `file
 
 ### Lockstep gotcha
 Same trap as the imagefs `c8d7f21` miss (executeScript variants left stale for ~22 h). The script that did this bump (`base-tzst-mirror/bump.py`) enumerates all 9 paths from a single grep on the old md5 — anyone updating base metadata in the future should do the same enumeration to avoid leaving half the clients on the old version.
+
+## 2026-05-12 — reshapeFor60 fixes for 6.0 install failure on base v1.0.1
+
+User hit `task install components failed` immediately on Brawlhalla launch in `bannerhub-revanced` 6.0.2 (against the BannerHub Worker). Same container settings worked on vanilla GameHub 6.0.2 / 6.0.4 talking to upstream Xiaoji, and on BannerHub 3.7.2 (which goes through our 5.x passthrough), so the failure was scoped to the `/v6/` reshape path.
+
+### Diagnostic — upstream XML comparison
+User shared their on-device `sp_winemu_unified_resources.xml` from a working vanilla 6.0.x install. Field-by-field diff against our `/v6/` `getComponentList` response on `base`:
+
+| Field | Upstream `/v6/` | Our `/v6/` before fix |
+|---|---|---|
+| `fileType` | 4 | **0** |
+| `is_steam` / `isSteam` | 0 (present) | **missing** |
+| All other fields | match | match |
+
+Distribution across all 351 upstream COMPONENT entries: **fileType=4 universally**, **isSteam=0 universally** (zero special-cases, including the Steam client itself and base). The pre-existing `reshapeFor60` comment hardcoding `base.fileType = 0` ("Wine prefix scaffold so unpacker uses base-layout extractor") was either always wrong on 6.0 or specifically wrong for base v1.0.1 (83 MB) — empirical upstream evidence says fileType=4 for base and works.
+
+### Fixes (both in `reshapeFor60`, `/v6/`-only by construction)
+
+- **`e.fileType = 4` unconditionally** — replaced the `(e.name === 'base') ? 0 : 4` special-case. Was previously a no-op anyway since source XML defines `fileType=0` everywhere and reshape only fired when undefined.
+- **`if (e.is_steam === undefined) e.is_steam = 0`** — restores the field upstream sends. Snake-case on the wire; kotlinx `@SerialName` maps it to camelCase `isSteam` in the on-device cache. Previously omitted on the assumption that 6.0 doesn't read `isSteam` on components — but missing-field vs zero-value is a real difference for kotlinx-strict.
+
+### Deploys
+- `e86579f9…` — fileType=4 only
+- `3ee299be…` — fileType=4 + is_steam=0
+
+### Verification
+- `/v6/` base: `fileType=4`, `is_steam=0`, MD5 `96df60f3…` unchanged
+- `/v6/` GPU drivers: `fileType=4` (also flipped from previously-incorrect 0)
+- `5.x` base: untouched — still passes raw upstream XML through (`gpu_range` present, `fileType` absent), reshape never fires for non-`/v6/` traffic
+- BannerHub 3.7.2 and other 5.x clients unaffected
+
+### Pending verification
+Brawlhalla launch on a freshly-rebuilt `bannerhub-revanced` 6.0.4 APK. User noted comparison was muddied by mixing 6.0.4 upstream XML with a 6.0.2 ReVanced build; rebuild against 6.0.4 base in progress. If install task still fails after this fix, next suspect is the `executeScript` handler which is currently shared between 5.x and 6.0 (no `/v6/` gate) and serves the static catalog files verbatim with `fileType=0`.

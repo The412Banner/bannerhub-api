@@ -646,21 +646,26 @@ export default {
       const reshapeFor60 = (e) => {
         delete e.is_ui
         delete e.gpu_range
-        if (e.fileType === undefined) {
-          // 'base' is the Wine prefix scaffold (40 MB tarball with system32/
-          // syswow64 layout); upstream catalog (`data/sp_winemu_all_components12
-          // .xml:147`) marks it fileType=0 so the unpacker uses the base-layout
-          // extractor. Other components default to fileType=4 (single package).
-          // Without this special case the unpacker lays base out flat and
-          // markRepoDownloaded(base) returns false → launch fails on first run.
-          e.fileType = (e.name === 'base') ? 0 : 4
-        }
+        // Upstream Xiaoji /v6/ ships every component (including base) with
+        // fileType=4. Our 5.x source XML defines fileType=0 universally, so
+        // without an override every /v6/ response served 0 — wrong for base
+        // on 6.0 and the cause of "task install components failed" on first
+        // launch for v1.0.1 base.tzst (verified 2026-05-12 against vanilla
+        // 6.0.x on-device sp_winemu_unified_resources.xml COMPONENT:base
+        // entry which had fileType=4). Force 4 on /v6/ to match upstream.
+        e.fileType = 4
         if (e.framework === undefined) e.framework = ''
         if (e.framework_type === undefined) e.framework_type = ''
-        // NOTE: 6.0 reads `isSteam` (camelCase) on containers (getContainerList),
-        // not on components. Snake-case `is_steam` on components is read by
-        // nothing — removed. The container-side isSteam mirror lives in the
-        // dedicated getContainerList handler below.
+        // Upstream Xiaoji /v6/ ships `isSteam` on every COMPONENT entry (always
+        // 0 — verified 2026-05-12 across all 351 upstream entries, including
+        // the Steam client itself). Inject snake-case `is_steam` here; kotlinx
+        // @SerialName maps it to the camelCase Kotlin field, matching the
+        // on-device sp_winemu_unified_resources.xml shape exactly. Previously
+        // omitted on the assumption "components don't read isSteam" — but
+        // missing-field-vs-zero-value is a real difference for kotlinx-strict.
+        // Container-side isSteam mirror still lives in the dedicated
+        // getContainerList handler below (carries real 1/2 values per row).
+        if (e.is_steam === undefined) e.is_steam = 0
         if (e.status === undefined) e.status = 0
         if (e.blurb === undefined) e.blurb = ''
         if (e.upgrade_msg === undefined) e.upgrade_msg = ''
