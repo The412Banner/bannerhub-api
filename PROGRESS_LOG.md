@@ -586,3 +586,44 @@ Both fixes are `/v6/`-only by construction (`reshapeFor60` only runs inside the 
 - `displayName` set to component name in our catalog, upstream uses empty string — cosmetic.
 - 4 game-settings entries (ACM, DeadSpace(2023), WRC10, id Software) categorized as type=6 in our catalog vs type=5 upstream — could cause UI misplacement under the "Games" category but not install failure. Not fixed in this round.
 - 2 binary mismatches outside the .yml sync: `steamagent` (same size, different MD5 — possibly repacked) and `vkd3d-proton-3.0.1` (real size diff: upstream 5.0 MB, ours 3.1 MB). Left alone pending decision on whether to mirror.
+
+## 2026-05-12 (afternoon) — getDefaultComponent steamClient swap on /v6/ (Steam library launch fix)
+
+After the morning's catalog reshape fixes (`ac8ae07`/`cb225c3`/`b0f23ac`), user rebuilt `bannerhub-revanced` against 6.0.4 (CI run 25747297755 all green) and retested Brawlhalla. **Still failed** with "task install components failed" — but now scoped to *Steam-library game launches* specifically (Brawlhalla came in via Steam-sync after logging into Steam in-app).
+
+### Triage
+- Failure timing: after "checking environment and firmware" passes, during the component-install pass.
+- Implication: container/imagefs preflight succeeded; launch task moved on to fetching install spec.
+- Grep of 6.0.4 smali (`/tmp/gh604_smali/`) for `"simulator/"` URL strings surfaced `/simulator/v2/getDefaultComponent` — an endpoint the worker didn't have an explicit handler for. Curl confirmed it falls through to the `GITHUB_ROUTES` static proxy on both 5.x and `/v6/`, returning the per-game default component bundle.
+- Static file returns `steamClient = { name: "steam_9866233", type: 7, download_url: ".../steam_9866233.tar.zst" }`.
+
+### Root cause
+The default-Steam-client record references `steam_9866233` (type=7). On `/v6/` this entry is unreachable two ways:
+- `keepForSteamClientAllowlist60` (allowlist = `{steam_client_0403}`) drops `steam_9866233` from `/v6/getComponentList`.
+- `remapSteamFor60` promotes type=7 → type=8, so the type-7 bucket on `/v6/` is empty by design.
+
+The 6.0 launch task fetches the default bundle, tries to validate/install `steam_9866233`, finds nothing matching in `/v6/` catalog, and surfaces the generic failure toast. EXE-import launches don't hit this code path (no Steam client needed), which is why earlier PC-game launches looked fine.
+
+### Fix (commit `dc04845`, deploy `7afe847cc5224e1482b99743b1b46784`)
+New handler `if (is60 && url.pathname === '/simulator/v2/getDefaultComponent')` — fetches the static file, then rewrites `data.steamClient` to a fully reshape-compatible `steam_client_0403` record:
+
+```
+name: 'steam_client_0403'
+type: 8
+fileType: 4
+status: 1
+file_md5: '08c498cef5c15d710d253681751068c1'
+file_size: 64897035
+download_url: '.../Components/08c498cef5c15d710d253681751068c1.tzst'
+version: '1.0.0'
+version_code: 1
+```
+
+All other fields in the bundle (`dxvk`, `vkd3d`, `container`, `gpu`, `translator`) pass through untouched.
+
+### Verification (live)
+- `/v6/`: `steamClient.name = steam_client_0403`, type 8, fileType 4, status 1, md5-named url ✅
+- 5.x (no `/v6/` prefix): `steamClient.name = steam_9866233`, type 7, original url ✅ untouched
+
+### Pending verification
+User to retry Brawlhalla launch on bannerhub-revanced 6.0.4 with this fix live. Steam library should now launch end-to-end since the install task gets a self-consistent Steam client record on the `/v6/` catalog.
