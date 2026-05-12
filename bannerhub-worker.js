@@ -598,6 +598,18 @@ export default {
       }
 
       // simulator/executeScript: route by gpu_vendor + game_type
+      //
+      // On /v6/, the 6.0 client's GameEnvConfigEntity$$serializer marks
+      // `deps` as a REQUIRED field (smali descriptor in
+      // smali_classes4/com/xiaoji/egggame/common/winemu/data/bean/
+      // GameEnvConfigEntity$$serializer.smali — Lr0h;->j(name, false=required)).
+      // Our static executeScript variants (generic{,_steam}, qualcomm{,_steam})
+      // pre-date the 6.0 schema and don't carry `deps`. Without it,
+      // kotlinx-strict throws MissingFieldException, the launch task gets no
+      // env config, and the install pass surfaces "task install components
+      // failed" — verified 2026-05-12 against bannerhub-revanced 6.0.4
+      // Steam-library launches of Brawlhalla. Inject an empty `deps` array
+      // ONLY for /v6/ traffic; 5.x's lenient deserializer doesn't care.
       if (url.pathname === '/simulator/executeScript') {
         let gpuVendor = '', gameType = null
         if (request.method === 'POST') {
@@ -607,7 +619,12 @@ export default {
         const suffix = gameType === 0 ? `${gpuSuffix}_steam` : gpuSuffix
         const res = await fetch(`${GITHUB_BASE}/simulator/executeScript/${suffix}`)
         if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: {}, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
-        return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        if (!is60) {
+          return new Response(await res.text(), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        const data = await res.json()
+        if (data && data.data && data.data.deps === undefined) data.data.deps = []
+        return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
       // vtouch/startType: route by game_type
