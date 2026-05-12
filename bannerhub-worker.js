@@ -851,10 +851,11 @@ export default {
         }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
-      // getImagefsDetail: serves Firmware metadata. 5.x stays on 1.3.3 (proxied
-      // from the static file). 6.0 (is60) gets 1.3.7 from a separate release
-      // asset so both versions coexist on the GitHub release without 5.x ever
-      // being upgraded. Single endpoint, branch on the /v6/ gate.
+      // getImagefsDetail: serves Firmware metadata. Both 5.x and 6.0 now serve
+      // 1.3.7 — 6.0 from this inline is60 branch, 5.x from the static
+      // simulator/v2/getImagefsDetail file (bumped in c8d7f21). The Add-Game
+      // path on 5.x reads simulator/executeScript/{generic,qualcomm}{,_steam}
+      // which was bumped to 1.3.7 alongside this comment.
       if (url.pathname === '/simulator/v2/getImagefsDetail') {
         if (is60) {
           return new Response(JSON.stringify({
