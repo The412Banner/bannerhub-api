@@ -967,6 +967,53 @@ export default {
         return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
 
+      // /v6/ getDefaultComponent: swap steamClient to the allowlisted client.
+      //
+      // The static file points the default Steam client at `steam_9866233`
+      // (type=7), which is correct for 5.x but breaks 6.0 — we filter
+      // 9866233 out of /v6/getComponentList via keepForSteamClientAllowlist60
+      // (only steam_client_0403 is exposed at type=8 on /v6/). When the 6.0
+      // launch task asks for default components on a Steam library game, it
+      // gets steamClient=9866233/type=7, tries to install it against the
+      // /v6/ catalog where it doesn't exist, and surfaces "task install
+      // components failed". Root cause identified 2026-05-12 after the
+      // earlier reshape fixes (fileType/is_steam/status/yml) didn't fully
+      // unblock the Steam-library launch flow on bannerhub-revanced 6.0.4.
+      //
+      // Swap to steam_client_0403 (type=8 after remap, fileType=4 per
+      // reshape, in allowlist). Other fields (dxvk/vkd3d/container/gpu/
+      // translator) pass through untouched.
+      if (is60 && url.pathname === '/simulator/v2/getDefaultComponent') {
+        const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
+        if (!res.ok) return new Response(JSON.stringify({ code: 200, msg: 'Success', data: {}, time }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        const data = await res.json()
+        if (data && data.data) {
+          data.data.steamClient = {
+            base: null,
+            blurb: '',
+            display_name: '',
+            download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/08c498cef5c15d710d253681751068c1.tzst',
+            file_md5: '08c498cef5c15d710d253681751068c1',
+            file_name: '08c498cef5c15d710d253681751068c1.tzst',
+            file_size: 64897035,
+            fileType: 4,
+            framework: '',
+            framework_type: '',
+            id: 1296,
+            is_steam: 0,
+            logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
+            name: 'steam_client_0403',
+            status: 1,
+            sub_data: null,
+            type: 8,
+            upgrade_msg: '',
+            version: '1.0.0',
+            version_code: 1,
+          }
+        }
+        return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+      }
+
       // Other GitHub Pages static routes
       if (GITHUB_ROUTES.has(url.pathname)) {
         const res = await fetch(`${GITHUB_BASE}${url.pathname}`)
