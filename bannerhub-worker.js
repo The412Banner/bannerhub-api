@@ -507,6 +507,11 @@ export default {
       url.pathname = url.pathname.slice(3) // keep the leading slash
     }
 
+    // Diagnostic log — 2026-05-12 Brawlhalla install-failure triage.
+    // Emit one line per request so Workers tail captures URL + method + is60.
+    // Remove after the install-failure investigation closes.
+    console.log(`[REQ] ${request.method} ${is60 ? '/v6 ' : '5x  '}${url.pathname}${url.search}`)
+
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -1067,6 +1072,7 @@ export default {
         url.pathname === '/simulator/deleteShareConfig' ||
         url.pathname === '/simulator/reportConfigApply' ||
         url.pathname === '/simulator/getLocalGameDetail' ||
+        url.pathname === '/simulator/getGameLoadingPromptList' ||
         url.pathname.startsWith('/readLayoutType/') ||
         url.pathname.startsWith('/writeLayoutType/')
       ) {
