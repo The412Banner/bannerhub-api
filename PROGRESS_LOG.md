@@ -655,3 +655,41 @@ The other 4 missing fields are optional with kotlinx defaults — kotlinx-strict
 
 ### Pending verification
 User to retry Brawlhalla launch on bannerhub-revanced 6.0.4 with rounds 1–5 all live. This was the missing-required-field shoe to drop after the catalog and getDefaultComponent fixes.
+
+## 2026-05-12 (evening) — getGameLoadingPromptList auth passthrough — **THE actual unblocker**
+
+After round 5, Brawlhalla launch retest still failed with "task install components failed." The earlier rounds had built the right catalog shape, but the launch task was failing on a different endpoint entirely. To stop guessing, **set up a live Cloudflare Workers tail** (`120c6b766df54ffc8fce0b31d7fb3b00`) and added a diagnostic `console.log` line at the top of the worker fetch handler logging every request URL + method + is60 flag. Connected via `wss://tail.developers.workers.dev/...` with the `trace-v1` subprotocol and the websockets python lib (Termux interpreter).
+
+### Tail capture
+With the user launching Brawlhalla three times in a row at ~13:35 EDT, the tail captured the full request graph. Filtering out concurrent traffic from other live users, the smoking gun was:
+
+```
+13:34:36 POST /v6/simulator/getGameLoadingPromptList -> 400
+13:35:25 POST /v6/simulator/getGameLoadingPromptList -> 400
+13:36:45 POST /v6/simulator/getGameLoadingPromptList -> 400
+```
+
+Reproduced with a bare curl: `{"code":400,"msg":"Invalid parameters","data":null,"time":"..."}` — same generic-proxy-strips-auth class as the `getLocalGameDetail` fix from 2026-05-11 (`79d3d0d`). The endpoint isn't in the worker's auth-passthrough block, so it falls through to the generic proxy at line ~1100 which resets the request headers to `{Content-Type: application/json}` only — dropping `clientparams`/`sign`/`time`. Upstream treats the request as anonymous and rejects with 400.
+
+### Fix (commit `e132cad`, deploy `9a782221b16b4444b629fc55b57bee61`)
+Added `url.pathname === '/simulator/getGameLoadingPromptList'` to the auth-passthrough condition that already serves `getLocalGameDetail` + vjoy/Scheme endpoints. Header forwarding + token injection now applies. Within ~30s of deploy, live tail showed legitimate clients flipping from 400 → 200.
+
+### Verification
+User confirmed Brawlhalla launch works on bannerhub-revanced 6.0.4 with rounds 1–6 all live — **but only after manually setting the Steam client and some game settings** in the container/per-game settings UI. The auto-defaults still don't pick up the right Steam client end-to-end. The server-side `getDefaultComponent` swap (round 4) returns `steam_client_0403`, but per-game settings may persist a different choice or the Compose UI's "Steam client" picker may not auto-bind to it on first launch.
+
+**Open question / next investigation when revisiting:** why the auto-defaults aren't sufficient — likely either the container's per-game `PcGameSettings.steamClient` row isn't being seeded from `getDefaultComponent` on first save, or there's another endpoint between `getDefaultComponent` and the picker that we still serve stale data for. Tail-driven debug recipe documented above is the path forward.
+
+### Wider lesson
+The 6.0 launch flow has at least two auth-required endpoints we'd missed: `getLocalGameDetail` (fixed 2026-05-11) and `getGameLoadingPromptList` (fixed today). Both fail silently when stripped to the anonymous proxy and surface generic install errors. Anytime a 6.0 install flow fails with no specific component name, the tail-driven diagnostic loop is much faster than reshaping speculatively: deploy a `console.log`, tail it, ask the user to repro, grep for non-200s in the burst window. Diagnostic log line in `fetch()` left in place for future triage.
+
+### Brawlhalla install-failure fix summary (rounds 1–6, all 2026-05-12)
+| Round | Commit | What | Why it didn't fully fix it alone |
+|---|---|---|---|
+| 1 | `ac8ae07` | fileType=4 + is_steam=0 in reshapeFor60 | catalog ok, but install task uses other endpoints |
+| 2 | `cb225c3` | UPSTREAM_STATUS1 set | status flag, not load-bearing for this game |
+| 3 | `b0f23ac` | UPSTREAM_YML_OVERRIDES (17 .yml) | install-script versions, not load-bearing here |
+| 4 | `dc04845` | getDefaultComponent steamClient → 0403 | required, but launch task also calls other endpoints |
+| 5 | `a15d319` | executeScript inject `deps:[]` | required for kotlinx-strict, but launch task fails earlier |
+| **6** | **`e132cad`** | **getGameLoadingPromptList → auth-passthrough block** | **THIS was the actual unblocker** |
+
+Rounds 1–5 each closed real gaps but weren't the final blocker. The actual culprit was an unauthenticated 400 on a single endpoint the launch task fetches before the install pass.
