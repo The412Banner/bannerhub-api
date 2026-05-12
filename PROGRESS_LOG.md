@@ -627,3 +627,31 @@ All other fields in the bundle (`dxvk`, `vkd3d`, `container`, `gpu`, `translator
 
 ### Pending verification
 User to retry Brawlhalla launch on bannerhub-revanced 6.0.4 with this fix live. Steam library should now launch end-to-end since the install task gets a self-consistent Steam client record on the `/v6/` catalog.
+
+## 2026-05-12 (late afternoon) — `/v6/` executeScript missing required `deps` field
+
+After round-4 deploy, user retried Brawlhalla launch — still `task install components failed`. The Steam library launch was now getting past the Steam-client-record check (round 4 unblocked that), but failing elsewhere in the install pass.
+
+### Triage — decompile the 6.0.4 deserializer
+The `simulator/executeScript` response is consumed by 6.0's kotlinx `GameEnvConfigEntity$$serializer`. Decompiled `/tmp/gh604_smali/smali_classes4/com/xiaoji/egggame/common/winemu/data/bean/GameEnvConfigEntity$$serializer.smali` and parsed the descriptor — each `Lr0h;->j(String name, boolean optional)` call defines a field, with `optional=false` meaning kotlinx-strict throws `MissingFieldException` if the field is absent.
+
+**Required fields per the 6.0.4 schema:**
+- `component`, `deps`, `container`, `imagefs`
+
+**Optional fields (kotlinx defaults apply if missing):**
+- `translations`, `controller`, `audio_driver`, `start_param`, `launch_windowed_mode`, `environment`, `cpu_limitations`, `directx_panel`, `video_memory`, `surface_format`, `disable_window_manager`, `gameId`, `totalDownloadSize`
+
+Our static executeScript variants (`simulator/executeScript/{generic,qualcomm}{,_steam}`) carry every required field **except `deps`** — that field was added to the 6.0 schema, post-dating our static files (which were authored for 5.x). 5.x's lenient deserializer never cared about the absence, so same response continued to work there.
+
+### Fix (commit `a15d319`, deploy `fc803738469948a4b84c089c55f5bce7`)
+`/v6/`-only injection in the `/simulator/executeScript` handler: after fetching the static response, if `is60` is set, parse, inject `data.deps = []` when missing, and return. 5.x branch unchanged — still serves the raw text passthrough.
+
+The other 4 missing fields are optional with kotlinx defaults — kotlinx-strict's `@Serializable data class GameEnvConfigEntity(...)` provides defaults for `OPTIONAL` fields, so they don't need to be in the wire response.
+
+### Verification (live)
+- `/v6/` executeScript Steam-game: `deps` present, value `[]` ✅
+- 5.x executeScript Steam-game: `deps` still absent ✅ (untouched)
+- 5 component records still returned unchanged
+
+### Pending verification
+User to retry Brawlhalla launch on bannerhub-revanced 6.0.4 with rounds 1–5 all live. This was the missing-required-field shoe to drop after the catalog and getDefaultComponent fixes.
