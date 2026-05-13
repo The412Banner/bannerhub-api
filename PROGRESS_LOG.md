@@ -693,3 +693,19 @@ The 6.0 launch flow has at least two auth-required endpoints we'd missed: `getLo
 | **6** | **`e132cad`** | **getGameLoadingPromptList → auth-passthrough block** | **THIS was the actual unblocker** |
 
 Rounds 1–5 each closed real gaps but weren't the final blocker. The actual culprit was an unauthenticated 400 on a single endpoint the launch task fetches before the install pass.
+
+## 2026-05-13 — /v6/ component metadata parity round 7 (commit `bff436c`, deploy `ea097a5a7e3d4a0ea315927f7e62bbe6`)
+
+Field-by-field diff against a real upstream 6.0.4 `sp_winemu_unified_resources.xml` (provided by user) surfaced two non-zero drifts on the 17 entries in `UPSTREAM_YML_OVERRIDES` (Round 3 of the 2026-05-12 install-failure work):
+
+- **fileName cosmetic drift.** All 17 entries served md5-named filenames (`b9d6016c3aab2bb836c8335b2e06a04b.yml`) while upstream sends friendly names (`mono.yml`, `K-Lite.yml`, `vcredist2022.yml`, …). Switched to friendly names; `download_url` still points to our GH-release-md5-named files so payload is unchanged.
+- **Two missing `UPSTREAM_STATUS1` entries.** Upstream marks `mono` + `mono-10.4.1` as `status=1` (currently-active mono pair). Added both to the set so the 6.0 install task sees them as recommended defaults.
+
+`fileMd5`, `fileSize`, `version`, `versionCode` were already a perfect match across all 17 entries; only the two parity items above were drifting.
+
+### Verification
+Live `POST /v6/simulator/v2/getComponentList type=6` post-deploy returns:
+- `mono` / `mono-10.1.0` / `mono-10.3.0` / `mono-10.4.1` with `file_name=mono.yml` / `mono-10.1.0.yml` / etc., `status=1/0/0/1` matching upstream.
+- 13 other override entries (K-Lite, VulkanRT, XLiveRedist, cjkfonts, gecko, oalinst, physx, vcredist2005/2008/2010/2012/2015/2022) with friendly fileNames.
+
+5.x raw passthrough untouched (the override map only runs inside the `is60` branch).
