@@ -1073,7 +1073,7 @@
     },
     {
       "id": 1189,
-      "name": "Turnip MTR v1.5 A840P",
+      "name": "MTR_Turnip_v1.5_A840P",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.5",
       "version_code": 1,
@@ -1081,11 +1081,11 @@
       "file_md5": "e0225c5d098b46db9fd4f6363f759a12",
       "file_size": "2145933",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e0225c5d098b46db9fd4f6363f759a12.tzst",
-      "display_name": "Turnip MTR v1.5 A840P"
+      "display_name": "MTR_Turnip_v1.5_A840P"
     },
     {
       "id": 1190,
-      "name": "Turnip MTR v1.5 A8XX",
+      "name": "MTR_Turnip_v1.5_A8XX",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.5",
       "version_code": 1,
@@ -1093,11 +1093,11 @@
       "file_md5": "a9e2849191d661b9f930652ab611178f",
       "file_size": "2152276",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a9e2849191d661b9f930652ab611178f.tzst",
-      "display_name": "Turnip MTR v1.5 A8XX"
+      "display_name": "MTR_Turnip_v1.5_A8XX"
     },
     {
       "id": 1191,
-      "name": "Turnip MTR v1.8.1 A840P",
+      "name": "MTR_Turnip_v1.8.1_A840P",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.1",
       "version_code": 1,
@@ -1105,11 +1105,11 @@
       "file_md5": "459ba6f8bb886b55dd65918295cef484",
       "file_size": "2145124",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/459ba6f8bb886b55dd65918295cef484.tzst",
-      "display_name": "Turnip MTR v1.8.1 A840P"
+      "display_name": "MTR_Turnip_v1.8.1_A840P"
     },
     {
       "id": 1192,
-      "name": "Turnip MTR v1.8.1 A8XX",
+      "name": "MTR_Turnip_v1.8.1_A8XX",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.1",
       "version_code": 1,
@@ -1117,11 +1117,11 @@
       "file_md5": "3b2bb38d84248298bec45850af84737f",
       "file_size": "2151045",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3b2bb38d84248298bec45850af84737f.tzst",
-      "display_name": "Turnip MTR v1.8.1 A8XX"
+      "display_name": "MTR_Turnip_v1.8.1_A8XX"
     },
     {
       "id": 1193,
-      "name": "Turnip MTR v1.8.2 A840P",
+      "name": "MTR_Turnip_v1.8.2_A840P",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.2",
       "version_code": 1,
@@ -1129,11 +1129,11 @@
       "file_md5": "efa74b0365166174f2f84b582336de2f",
       "file_size": "2144958",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/efa74b0365166174f2f84b582336de2f.tzst",
-      "display_name": "Turnip MTR v1.8.2 A840P"
+      "display_name": "MTR_Turnip_v1.8.2_A840P"
     },
     {
       "id": 1194,
-      "name": "Turnip MTR v1.8.2 A8XX",
+      "name": "MTR_Turnip_v1.8.2_A8XX",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.2",
       "version_code": 1,
@@ -1141,11 +1141,11 @@
       "file_md5": "cd659758e4bb86a448b6da5428c3ed98",
       "file_size": "2151057",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/cd659758e4bb86a448b6da5428c3ed98.tzst",
-      "display_name": "Turnip MTR v1.8.2 A8XX"
+      "display_name": "MTR_Turnip_v1.8.2_A8XX"
     },
     {
       "id": 1195,
-      "name": "Turnip MTR v1.8.3 A840P",
+      "name": "MTR_Turnip_v1.8.3_A840P",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.3",
       "version_code": 1,
@@ -1153,11 +1153,11 @@
       "file_md5": "60b6c388a8f5a0692f10e58f7cc37a03",
       "file_size": "2147372",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/60b6c388a8f5a0692f10e58f7cc37a03.tzst",
-      "display_name": "Turnip MTR v1.8.3 A840P"
+      "display_name": "MTR_Turnip_v1.8.3_A840P"
     },
     {
       "id": 1196,
-      "name": "Turnip MTR v1.8.3 A840P-Test",
+      "name": "MTR_Turnip_v1.8.3_A840P_Test",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.3",
       "version_code": 1,
@@ -1165,11 +1165,11 @@
       "file_md5": "cd4f2c45c8e370948e2b84663f6a8404",
       "file_size": "2146241",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/cd4f2c45c8e370948e2b84663f6a8404.tzst",
-      "display_name": "Turnip MTR v1.8.3 A840P-Test"
+      "display_name": "MTR_Turnip_v1.8.3_A840P_Test"
     },
     {
       "id": 1197,
-      "name": "Turnip MTR v1.8.3 A8XX",
+      "name": "MTR_Turnip_v1.8.3_A8XX",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.3",
       "version_code": 1,
@@ -1177,11 +1177,11 @@
       "file_md5": "bcf965c337059a6a63e1b0c14bd0ff19",
       "file_size": "2146738",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/bcf965c337059a6a63e1b0c14bd0ff19.tzst",
-      "display_name": "Turnip MTR v1.8.3 A8XX"
+      "display_name": "MTR_Turnip_v1.8.3_A8XX"
     },
     {
       "id": 1198,
-      "name": "Turnip MTR v1.8.4 A840P",
+      "name": "MTR_Turnip_v1.8.4_A840P",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.4",
       "version_code": 1,
@@ -1189,11 +1189,11 @@
       "file_md5": "06ee00dc203d160cd405d4887e736dac",
       "file_size": "2147438",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/06ee00dc203d160cd405d4887e736dac.tzst",
-      "display_name": "Turnip MTR v1.8.4 A840P"
+      "display_name": "MTR_Turnip_v1.8.4_A840P"
     },
     {
       "id": 1199,
-      "name": "Turnip MTR v1.8.4 A840P-Test",
+      "name": "MTR_Turnip_v1.8.4_A840P_Test",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.4",
       "version_code": 1,
@@ -1201,11 +1201,11 @@
       "file_md5": "56a89ce339c156b19bfa47d71381ffb3",
       "file_size": "2146238",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/56a89ce339c156b19bfa47d71381ffb3.tzst",
-      "display_name": "Turnip MTR v1.8.4 A840P-Test"
+      "display_name": "MTR_Turnip_v1.8.4_A840P_Test"
     },
     {
       "id": 1200,
-      "name": "Turnip MTR v1.8.4 A8XX",
+      "name": "MTR_Turnip_v1.8.4_A8XX",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.4",
       "version_code": 1,
@@ -1213,11 +1213,11 @@
       "file_md5": "e1dcc7a7689711bd4fe9121699e9f58b",
       "file_size": "2146744",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e1dcc7a7689711bd4fe9121699e9f58b.tzst",
-      "display_name": "Turnip MTR v1.8.4 A8XX"
+      "display_name": "MTR_Turnip_v1.8.4_A8XX"
     },
     {
       "id": 1201,
-      "name": "Turnip MTR v1.8.5 A840P",
+      "name": "MTR_Turnip_v1.8.5_A840P",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.5",
       "version_code": 1,
@@ -1225,11 +1225,11 @@
       "file_md5": "e333c24a4b01170be02fbd0005b0bd50",
       "file_size": "2146742",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e333c24a4b01170be02fbd0005b0bd50.tzst",
-      "display_name": "Turnip MTR v1.8.5 A840P"
+      "display_name": "MTR_Turnip_v1.8.5_A840P"
     },
     {
       "id": 1202,
-      "name": "Turnip MTR v1.8.5 A8XX",
+      "name": "MTR_Turnip_v1.8.5_A8XX",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.5",
       "version_code": 1,
@@ -1237,11 +1237,11 @@
       "file_md5": "09f2757c457ac9b542965297882fc981",
       "file_size": "2146504",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/09f2757c457ac9b542965297882fc981.tzst",
-      "display_name": "Turnip MTR v1.8.5 A8XX"
+      "display_name": "MTR_Turnip_v1.8.5_A8XX"
     },
     {
       "id": 1203,
-      "name": "Turnip-MTR-v1.8.7-A840P",
+      "name": "MTR_Turnip_v1.8.7_A840P",
       "type": 2,
       "version": "Mesa 26.1.0-devel",
       "version_code": 1,
@@ -1249,11 +1249,11 @@
       "file_md5": "ea286cac8b320563f3c57205b21b155e",
       "file_size": "2106630",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ea286cac8b320563f3c57205b21b155e.tzst",
-      "display_name": "Turnip-MTR-v1.8.7-A840P"
+      "display_name": "MTR_Turnip_v1.8.7_A840P"
     },
     {
       "id": 1204,
-      "name": "Turnip-MTR-v1.8.7a-A8XX",
+      "name": "MTR_Turnip_v1.8.7_A8XX_a",
       "type": 2,
       "version": "Mesa 26.1.0-devel",
       "version_code": 1,
@@ -1261,11 +1261,11 @@
       "file_md5": "56f6a696d687ecc7d699251c76c1ce84",
       "file_size": "2105817",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/56f6a696d687ecc7d699251c76c1ce84.tzst",
-      "display_name": "Turnip-MTR-v1.8.7a-A8XX"
+      "display_name": "MTR_Turnip_v1.8.7_A8XX_a"
     },
     {
       "id": 1205,
-      "name": "Turnip MTR v1.8.8 A840-a",
+      "name": "MTR_Turnip_v1.8.8_A840_a",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.8",
       "version_code": 1,
@@ -1273,11 +1273,11 @@
       "file_md5": "640d090aa5f39bf4cb13d9c82c6d1106",
       "file_size": "1904373",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/640d090aa5f39bf4cb13d9c82c6d1106.tzst",
-      "display_name": "Turnip MTR v1.8.8 A840-a"
+      "display_name": "MTR_Turnip_v1.8.8_A840_a"
     },
     {
       "id": 1206,
-      "name": "Turnip MTR v1.8.8 A840",
+      "name": "MTR_Turnip_v1.8.8_A840",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.8",
       "version_code": 1,
@@ -1285,11 +1285,11 @@
       "file_md5": "8869d172e1924da4c45b5c9357ad175a",
       "file_size": "1903374",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8869d172e1924da4c45b5c9357ad175a.tzst",
-      "display_name": "Turnip MTR v1.8.8 A840"
+      "display_name": "MTR_Turnip_v1.8.8_A840"
     },
     {
       "id": 1207,
-      "name": "Turnip MTR v1.8.8 A840P-a",
+      "name": "MTR_Turnip_v1.8.8_A840P_a",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.8",
       "version_code": 1,
@@ -1297,11 +1297,11 @@
       "file_md5": "d4b26c9f94cfa84f380f580e70fbcfbb",
       "file_size": "1903731",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d4b26c9f94cfa84f380f580e70fbcfbb.tzst",
-      "display_name": "Turnip MTR v1.8.8 A840P-a"
+      "display_name": "MTR_Turnip_v1.8.8_A840P_a"
     },
     {
       "id": 1208,
-      "name": "Turnip MTR v1.8.8 A840P",
+      "name": "MTR_Turnip_v1.8.8_A840P",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.8",
       "version_code": 1,
@@ -1309,11 +1309,11 @@
       "file_md5": "36888a376ba282850405180d08497d43",
       "file_size": "1903221",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/36888a376ba282850405180d08497d43.tzst",
-      "display_name": "Turnip MTR v1.8.8 A840P"
+      "display_name": "MTR_Turnip_v1.8.8_A840P"
     },
     {
       "id": 1209,
-      "name": "Turnip MTR v1.8.8 A8XX-a",
+      "name": "MTR_Turnip_v1.8.8_A8XX_a",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.8",
       "version_code": 1,
@@ -1321,11 +1321,11 @@
       "file_md5": "77ad8da04d20318c5f961ecd3b63744d",
       "file_size": "1903508",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/77ad8da04d20318c5f961ecd3b63744d.tzst",
-      "display_name": "Turnip MTR v1.8.8 A8XX-a"
+      "display_name": "MTR_Turnip_v1.8.8_A8XX_a"
     },
     {
       "id": 1210,
-      "name": "Turnip MTR v1.8.8 A8XX",
+      "name": "MTR_Turnip_v1.8.8_A8XX",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8.8",
       "version_code": 1,
@@ -1333,11 +1333,11 @@
       "file_md5": "9631d289405eb0087b9f61562017d1f6",
       "file_size": "1903092",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9631d289405eb0087b9f61562017d1f6.tzst",
-      "display_name": "Turnip MTR v1.8.8 A8XX"
+      "display_name": "MTR_Turnip_v1.8.8_A8XX"
     },
     {
       "id": 1211,
-      "name": "Turnip MTR v1.8 A840P",
+      "name": "MTR_Turnip_v1.8_A840P",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8",
       "version_code": 1,
@@ -1345,11 +1345,11 @@
       "file_md5": "ee6c507adb6415286db38632995c2fc1",
       "file_size": "2145871",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ee6c507adb6415286db38632995c2fc1.tzst",
-      "display_name": "Turnip MTR v1.8 A840P"
+      "display_name": "MTR_Turnip_v1.8_A840P"
     },
     {
       "id": 1212,
-      "name": "Turnip MTR v1.8 A840P RC3",
+      "name": "MTR_Turnip_v1.8_A840P_RC3",
       "type": 2,
       "version": "Mesa 26.0.0-rc3",
       "version_code": 1,
@@ -1357,11 +1357,11 @@
       "file_md5": "5e1c7a68384e2f98b214223813998620",
       "file_size": "2119684",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5e1c7a68384e2f98b214223813998620.tzst",
-      "display_name": "Turnip MTR v1.8 A840P RC3"
+      "display_name": "MTR_Turnip_v1.8_A840P_RC3"
     },
     {
       "id": 1213,
-      "name": "Turnip MTR v1.8 A8XX",
+      "name": "MTR_Turnip_v1.8_A8XX",
       "type": 2,
       "version": "Mesa 26.1.0 Devel v1.8",
       "version_code": 1,
@@ -1369,11 +1369,11 @@
       "file_md5": "2216390404560528d9b845c5d96fbbdf",
       "file_size": "2151067",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/2216390404560528d9b845c5d96fbbdf.tzst",
-      "display_name": "Turnip MTR v1.8 A8XX"
+      "display_name": "MTR_Turnip_v1.8_A8XX"
     },
     {
       "id": 1214,
-      "name": "Turnip MTR v1.8 A8XX RC3",
+      "name": "MTR_Turnip_v1.8_A8XX_RC3",
       "type": 2,
       "version": "Mesa 26.0.0-rc3",
       "version_code": 1,
@@ -1381,11 +1381,11 @@
       "file_md5": "13c54bdae5bab1582b4996ff3c20313f",
       "file_size": "2124179",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/13c54bdae5bab1582b4996ff3c20313f.tzst",
-      "display_name": "Turnip MTR v1.8 A8XX RC3"
+      "display_name": "MTR_Turnip_v1.8_A8XX_RC3"
     },
     {
       "id": 1215,
-      "name": "Turnip MTR v1.9.0 Axxx Smart",
+      "name": "MTR_Turnip_v1.9.0_Axxx_Smart",
       "type": 2,
       "version": "Mesa 26.1.0 v1.9.0-Smart",
       "version_code": 1,
@@ -1393,11 +1393,11 @@
       "file_md5": "d548db83e7f5d138ab10f3d348289897",
       "file_size": "2099979",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d548db83e7f5d138ab10f3d348289897.tzst",
-      "display_name": "Turnip MTR v1.9.0 Axxx Smart"
+      "display_name": "MTR_Turnip_v1.9.0_Axxx_Smart"
     },
     {
       "id": 1216,
-      "name": "Turnip MTR v1.9.1-b Axxx",
+      "name": "MTR_Turnip_v1.9.1_Axxx_b",
       "type": 2,
       "version": "Mesa 26.1.0 v1.9.1-b",
       "version_code": 1,
@@ -1405,11 +1405,11 @@
       "file_md5": "37cbac2373677fb9a2d970813cfc0579",
       "file_size": "2100201",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/37cbac2373677fb9a2d970813cfc0579.tzst",
-      "display_name": "Turnip MTR v1.9.1-b Axxx"
+      "display_name": "MTR_Turnip_v1.9.1_Axxx_b"
     },
     {
       "id": 1217,
-      "name": "Turnip MTR v1.9.1-p Axxx",
+      "name": "MTR_Turnip_v1.9.1_Axxx_p",
       "type": 2,
       "version": "Mesa 26.1.0 v1.9.1-p",
       "version_code": 1,
@@ -1417,11 +1417,11 @@
       "file_md5": "c763a31217d3b0123e81c28e53e93242",
       "file_size": "2100572",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/c763a31217d3b0123e81c28e53e93242.tzst",
-      "display_name": "Turnip MTR v1.9.1-p Axxx"
+      "display_name": "MTR_Turnip_v1.9.1_Axxx_p"
     },
     {
       "id": 1218,
-      "name": "Turnip MTR v1.9.2-b Axxx",
+      "name": "MTR_Turnip_v1.9.2_Axxx_b",
       "type": 2,
       "version": "Mesa 26.1.0-devel v1.9.2-b",
       "version_code": 1,
@@ -1429,11 +1429,11 @@
       "file_md5": "8fe3c96a4b91480eb1f01879bd23f1c1",
       "file_size": "2099986",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8fe3c96a4b91480eb1f01879bd23f1c1.tzst",
-      "display_name": "Turnip MTR v1.9.2-b Axxx"
+      "display_name": "MTR_Turnip_v1.9.2_Axxx_b"
     },
     {
       "id": 1219,
-      "name": "Turnip MTR v1.9.2-p Axxx",
+      "name": "MTR_Turnip_v1.9.2_Axxx_p",
       "type": 2,
       "version": "Mesa 26.1.0-devel v1.9.2-p",
       "version_code": 1,
@@ -1441,11 +1441,11 @@
       "file_md5": "34b0292f953a27ab5ea5fb89a29680d6",
       "file_size": "2101039",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/34b0292f953a27ab5ea5fb89a29680d6.tzst",
-      "display_name": "Turnip MTR v1.9.2-p Axxx"
+      "display_name": "MTR_Turnip_v1.9.2_Axxx_p"
     },
     {
       "id": 1220,
-      "name": "Turnip MTR v2.0.0-b Axxx",
+      "name": "MTR_Turnip_v2.0.0_Axxx_b",
       "type": 2,
       "version": "Mesa 26.1.0-devel v2.0.0-b",
       "version_code": 1,
@@ -1453,11 +1453,11 @@
       "file_md5": "e89fb9815cdba0ad8479c824b26559b3",
       "file_size": "2105839",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e89fb9815cdba0ad8479c824b26559b3.tzst",
-      "display_name": "Turnip MTR v2.0.0-b Axxx"
+      "display_name": "MTR_Turnip_v2.0.0_Axxx_b"
     },
     {
       "id": 1221,
-      "name": "Turnip MTR v2.0.0-p Axxx",
+      "name": "MTR_Turnip_v2.0.0_Axxx_p",
       "type": 2,
       "version": "Mesa 26.1.0-devel v2.0.0-p",
       "version_code": 1,
@@ -1465,11 +1465,11 @@
       "file_md5": "a9563d622f21a2f0b734f4c678dacba7",
       "file_size": "2105980",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a9563d622f21a2f0b734f4c678dacba7.tzst",
-      "display_name": "Turnip MTR v2.0.0-p Axxx"
+      "display_name": "MTR_Turnip_v2.0.0_Axxx_p"
     },
     {
       "id": 1222,
-      "name": "Turnip MTR v3.0.0-b Axxx",
+      "name": "MTR_Turnip_v3.0.0_Axxx_b",
       "type": 2,
       "version": "Mesa 26.1.0-devel v3.0.0-b",
       "version_code": 1,
@@ -1477,11 +1477,11 @@
       "file_md5": "4bae7830acfbe1481fbaa4203168b76b",
       "file_size": "1903321",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4bae7830acfbe1481fbaa4203168b76b.tzst",
-      "display_name": "Turnip MTR v3.0.0-b Axxx"
+      "display_name": "MTR_Turnip_v3.0.0_Axxx_b"
     },
     {
       "id": 1223,
-      "name": "Turnip MTR v3.0.0-p Axxx",
+      "name": "MTR_Turnip_v3.0.0_Axxx_p",
       "type": 2,
       "version": "Mesa 26.1.0-devel v3.0.0-p",
       "version_code": 1,
@@ -1489,11 +1489,11 @@
       "file_md5": "046e48c5ecd80974962c621e4e303d67",
       "file_size": "1902947",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/046e48c5ecd80974962c621e4e303d67.tzst",
-      "display_name": "Turnip MTR v3.0.0-p Axxx"
+      "display_name": "MTR_Turnip_v3.0.0_Axxx_p"
     },
     {
       "id": 1224,
-      "name": "Turnip MTR v3.2.0-b Axxx",
+      "name": "MTR_Turnip_v3.2.0_Axxx_b",
       "type": 2,
       "version": "Mesa 26.1.0-devel v3.2.0-b",
       "version_code": 1,
@@ -1501,11 +1501,11 @@
       "file_md5": "df0769d4c5e4d8b32c2b0926aca843e6",
       "file_size": "1911683",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/df0769d4c5e4d8b32c2b0926aca843e6.tzst",
-      "display_name": "Turnip MTR v3.2.0-b Axxx"
+      "display_name": "MTR_Turnip_v3.2.0_Axxx_b"
     },
     {
       "id": 1225,
-      "name": "Turnip MTR v3.2.0-p Axxx",
+      "name": "MTR_Turnip_v3.2.0_Axxx_p",
       "type": 2,
       "version": "Mesa 26.1.0-devel v3.2.0-p",
       "version_code": 1,
@@ -1513,7 +1513,7 @@
       "file_md5": "856efb260be1191994bf91ddc2d06d62",
       "file_size": "1911983",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/856efb260be1191994bf91ddc2d06d62.tzst",
-      "display_name": "Turnip MTR v3.2.0-p Axxx"
+      "display_name": "MTR_Turnip_v3.2.0_Axxx_p"
     },
     {
       "id": 1226,
