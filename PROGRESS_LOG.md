@@ -709,3 +709,53 @@ Live `POST /v6/simulator/v2/getComponentList type=6` post-deploy returns:
 - 13 other override entries (K-Lite, VulkanRT, XLiveRedist, cjkfonts, gecko, oalinst, physx, vcredist2005/2008/2010/2012/2015/2022) with friendly fileNames.
 
 5.x raw passthrough untouched (the override map only runs inside the `is60` branch).
+
+## 2026-05-14 — imagefs firmware 1.3.7 → 1.3.8 (commit `2d88572`, deploy `46900b4660e44d31916a8f9525b035e2`)
+
+Upstream Xiaoji (`uxdl.mac520.com/ux-landscape/pc_zst/51ff/98/0c/imagefs.zst`) bumped Firmware id=1 from 1.3.7 → 1.3.8 (versionCode 27 → 28). Verified against a real vanilla 6.0.x device `sp_winemu_unified_resources.xml` (Firmware row marked `state: INSTALLED` at 1.3.8). md5 `51ff980cbd8bc314730d1d8e119faece`, size 171,675,606 B (-238,205 B vs 1.3.7).
+
+### What actually changed (3 of 6,801 files, plus 2 consumer relinks)
+
+End-to-end extract + structural diff:
+
+| 1.3.7 path | 1.3.8 path | What's different |
+|-|-|-|
+| `usr/lib/libjxl.so` | `usr/lib/libjxl_winemu.so` | SONAME renamed + ELF layout reshuffled |
+| `usr/lib/libjxl_cms.so` | `usr/lib/libjxl_cms_winemu.so` | SONAME renamed |
+| `usr/lib/libjxl_threads.so` | `usr/lib/libjxl_threads_winemu.so` | SONAME renamed |
+| `gdk-pixbuf-2.0/.../libpixbufloader-jxl.so` | (same path) | NEEDED → `_winemu` names |
+| `imlib2/loaders/jxl.so` | (same path) | NEEDED → `_winemu` names |
+
+**Verified pure SONAME rename, not a code change:**
+- `.text` byte-identical for all 3 libs (2,499,288 B / 7,040 B / 97,848 B)
+- `.rodata`, `.data.rel.ro`, `.plt`, `.rela.dyn`, `.rela.plt` at identical file offsets + sizes
+- Public dynamic-symbol surfaces match exactly (`diff` of dyn-syms is empty)
+- Same NDK r27c, Android API 24, aarch64 toolchain
+
+**File-size growth is pure ELF page-alignment padding.** The new build relocated `.dynsym`/`.dynstr`/`.note.android.ident` to fresh 64KB-aligned offsets at the file tail (e.g. `0x2c0000`, `0x2d0000`). `e_phnum` 10 → 11 covers the gap. No new code, strings, or symbols.
+
+**`libGameScopeVK.so` byte-identical to 1.3.7** (sha256 `c8f4809c7dbbf0add52fdf702a07e4cdbe8f9e2fa31d10ce37e3bb59e782c943`). The 1.3.6→1.3.7 `DirectRendering::Present()` drop-frame patch is preserved unchanged — zero AI frame-gen regression risk.
+
+**Upstream motivation:** the `_winemu` suffix is defensive against Bionic-linker namespace collisions — newer Android versions / OEM ROMs (especially OnePlus 12, MIUI 14) bundle a system `libjxl.so` for HEIF-JXL gallery decode. Bionic's app-private namespace can resolve to the system copy first under some load orders, and the renamed soname forces the per-app copy to win. No client-visible behavior change.
+
+### Files touched (7 sites holding imagefs metadata, all bumped in one commit)
+1. `bannerhub-worker.js` — `/v6/` inline branch (only file requiring worker re-deploy)
+2. `data/imagefs.json`
+3. `simulator/v2/getImagefsDetail`
+4. `simulator/executeScript/generic`
+5. `simulator/executeScript/generic_steam`
+6. `simulator/executeScript/qualcomm`
+7. `simulator/executeScript/qualcomm_steam`
+
+### Asset rollout
+`imagefs_138.zst` (171,675,606 B) uploaded to `The412Banner/bannerhub-api` Components release prior to the metadata commit. Previous `imagefs_137.zst` retained for rollback.
+
+### Verification (post-deploy)
+- `https://bannerhub-api.the412banner.workers.dev/simulator/v2/getImagefsDetail` → `version: 1.3.8`, `version_code: 28`, `md5: 51ff980c…`, `download_url: …/imagefs_138.zst`
+- `https://bannerhub-api.the412banner.workers.dev/v6/simulator/v2/getImagefsDetail` → same payload
+- All 4 `executeScript/{generic,qualcomm}{,_steam}` variants on `main` branch confirmed serving 1.3.8 metadata
+- Asset HEAD on Components release returns 200 + `content-length: 171675606`
+
+### Memory updates
+- [[bannerhub-api-imagefs-routing]] — bumped to 1.3.8; note the metadata-site count now SEVEN (was 6) because the worker inline `is60` block is the 7th
+- [[imagefs-firmware-libGameScopeVK-delta-history]] — extend with 1.3.8 row (libGameScopeVK.so byte-identical; the 1.3.8 delta is entirely outside that lib)
