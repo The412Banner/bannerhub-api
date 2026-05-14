@@ -759,3 +759,50 @@ End-to-end extract + structural diff:
 ### Memory updates
 - [[bannerhub-api-imagefs-routing]] — bumped to 1.3.8; note the metadata-site count now SEVEN (was 6) because the worker inline `is60` block is the 7th
 - [[imagefs-firmware-libGameScopeVK-delta-history]] — extend with 1.3.8 row (libGameScopeVK.so byte-identical; the 1.3.8 delta is entirely outside that lib)
+
+## 2026-05-14 — GPU catalog: VIVSI driver add + MTR bulk rename (commits `87a244e`, `abb6752`, `cfca1be`)
+
+Two changes in one day's session against the GPU driver catalog (component type=2).
+
+### 1. New driver: VIVSI_Turnip_710-720-722_v2.5.6 (id=1330)
+
+User supplied `Turnip-710-720-722-v2.5.6.zip` from their Downloads. AdrenoTools-format zip containing:
+- `libvulkan_freedreno.so` (18.3 MB unstripped, NDK r29, Android API 28+, aarch64)
+- `meta.json` declaring Mesa 26.2.0 / Vulkan 1.4.350, author `vauzi`, target chips Adreno 710 / 720 / 722
+
+Repackaged as `.tzst` to match the catalog's existing format (zstd-19 tar containing just `./libvulkan_freedreno.so`), md5 `81de750512d55045b940e7d11c56c938`, 2.5 MB compressed. Uploaded to the Components release, added to `data/custom_components.json` at id=1330 with `VIVSI_` prefix following the existing third-party convention (`SMXZ_` StevenMXZ, `WHITE_` whitebelyash). `npm run build` regenerated 21 downstream files.
+
+**Fills the catalog's Snapdragon 7-series Adreno gap** (we had heavy A8xx/Elite coverage but nothing dedicated to 710/720/722 — SD 7 Gen 1 / 7+ Gen 2 / 7+ Gen 3 chips). Bumped GPU driver total 265 → 266.
+
+### 2. MTR driver bulk rename — 37 entries to consistent `MTR_Turnip_<ver>_<chip>[_<mod>]` (commit `cfca1be`)
+
+User pointed out two MTR entries broke the space-separated convention:
+- `Turnip-MTR-v1.8.7-A840P` (id 1203)
+- `Turnip-MTR-v1.8.7a-A8XX` (id 1204)
+
+Decided to do a full bulk rename to align with the existing third-party prefix convention. New scheme:
+- **Prefix:** `MTR_` (matches SMXZ_/WHITE_/VIVSI_)
+- **Separators:** underscores throughout (no hyphens between tokens)
+- **Chip ID** (A840 / A840P / A8XX / Axxx) immediately after version
+- **Modifier suffixes** (Test, a, RC3, Smart, b, p) always at the very end as their own underscore-separated token
+
+Examples:
+
+| Old | New |
+|-|-|
+| `Turnip MTR v1.8 A840P RC3` | `MTR_Turnip_v1.8_A840P_RC3` |
+| `Turnip MTR v1.8.3 A840P-Test` | `MTR_Turnip_v1.8.3_A840P_Test` |
+| `Turnip MTR v1.8.8 A8XX-a` | `MTR_Turnip_v1.8.8_A8XX_a` |
+| `Turnip MTR v1.9.1-b Axxx` | `MTR_Turnip_v1.9.1_Axxx_b` |
+| `Turnip MTR v3.2.0-p Axxx` | `MTR_Turnip_v3.2.0_Axxx_p` |
+| `Turnip-MTR-v1.8.7a-A8XX` | `MTR_Turnip_v1.8.7_A8XX_a` |
+
+All 37 MTR entries renamed in `data/custom_components.json` via a single Python regex pass; `npm run build` regenerated 20 downstream catalog files (580+ line churn but no binary changes — `file_md5` / `file_size` / `download_url` all unchanged). Components bind by `id`, so users with a renamed driver installed in a container see the new name automatically on next picker refresh; no install state lost.
+
+### Verification (post-Pages-deploy)
+- `GET /simulator/v2/getComponentList?type=2` (5.x path) — id=1330 VIVSI present + 0 MTR entries match the old `Turnip MTR …` / `Turnip-MTR-…` patterns
+- `POST /v6/simulator/v2/getComponentList type=2` (6.0 worker path) — same, with `fileType=4` / `is_steam=0` reshape applied via `reshapeFor60`
+- Asset HEAD on `81de750512d55045b940e7d11c56c938.tzst` returns 200, content-length 2,597,443
+
+### Memory updates
+- [[bannerhub-api-gpu-driver-naming-prefixes]] — added `MTR_` and `VIVSI_` entries; documented the full `<PREFIX>_<line>_<version>[_<modifier>...]` underscore-only scheme with suffix-at-end rule; added "How to apply" guidance for future bulk renames (`data/custom_components.json` + `npm run build`)
