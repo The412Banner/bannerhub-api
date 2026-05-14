@@ -142,15 +142,15 @@
     },
     "imagefs": {
       "display_name": "Firmware",
-      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_137.zst",
-      "file_md5": "82e98261e4dbe0a59bbdf2d390ac771d",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_138.zst",
+      "file_md5": "51ff980cbd8bc314730d1d8e119faece",
       "file_name": "imagefs.zst",
-      "file_size": "171913811",
+      "file_size": "171675606",
       "id": 1,
       "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
       "name": "Firmware",
-      "version": "1.3.7",
-      "version_code": 27
+      "version": "1.3.8",
+      "version_code": 28
     },
     "launch_windowed_mode": 0,
     "start_param": "",

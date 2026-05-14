@@ -944,10 +944,12 @@ export default {
       }
 
       // getImagefsDetail: serves Firmware metadata. Both 5.x and 6.0 now serve
-      // 1.3.7 — 6.0 from this inline is60 branch, 5.x from the static
-      // simulator/v2/getImagefsDetail file (bumped in c8d7f21). The Add-Game
-      // path on 5.x reads simulator/executeScript/{generic,qualcomm}{,_steam}
-      // which was bumped to 1.3.7 alongside this comment.
+      // 1.3.8 — 6.0 from this inline is60 branch, 5.x from the static
+      // simulator/v2/getImagefsDetail file. The Add-Game path on 5.x reads
+      // simulator/executeScript/{generic,qualcomm}{,_steam} which was bumped
+      // to 1.3.8 alongside this comment. 1.3.8 is a pure SONAME-rename
+      // rebuild of libjxl{,_cms,_threads}.so → libjxl{,_cms,_threads}_winemu.so
+      // (no .text changes; libGameScopeVK.so byte-identical to 1.3.7).
       if (url.pathname === '/simulator/v2/getImagefsDetail') {
         if (is60) {
           return new Response(JSON.stringify({
@@ -955,15 +957,15 @@ export default {
             msg: 'Success',
             data: {
               id: 1,
-              version: '1.3.7',
-              version_code: 27,
+              version: '1.3.8',
+              version_code: 28,
               name: 'Firmware',
               logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
               upgrade_msg: '',
               blurb: '',
-              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_137.zst',
-              file_md5: '82e98261e4dbe0a59bbdf2d390ac771d',
-              file_size: '171913811',
+              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_138.zst',
+              file_md5: '51ff980cbd8bc314730d1d8e119faece',
+              file_size: '171675606',
               file_name: 'imagefs.zst',
               display_name: 'Firmware',
             },
