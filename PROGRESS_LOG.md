@@ -806,3 +806,19 @@ All 37 MTR entries renamed in `data/custom_components.json` via a single Python 
 
 ### Memory updates
 - [[bannerhub-api-gpu-driver-naming-prefixes]] — added `MTR_` and `VIVSI_` entries; documented the full `<PREFIX>_<line>_<version>[_<modifier>...]` underscore-only scheme with suffix-at-end rule; added "How to apply" guidance for future bulk renames (`data/custom_components.json` + `npm run build`)
+
+## 2026-05-15 — Proton 11 ARM64x container v1.0.1 → v1.0.2 (5.x)
+
+5.x-vs-upstream container audit found `proton11.0-arm64x` (id 11) one revision behind upstream: we served v1.0.1 / vc 2 (`ffcaf1de…`, 240,592,439 B) while upstream shipped v1.0.2 / vc 3 (`19f1e3ed…`, 251,416,426 B) — a genuinely different/larger build (`wine_11_arm64x_out.tar.zst`), not a stale mirror. Upstream's binary was not on our release (404).
+
+### Actions
+- Uploaded the new main + sub_data to the `Components` release **md5-named** (non-destructive — old `wine_proton_11.0_arm64x.tar.zst` / `f71af255…` retained for rollback):
+  - `19f1e3ed3fe6985953039820681faa0f.tar.zst` (251,416,426 B, end-to-end md5 verified)
+  - `10e4cb165a42dd2a4416b7fbff687bc6.tzst` (32,186,652 B, sub_data)
+- `data/containers.json` id=11: version 1.0.1→1.0.2, version_code 2→3, `file_md5`/`file_size` → upstream's, `download_url` → md5-named asset. `file_name` kept as `wine_proton_11.0_arm64x.tar.zst` (client-facing label unchanged).
+- `sub_data` scheme preserved exactly: `sub_file_name` = `<new main md5>.tzst`, `sub_download_url`/`sub_file_md5` = sub's own md5 (`10e4cb16…`).
+- `npm run build` regenerated `getContainerList` + `getContainerDetail/11`; timestamp-only churn on other endpoints reverted to keep the diff scoped (matches prior P11 commit `8351de2` convention).
+
+### Scope
+- **5.x only.** The `/v6/` `sp_winemu_unified_resources.xml` artifact + version scheme still needs the same bump — tracked as the next step.
+- Unrelated audit findings (17 stale `.yml` helpers, `turnip_v26.2.0_b2/b3`, type 5↔6 game-config labels) deferred.
