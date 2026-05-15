@@ -854,3 +854,16 @@ User supplied the upstream v6 device strings for Firmware 1.4.1 and base, asked 
 ### Deploy + verification
 - Pages built for `5dc29a9` (status: built). Cloudflare worker redeployed (multipart PUT, `keep_bindings:["secret_text"]` + KV TOKEN_STORE re-declared) → `success:true`, deployment `51c9f71fc809475e889357034d46730f`; settings confirm SUPABASE_URL + SUPABASE_SERVICE_KEY + TOKEN_STORE all preserved.
 - Live-verified 1.4.1 on every path: `/v6/simulator/v2/getImagefsDetail` (worker inline), `/simulator/v2/getImagefsDetail` (worker→Pages proxy), Pages direct, `POST /simulator/executeScript {qualcomm,1}` (5.x Add-Game), and all 4 Pages executeScript variants (generic/generic_steam/qualcomm/qualcomm_steam).
+
+### imagefs 1.3.8 → 1.4.1 binary delta (authoritative full-tree md5 diff)
+
+Both `.zst` extracted (601M / 604M), per-file md5 manifests built and diffed (space-safe NUL-path method — an initial space-in-filename artifact on `openal/.../Default HRTF.mhr` was disproven; md5 `eac9bb28…` identical both).
+
+**Of ~6801 files: 0 content-changed, 0 removed, exactly 2 ADDED.** Not a SONAME rename (1.3.7→1.3.8 was; 1.4.1 is not).
+
+- **ADDED `./usr/lib/libGameScopeV2.so`** — 2,210,904 B, md5 `848887d5dd22a645a5fd501dc9337a62`. New Vulkan ICD driver: exports `vk_icdGetInstanceProcAddr` / `vk_icdGetPhysicalDeviceProcAddr` / `vk_icdNegotiateLoaderICDInterfaceVersion`; ELF aarch64 NDK r27; NEEDED set identical to `libGameScopeVK.so` (EGL/GLESv2/GLESv3/X11/xcb). A *second/alternate* GameScope ICD shipped alongside the old one — not a replacement.
+- **ADDED `./usr/share/vulkan/GameScopeVK_icd.json`** — 159 B, system-wide ICD manifest, `library_path` → `/data/data/com.winemu/files/usr/lib/libGameScopeV2.so` (api 1.3.216).
+- **`libGameScopeVK.so` byte-identical** (md5 `9447d8dff507228bc9183c8146a4482f` both) → existing AI frame-gen path unaffected. All `libjxl*_winemu`, wine, everything else byte-identical. The pre-existing per-user `~/.config/vulkan/icd.d/GameScopeVK_icd.json` (unchanged, in both) still points at `libGameScopeVK.so`; both ICDs coexist.
+- ⚠️ **Footgun:** new system-wide ICD json hardcodes `/data/data/com.winemu/files/...`. On BannerHub/renamed-package builds that path won't resolve → `libGameScopeV2.so` unreachable via this ICD until a launch-time per-package V2 manifest writer is added (same class as BannerHub's `BhFrameGenWriter.ensureIcdJsonForCurrentPackage()`). Old VK frame-gen still works (per-user ICD written by the app). Net user impact of the 1.4.1 firmware bump: **none negative** — purely additive; the V2 path is dormant on renamed packages until explicitly wired.
+
+Memory `bannerhub-api-imagefs-routing` updated with the delta + footgun. Diff workdir `~/imagefs-diff-138-141` removed after recording (fully reproducible from the Components release).
