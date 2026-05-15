@@ -3,17 +3,17 @@
   "msg": "Success",
   "data": {
     "id": 1,
-    "version": "1.3.8",
-    "version_code": 28,
+    "version": "1.4.1",
+    "version_code": 31,
     "name": "Firmware",
     "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
     "upgrade_msg": "",
     "blurb": "",
-    "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_138.zst",
-    "file_md5": "51ff980cbd8bc314730d1d8e119faece",
-    "file_size": "171675606",
+    "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_141.zst",
+    "file_md5": "643024d54f11d01196ffdb2918dc3c85",
+    "file_size": "172206649",
     "file_name": "imagefs.zst",
     "display_name": "Firmware"
   },
-  "time": "1778874592"
+  "time": "1778875768"
 }

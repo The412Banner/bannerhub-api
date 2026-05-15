@@ -944,12 +944,12 @@ export default {
       }
 
       // getImagefsDetail: serves Firmware metadata. Both 5.x and 6.0 now serve
-      // 1.3.8 — 6.0 from this inline is60 branch, 5.x from the static
+      // 1.4.1 — 6.0 from this inline is60 branch, 5.x from the static
       // simulator/v2/getImagefsDetail file. The Add-Game path on 5.x reads
       // simulator/executeScript/{generic,qualcomm}{,_steam} which was bumped
-      // to 1.3.8 alongside this comment. 1.3.8 is a pure SONAME-rename
-      // rebuild of libjxl{,_cms,_threads}.so → libjxl{,_cms,_threads}_winemu.so
-      // (no .text changes; libGameScopeVK.so byte-identical to 1.3.7).
+      // to 1.4.1 alongside this comment. All 7 metadata sites stay in lockstep
+      // (asset imagefs_141.zst, md5 643024d5…). Source: upstream 1.4.1 firmware
+      // (uxdl.mac520.com imagefs.zst, versionCode 31).
       if (url.pathname === '/simulator/v2/getImagefsDetail') {
         if (is60) {
           return new Response(JSON.stringify({
@@ -957,15 +957,15 @@ export default {
             msg: 'Success',
             data: {
               id: 1,
-              version: '1.3.8',
-              version_code: 28,
+              version: '1.4.1',
+              version_code: 31,
               name: 'Firmware',
               logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
               upgrade_msg: '',
               blurb: '',
-              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_138.zst',
-              file_md5: '51ff980cbd8bc314730d1d8e119faece',
-              file_size: '171675606',
+              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_141.zst',
+              file_md5: '643024d54f11d01196ffdb2918dc3c85',
+              file_size: '172206649',
               file_name: 'imagefs.zst',
               display_name: 'Firmware',
             },
