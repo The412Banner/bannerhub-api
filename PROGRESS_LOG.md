@@ -837,3 +837,20 @@ User-supplied `Box64-0.4.3-0a7b7d4f6-Bionic.wcp` (profile.json: `type=Box64`, `v
 ### Deploy
 - **No Cloudflare worker redeploy** — `bannerhub-worker.js` unchanged; the worker fetches the catalog from GitHub Pages (served from `main`) at runtime and merges by name. Pages build for `4c86229` kicked off (status: building). ~30–60 s + CDN before `the412banner.github.io/.../components/box64_manifest` and the in-app picker show `Box64-0.4.3`.
 - The wcp's internal `profile.json` still reads `Box64-0.4.3-0a7b7d4f6-Bionic`; only the catalog metadata users see is the short `Box64-0.4.3` (consistent with how every other Box64 entry's md5-named file diverges from its catalog name).
+
+## 2026-05-15 — imagefs 1.3.8 → 1.4.1 (5.x + v6); base verified unchanged
+
+User supplied the upstream v6 device strings for Firmware 1.4.1 and base, asked to serve 1.4.1 to both 5.x and v6 and to replace base only if changed.
+
+### base.tzst — NO action (verified identical)
+- Downloads `base.tzst` md5 `96df60f3cff612a9747e56cae9d4c6e8`, 83,424,612 B = byte-identical to currently-served `base_v101.tzst` (v1.0.1/vc2) and to the user's v6 base string. Not new, unchanged → nothing done. (9-file base lockstep untouched.)
+
+### imagefs 1.4.1 — bumped across all 7 lockstep sites
+- New values: version `1.4.1`, version_code `31`, md5 `643024d54f11d01196ffdb2918dc3c85`, size `172206649`, asset `imagefs_141.zst`, file_name stays `imagefs.zst`. Downloads `imagefs141.zst` md5/size verified against the user's v6 string before upload.
+- Uploaded `imagefs_141.zst` (172,206,649 B) to the `Components` release; confirmed live (HTTP 200, content-length match) **before** pushing metadata.
+- **7-site lockstep** — confirmed via `src/index.ts` that `npm run build` regenerates only 3 (`getImagefsDetail`, `executeScript/generic`, `executeScript/qualcomm`). The 2 `executeScript/*_steam` variants + the worker inline `is60` block are NOT generated → hand-patched (this is the `c8d7f21`-class footgun, now documented in memory). Sites: (1) `bannerhub-worker.js` inline+comment, (2) `data/imagefs.json`, (3) `getImagefsDetail`, (4) `executeScript/generic`, (5) `executeScript/qualcomm`, (6) `executeScript/generic_steam`, (7) `executeScript/qualcomm_steam`. Repo-wide grep post-patch: OLD md5/asset = 0 everywhere, NEW present in all 7.
+- Reverted pure-timestamp churn on 14 unrelated endpoints (`git checkout --`, P11 `8351de2` convention). Commit `5dc29a9` `feat(imagefs): bump 1.3.8 -> 1.4.1 for 5.x + v6 (7-site lockstep)` — exactly 7 files, 42/42, identity `The412Banner <the412banner@users.noreply.github.com>`, no co-author. Pushed `origin/main` + `origin/main:master`.
+
+### Deploy + verification
+- Pages built for `5dc29a9` (status: built). Cloudflare worker redeployed (multipart PUT, `keep_bindings:["secret_text"]` + KV TOKEN_STORE re-declared) → `success:true`, deployment `51c9f71fc809475e889357034d46730f`; settings confirm SUPABASE_URL + SUPABASE_SERVICE_KEY + TOKEN_STORE all preserved.
+- Live-verified 1.4.1 on every path: `/v6/simulator/v2/getImagefsDetail` (worker inline), `/simulator/v2/getImagefsDetail` (worker→Pages proxy), Pages direct, `POST /simulator/executeScript {qualcomm,1}` (5.x Add-Game), and all 4 Pages executeScript variants (generic/generic_steam/qualcomm/qualcomm_steam).
