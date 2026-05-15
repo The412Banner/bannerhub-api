@@ -85,6 +85,15 @@
         "version": "0.4.1-fix"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f5a5de984166acf774eb0771a56e4deb.tzst",
+        "file_md5": "f5a5de984166acf774eb0771a56e4deb",
+        "file_name": "f5a5de984166acf774eb0771a56e4deb.tzst",
+        "file_size": 2829556,
+        "name": "Box64-0.4.3",
+        "type": 1,
+        "version": "0.4.3"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex_20241214.tzst",
         "file_md5": "c48e8cc6acb10ab8d969e5947bc78bce",
         "file_name": "Fex_20241214.tzst",
@@ -4846,6 +4855,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 538
+    "total": 539
   }
 }

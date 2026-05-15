@@ -5,7 +5,7 @@
     "type": 1,
     "type_name": "box64",
     "display_name": "Box64 Emulators",
-    "total": 34,
+    "total": 35,
     "components": [
       {
         "display_name": "",
@@ -481,6 +481,20 @@
         "name": "Fex_20260509",
         "type": 1,
         "version": "1.0.0",
+        "version_code": 1
+      },
+      {
+        "display_name": "Box64-0.4.3",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f5a5de984166acf774eb0771a56e4deb.tzst",
+        "file_md5": "f5a5de984166acf774eb0771a56e4deb",
+        "file_name": "f5a5de984166acf774eb0771a56e4deb.tzst",
+        "file_size": 2829556,
+        "id": 1331,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "Box64-0.4.3",
+        "type": 1,
+        "version": "0.4.3",
         "version_code": 1
       }
     ]
