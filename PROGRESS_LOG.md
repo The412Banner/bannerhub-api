@@ -822,3 +822,18 @@ All 37 MTR entries renamed in `data/custom_components.json` via a single Python 
 ### Scope
 - **5.x only.** The `/v6/` `sp_winemu_unified_resources.xml` artifact + version scheme still needs the same bump — tracked as the next step.
 - Unrelated audit findings (17 stale `.yml` helpers, `turnip_v26.2.0_b2/b3`, type 5↔6 game-config labels) deferred.
+
+## 2026-05-15 — Add Box64-0.4.3 (type 1) custom component
+
+User-supplied `Box64-0.4.3-0a7b7d4f6-Bionic.wcp` (profile.json: `type=Box64`, `versionName=Box64-0.4.3-0a7b7d4f6-Bionic`, single `box64`→`${bindir}/box64`). User confirmed the in-app **display name should be `Box64-0.4.3`** (short form, matching the existing Box64 catalog naming — not the full versionName the `add-components.py` auto-deriver would have used). A second candidate `Box64-Hybrid-Bionic-a2c23e110.wcp` was found in the same Download dir but explicitly dropped by the user — only 0.4.3 added.
+
+### Actions
+- md5 `f5a5de984166acf774eb0771a56e4deb`, size 2,829,556 B (verified on the copy before upload).
+- Uploaded to the `Components` GH release as md5-named `f5a5de984166acf774eb0771a56e4deb.tzst` (`--clobber`; was not previously present). wcp = zstd-tar = same container as tzst, so uploaded byte-for-byte (no repack — mirrors `add-components.py` behavior for non-ZIP inputs).
+- Hand-added `data/custom_components.json` entry (did NOT run `add-components.py` — its auto-derived name/auto-push would have mislabeled the component): `id=1331` (script convention = max custom id 1330 + 1; verified free, no XML collision), `name`/`display_name`=`Box64-0.4.3`, `version`=`0.4.3`, `version_code`=1, `type`=1. Clean 12-line append, no reformat churn.
+- `npm run build` regenerated 21 files. `components/box64_manifest` total 34→35; new entry id=1331 present with `display_name=Box64-0.4.3`, correct md5/size/url, `is_ui=1`; also in `getComponentList`/`getAllComponentList`/`downloads`. Pre-existing missing-file warnings (turnip/dxvk/settings backlog) unrelated — my asset was NOT in the missing list (found on release).
+- Commit `4c86229` `feat: add 1 component(s) — Box64-0.4.3` (identity `The412Banner <the412banner@users.noreply.github.com>`, no Claude co-author trailer). Staged with `git add -u` only — the local `.tzst`, the stray `.bak`, and `gamehub_reports/` deliberately excluded. Pushed to `origin/main` and `origin/master` (both 9bdbfa7→4c86229).
+
+### Deploy
+- **No Cloudflare worker redeploy** — `bannerhub-worker.js` unchanged; the worker fetches the catalog from GitHub Pages (served from `main`) at runtime and merges by name. Pages build for `4c86229` kicked off (status: building). ~30–60 s + CDN before `the412banner.github.io/.../components/box64_manifest` and the in-app picker show `Box64-0.4.3`.
+- The wcp's internal `profile.json` still reads `Box64-0.4.3-0a7b7d4f6-Bionic`; only the catalog metadata users see is the short `Box64-0.4.3` (consistent with how every other Box64 entry's md5-named file diverges from its catalog name).
