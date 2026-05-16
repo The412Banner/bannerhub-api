@@ -902,3 +902,7 @@ User request: GPU drivers should list newest at the TOP, not the bottom.
 - The set has two consumers: `manifest-generator.ts` (the `drivers_manifest` picker) **and** `registry.ts:196` inside `sortByTypeAndIdDescending`, used by the `getComponentList` / `getAllComponentList` / `getContainerDetail/*` simulator endpoints. Flip is therefore consistent across the picker and those endpoints.
 - **Box64 (type 1) and VKD3D (type 4) deliberately left newest-last** — user scoped the request to GPU drivers only. This is an intentional asymmetry (Box64 newest-bottom, GPU newest-top).
 - No catalog data change — `custom_components.json` untouched; only generated files reordered. Verified: `drivers_manifest` top is now id 1336→1335→1334→1333→1332 (the 2026-05-16 adds), Box64 manifest unchanged. Commit `996f1d6`, pushed `main` + `master`.
+
+## 2026-05-16 — GPU driver picker reverted to newest-last
+
+User asked to change the GPU ordering method back. Restored type 2 in `PICKER_NEWEST_LAST_TYPES` (`{1,4}` → `{1,2,4}`), reverting the earlier same-day flip (`996f1d6`). GPU drivers, Box64, and VKD3D all newest-last again. No catalog data change — generated files reordered back. Verified `drivers_manifest` bottom = the 2026-05-16 adds (1332→1336). Commit follows.
