@@ -76,28 +76,28 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4b6f415713ea9c4307aac0d880f1cd39.tzst",
-        "file_md5": "4b6f415713ea9c4307aac0d880f1cd39",
-        "file_name": "4b6f415713ea9c4307aac0d880f1cd39.tzst",
-        "file_size": 3372640,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/02ae1d3db4b266abc6bf539d4a953ecf.tzst",
+        "file_md5": "02ae1d3db4b266abc6bf539d4a953ecf",
+        "file_name": "02ae1d3db4b266abc6bf539d4a953ecf.tzst",
+        "file_size": 4796628,
         "name": "Box64-0.4.1-fix",
         "type": 1,
         "version": "0.4.1-fix"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f5a5de984166acf774eb0771a56e4deb.tzst",
-        "file_md5": "f5a5de984166acf774eb0771a56e4deb",
-        "file_name": "f5a5de984166acf774eb0771a56e4deb.tzst",
-        "file_size": 2829556,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/2381fcfbf3f0c0bae006c3904b57ebd8.tzst",
+        "file_md5": "2381fcfbf3f0c0bae006c3904b57ebd8",
+        "file_name": "2381fcfbf3f0c0bae006c3904b57ebd8.tzst",
+        "file_size": 4590382,
         "name": "Box64-0.4.3",
         "type": 1,
         "version": "0.4.3"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ba326af580d815be7706aaa7cc9dcb07.tzst",
-        "file_md5": "ba326af580d815be7706aaa7cc9dcb07",
-        "file_name": "ba326af580d815be7706aaa7cc9dcb07.tzst",
-        "file_size": 2818356,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fd9286b60940d620425d07fe26ea4983.tzst",
+        "file_md5": "fd9286b60940d620425d07fe26ea4983",
+        "file_name": "fd9286b60940d620425d07fe26ea4983.tzst",
+        "file_size": 4590835,
         "name": "Box64-Hybrid-Bionic",
         "type": 1,
         "version": "Hybrid-Bionic"
@@ -310,19 +310,19 @@
         "version": "2601-aabdded"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst",
-        "file_md5": "6008bf7c3ced2cafda0d4cfeb89e4ca8",
-        "file_name": "6008bf7c3ced2cafda0d4cfeb89e4ca8.tzst",
-        "file_size": 1335136,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0216e6a86e6c284b4da10276b49cb185.tzst",
+        "file_md5": "0216e6a86e6c284b4da10276b49cb185",
+        "file_name": "0216e6a86e6c284b4da10276b49cb185.tzst",
+        "file_size": 2300330,
         "name": "FEXCore-2603",
         "type": 1,
         "version": "2603"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/02fc4d33b36a3cb6df08030962303405.tzst",
-        "file_md5": "02fc4d33b36a3cb6df08030962303405",
-        "file_name": "02fc4d33b36a3cb6df08030962303405.tzst",
-        "file_size": 1105631,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d2bc791642757a507eb395ac548e2aa8.tzst",
+        "file_md5": "d2bc791642757a507eb395ac548e2aa8",
+        "file_name": "d2bc791642757a507eb395ac548e2aa8.tzst",
+        "file_size": 1696433,
         "name": "FEXCore-2605",
         "type": 1,
         "version": "2605"

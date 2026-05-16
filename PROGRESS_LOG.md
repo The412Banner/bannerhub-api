@@ -906,3 +906,45 @@ User request: GPU drivers should list newest at the TOP, not the bottom.
 ## 2026-05-16 — GPU driver picker reverted to newest-last
 
 User asked to change the GPU ordering method back. Restored type 2 in `PICKER_NEWEST_LAST_TYPES` (`{1,4}` → `{1,2,4}`), reverting the earlier same-day flip (`996f1d6`). GPU drivers, Box64, and VKD3D all newest-last again. No catalog data change — generated files reordered back. Verified `drivers_manifest` bottom = the 2026-05-16 adds (1332→1336). Commit follows.
+
+
+## 2026-05-16 — 🐞 ROOT CAUSE: custom Box64/FEX/VKD3D .tzst have .wcp-style layout → extract EMPTY on v6 (NOT yet fixed)
+
+### Symptom (from BannerHub V6 Lite `banner.hub.lite` device testing)
+DiRT 3 (x86_64, gameId 131962) and other x86_64 titles fail to launch on v6 when a custom Box64 is selected — `:wine` dies ~12–107 s pre-Wine-init (Java WineActivity UI loads, native wine/box64 tree never spawns; `linker64` thrashes ~75 s, box64 finally exec'd from `usr/bin/box64` then process death → back to library). User suspected the custom Box64 components we added aren't working in v6 — **confirmed correct.**
+
+### Diagnosis (definitive)
+On-device `usr/home/components/` audit — custom comps extract to **empty dirs**:
+- Box64: `Box64-0.4.3`, `Box64-0.4.1-fix`, `Box64-Hybrid-Bionic` = 0 files
+- FEX: `Fex_20260428`, `FEXCore-2603`, `FEXCore-2605` = 0 files
+- `vkd3d-proton-3.0.1` = 0 files
+- Working (flat-packed): `Box64-0.4.1-2` (1), `Fex-20251025`/`Fex_20260509` (2), `dxvk-2.3.1-async`/`vkd3d-2.12` (2), drivers/mono/vcredist/oalinst/XLiveRedist/etc.
+
+`curl` + `tar --zstd -tf` of the GitHub release assets:
+- **WORKING** `Box64-0.4.1-2` (`cd7fe188….tzst`) → `./box64` (flat, bare binary at root)
+- **BROKEN** `Box64-0.4.3` (`f5a5de98….tzst`) → `./` + `profile.json` + `box64`
+- **BROKEN** `Box64-0.4.1-fix` (`4b6f4157….tzst`) → `./` + `box64` + `profile.json`
+- **BROKEN** `Box64-Hybrid-Bionic` (`ba326af5….tzst`) → `./` + `profile.json` + `box64`
+
+**Root cause:** the custom Box64 (and custom FEX/VKD3D) `.tzst` were repackaged from Winlator `.wcp` and retain the `.wcp` internal layout (`./` dir entry + `profile.json` + binary). The GameHub 6.0 / **v6** component extractor for type=1 expects a **flat archive with only the bare binary at root** (as stock `Box64-0.4.1-2`). Given the `.wcp`-style archive it makes the component dir but unpacks no usable binary → empty → per-game translator path resolves empty → x86_64 game dies pre-Wine. Worker `reshapeFor60` is NOT at fault — working vs broken `getAllComponentList` entries are byte-shape identical (display_name/download_url/file_md5/file_name/file_size/id/is_ui/logo/name/type/version/version_code); purely a release-asset payload-layout defect. (The 2026-05-15 `Box64-0.4.3` add already flagged the `.wcp` internal-name mismatch as a risk — this is that risk realized, and broader: the whole `.wcp` layout, not just the name.)
+
+### Fix (NOT yet applied — pending user go-ahead)
+Per broken component: re-extract, repackage flat (`tar -C <dir> --zstd -cf out.tzst <binary>` → `tar -tf` = exactly `./box64` / FEX / vkd3d payload; no `profile.json`, no `./` dir entry), re-upload the GitHub release asset, bump `file_md5`/`file_name`/`file_size`/`download_url` in lockstep across `components/box64_manifest`, `data/custom_components.json`, `components/downloads`, `simulator/v2/getComponentList`, `simulator/v2/getAllComponentList`, then `npm run build`. Audit ALL type=1/type=4 customs sourced from `.wcp` for the same defect. Durable rule → memory `bannerhub-api-box64-tzst-flat-layout`. Blocks the BannerHub V6 Lite Steam/Epic+game-launch merge-gate for x86_64 titles. Interim user workaround: select `Box64-0.4.1-2`.
+
+### Scope correction + FIX APPLIED 2026-05-16
+
+**Recursive on-device re-audit corrected the count from 7 → 5.** The first audit only counted top-level files, so components that legitimately extract into a `system32/`/`syswow64/` subdir false-flagged as empty:
+- `vkd3d-proton-3.0.1` — archive has NO `profile.json`; extracted fine on device (`system32/`+`syswow64/` populated). **Not broken — left untouched.**
+- `Fex_20260428` — archive is bare `libarm64ecfex.dll`+`libwow64fex.dll` at root, byte-identical layout to working `Fex_20260509`. Empty on device for an unrelated reason (never downloaded / transient), **not a packaging defect — left untouched** (re-uploading a correct asset would churn it for nothing; flagged for separate follow-up if it stays empty after a fresh download).
+
+**5 genuinely layout-broken, repackaged + re-uploaded + catalog-updated:**
+
+| Component | old md5 | new md5 | new size | new layout |
+|---|---|---|---|---|
+| Box64-0.4.3 | f5a5de98… | 2381fcfb… | 4590382 | `./box64` |
+| Box64-0.4.1-fix | 4b6f4157… | 02ae1d3d… | 4796628 | `./box64` |
+| Box64-Hybrid-Bionic | ba326af5… | fd9286b6… | 4590835 | `./box64` |
+| FEXCore-2603 | 6008bf7c… | 0216e6a8… | 2300330 | `libarm64ecfex.dll`+`libwow64fex.dll` |
+| FEXCore-2605 | 02fc4d33… | d2bc7916… | 1696433 | `libarm64ecfex.dll`+`libwow64fex.dll` |
+
+Payloads verified post-repack: Box64 = ELF aarch64 PIE (matches working `Box64-0.4.1-2`); FEXCore = PE32+ ARM64 WINE DLLs. New assets `gh release upload … --clobber` to the `Components` release (all 5 confirmed present). `data/custom_components.json` updated surgically (file_md5/file_name/file_size[string-typed, matches 233-entry convention]/download_url; `version_code` 1→2 to force client re-download); `npm run build` regenerated the catalog (box64_manifest/downloads/getComponentList/getAllComponentList carry new md5s, zero residual old md5s; other regen = incidental build-`time` epoch bump). Prevention tooling (wcp→tzst converter + layout validator) added separately so this cannot recur — see follow-up entry. Commit + push (main+master) follows.

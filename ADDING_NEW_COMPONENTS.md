@@ -10,6 +10,33 @@ The GameHub Lite API uses a TypeScript build system that automatically generates
 
 **You no longer need to manually edit multiple JSON files.** The build system handles all file generation and validation.
 
+## ⚠ MANDATORY: package the archive correctly (Winlator `.wcp` sources)
+
+The v6 / GameHub 6.0 component extractor needs each archive to contain **only
+its payload, laid out like the working sibling of the same type** — NO
+`profile.json`, NO redundant `./` wrapper-dir member, and (for FEX) NO
+`system32/` nesting. A raw Winlator `.wcp` violates all three and will
+**extract to an empty component dir on v6** → x86_64 game launch dies before
+Wine starts (root-caused 2026-05-16; the `.tzst` *format* is fine — only the
+internal *layout* matters, so re-zipping does NOT help).
+
+**Never hand-`tar` a `.wcp`.** Always:
+
+```bash
+# 1. Convert (type-aware: box64 | fex | vkd3d | dxvk | generic)
+scripts/wcp2tzst.sh --type box64 path/to/Box64-X.Y.wcp ./out
+#    -> prints  name|<md5>|<size>|<layout>   and writes ./out/<md5>.tzst
+
+# 2. Hard-verify the layout BEFORE it touches the catalog
+scripts/check_component_layout.sh ./out/<md5>.tzst      # must print OK
+
+# 3. Upload, then put md5 / "<md5>.tzst" / size(STRING) / download_url into
+#    data/custom_components.json, bump version_code, `npm run build`.
+```
+
+Reference good layouts: Box64 → `./box64`; FEX → bare `libarm64ecfex.dll` +
+`libwow64fex.dll`; VKD3D/DXVK → `system32/` + `syswow64/`.
+
 ## Component Types
 
 | Type | Name | Description |
