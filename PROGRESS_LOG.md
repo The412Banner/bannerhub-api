@@ -867,3 +867,29 @@ Both `.zst` extracted (601M / 604M), per-file md5 manifests built and diffed (sp
 - ⚠️ **Footgun:** new system-wide ICD json hardcodes `/data/data/com.winemu/files/...`. On BannerHub/renamed-package builds that path won't resolve → `libGameScopeV2.so` unreachable via this ICD until a launch-time per-package V2 manifest writer is added (same class as BannerHub's `BhFrameGenWriter.ensureIcdJsonForCurrentPackage()`). Old VK frame-gen still works (per-user ICD written by the app). Net user impact of the 1.4.1 firmware bump: **none negative** — purely additive; the V2 path is dormant on renamed packages until explicitly wired.
 
 Memory `bannerhub-api-imagefs-routing` updated with the delta + footgun. Diff workdir `~/imagefs-diff-138-141` removed after recording (fully reproducible from the Components release).
+
+## 2026-05-16 — add 6 components (5 GPU drivers + 1 Box64)
+
+Six files staged in `~/API/`, added via a controlled one-shot pipeline (mirrors `add-components.py` repack/upload logic but with scheme-locked names; commit `6f4fc11`, pushed `main` + `master`).
+
+| ID | Name | Type | Source file | md5 |
+|----|------|------|-------------|-----|
+| 1332 | `SMXZ_Turnip_Gen8_V31` | 2 | `Turnip_Gen8_V31.zip` | `62ee5dab…` |
+| 1333 | `SMXZ_Turnip_v26.2.0_R4` | 2 | `Turnio_v26.2.0_R4.zip` | `37d2828e…` |
+| 1334 | `SMXZ_Turnip_v26.2.0_R4_OneUI` | 2 | `Turnip_v26.2.0_R4_OneUI.zip` | `43fc8012…` |
+| 1335 | `MTR_WN_Turnip_v1.01_Axxx_b` | 2 | `WN-Turnip-1.01-b_Axxx.zip` | `f2889fc0…` |
+| 1336 | `MTR_WN_Turnip_v1.01_Axxx_p` | 2 | `WN-Turnip-1.01-p_Axxx.zip` | `eb698f6c…` |
+| 1337 | `Box64-Hybrid-Bionic` | 1 | `Box64-Hybrid-Bionic-a2c23e110.wcp` | `ba326af5…` |
+
+### Naming decisions (user-directed)
+
+- **WinNative `WN-Turnip-1.01-*` drivers are MTR builds** → keep the existing `MTR_` prefix, insert `WN` segment after it: `MTR_WN_Turnip_v1.01_Axxx_{b,p}`. No new WN_/WINNATIVE_ prefix introduced. `-b`/`-p` = balanced/performance modifier, kept last per the underscore scheme.
+- **R4 builds get the `SMXZ_` prefix.** The bare `Turnip_v26.x_R*` / `Turnip_26.2.0_R3_OneUI` catalog entries are legacy pre-`cfca1be`-normalization duplicates; the current convention (R1/R2/R3, Gen8 V27–V30) is `SMXZ_`. OneUI mirrors its SMXZ sibling `SMXZ_Turnip_v26.2.0_R3_OneUI` (with `v`).
+- **Box64 Hybrid-Bionic:** dropped the `-a2c23e110` commit suffix → `Box64-Hybrid-Bionic`, version `Hybrid-Bionic` (mirrors the `Box64-<version>` pattern, e.g. `Box64-0.4.1-fix`).
+- SMXZ drivers carry `version: "1.0.0"` (matches siblings); MTR/WN carry `version: "WN-1.01-{b,p}"`.
+
+### Verification
+
+- All 6 md5s confirmed present on the `Components` release (none in `npm run build`'s pre-existing missing-files warning, which lists only older unrelated components).
+- Picker order confirmed: `PICKER_NEWEST_LAST_TYPES = {1,2,4}` → both types sort by ID ascending, newest last. The 5 drivers stack at the bottom of the GPU picker after `VIVSI_Turnip_710-720-722_v2.5.6`; `Box64-Hybrid-Bionic` at the bottom of the Box64 picker after `Box64-0.4.3`.
+- `total_components` 539 → 545 (+6). Embedded archive metadata left untouched (catalog `display_name` is independent of in-archive `name`).
