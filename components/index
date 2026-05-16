@@ -4,14 +4,14 @@
   "data": {
     "categories": [
       {
-        "count": 35,
+        "count": 36,
         "display_name": "Box64 Emulators",
         "manifest_url": "/components/box64_manifest",
         "name": "box64",
         "type": 1
       },
       {
-        "count": 266,
+        "count": 271,
         "display_name": "GPU Drivers",
         "manifest_url": "/components/drivers_manifest",
         "name": "drivers",
@@ -60,6 +60,6 @@
         "type": 8
       }
     ],
-    "total_components": 539
+    "total_components": 545
   }
 }

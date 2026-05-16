@@ -5,7 +5,7 @@
     "type": 1,
     "type_name": "box64",
     "display_name": "Box64 Emulators",
-    "total": 35,
+    "total": 36,
     "components": [
       {
         "display_name": "",
@@ -495,6 +495,20 @@
         "name": "Box64-0.4.3",
         "type": 1,
         "version": "0.4.3",
+        "version_code": 1
+      },
+      {
+        "display_name": "Box64-Hybrid-Bionic",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ba326af580d815be7706aaa7cc9dcb07.tzst",
+        "file_md5": "ba326af580d815be7706aaa7cc9dcb07",
+        "file_name": "ba326af580d815be7706aaa7cc9dcb07.tzst",
+        "file_size": 2818356,
+        "id": 1337,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "Box64-Hybrid-Bionic",
+        "type": 1,
+        "version": "Hybrid-Bionic",
         "version_code": 1
       }
     ]

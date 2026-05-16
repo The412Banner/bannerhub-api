@@ -5,7 +5,7 @@
     "type": 2,
     "type_name": "drivers",
     "display_name": "GPU Drivers",
-    "total": 266,
+    "total": 271,
     "components": [
       {
         "display_name": "",
@@ -3729,6 +3729,76 @@
         "name": "VIVSI_Turnip_710-720-722_v2.5.6",
         "type": 2,
         "version": "Mesa 26.2.0 Vulkan 1.4.350",
+        "version_code": 1
+      },
+      {
+        "display_name": "SMXZ_Turnip_Gen8_V31",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/62ee5dab4572af9060aea8f3a46841e2.tzst",
+        "file_md5": "62ee5dab4572af9060aea8f3a46841e2",
+        "file_name": "62ee5dab4572af9060aea8f3a46841e2.tzst",
+        "file_size": 1980083,
+        "id": 1332,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "SMXZ_Turnip_Gen8_V31",
+        "type": 2,
+        "version": "1.0.0",
+        "version_code": 1
+      },
+      {
+        "display_name": "SMXZ_Turnip_v26.2.0_R4",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/37d2828e69aea6c4732732bffdd3afda.tzst",
+        "file_md5": "37d2828e69aea6c4732732bffdd3afda",
+        "file_name": "37d2828e69aea6c4732732bffdd3afda.tzst",
+        "file_size": 1980018,
+        "id": 1333,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "SMXZ_Turnip_v26.2.0_R4",
+        "type": 2,
+        "version": "1.0.0",
+        "version_code": 1
+      },
+      {
+        "display_name": "SMXZ_Turnip_v26.2.0_R4_OneUI",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/43fc8012d2de381a2c903102f09e5c5e.tzst",
+        "file_md5": "43fc8012d2de381a2c903102f09e5c5e",
+        "file_name": "43fc8012d2de381a2c903102f09e5c5e.tzst",
+        "file_size": 1979980,
+        "id": 1334,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "SMXZ_Turnip_v26.2.0_R4_OneUI",
+        "type": 2,
+        "version": "1.0.0",
+        "version_code": 1
+      },
+      {
+        "display_name": "MTR_WN_Turnip_v1.01_Axxx_b",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f2889fc0667fda5b7681014bcffe4920.tzst",
+        "file_md5": "f2889fc0667fda5b7681014bcffe4920",
+        "file_name": "f2889fc0667fda5b7681014bcffe4920.tzst",
+        "file_size": 1992239,
+        "id": 1335,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "MTR_WN_Turnip_v1.01_Axxx_b",
+        "type": 2,
+        "version": "WN-1.01-b",
+        "version_code": 1
+      },
+      {
+        "display_name": "MTR_WN_Turnip_v1.01_Axxx_p",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/eb698f6c5e9eac2124d18db8c3ac4dc2.tzst",
+        "file_md5": "eb698f6c5e9eac2124d18db8c3ac4dc2",
+        "file_name": "eb698f6c5e9eac2124d18db8c3ac4dc2.tzst",
+        "file_size": 1991412,
+        "id": 1336,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "MTR_WN_Turnip_v1.01_Axxx_p",
+        "type": 2,
+        "version": "WN-1.01-p",
         "version_code": 1
       }
     ]

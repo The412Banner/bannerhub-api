@@ -94,6 +94,15 @@
         "version": "0.4.3"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ba326af580d815be7706aaa7cc9dcb07.tzst",
+        "file_md5": "ba326af580d815be7706aaa7cc9dcb07",
+        "file_name": "ba326af580d815be7706aaa7cc9dcb07.tzst",
+        "file_size": 2818356,
+        "name": "Box64-Hybrid-Bionic",
+        "type": 1,
+        "version": "Hybrid-Bionic"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Fex_20241214.tzst",
         "file_md5": "c48e8cc6acb10ab8d969e5947bc78bce",
         "file_name": "Fex_20241214.tzst",
@@ -1309,6 +1318,24 @@
         "version": "Mesa 26.1.0-devel v3.2.0-p"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f2889fc0667fda5b7681014bcffe4920.tzst",
+        "file_md5": "f2889fc0667fda5b7681014bcffe4920",
+        "file_name": "f2889fc0667fda5b7681014bcffe4920.tzst",
+        "file_size": 1992239,
+        "name": "MTR_WN_Turnip_v1.01_Axxx_b",
+        "type": 2,
+        "version": "WN-1.01-b"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/eb698f6c5e9eac2124d18db8c3ac4dc2.tzst",
+        "file_md5": "eb698f6c5e9eac2124d18db8c3ac4dc2",
+        "file_name": "eb698f6c5e9eac2124d18db8c3ac4dc2.tzst",
+        "file_size": 1991412,
+        "name": "MTR_WN_Turnip_v1.01_Axxx_p",
+        "type": 2,
+        "version": "WN-1.01-p"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/bed23f4587576f40ddc2a9a4f3f9b500.tzst",
         "file_md5": "bed23f4587576f40ddc2a9a4f3f9b500",
         "file_name": "qcom-800.64.tzst",
@@ -1444,6 +1471,15 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/62ee5dab4572af9060aea8f3a46841e2.tzst",
+        "file_md5": "62ee5dab4572af9060aea8f3a46841e2",
+        "file_name": "62ee5dab4572af9060aea8f3a46841e2.tzst",
+        "file_size": 1980083,
+        "name": "SMXZ_Turnip_Gen8_V31",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e1d962b195171ed1700c42e2408902b7.tzst",
         "file_md5": "e1d962b195171ed1700c42e2408902b7",
         "file_name": "e1d962b195171ed1700c42e2408902b7.tzst",
@@ -1476,6 +1512,24 @@
         "file_name": "5d386284e5b05526a02cb8626e6edf81.tzst",
         "file_size": 1967879,
         "name": "SMXZ_Turnip_v26.2.0_R3_OneUI",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/37d2828e69aea6c4732732bffdd3afda.tzst",
+        "file_md5": "37d2828e69aea6c4732732bffdd3afda",
+        "file_name": "37d2828e69aea6c4732732bffdd3afda.tzst",
+        "file_size": 1980018,
+        "name": "SMXZ_Turnip_v26.2.0_R4",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/43fc8012d2de381a2c903102f09e5c5e.tzst",
+        "file_md5": "43fc8012d2de381a2c903102f09e5c5e",
+        "file_name": "43fc8012d2de381a2c903102f09e5c5e.tzst",
+        "file_size": 1979980,
+        "name": "SMXZ_Turnip_v26.2.0_R4_OneUI",
         "type": 2,
         "version": "1.0.0"
       },
@@ -4855,6 +4909,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 539
+    "total": 545
   }
 }
