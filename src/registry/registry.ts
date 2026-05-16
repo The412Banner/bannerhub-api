@@ -11,10 +11,12 @@ import { COMPONENT_TYPE_META } from '../types/index.js';
 
 /**
  * Picker types where newer entries should appear at the bottom of the list
- * (Box64/FEX = 1, GPU drivers = 2, VKD3D = 4). Other types keep their default
- * ordering (newest first for manifests, name-sorted for simulator endpoints).
+ * (Box64/FEX = 1, VKD3D = 4). GPU drivers (type 2) were removed 2026-05-16 so
+ * the newest driver shows at the TOP of the picker instead. Other types keep
+ * their default ordering (newest first for manifests, name-sorted for
+ * simulator endpoints).
  */
-export const PICKER_NEWEST_LAST_TYPES = new Set<number>([1, 2, 4]);
+export const PICKER_NEWEST_LAST_TYPES = new Set<number>([1, 4]);
 
 /**
  * Info about a component's original CDN URL (for downloading missing files)
