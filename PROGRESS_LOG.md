@@ -893,3 +893,12 @@ Six files staged in `~/API/`, added via a controlled one-shot pipeline (mirrors 
 - All 6 md5s confirmed present on the `Components` release (none in `npm run build`'s pre-existing missing-files warning, which lists only older unrelated components).
 - Picker order confirmed: `PICKER_NEWEST_LAST_TYPES = {1,2,4}` → both types sort by ID ascending, newest last. The 5 drivers stack at the bottom of the GPU picker after `VIVSI_Turnip_710-720-722_v2.5.6`; `Box64-Hybrid-Bionic` at the bottom of the Box64 picker after `Box64-0.4.3`.
 - `total_components` 539 → 545 (+6). Embedded archive metadata left untouched (catalog `display_name` is independent of in-archive `name`).
+
+## 2026-05-16 — GPU driver picker flipped to newest-first
+
+User request: GPU drivers should list newest at the TOP, not the bottom.
+
+- Removed type **2** from `PICKER_NEWEST_LAST_TYPES` in `src/registry/registry.ts` (now `{1, 4}`). Type 2 falls into the default branch → `sortByIdDescending` → highest ID (newest) first.
+- The set has two consumers: `manifest-generator.ts` (the `drivers_manifest` picker) **and** `registry.ts:196` inside `sortByTypeAndIdDescending`, used by the `getComponentList` / `getAllComponentList` / `getContainerDetail/*` simulator endpoints. Flip is therefore consistent across the picker and those endpoints.
+- **Box64 (type 1) and VKD3D (type 4) deliberately left newest-last** — user scoped the request to GPU drivers only. This is an intentional asymmetry (Box64 newest-bottom, GPU newest-top).
+- No catalog data change — `custom_components.json` untouched; only generated files reordered. Verified: `drivers_manifest` top is now id 1336→1335→1334→1333→1332 (the 2026-05-16 adds), Box64 manifest unchanged. Commit `996f1d6`, pushed `main` + `master`.
