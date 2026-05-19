@@ -132,8 +132,9 @@ if (url.pathname.startsWith('/v6/')) {
 |---|---|---|
 | `simulator/v2/getAllComponentList` | Native upstream pass-through (`{list: <stringified>, total}`; `is_ui` / `gpu_range` preserved) | Wrapped as `BaseResult<EnvListData<EnvLayerEntity>>` — `{list, page, page_size, total}` with each entry passed through `reshapeFor60` (see below) |
 | `simulator/v2/getComponentList` | Native upstream pass-through | Form-urlencoded body parser (6.0 sends `type` as a `pl6.J` POST builder), filter by `type` after Steam remap, then reshape |
-| `simulator/v2/getImagefsDetail` | Firmware **1.3.3** (legacy, ~161 MB, versionCode 23) | Firmware **1.3.6** (~164 MB, versionCode 26) — bumped through 1.3.4 → 1.3.5 → 1.3.6, see PROGRESS_LOG. v134 + v135 assets retained on the `Components` release as rollback. |
+| `simulator/v2/getImagefsDetail` | Firmware **1.4.1** (~172 MB, versionCode 31, asset `imagefs_141.zst`, MD5 `643024d5…`) — served from the static file; 5.x is **no longer** legacy-pinned to 1.3.3 | Firmware **1.4.1** (~172 MB, 172,206,649 B, versionCode 31, MD5 `643024d54f11d01196ffdb2918dc3c85`) — bumped 1.3.6 → 1.3.7 → 1.3.8 → 1.4.1; as of `5dc29a9` (2026-05-15) 5.x and 6.0 are in 7-site lockstep. v134–v138 retained on the `Components` release as rollback. See PROGRESS_LOG. |
 | `simulator/v2/getContainerDetail/{id}` | (not used) | Per-id static file lookup (6.0-only endpoint) |
+| `simulator/v2/getDefaultComponent` | Native static file pass-through | `steamClient` overwritten with the full `steam_client_0403` object (id 1296, `type: 8`, `fileType: 4`); other defaults pass through. Without this the launch task asks for `steam_9866233`/type 7 — filtered out of `/v6/` — and Steam-library launches fail with "task install components failed". Added `dc04845` (2026-05-12). |
 | All other endpoints (`chat/*`, `devices/*`, `card/*`, `cloud/*`, token-injected vgabc proxy, etc.) | Same handler — no `is60` divergence | Same handler — no `is60` divergence |
 
 ### `reshapeFor60` — what every catalog entry on `/v6/` goes through
@@ -143,9 +144,11 @@ if (url.pathname.startsWith('/v6/')) {
 | Field | What `reshapeFor60` does |
 |---|---|
 | `is_ui`, `gpu_range` | Stripped — these are 5.x fields the 6.0 deserializer rejects |
-| `fileType` | Pinned to `0` for the `base` entry (Wine prefix scaffold extractor); `4` for everything else (single-package extractor) |
+| `fileType` | Forced to `4` for **every** entry **including `base`** (upstream Xiaoji `/v6/` ships everything at 4; our 5.x source XML is universally 0). The earlier base-`0` carve-out was the cause of "task install components failed" on first launch — removed 2026-05-12. |
 | `framework`, `framework_type`, `blurb`, `upgrade_msg` | Defaulted to empty string when missing |
-| `status` | Defaulted to `0` when missing |
+| `status` | Forced to `1` for names in the `UPSTREAM_STATUS1` allowlist (upstream's "active/recommended" rotation); `0` for everything else — **not** a plain "default 0 when missing" |
+| `is_steam` | Injected as snake-case `0` when missing, on **every** component (kotlinx `@SerialName` maps it to the camelCase Kotlin field). Re-added 2026-05-12 — missing-field ≠ zero-value for kotlinx-strict, so the earlier "removed as dead code" assumption was wrong. (Container-side `isSteam` mirror is separate — see below.) |
+| `.yml` install scripts | For names in `UPSTREAM_YML_OVERRIDES`, `file_md5` / `file_size` / `file_name` / `version` / `version_code` / `download_url` are replaced with mirrored fresher upstream values. `/v6/`-only — 5.x keeps the static catalog values. |
 | `sub_data`, `base` | Defaulted to `null` when missing |
 
 ### Component types in 6.0 — what we know
@@ -189,7 +192,7 @@ The upstream catalog already carries the correct values in the snake-case `is_st
 | **1** | `proton10.0-x64-1`, `proton10.0-arm64x-2`, `proton9.0-x64-3`, `proton9.0-arm64x-3`, `proton11.0-arm64x`, `wine10.6-arm64x-2` (all Proton-based + the one Wine ARM64EC container) |
 | **2** | `wine9.5-x64-2`, `wine9.13-x64-2`, `wine9.16-x64-2`, `wine10.0-x64-2` (all plain Wine x64) |
 
-5.x clients hit the same upstream pass-through and continue to read snake-case `is_steam` only — no `isSteam` is added to their responses. (Earlier versions of `reshapeFor60` defaulted a snake-case `is_steam=0` on every component, which was dead code — 6.0 never read it. Removed.)
+5.x clients hit the same upstream pass-through and continue to read snake-case `is_steam` only — no `isSteam` is added to their responses. (`reshapeFor60` **does** default a snake-case `is_steam=0` on every `/v6/` component — re-added 2026-05-12. An earlier revision removed it on the assumption 6.0 never read it; that was wrong, because for kotlinx-strict a missing field is not the same as a zero value. This is the component-level field; the real 1/2 container values are mirrored separately in the `getContainerList` handler.)
 
 #### BannerHub-fork JavaSteam integration
 
@@ -199,8 +202,8 @@ The upstream catalog already carries the correct values in the snake-case `is_st
 
 | Component | Detail |
 |---|---|
-| **base** (Wine prefix scaffold) | id 8, `fileType: 0`, ~40 MB (`base.tzst`, MD5 `3d5c31b1346985d582f04d239004b4d7`). Same binary as 5.x — no `/v6/` override. Confirmed byte-identical to XiaoJi's 1.3.6 base on 2026-05-08, so firmware bumps don't require a base swap. |
-| **Firmware (imagefs)** | `1.3.6`, versionCode 26, ~164 MB (171,913,961 B), MD5 `bc95fcb8dc02dac7d61e1be7dd374aeb`, asset `imagefs_136.zst`. **6.0-only** — 5.x stays on 1.3.3. |
+| **base** (Wine prefix scaffold) | id 8, ~40 MB (`base.tzst`, MD5 `3d5c31b1346985d582f04d239004b4d7`). Same binary as 5.x — no `/v6/` binary override. Note: on `/v6/` its `fileType` is served as **`4`** (the `reshapeFor60` force applies to base too — the old `0` was a launch-blocking bug, fixed 2026-05-12). Confirmed byte-identical to XiaoJi's base on 2026-05-08, so firmware bumps don't require a base swap. |
+| **Firmware (imagefs)** | `1.4.1`, versionCode 31, ~172 MB (172,206,649 B), MD5 `643024d54f11d01196ffdb2918dc3c85`, asset `imagefs_141.zst`. **Served to BOTH 5.x and 6.0** — as of `5dc29a9` (2026-05-15) the 7 firmware-metadata sites are in lockstep; the old "6.0-only, 5.x stays on 1.3.3" split no longer holds. |
 | **Container (Wine/Proton)** | One of 10 returned by `getContainerList`: `wine10.0-x64-2`, `wine9.5/9.13/9.16-x64-2`, `wine10.6-arm64x-2`, `proton10.0-arm64x-2`, plus 4 more. Same set 5.x sees. |
 
 ### Known gaps
