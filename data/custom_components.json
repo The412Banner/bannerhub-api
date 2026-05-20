@@ -2858,6 +2858,18 @@
       "file_size": "4590835",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fd9286b60940d620425d07fe26ea4983.tzst",
       "display_name": "Box64-0.4.3-Hybrid-Bionic"
+    },
+    {
+      "id": 1338,
+      "name": "Banners-Turnip-v26.2.0-052026",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "Banners-Turnip-v26.2.0-052026.tzst",
+      "file_md5": "ebe2128f58e0fceea62976402b1f37c7",
+      "file_size": "2435992",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-052026.tzst",
+      "display_name": "Banners Turnip v26.2.0 052026"
     }
   ]
 }

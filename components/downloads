@@ -98,7 +98,7 @@
         "file_md5": "fd9286b60940d620425d07fe26ea4983",
         "file_name": "fd9286b60940d620425d07fe26ea4983.tzst",
         "file_size": 4590835,
-        "name": "Box64-Hybrid-Bionic",
+        "name": "Box64-0.4.3-Hybrid-Bionic",
         "type": 1,
         "version": "Hybrid-Bionic"
       },
@@ -749,6 +749,15 @@
         "name": "Adreno_819",
         "type": 2,
         "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-052026.tzst",
+        "file_md5": "ebe2128f58e0fceea62976402b1f37c7",
+        "file_name": "Banners-Turnip-v26.2.0-052026.tzst",
+        "file_size": 2435992,
+        "name": "Banners-Turnip-v26.2.0-052026",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/22d56915c43dfa3876ed9aa71c230b70.tzst",
@@ -4909,6 +4918,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 545
+    "total": 546
   }
 }
