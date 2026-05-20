@@ -498,7 +498,7 @@
         "version_code": 2
       },
       {
-        "display_name": "Box64-Hybrid-Bionic",
+        "display_name": "Box64-0.4.3-Hybrid-Bionic",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fd9286b60940d620425d07fe26ea4983.tzst",
         "file_md5": "fd9286b60940d620425d07fe26ea4983",
         "file_name": "fd9286b60940d620425d07fe26ea4983.tzst",
@@ -506,7 +506,7 @@
         "id": 1337,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "Box64-Hybrid-Bionic",
+        "name": "Box64-0.4.3-Hybrid-Bionic",
         "type": 1,
         "version": "Hybrid-Bionic",
         "version_code": 2

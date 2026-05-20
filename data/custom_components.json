@@ -2849,7 +2849,7 @@
     },
     {
       "id": 1337,
-      "name": "Box64-Hybrid-Bionic",
+      "name": "Box64-0.4.3-Hybrid-Bionic",
       "type": 1,
       "version": "Hybrid-Bionic",
       "version_code": 2,
@@ -2857,7 +2857,7 @@
       "file_md5": "fd9286b60940d620425d07fe26ea4983",
       "file_size": "4590835",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/fd9286b60940d620425d07fe26ea4983.tzst",
-      "display_name": "Box64-Hybrid-Bionic"
+      "display_name": "Box64-0.4.3-Hybrid-Bionic"
     }
   ]
 }
