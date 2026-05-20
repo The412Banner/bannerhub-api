@@ -64,7 +64,7 @@
       "file_size": "3101921",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/36e67b87b7597fb049edf3d18b62e353.tzst",
       "display_name": "Turnip_v26.1.0_R5",
-      "blurb": "Turnip Vulkan driver release build for Adreno."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver release build for Adreno."
     },
     {
       "id": 1105,
@@ -101,7 +101,7 @@
       "file_size": "12504698",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8af0e84d372e9476c9359b119199690e.tzst",
       "display_name": "qcom-837.6",
-      "blurb": "Qualcomm proprietary Adreno GPU driver (closed-source vendor blob). Repackaged for use under Wine on Android."
+      "blurb": "[Original GameHub Driver] Qualcomm proprietary Adreno GPU driver (closed-source vendor blob). Repackaged for use under Wine on Android."
     },
     {
       "id": 1108,
@@ -114,7 +114,7 @@
       "file_size": "17993821",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5affe6408a75b2cdcded4fa91925d382.tzst",
       "display_name": "qcom-840",
-      "blurb": "Qualcomm proprietary Adreno GPU driver (closed-source vendor blob). Repackaged for use under Wine on Android."
+      "blurb": "[Original GameHub Driver] Qualcomm proprietary Adreno GPU driver (closed-source vendor blob). Repackaged for use under Wine on Android."
     },
     {
       "id": 1109,
@@ -127,7 +127,7 @@
       "file_size": "16291463",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8de430fb3f3842c0ca93ef6822028caf.tzst",
       "display_name": "qcom-863.1",
-      "blurb": "Qualcomm proprietary Adreno GPU driver (closed-source vendor blob). Repackaged for use under Wine on Android."
+      "blurb": "[Original GameHub Driver] Qualcomm proprietary Adreno GPU driver (closed-source vendor blob). Repackaged for use under Wine on Android."
     },
     {
       "id": 1110,
@@ -140,7 +140,7 @@
       "file_size": "2962814",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3f0d649069ae4cd51c3d03cfd2b44736.tzst",
       "display_name": "turnip_v26.0.0_R8",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1111,
@@ -153,7 +153,7 @@
       "file_size": "3352665",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/28f3ccef594f9cbdc06b9d5b428d7e7f.tzst",
       "display_name": "turnip_v26.0.0_R8_b1",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1112,
@@ -166,7 +166,7 @@
       "file_size": "3347953",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/324565ce3f9e72e989428c78336ed5e7.tzst",
       "display_name": "turnip_v26.0.0_R8_b2",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1113,
@@ -179,7 +179,7 @@
       "file_size": "3438059",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/012fbdc108267acf65d5f8fdbb182532.tzst",
       "display_name": "turnip_v26.0.0_R8_b3",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1114,
@@ -192,7 +192,7 @@
       "file_size": "3354467",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ecfa50f7d3cc3001369299ad60276494.tzst",
       "display_name": "turnip_v26.0.0_R8_b4",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1115,
@@ -205,7 +205,7 @@
       "file_size": "3123812",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/2090111d85c99cdf2ec9b077bfc1962f.tzst",
       "display_name": "turnip_v26.0.0_R8_b5",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1116,
@@ -218,7 +218,7 @@
       "file_size": "2962713",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/24ba605e127248c2c179f9ea2a2754df.tzst",
       "display_name": "turnip_v26.0.0_R8_mem",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1117,
@@ -231,7 +231,7 @@
       "file_size": "3133050",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/aa75f2fc098cdcf5f46469a1bf21601f.tzst",
       "display_name": "turnip_v26.1.0_R1",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1118,
@@ -244,7 +244,7 @@
       "file_size": "3146894",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a1dccd5030e568c8de54df220f3e17a5.tzst",
       "display_name": "turnip_v26.1.0_R2",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1119,
@@ -270,7 +270,7 @@
       "file_size": "3076323",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b21ad144bf44a1783433dc2201ee6849.tzst",
       "display_name": "turnip_v26.1.0_R4",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1121,
@@ -283,7 +283,7 @@
       "file_size": "2645239",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b9d4a0a9ea2d975e08a384cbeb7c6a27.tzst",
       "display_name": "turnip_v26.1.0_b1",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1122,
@@ -296,7 +296,7 @@
       "file_size": "2675422",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b8f98fce654e728e73b1cd3730dc0532.tzst",
       "display_name": "turnip_v26.1.0_b2",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1123,
@@ -309,7 +309,7 @@
       "file_size": "2675739",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/225572068f55a005c76262e7bf92a561.tzst",
       "display_name": "turnip_v26.1.0_b3",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1124,
@@ -322,7 +322,7 @@
       "file_size": "2677856",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/2dc189e9db794cbd49ce86c2d36770a1.tzst",
       "display_name": "turnip_v26.1.0_b4",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1125,
@@ -335,7 +335,7 @@
       "file_size": "3148936",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/43ccfa4579f530d683ef72f9178a6ee2.tzst",
       "display_name": "turnip_v26.1.0_b5",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1126,
@@ -348,7 +348,7 @@
       "file_size": "2320808",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0355094c7f329334e7957217b5514504.tzst",
       "display_name": "turnip_v26.1.0_b6",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1127,
@@ -361,7 +361,7 @@
       "file_size": "2610415",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b87a14ee2198ca19e45ae7f000e96a2e.tzst",
       "display_name": "turnip_v26.1.0_b7",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1128,
@@ -374,7 +374,7 @@
       "file_size": "2322322",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6016ffe562c7b534be32feb311c4f740.tzst",
       "display_name": "turnip_v26.1.0_b8",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1129,
@@ -2560,7 +2560,7 @@
       "file_size": "3210246",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/c1ea3d759308447a808949ff54abc02a.tzst",
       "display_name": "Turnip_v26.2.0_R1",
-      "blurb": "Turnip Vulkan driver release build for Adreno."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver release build for Adreno."
     },
     {
       "id": 1298,
@@ -2819,7 +2819,7 @@
       "file_size": "2431230",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6894a06d588c2cf485f2a3ad1103d1df.tzst",
       "display_name": "Turnip_26.2.0_R3_OneUI",
-      "blurb": "Turnip Vulkan driver release build with OneUI compositor patches."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver release build with OneUI compositor patches."
     },
     {
       "id": 1318,
@@ -2832,7 +2832,7 @@
       "file_size": "3114826",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/38b2d5398d927470009ff5a66967811d.tzst",
       "display_name": "Turnip_v26.1.0_R6",
-      "blurb": "Turnip Vulkan driver release build for Adreno."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver release build for Adreno."
     },
     {
       "id": 1319,
@@ -2845,7 +2845,7 @@
       "file_size": "2430930",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/65ea8b61f2313c3b76c3fac205322a4f.tzst",
       "display_name": "Turnip_v26.2.0_R3",
-      "blurb": "Turnip Vulkan driver release build for Adreno."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver release build for Adreno."
     },
     {
       "id": 1320,
@@ -2884,7 +2884,7 @@
       "file_size": "2352100",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/05743ec8d638c60cf7329060c94d09c5.tzst",
       "display_name": "turnip_v26.1.0_b10",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1323,
@@ -2897,7 +2897,7 @@
       "file_size": "2349702",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e2b8d9aa9e3a64d67e24e0c4930d45cb.tzst",
       "display_name": "turnip_v26.1.0_b11",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1324,
@@ -2910,7 +2910,7 @@
       "file_size": "3226771",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d6c6e7719f84ba2729c58f710e4783dc.tzst",
       "display_name": "turnip_v26.1.0_b12",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1325,
@@ -2923,7 +2923,7 @@
       "file_size": "2318118",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/143478654f8b8180fef596fbfa131552.tzst",
       "display_name": "turnip_v26.1.0_b7-git_2",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1326,
@@ -2936,7 +2936,7 @@
       "file_size": "2352436",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3ae13ec0a178d3eeec7005d5c1388a80.tzst",
       "display_name": "turnip_v26.1.0_b9",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1327,
@@ -2949,7 +2949,7 @@
       "file_size": "2432554",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5d92be400392ef2e16c42b4d0c24f680.tzst",
       "display_name": "turnip_v26.2.0_b1",
-      "blurb": "Turnip Vulkan driver for Adreno. Community build."
+      "blurb": "[Original GameHub Driver] Turnip Vulkan driver for Adreno. Community build."
     },
     {
       "id": 1328,
