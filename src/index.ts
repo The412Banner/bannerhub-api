@@ -30,6 +30,41 @@ function loadJson<T>(path: string): T {
 }
 
 /**
+ * Apply id-keyed overrides to merged components (in place). Used to add
+ * blurbs to XiaoJi-supplied XML entries without editing the XML itself,
+ * so mirror refreshes don't clobber the additions.
+ *
+ * Format: data/upstream_overrides.json
+ *   { "blurb_by_id": { "<id>": "blurb text", ... } }
+ *
+ * Missing file is non-fatal — build proceeds silently.
+ */
+interface UpstreamOverrides {
+  blurb_by_id?: Record<string, string>;
+}
+
+function applyUpstreamOverrides(
+  components: { id: number; blurb?: string }[],
+  config: BuildConfig,
+): void {
+  const path = join(dirname(config.customComponentsFile), 'upstream_overrides.json');
+  if (!existsSync(path)) return;
+  const overrides = loadJson<UpstreamOverrides>(path);
+  const blurbMap = overrides.blurb_by_id ?? {};
+  let applied = 0;
+  for (const c of components) {
+    const b = blurbMap[String(c.id)];
+    if (b && !c.blurb) {
+      c.blurb = b;
+      applied++;
+    }
+  }
+  if (applied > 0) {
+    console.log(`   Applied ${applied} upstream overrides (blurb)\n`);
+  }
+}
+
+/**
  * Get the list of assets in a GitHub release
  */
 function getGitHubReleaseAssets(repo: string, release: string): Set<string> {
@@ -105,6 +140,12 @@ async function build(config: BuildConfig): Promise<void> {
   // Merge components
   const components = [...xmlComponents, ...customComponents];
   console.log(`   Total: ${components.length} components\n`);
+
+  // 2b. Apply upstream-entry overrides (id-keyed). Survives XML re-mirrors —
+  //     XML refreshes regenerate the source dump but our override file is
+  //     never touched. Currently used to backfill `blurb` on XiaoJi-supplied
+  //     entries that ship without a description.
+  applyUpstreamOverrides(components, config);
 
   // 3. Create registry
   console.log('3. Building registry...');

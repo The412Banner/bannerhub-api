@@ -74,7 +74,7 @@
       },
       {
         "base_type": 0,
-        "blurb": "",
+        "blurb": "original Gamehub Driver — Mesa Turnip Vulkan driver release build for Adreno (community).",
         "display_name": "",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/turnip_v25.0.0_R1.tzst",
         "file_md5": "a56b24886555c6c5d30c93fdb7b0f8f3",
@@ -195,5 +195,5 @@
     },
     "video_memory": 0
   },
-  "time": "1779315492"
+  "time": "1779315954"
 }
