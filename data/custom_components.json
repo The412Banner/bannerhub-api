@@ -2869,7 +2869,8 @@
       "file_md5": "ebe2128f58e0fceea62976402b1f37c7",
       "file_size": "2435992",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-052026.tzst",
-      "display_name": "Banners Turnip v26.2.0 052026"
+      "display_name": "Banners Turnip v26.2.0 052026",
+      "blurb": "A6xx/A7xx Turnip driver from Mesa main (git 65b7513). KGSL build."
     }
   ]
 }

@@ -28,7 +28,7 @@ import * as readline from 'readline'
 
 const TMP_DRIVERS_DIR = '.tmp_drivers'
 const CUSTOM_COMPONENTS_PATH = 'data/custom_components.json'
-const GITHUB_REPO = 'Producdevity/gamehub-lite-api'
+const GITHUB_REPO = 'The412Banner/bannerhub-api'
 const COMPONENT_TYPE_GPU_DRIVER = 2
 
 // ANSI color codes
@@ -52,6 +52,32 @@ interface CustomComponent {
   file_name: string
   file_md5: string
   file_size: string
+  download_url?: string
+  display_name?: string
+  blurb?: string
+}
+
+interface AdrenoToolsMeta {
+  name?: string
+  description?: string
+  vendor?: string
+  driverVersion?: string
+  packageVersion?: string
+}
+
+const GITHUB_RELEASE_BASE =
+  'https://github.com/The412Banner/bannerhub-api/releases/download/Components'
+
+function readMetaFromZip(zipPath: string): AdrenoToolsMeta | null {
+  try {
+    const raw = execSync(`unzip -p "${zipPath}" meta.json`, {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    })
+    return JSON.parse(raw) as AdrenoToolsMeta
+  } catch {
+    return null
+  }
 }
 
 interface CustomComponentsFile {
@@ -250,19 +276,24 @@ async function main() {
     }
 
     try {
+      const meta = readMetaFromZip(zipPath)
       const tzstPath = convertZipToTzst(zipPath, TMP_DRIVERS_DIR)
       const md5 = getMd5(tzstPath)
       const fileSize = getFileSize(tzstPath)
+      const fileName = `${driverName}.tzst`
 
       const component: CustomComponent = {
         id: nextId++,
         name: driverName,
         type: COMPONENT_TYPE_GPU_DRIVER,
-        version: '1.0.0',
+        version: meta?.driverVersion?.trim() || '1.0.0',
         version_code: 1,
-        file_name: `${driverName}.tzst`,
+        file_name: fileName,
         file_md5: md5,
         file_size: fileSize,
+        download_url: `${GITHUB_RELEASE_BASE}/${fileName}`,
+        display_name: meta?.name?.trim() || driverName,
+        blurb: meta?.description?.trim() || '',
       }
 
       newComponents.push(component)
@@ -307,6 +338,7 @@ async function main() {
         file_name: tzstFile,
         file_md5: md5,
         file_size: fileSize,
+        download_url: `${GITHUB_RELEASE_BASE}/${tzstFile}`,
       }
 
       newComponents.push(component)
