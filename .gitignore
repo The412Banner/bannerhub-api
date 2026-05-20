@@ -8,6 +8,10 @@ dist/
 .tmp_components/
 .tmp_drivers/
 
+# Python tooling
+__pycache__/
+*.pyc
+
 # IDE
 .idea/
 *.swp
