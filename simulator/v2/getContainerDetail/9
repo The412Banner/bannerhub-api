@@ -15,11 +15,11 @@
     "name": "proton9.0-arm64x-3",
     "sub_data": {
       "sub_file_name": "2ff6952b6eec0ef881e97bde57ddc8e6.tzst",
-      "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ae9d3f0c04341ac4fbb933f1ce4b6409.tzst",
-      "sub_file_md5": "ae9d3f0c04341ac4fbb933f1ce4b6409"
+      "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/2ff6952b6eec0ef881e97bde57ddc8e6.tzst",
+      "sub_file_md5": "2ff6952b6eec0ef881e97bde57ddc8e6"
     },
     "version": "1.0.0",
     "version_code": 1
   },
-  "time": "1779387716"
+  "time": "1779397826"
 }
