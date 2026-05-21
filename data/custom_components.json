@@ -3093,6 +3093,19 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-052026.tzst",
       "display_name": "Banners Turnip v26.2.0 052026",
       "blurb": "A6xx/A7xx Turnip driver from Mesa main (git 65b7513). KGSL build."
+    },
+    {
+      "id": 1339,
+      "name": "DXVK-2.4.1-fix",
+      "type": 3,
+      "version": "2.4.1-fix",
+      "version_code": 1,
+      "file_name": "3fa28e6e10c256a7ae4f55749f453d4f.tzst",
+      "file_md5": "3fa28e6e10c256a7ae4f55749f453d4f",
+      "file_size": "8493387",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3fa28e6e10c256a7ae4f55749f453d4f.tzst",
+      "display_name": "DXVK-2.4.1-fix",
+      "blurb": "DXVK 2.4.1 with sys-driver fixes. Direct3D 9/10/11 → Vulkan translation layer."
     }
   ]
 }

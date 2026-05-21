@@ -3001,6 +3001,15 @@
         "version": "1.1.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3fa28e6e10c256a7ae4f55749f453d4f.tzst",
+        "file_md5": "3fa28e6e10c256a7ae4f55749f453d4f",
+        "file_name": "3fa28e6e10c256a7ae4f55749f453d4f.tzst",
+        "file_size": 8493387,
+        "name": "DXVK-2.4.1-fix",
+        "type": 3,
+        "version": "2.4.1-fix"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-2.5.tzst",
         "file_md5": "5660cbd4f7d2b8d703ed13f14236bbf5",
         "file_name": "dxvk-2.5.tzst",
@@ -4918,6 +4927,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 546
+    "total": 547
   }
 }
