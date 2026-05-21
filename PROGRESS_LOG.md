@@ -962,3 +962,45 @@ ids prefixed: 1104, 1107–1118, 1120–1128, 1297, 1317–1319, 1322–1327. Re
 ## 2026-05-21 — Catalog add: `DXVK-2.4.1-fix` (id 1339)
 
 Added a new DXVK type=3 entry sourced from a hand-supplied `dxvk-2.4.1-fix.wcp` (sys-driver-fix variant of upstream DXVK 2.4.1). `scripts/wcp2tzst.sh --type dxvk` repacked the archive (stripped `profile.json`, no `./` wrapper) → md5 `3fa28e6e10c256a7ae4f55749f453d4f`, 8493387 bytes; `scripts/check_component_layout.sh` returned OK (10-DLL `system32/`+`syswow64/` layout, matching the existing DXVK sibling shape). Asset uploaded to the `Components` release; `data/custom_components.json` got a 13-line append (id 1339 — next free above the 1338 high-water mark) carrying name/version/version_code derived from the .wcp's internal `profile.json` (`versionName: "2.4.1-fix"`, `versionCode: 1`). `npm run build` regenerated 22 endpoint files — dxvk total 46 → 47; all other regen is just build-`time` epoch bumps. dxvk_manifest now serves id 1339 alongside the prior 17 custom DXVK entries.
+
+## 2026-05-21 — Proton 9/10 x64 + Proton 9 arm64x `sub_data` 404 fix (commit `7c73883`)
+
+**Device-verified shipped fix** for long-standing "Container installation failed" toast on x86_64 Proton layers across **BHL 1.0.2 + BannerHub 3.7.5 + bannerhub-revanced v6** (all three apps share the same `simulator/v2/getContainerList`).
+
+### Root cause
+
+Live logcat capture on `com.xiaoji.egggame` (BHL Original v1.0.2 / Pocket FIT) showed Drake.NET ConvertException on a 404 GH-Releases asset:
+
+```
+E runFailure: err = com.drake.net.exception.ConvertException:
+  https://.../Components/751b2ec403b86ddd7357206f7a85b301.tzst …(null:89)
+```
+
+That URL was the `sub_data.sub_download_url` for `proton10.0-x64-1` (id 10) in `data/containers.json`. Engine fetches this ~4 MB supplementary tzst during container init; on 404, failure propagates via Drake.NET → `PcEmuSetupDialog.checkWineAndContainer$3$1.invokeSuspend` → toast `winemu_container_installation_failed` (R.string id `0x7f130c29`).
+
+Three entries had broken hashes — pattern looked like a copy-paste mistake where `sub_file_name` was correct but `sub_download_url` + `sub_file_md5` carried unrelated hashes from a different/deleted revision:
+
+| id | name | old broken hash | status | new hash |
+|----|------|-----------------|--------|----------|
+| 10 | proton10.0-x64-1   | `751b2ec…`                                  | 404 (URL)  | `ac15e5a378…` (real 4.08 MB tzst, matches top `file_md5`) |
+| 4  | proton9.0-x64-3    | URL OK; `sub_file_md5=6f41b9c…`             | md5 hash file 404 | `83b3a2a16f…` (URL's filename hash) |
+| 9  | proton9.0-arm64x-3 | `ae9d3f0…`                                  | 404 (URL)  | `2ff6952b6e…` (real 3.98 MB tzst, matches top `file_md5`) |
+
+### Fix
+
+Three surgical 2-line edits in `data/containers.json` (6 lines total). `npm run build` regenerated `simulator/v2/getContainerList` and `getContainerDetail/{4,9,10}`. Diff = 18 files; remaining 15 are build-`time` epoch bumps (executeScript pair, allComponentList, componentList, defaultComponent, imagefsDetail, getContainerDetail/{2,3,5,6,7,8,11}) — zero content drift.
+
+### Engine-side semantics — sub_data (reusable)
+
+- `download_url` (top) = wine binary archive (~150–220 MB, `wine_<flavor>.tar.zst`).
+- `sub_data.sub_download_url` = supplementary tzst (~3.9–4.1 MB) — **REQUIRED** for container init to succeed; engine aborts the launch on its 404.
+- Naming convention in working entries: filename = `<top file_md5>.tzst` (= `sub_file_name`).
+- `sub_file_md5` is NOT verified against file content — proven by the working baseline `proton10.0-arm64x-2` (id 2) which carries a mismatched `sub_file_md5=439b7ec…` yet ships fine. Safest setting: = the URL filename hash so all three fields agree.
+
+### Build-time validation gap (follow-up)
+
+`checkMissingFiles` in `dist/index.js:51` walks `registry.getAllOriginalInfo()` which only contains component XML entries; container `sub_data` URLs are not in the validation set, so this class of bug ships silently. **Follow-up:** extend `getAllOriginalInfo()` (or add a parallel sweep) to surface containers' `sub_data.sub_download_url` for the same release-asset-presence check that catches missing component files today. Would have caught this in v1.0.1 pre-release. Filed as a soft TODO — not actioned this commit.
+
+### Cross-app coverage
+
+The `/v6/simulator/v2/getContainerList` handler in `bannerhub-worker.js:985` proxies the same static file and only mirrors `is_steam → isSteam`; `sub_data` passes through verbatim. So fixing the source file silently fixed bannerhub-revanced v1.5.1-604 (GameHub 6.0.4 base) at the same time, alongside BHL 1.0.2 and BannerHub 3.7.5 (both 5.x snake-case pass-through).
