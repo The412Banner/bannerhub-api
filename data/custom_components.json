@@ -3105,7 +3105,20 @@
       "file_size": "8493387",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3fa28e6e10c256a7ae4f55749f453d4f.tzst",
       "display_name": "DXVK-2.4.1-fix",
-      "blurb": "DXVK 2.4.1 with sys-driver fixes. Direct3D 9/10/11 → Vulkan translation layer."
+      "blurb": "DXVK 2.4.1 with sys-driver fixes. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+    },
+    {
+      "id": 1340,
+      "name": "MrPurple_Turnip_T28-toasted",
+      "type": 2,
+      "version": "26.2.0-T28-toasted-1.4.348",
+      "version_code": 1,
+      "file_name": "a7ccf1cd22db284d7be4a16b1ec6ca53.tzst",
+      "file_md5": "a7ccf1cd22db284d7be4a16b1ec6ca53",
+      "file_size": "3239991",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a7ccf1cd22db284d7be4a16b1ec6ca53.tzst",
+      "display_name": "MrPurple Turnip T28-toasted",
+      "blurb": "Mr_Purple_666's Turnip build from Mesa 26.2.0 + Whitebelyash A8xx patches. Vulkan 1.4.348."
     }
   ]
 }
