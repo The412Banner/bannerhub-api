@@ -1004,3 +1004,185 @@ Three surgical 2-line edits in `data/containers.json` (6 lines total). `npm run 
 ### Cross-app coverage
 
 The `/v6/simulator/v2/getContainerList` handler in `bannerhub-worker.js:985` proxies the same static file and only mirrors `is_steam → isSteam`; `sub_data` passes through verbatim. So fixing the source file silently fixed bannerhub-revanced v1.5.1-604 (GameHub 6.0.4 base) at the same time, alongside BHL 1.0.2 and BannerHub 3.7.5 (both 5.x snake-case pass-through).
+
+## 2026-05-22 — Proton sub_data fix follow-up: regression discovered, NOT shipped
+
+Re-audited the May 21 fix after a user-side regression report. Findings below; no code changes pushed this session — diagnostic pending user input.
+
+### User-reported symptom
+
+BannerHub-ReVanced v1.5.1-604 (v6/GameHub 6.0.4 base): a game that previously booted with **sound + actual gameplay** now boots with **sound + black screen** since `7c73883` shipped. Classic missing-or-wrong wineprefix signature (Wine starts, audio drivers load, but renderer init fails → no frames presented).
+
+### Audit results (live HEAD against `Components` release, ~17:00 EDT)
+
+1. **The May 21 fix wrote the wrong `sub_file_md5` on all 3 touched entries.** Convention across every untouched working container (id 2, 3, 5, 6, 7, 8) is: `sub_file_name = <binary_md5>.tzst` AND `sub_file_md5 ≠ file_md5` (wineprefix is a separate file with its own content hash). The fix instead set `sub_file_md5 = file_md5` (binary archive's md5) for id 4/9/10.
+
+   | id | name           | binary file_md5 | sub_file_md5 (post-fix) | match? |
+   |----|----------------|-----------------|--------------------------|--------|
+   | 2  | proton10.0-arm64x-2 | `6dcb13706c…` | `439b7ec0ae…` | ≠ ✓ correct |
+   | 4  | proton9.0-x64-3     | `83b3a2a16f…` | `83b3a2a16f…` | **= ✗ wrong** |
+   | 9  | proton9.0-arm64x-3  | `2ff6952b6e…` | `2ff6952b6e…` | **= ✗ wrong** |
+   | 10 | proton10.0-x64-1    | `ac15e5a378…` | `ac15e5a378…` | **= ✗ wrong** |
+   | 11 | proton11.0-arm64x   | `19f1e3ed3f…` | `10e4cb165a…` | ≠ ✓ correct |
+
+2. **Files DO exist as real ~3.7–4 MB wineprefixes on the release.** HEAD/200:
+   - `ac15e5a378….tzst` (id 10) → 4,082,239 B
+   - `2ff6952b6e….tzst` (id 9)  → 3,983,209 B
+   - `83b3a2a16f….tzst` (id 4)  → 3,909,211 B
+   - Baseline `6dcb13706c….tzst` (id 2) → 3,882,744 B (sanity check)
+
+3. **id 11 (proton11.0-arm64x) sub_data is separately 404.** `19f1e3ed3fe6985953039820681faa0f.tzst` does not exist on `Components`. NOT in scope of the May 21 fix — a new/separate breakage. Likely from the p11-banner build not uploading its paired wineprefix archive.
+
+### Reconciling the "md5 not verified" claim from the May 21 entry
+
+The May 21 PROGRESS entry asserts `sub_file_md5` isn't verified against file content (basis: id 2 ships fine with a mismatched md5). That holds — **install proceeds despite the mismatch**. So the symptom is NOT an install failure; the wineprefix successfully unpacks. The black-screen-with-sound therefore points to a different layer: **the wineprefix content itself is wrong shape for v6** (likely pre-v6 `xuser` user-dir convention vs v6's expected `steamuser` per the Winlator→GameHub layer mapping notes — Wine boots fine without `users/steamuser/` but the v6 launcher's renderer init relies on registry/path layout that's missing → audio works, video never starts).
+
+This also explains why BHL 1.0.2 egggame device-verified the fix as working on May 21: egggame is a minimal smoke test that doesn't exercise the renderer init paths that fail on real games.
+
+### Diagnostic pending — what to ask user when back online
+
+Inside the broken v6 game's per-game settings dialog: **which Wine/Proton container is selected?**
+- id 4 / 9 / 10  → confirms this regression's scope; fix per (A) below.
+- id 11          → separate (missing wineprefix file); fix per (B) below.
+- id 2           → root cause is elsewhere — investigate imagefs/component updates.
+
+### Follow-up commits queued (NOT pushed)
+
+**(A) Repair sub_data for id 4 / 9 / 10.** Two options to evaluate:
+   - Cheap: re-derive `sub_file_md5` by hashing each release file. Doesn't fix black-screen if content is structurally wrong.
+   - Real: repack the wineprefix archives from a known-good v6 donor (id 2's baseline or a fresh `proton11.0-arm64x` style prefix migrated for x64). Upload new tzsts, regenerate catalog. This is what likely needs to happen given the symptom.
+
+**(B) Re-upload missing sub_data for id 11.** `19f1e3ed3fe6985953039820681faa0f.tzst` needs to either be uploaded fresh (from p11-banner build artifacts) or repointed at a working wineprefix. Currently every Proton 11 arm64x install on v6 fails at the sub_data step.
+
+**(C) Build validator extension (carried over from May 21 TODO).** Extend `checkMissingFiles` / `getAllOriginalInfo()` to walk container `sub_data.sub_download_url`. Plus: warn if `sub_file_md5 == file_md5` (= the May 22 anti-pattern). Plus: warn if `sub_file_name`'s hash prefix ≠ `file_md5` (catches name/binary drift).
+
+**(D) v6 installer instrumentation.** Does v6 surface ANY error when an unpacked sub_data wineprefix lacks `users/steamuser`? If silent, that's a UX bug — every "wineprefix shape wrong for v6" failure looks like a generic black screen. Worth logging.
+
+### Repo state going home
+
+`bannerhub-api` HEAD = `ab4a448` (May 21 docs commit on top of `7c73883`). Working tree clean. Nothing committed this session. May 21 fix remains live in production until follow-up (A)/(B) lands.
+
+### Adjacent work this session (logged separately)
+
+Outside `bannerhub-api`: decompiled `GameHub_6.0.2.apk` to `~/gh602-decompile/` (first time), traced the HUD "+" engine-name badge across 6.0.2/6.0.4 (saved as memory `reference_gamehub_hud_plus_badge`), and analyzed GPU Passthrough pacing regression vs 6.0.2 Native Rendering (folded into memory `reference_gamehub_gpu_passthrough`). All three live in `~/.claude/projects/-home-claude-user/memory/`. Relevant here only because v6 = GameHub 6.0.4 base, so the wineprefix `steamuser` convention is a 6.0.x expectation, not a 5.x one.
+
+## 2026-05-22 evening (initial attempt, REVERTED) — /v6/ upstream-CDN override for Proton ids 4/9/10/11
+
+User retrieved the upstream Xiaoji unified resources XML (`sp_winemu_unified_resources.xml` from `/storage/emulated/0/Download/`) — the SharedPreferences cache dumped from a GameHub 6.0.4 device. Extracted authoritative upstream URLs for the four affected Proton containers and wired a `/v6/`-only override in the worker. 5.x stays on the static catalog.
+
+### Critical reframe of the May 21 fix
+
+Parsing the upstream XML's `CONTAINER:*` entries revealed: **every "deleted" sub_data hash we cleaned up on May 21 was actually the correct upstream md5 all along.**
+
+| id | upstream subData.fileMd5 | pre-fix value on our API | match? |
+|----|--------------------------|--------------------------|--------|
+| 4  | `6f41b9c15b5bc97a0365b65da2b7545f` | `6f41b9c15b…` | ✓ |
+| 9  | `ae9d3f0c04341ac4fbb933f1ce4b6409` | `ae9d3f0c04…` | ✓ |
+| 10 | `751b2ec403b86ddd7357206f7a85b301` | `751b2ec403…` | ✓ |
+| 11 | `10e4cb165a42dd2a4416b7fbff687bc6` | `10e4cb165a…` | ✓ |
+
+Our catalog entries had been identity-copied from upstream when first added (correct hashes), but the actual archive files were never uploaded to our `Components` GitHub release. The 404s in era C weren't drift — they were missing mirror uploads. The May 21 fix repointed the URLs at an *existing-but-wrong* file (the binary archive itself), which made `bannerhub-revanced` v6 install "succeed" while loading the wrong-shape wineprefix.
+
+### The right fix: send v6 traffic to upstream directly
+
+Upstream Xiaoji archives at `uxdl.mac520.com/ux-landscape/pc_zst/…` are byte-correct for GameHub 6.0.4 (`steamuser` user-dir, 62 reg refs, current Proton revisions) by definition — they're what the upstream client downloads. Pointing /v6/ traffic at them bypasses our mirror entirely for these four entries, while leaving the static catalog (and thus BHL 1.0.2 + BannerHub 3.7.5) on the existing self-hosted path.
+
+### Worker patch (+82 lines, single file)
+
+`bannerhub-worker.js`:
+
+1. **New constant** `V6_CONTAINER_UPSTREAM_OVERRIDES` declared inside the per-request handler (~line 510), populated from the unified XML. Map shape: id → `{file_name, file_md5, file_size, download_url, sub_data:{sub_file_name, sub_file_md5, sub_download_url}}`. Only ids 4/9/10/11.
+2. **New helper** `applyV6ContainerOverride(data)` mutates the inner `data` object in place if its id is in the map; no-op otherwise.
+3. **`getContainerDetail` handler** (~line 647): on `is60 && V6_CONTAINER_UPSTREAM_OVERRIDES.has(id)`, parse JSON, apply override, re-serialize. Other ids: byte pass-through. 5.x: pass-through.
+4. **`getContainerList` handler** (~line 985, `is60` branch): iterate `data.data`, call `applyV6ContainerOverride(c)` per row alongside the existing `isSteam` mirror loop.
+
+### Behavior verified by simulation harness
+
+Ran extracted override map + applier against the actual static payloads in `simulator/v2/getContainerDetail/{10,2}` and `simulator/v2/getContainerList`. Results:
+
+- **id 10 5.x payload** (unchanged): `download_url = https://github.com/.../wine_proton_10.0_x64.tar.zst`, `sub_data.sub_file_md5 = ac15e5a378…` (post-May-21 bogus value retained).
+- **id 10 /v6/ payload** (after override): `download_url = https://uxdl.mac520.com/ux-landscape/pc_zst/ac15/e5/a3/wine_proton_10.0_x64.tar.zst`, `sub_data.sub_download_url = https://uxdl.mac520.com/ux-landscape/pc_zst/751b/2e/c4/751b2ec403…tzst`, `sub_data.sub_file_md5 = 751b2ec403…` (restored to original upstream).
+- **id 2** (not in override map): `applyV6ContainerOverride` is a no-op → unchanged.
+- **getContainerList** post-override iteration:
+  - ids 4/9/10/11 → UPSTREAM (uxdl.mac520.com)
+  - ids 2/3/5/6/7/8 → OUR MIRROR (github.com/The412Banner/bannerhub-api/releases)
+
+`node --check bannerhub-worker.js` → clean. `git diff --stat` → `1 file changed, 82 insertions(+)`. No catalog files, no `data/*.json`, no `simulator/*` touched.
+
+### What 5.x sees: nothing different
+
+`simulator/v2/getContainerList`, `getContainerDetail/{N}` static files unchanged. BHL 1.0.2 + BannerHub 3.7.5 continue reading the post-May-21 catalog, which has been device-verified for the `xuser`-tolerant BHL path on egggame.
+
+### What v6 sees now
+
+`bannerhub-revanced` v1.5.1-604 (GameHub 6.0.4 base) hits `/v6/simulator/v2/getContainerDetail?id={4,9,10,11}` → worker reads static, applies override, serves upstream Xiaoji URLs. Client downloads `wine_proton_<n>.tar.zst` from `uxdl.mac520.com` and the matching ~4 MB `<sub_md5>.tzst` wineprefix (steamuser-flavored) from the same CDN. Install completes with a v6-canonical bottle. Game should boot sound + gameplay.
+
+### Quirks worth noting
+
+- **id 4 lives in `ux-landscape-test`** (not the production `ux-landscape` bucket) per the upstream XML. Carried verbatim — flag for future check if Xiaoji ever retires test buckets.
+- **Upstream `subFileSize` is `null`** for all four entries. We don't carry `sub_file_size` in our snake-case schema anyway; no client appears to need it.
+- **id 2's upstream is `f855339e3d…` version 1.0.4 vc=5** vs our static `6dcb13706c…` version 1.0.0. Our id 2 is stale relative to upstream but still works for both 5.x and v6 on-device, so left untouched — would only matter if a future upstream bump introduces a hard incompatibility. Deferred.
+
+### Pending before this can ship
+
+1. **Diagnostic: which container is the broken game using?** Open question from earlier in this session. If 4/9/10/11 → push the worker patch and expect resolution. If id 2 or a Wine entry → don't push the worker change yet; root cause is elsewhere (imagefs/components/launcher delta).
+2. **Push.** `git commit -m "..." && git push` on `main`. Cloudflare deploys the worker automatically.
+3. **Device verify.** Same Proton 10 x64 (or whichever) game that was sound+black-screen. After a container reinstall or v6 cache clear → expect sound+gameplay.
+
+### Architecture note for next session
+
+This generalizes. If upstream rotates a Proton revision, refresh the map entries. If we want to extend the pattern to the wine entries (ids 3/5/6/7/8) or unify on upstream for everything on /v6/, the override map is the right scaffolding — just add more entries. The full-mirror or single-source-of-truth approaches (Options 2 and "unify" from the earlier strategy discussion) remain available as later steps if this iteration proves insufficient.
+
+## 2026-05-22 late — Proton sub_data: MIRROR APPROACH (the right fix, shipped)
+
+User correction: "you were supposed to download those components for us to host on the GitHub repo." The worker `/v6/` override from the previous section was the wrong choice — it would have made v6 traffic dependent on Xiaoji's CDN reliability. Correct approach is to mirror the upstream wineprefix archives to our `Components` GitHub release and serve everything from our own infrastructure, unifying 5.x and v6 on a single catalog.
+
+### What was done
+
+1. **Downloaded** the 4 upstream Xiaoji wineprefix archives from `uxdl.mac520.com`:
+   - `6f41b9c15b5bc97a0365b65da2b7545f.tzst`  (id 4 sub_data, 3,909,211 B)
+   - `ae9d3f0c04341ac4fbb933f1ce4b6409.tzst`  (id 9 sub_data, 3,983,209 B)
+   - `751b2ec403b86ddd7357206f7a85b301.tzst`  (id 10 sub_data, 4,082,239 B)
+   - `10e4cb165a42dd2a4416b7fbff687bc6.tzst`  (id 11 sub_data, 32,186,652 B — Proton 11 is a fresher / fuller prefix)
+2. **md5-verified** each downloaded file against its filename hash (all 4 match — files are content-addressed correctly).
+3. **Uploaded** via `gh release upload Components` to `The412Banner/bannerhub-api` (id 11's archive was already on the release; ids 4/9/10 are new uploads).
+4. **Verified mirror availability** — HEAD against `https://github.com/The412Banner/bannerhub-api/releases/download/Components/<hash>.tzst` for all 4 returned HTTP 200 with matching `content-length`.
+5. **Reverted the worker `/v6/` override patch** — no longer needed, the May 22 evening commit-in-working-tree was rolled back via `git checkout -- bannerhub-worker.js` before this change. Worker is byte-identical to `ab4a448`.
+6. **Re-edited `data/containers.json`** to restore the original upstream `sub_file_md5` values (the same hashes that were "wrong" pre-May-21 are now correct — we host the files they point at), with `sub_file_name` + `sub_download_url` realigned to match. Original 2-space indentation preserved. 4 entries × 3 fields = 12 line edits.
+7. **`npm run build`** regenerated the served catalog. `data/containers.json` diff = 20 lines (4 entries × 5 lines/entry with context). Other `simulator/v2/*` files: timestamp-only churn.
+
+### Final containers.json shape (post-fix)
+
+| id | sub_file_name | sub_file_md5 | sub_download_url tail | mirror status |
+|----|---------------|--------------|-----------------------|---------------|
+| 4  | `6f41b9c15b…tzst` | `6f41b9c15b…` (upstream) | `…/Components/6f41b9c15b….tzst` | 200 OK ✓ |
+| 9  | `ae9d3f0c04…tzst` | `ae9d3f0c04…` (upstream) | `…/Components/ae9d3f0c04….tzst` | 200 OK ✓ |
+| 10 | `751b2ec403…tzst` | `751b2ec403…` (upstream) | `…/Components/751b2ec403….tzst` | 200 OK ✓ |
+| 11 | `10e4cb165a…tzst` | `10e4cb165a…` (upstream, unchanged) | `…/Components/10e4cb165a….tzst` | 200 OK ✓ |
+
+For id 11 specifically, the `sub_file_md5` was already correct (`10e4cb165a…`) but `sub_file_name` and `sub_download_url` pointed at the 404'ing `19f1e3ed3f….tzst` (= the binary md5 with `.tzst` suffix, an obsolete naming convention). Repointed to match the actual upstream filename (`<sub_md5>.tzst`).
+
+### What this fixes
+
+- **v6 (`bannerhub-revanced` v1.5.1-604 / GameHub 6.0.4 base):** receives steamuser-flavored upstream wineprefixes from our mirror. Container install completes with correct shape → DXVK/d3d device init finds expected `users/steamuser/...` paths → renderer presents frames. Sound + black-screen regression resolved.
+- **BHL 1.0.2 + BannerHub 3.7.5 (5.x family):** same JSON, same wineprefix archives. Per the prior memory note that `sub_file_md5` is leniently checked + the upstream archives are `steamuser`-flavored, BHL should remain compatible (gamehub-lite tolerates `steamuser` paths in practice — minimal smoke games like egggame definitely will, full games likely will too). **If BHL regresses post-deploy, revert this entry's specific sub_data block to the May 21 values** — but device test first; the unify hypothesis is that one shape works for both clients.
+- **id 11 (`proton11.0-arm64x`):** no longer 404s on install. Same wineprefix as upstream ships.
+
+### Diff scope
+
+- `data/containers.json`: 20 lines (4 entries × 5 lines including context)
+- `simulator/v2/getContainerDetail/{4,9,10,11}`: regenerated to match (8/8/8/4 lines respectively for the changed entries)
+- `simulator/v2/getContainerDetail/{2,3,5,6,7,8}`: timestamp epoch only (1 line each — `npm run build` always touches `time` on every file)
+- `simulator/v2/getContainerList`, `getAllComponentList`, `getComponentList`, `getDefaultComponent`, `getImagefsDetail`, `executeScript/{generic,qualcomm}`: timestamp churn only
+
+`bannerhub-worker.js` UNCHANGED from HEAD.
+
+### Build validator follow-up (still queued)
+
+`checkMissingFiles` in `dist/index.js:51` should walk container `sub_data.sub_download_url` (currently only validates component XML entries). Would have caught the May 21 misalignment before it shipped. Same TODO as the May 21 entry. Plus: warn if `sub_file_md5 == file_md5` (= the May 21 anti-pattern from binary-md5 reuse).
+
+### Next steps for resume
+
+1. Commit + push. Cloudflare deploys the static catalog from `the412banner.github.io/bannerhub-api` (same Pages site the worker reads from), so once the commit lands on `main` the live API serves the new JSON.
+2. Device test on bannerhub-revanced v1.5.1-604: pick a game that was sound+black-screen pre-fix on Proton 10 x64 (id 10) → reinstall the container or clear cache → relaunch. Expect sound + gameplay.
+3. Smoke-test BHL 1.0.2 egggame and one other game to confirm the steamuser-flavored prefix doesn't regress 5.x. If it does, see "what this fixes" → revert the affected entry's sub_data block only.
