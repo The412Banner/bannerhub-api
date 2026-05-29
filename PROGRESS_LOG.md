@@ -1216,3 +1216,24 @@ The vc4→vc5 bump is what re-fires v6's strict `sub_file_md5` check and prompts
 
 ### Why this was needed
 Only out-of-date container vs upstream. The other 9 (5 wine + 4 proton) remain byte-identical: matching md5s, sizes, and version_codes. No device retest scheduled by user this session — change is a straight upstream parity bump (same archive upstream already ships), not a custom rework.
+
+## 2026-05-29 — proton11.0-arm64x bump 1.0.2/vc3 → 1.0.3/vc4 (upstream parity, mirrored)
+
+Upstream (Xiaoji v6 catalog) moved `proton11.0-arm64x` to **1.0.3 / versionCode 4** with **both archives re-hashed** (this is a real binary change, not a metadata-only re-sync like today's proton10 bump):
+
+| | old (1.0.2) | new (1.0.3) |
+|---|---|---|
+| main md5 | `19f1e3ed3fe6985953039820681faa0f` | `ef393d5ce13119bcd23a4aede9e23b67` |
+| main size | 251,416,426 | 252,693,702 |
+| sub md5 | `10e4cb165a42dd2a4416b7fbff687bc6` | `661567241b404c1aa900eca56a7df237` |
+| sub size | — | 4,074,031 |
+
+### Mirror (not direct-CDN)
+Pulled both from `uxdl.mac520.com/ux-landscape/pc_zst/...`, md5-verified locally (exact match), then uploaded to our `Components` GitHub release as `ef393d5ce13119bcd23a4aede9e23b67.tar.zst` + `661567241b404c1aa900eca56a7df237.tzst`. `download_url`/`sub_download_url` point at our release — keeps the self-hosted/offline model and passes v6 strict `sub_file_md5`. Old 1.0.2 assets left on the release (rollback safety).
+
+### Manifest edits (served from Pages `main` root)
+- `simulator/v2/getContainerList` — proton11 entry (read by **both v5 and v6**; worker only adds camelCase `isSteam` for v6 → v5 gets the bump too, as requested).
+- `simulator/v2/getContainerDetail/11` — v6 per-id detail.
+- `data/containers.json` — source/record mirror.
+
+All three JSON-validated; list + detail both report `1.0.3 / 4` with the new md5s. The `data/sp_winemu_strings_by_type.txt` reference dump (where the upstream string was read from) is not runtime-served and left as-is.

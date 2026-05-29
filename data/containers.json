@@ -181,22 +181,22 @@
   },
   {
     "id": 11,
-    "version": "1.0.2",
-    "version_code": 3,
+    "version": "1.0.3",
+    "version_code": 4,
     "name": "proton11.0-arm64x",
     "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-    "file_md5": "19f1e3ed3fe6985953039820681faa0f",
-    "file_size": "251416426",
-    "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/19f1e3ed3fe6985953039820681faa0f.tar.zst",
+    "file_md5": "ef393d5ce13119bcd23a4aede9e23b67",
+    "file_size": "252693702",
+    "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ef393d5ce13119bcd23a4aede9e23b67.tar.zst",
     "file_name": "wine_proton_11.0_arm64x.tar.zst",
     "framework": "arm64X",
     "framework_type": "proton",
     "display_name": "proton11.0-arm64x",
     "is_steam": 1,
     "sub_data": {
-      "sub_file_name": "10e4cb165a42dd2a4416b7fbff687bc6.tzst",
-      "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/10e4cb165a42dd2a4416b7fbff687bc6.tzst",
-      "sub_file_md5": "10e4cb165a42dd2a4416b7fbff687bc6"
+      "sub_file_name": "661567241b404c1aa900eca56a7df237.tzst",
+      "sub_download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/661567241b404c1aa900eca56a7df237.tzst",
+      "sub_file_md5": "661567241b404c1aa900eca56a7df237"
     }
   }
 ]
