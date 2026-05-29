@@ -1186,3 +1186,33 @@ For id 11 specifically, the `sub_file_md5` was already correct (`10e4cb165a…`)
 1. Commit + push. Cloudflare deploys the static catalog from `the412banner.github.io/bannerhub-api` (same Pages site the worker reads from), so once the commit lands on `main` the live API serves the new JSON.
 2. Device test on bannerhub-revanced v1.5.1-604: pick a game that was sound+black-screen pre-fix on Proton 10 x64 (id 10) → reinstall the container or clear cache → relaunch. Expect sound + gameplay.
 3. Smoke-test BHL 1.0.2 egggame and one other game to confirm the steamuser-flavored prefix doesn't regress 5.x. If it does, see "what this fixes" → revert the affected entry's sub_data block only.
+
+## 2026-05-29 — Container bump: `proton10.0-arm64x-2` 1.0.3/vc4 → 1.0.4/vc5 (match upstream)
+
+Diffed our container catalog against a fresh on-device upstream dump (`/storage/emulated/0/Download/sp_winemu_unified_resources.xml`, 10 `CONTAINER:*` keys). 9/10 byte-identical; only **id 2 (`proton10.0-arm64x-2`)** had drifted — upstream moved it to a new build.
+
+### What changed upstream
+- **Binary:** `wine_proton10.0-arm64x-2.tar.zst` (md5 `6dcb1370…`, 216,807,973 B) → `wine_proton10.0-arm64x-5.1.tar.zst` (md5 `f855339e3d05b3824538c462548c06c3`, 235,985,629 B, +19 MB).
+- **Wineprefix (`sub_data`):** new content, md5 `9332aa643892080441c4e8ddbd94e4ce`. Upstream stores it path-named by sub-md5 (`…/9332/aa/64/9332aa64….tzst`) but client-facing `subFileName` is the main md5 (`f855339e….tzst`).
+- **version 1.0.3 → 1.0.4, version_code 4 → 5.**
+
+### Files mirrored to the `Components` release
+Downloaded both from `uxdl.mac520.com/ux-landscape/pc_zst/…`, md5-verified, uploaded via `gh release upload --clobber`:
+- `wine_proton10.0-arm64x-5.1.tar.zst` (md5 ✓, HEAD content-length 235985629 ✓)
+- `f855339e3d05b3824538c462548c06c3.tzst` — the sub asset, **named after the main md5** per our `sub_file_name` convention (mirrors current id-2 pattern where the sub asset was `6dcb…tzst`), content md5 `9332aa64…`, HEAD content-length 3986829 ✓.
+
+### Three served representations updated (commit `b889385`, pushed to `main` + `master`)
+- `simulator/v2/getContainerList` — read by **v5** (GITHUB_ROUTES passthrough) **and v6** (is60 branch, mirrors `is_steam`→`isSteam`). Single source for both client list views.
+- `simulator/v2/getContainerDetail/2` — **v6-only** per-id detail call (GameHub 6.0).
+- `data/containers.json` — reference doc only (NOT read at runtime), kept in sync.
+
+`bannerhub-worker.js` UNCHANGED. `data/containers.json` is **not** a runtime source — the worker proxies static files from the Pages site `the412banner.github.io/bannerhub-api` (Pages legacy build, branch `main`, path `/`). Edits to the two `simulator/v2/*` files are what actually change served data.
+
+### Live verification (after Pages rebuild — built in ~25s on commit `b889385`)
+- `…/simulator/v2/getContainerDetail/2` → version 1.0.4, vc 5, file `wine_proton10.0-arm64x-5.1.tar.zst`, md5 `f855339e…`, sub_md5 `9332aa64…` ✓
+- `…/simulator/v2/getContainerList` id=2 → same ✓
+
+The vc4→vc5 bump is what re-fires v6's strict `sub_file_md5` check and prompts already-installed clients to upgrade. Old 1.0.3 assets left on the release (rollback safety; harmless).
+
+### Why this was needed
+Only out-of-date container vs upstream. The other 9 (5 wine + 4 proton) remain byte-identical: matching md5s, sizes, and version_codes. No device retest scheduled by user this session — change is a straight upstream parity bump (same archive upstream already ships), not a custom rework.
