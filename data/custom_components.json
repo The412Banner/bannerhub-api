@@ -3119,6 +3119,84 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a7ccf1cd22db284d7be4a16b1ec6ca53.tzst",
       "display_name": "MrPurple Turnip T28-toasted",
       "blurb": "Mr_Purple_666's Turnip build from Mesa 26.2.0 + Whitebelyash A8xx patches. Vulkan 1.4.348."
+    },
+    {
+      "id": 1341,
+      "name": "SMXZ_Turnip_v26.2.0_R5",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "SMXZ_Turnip_v26.2.0_R5.tzst",
+      "file_md5": "dcea8487996e6984f17c25cdac37bb5f",
+      "file_size": "1981601",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/SMXZ_Turnip_v26.2.0_R5.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R5",
+      "blurb": "StevenMXZ Turnip build from Mesa main. Mesa-based Vulkan driver for Adreno. Vulkan 1.4.352."
+    },
+    {
+      "id": 1342,
+      "name": "SMXZ_Turnip_v26.2.0_R5_OneUI",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "SMXZ_Turnip_v26.2.0_R5_OneUI.tzst",
+      "file_md5": "73a1b62c3403d95c57b9b4f12db70312",
+      "file_size": "1982111",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/SMXZ_Turnip_v26.2.0_R5_OneUI.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R5 (OneUI)",
+      "blurb": "StevenMXZ Turnip v26.2.0 R5 with One UI compositor fix. Mesa main, Vulkan 1.4.352."
+    },
+    {
+      "id": 1343,
+      "name": "SMXZ_Turnip_v26.2.0_R5_patched",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "SMXZ_Turnip_v26.2.0_R5_patched.tzst",
+      "file_md5": "3d486c8d6c718fe66844ecfa18f1bf70",
+      "file_size": "1984357",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/SMXZ_Turnip_v26.2.0_R5_patched.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R5 (KGSL timeline-sem)",
+      "blurb": "StevenMXZ Turnip v26.2.0 R5 with the KGSL timeline-semaphores patch. Mesa main, Vulkan 1.4.352."
+    },
+    {
+      "id": 1344,
+      "name": "Banners-Turnip-v26.2.0-20260531",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "Banners-Turnip-v26.2.0-20260531.tzst",
+      "file_md5": "09cd0726b458b22a3c84111f27ec5121",
+      "file_size": "1982401",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-20260531.tzst",
+      "display_name": "Banners Turnip v26.2.0 20260531",
+      "blurb": "A6xx/A7xx Turnip driver from Mesa main (git e22cdeb). KGSL build. A8xx experimental. Vulkan 1.4.352."
+    },
+    {
+      "id": 1345,
+      "name": "Banners-Turnip-v26.2.0-20260531-A8xx",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "Banners-Turnip-v26.2.0-20260531-A8xx.tzst",
+      "file_md5": "cd3f803311627389863b258d5f0cd2de",
+      "file_size": "1982095",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-20260531-A8xx.tzst",
+      "display_name": "Banners Turnip v26.2.0 20260531 (A8xx)",
+      "blurb": "A8xx experimental Turnip driver for Snapdragon 8 Elite (A810/A825/A829/A830). A8xx-specific patches on Mesa main. KGSL build. Vulkan 1.4.352."
+    },
+    {
+      "id": 1346,
+      "name": "Banners-Turnip-v26.2.0-20260531-710-720-Test",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "Banners-Turnip-v26.2.0-20260531-710-720-Test.tzst",
+      "file_md5": "b51f4ea76998962eef5f40d57b8fe742",
+      "file_size": "1981839",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-20260531-710-720-Test.tzst",
+      "display_name": "Banners Turnip v26.2.0 20260531 (A710/720/722 Test)",
+      "blurb": "EXPERIMENTAL - adds Adreno 710/720/722 support on Mesa main with hardware-specific magic registers and tuned GPU properties. Unverified on hardware; use sysmem mode. Other GPUs unaffected. Vulkan 1.4.352."
     }
   ]
 }

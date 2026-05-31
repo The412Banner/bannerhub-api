@@ -760,6 +760,33 @@
         "version": "Vulkan 1.4.352"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-20260531.tzst",
+        "file_md5": "09cd0726b458b22a3c84111f27ec5121",
+        "file_name": "Banners-Turnip-v26.2.0-20260531.tzst",
+        "file_size": 1982401,
+        "name": "Banners-Turnip-v26.2.0-20260531",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-20260531-710-720-Test.tzst",
+        "file_md5": "b51f4ea76998962eef5f40d57b8fe742",
+        "file_name": "Banners-Turnip-v26.2.0-20260531-710-720-Test.tzst",
+        "file_size": 1981839,
+        "name": "Banners-Turnip-v26.2.0-20260531-710-720-Test",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Banners-Turnip-v26.2.0-20260531-A8xx.tzst",
+        "file_md5": "cd3f803311627389863b258d5f0cd2de",
+        "file_name": "Banners-Turnip-v26.2.0-20260531-A8xx.tzst",
+        "file_size": 1982095,
+        "name": "Banners-Turnip-v26.2.0-20260531-A8xx",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/22d56915c43dfa3876ed9aa71c230b70.tzst",
         "file_md5": "22d56915c43dfa3876ed9aa71c230b70",
         "file_name": "22d56915c43dfa3876ed9aa71c230b70.tzst",
@@ -1550,6 +1577,33 @@
         "name": "SMXZ_Turnip_v26.2.0_R4_OneUI",
         "type": 2,
         "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/SMXZ_Turnip_v26.2.0_R5.tzst",
+        "file_md5": "dcea8487996e6984f17c25cdac37bb5f",
+        "file_name": "SMXZ_Turnip_v26.2.0_R5.tzst",
+        "file_size": 1981601,
+        "name": "SMXZ_Turnip_v26.2.0_R5",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/SMXZ_Turnip_v26.2.0_R5_OneUI.tzst",
+        "file_md5": "73a1b62c3403d95c57b9b4f12db70312",
+        "file_name": "SMXZ_Turnip_v26.2.0_R5_OneUI.tzst",
+        "file_size": 1982111,
+        "name": "SMXZ_Turnip_v26.2.0_R5_OneUI",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/SMXZ_Turnip_v26.2.0_R5_patched.tzst",
+        "file_md5": "3d486c8d6c718fe66844ecfa18f1bf70",
+        "file_name": "SMXZ_Turnip_v26.2.0_R5_patched.tzst",
+        "file_size": 1984357,
+        "name": "SMXZ_Turnip_v26.2.0_R5_patched",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8c55d76ebf822b41599a9b0d016283e7.tzst",
@@ -4936,6 +4990,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 548
+    "total": 554
   }
 }
