@@ -3249,6 +3249,32 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ba9bcf6e114332827592ed8c9ed6183b.tzst",
       "display_name": "DXVK-2.7.1-gplasync-pre-regress",
       "blurb": "DXVK 2.7.1 pre-regress (GPLAsync + Leegao timeline-semaphore fix). Direct3D 8/9/10/11 \u2192 Vulkan."
+    },
+    {
+      "id": 1351,
+      "name": "vkd3d-proton-3.0.1-110e8bd4",
+      "type": 4,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "62d36c28a5987a67f9d4701004d8fc14.tzst",
+      "file_md5": "62d36c28a5987a67f9d4701004d8fc14",
+      "file_size": "4638101",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/62d36c28a5987a67f9d4701004d8fc14.tzst",
+      "display_name": "vkd3d-proton-3.0.1-110e8bd4",
+      "blurb": "VKD3D-Proton 3.0.1 (build 110e8bd4). Direct3D 12 \u2192 Vulkan translation layer."
+    },
+    {
+      "id": 1352,
+      "name": "vkd3d-proton-arm64ec-3.0.1-110e8bd4",
+      "type": 4,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "b5a082174974219f43c7e3a220eca0e7.tzst",
+      "file_md5": "b5a082174974219f43c7e3a220eca0e7",
+      "file_size": "3983811",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b5a082174974219f43c7e3a220eca0e7.tzst",
+      "display_name": "vkd3d-proton-arm64ec-3.0.1-110e8bd4",
+      "blurb": "VKD3D-Proton ARM64EC 3.0.1 (build 110e8bd4). Direct3D 12 \u2192 Vulkan translation layer."
     }
   ]
 }

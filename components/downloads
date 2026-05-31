@@ -3334,6 +3334,15 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/62d36c28a5987a67f9d4701004d8fc14.tzst",
+        "file_md5": "62d36c28a5987a67f9d4701004d8fc14",
+        "file_name": "62d36c28a5987a67f9d4701004d8fc14.tzst",
+        "file_size": 4638101,
+        "name": "vkd3d-proton-3.0.1-110e8bd4",
+        "type": 4,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/c2015804d631059ac2dfbff18e71fcde.tzst",
         "file_md5": "c2015804d631059ac2dfbff18e71fcde",
         "file_name": "vkd3d-proton-3.0a.tzst",
@@ -3357,6 +3366,15 @@
         "file_name": "61957eab69e72d5ab1da83675bf5aee8.tzst",
         "file_size": 3144152,
         "name": "vkd3d-proton-arm64ec-3.0.1",
+        "type": 4,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b5a082174974219f43c7e3a220eca0e7.tzst",
+        "file_md5": "b5a082174974219f43c7e3a220eca0e7",
+        "file_name": "b5a082174974219f43c7e3a220eca0e7.tzst",
+        "file_size": 3983811,
+        "name": "vkd3d-proton-arm64ec-3.0.1-110e8bd4",
         "type": 4,
         "version": "1.0.0"
       },
@@ -5026,6 +5044,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 558
+    "total": 560
   }
 }
