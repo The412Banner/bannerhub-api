@@ -11,7 +11,7 @@
         "type": 1
       },
       {
-        "count": 279,
+        "count": 281,
         "display_name": "GPU Drivers",
         "manifest_url": "/components/drivers_manifest",
         "name": "drivers",
@@ -60,6 +60,6 @@
         "type": 8
       }
     ],
-    "total_components": 560
+    "total_components": 562
   }
 }

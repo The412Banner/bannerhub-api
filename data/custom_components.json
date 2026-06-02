@@ -3275,6 +3275,32 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b5a082174974219f43c7e3a220eca0e7.tzst",
       "display_name": "vkd3d-proton-arm64ec-3.0.1-110e8bd4",
       "blurb": "VKD3D-Proton ARM64EC 3.0.1 (build 110e8bd4). Direct3D 12 \u2192 Vulkan translation layer."
+    },
+    {
+      "id": 1353,
+      "name": "MTR_WN_Turnip_v1.02_Axxx_b",
+      "type": 2,
+      "version": "WN-1.02-b",
+      "version_code": 1,
+      "file_name": "62a6e21852f503d813e023713106c7f8.tzst",
+      "file_md5": "62a6e21852f503d813e023713106c7f8",
+      "file_size": "1996504",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/62a6e21852f503d813e023713106c7f8.tzst",
+      "display_name": "MTR_WN_Turnip_v1.02_Axxx_b",
+      "blurb": "WinNative Turnip v1.02 \"Balanced\" (Mesa 26.2.0-devel, git 154d3b5). Targets Adreno Axxx. Includes MR 41562, 41477, 39491."
+    },
+    {
+      "id": 1354,
+      "name": "MTR_WN_Turnip_v1.02_Axxx_p",
+      "type": 2,
+      "version": "WN-1.02-p",
+      "version_code": 1,
+      "file_name": "222087d5f1b664a0ad00fee74b8abb41.tzst",
+      "file_md5": "222087d5f1b664a0ad00fee74b8abb41",
+      "file_size": "1997802",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/222087d5f1b664a0ad00fee74b8abb41.tzst",
+      "display_name": "MTR_WN_Turnip_v1.02_Axxx_p",
+      "blurb": "WinNative Turnip v1.02 \"Performance\" (Mesa 26.2.0-devel, git 154d3b5). Targets Adreno Axxx. Includes MR 41562, 41477, 39491."
     }
   ]
 }

@@ -1381,6 +1381,24 @@
         "version": "WN-1.01-p"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/62a6e21852f503d813e023713106c7f8.tzst",
+        "file_md5": "62a6e21852f503d813e023713106c7f8",
+        "file_name": "62a6e21852f503d813e023713106c7f8.tzst",
+        "file_size": 1996504,
+        "name": "MTR_WN_Turnip_v1.02_Axxx_b",
+        "type": 2,
+        "version": "WN-1.02-b"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/222087d5f1b664a0ad00fee74b8abb41.tzst",
+        "file_md5": "222087d5f1b664a0ad00fee74b8abb41",
+        "file_name": "222087d5f1b664a0ad00fee74b8abb41.tzst",
+        "file_size": 1997802,
+        "name": "MTR_WN_Turnip_v1.02_Axxx_p",
+        "type": 2,
+        "version": "WN-1.02-p"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/bed23f4587576f40ddc2a9a4f3f9b500.tzst",
         "file_md5": "bed23f4587576f40ddc2a9a4f3f9b500",
         "file_name": "qcom-800.64.tzst",
@@ -5044,6 +5062,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 560
+    "total": 562
   }
 }
