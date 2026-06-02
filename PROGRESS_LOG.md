@@ -1237,3 +1237,26 @@ Pulled both from `uxdl.mac520.com/ux-landscape/pc_zst/...`, md5-verified locally
 - `data/containers.json` — source/record mirror.
 
 All three JSON-validated; list + detail both report `1.0.3 / 4` with the new md5s. The `data/sp_winemu_strings_by_type.txt` reference dump (where the upstream string was read from) is not runtime-served and left as-is.
+
+## 2026-06-02 — added 2 WinNative (MTR_WN) Turnip v1.02 drivers (ids 1353/1354)
+
+Added the `WinNative-Emu/Drivers` release **`v1.02`** Turnip pair to the catalog (type 2). Both **Mesa 26.2.0-devel (git-154d3b5812)**, AdrenoTools format, minApi 29, changelog *MR 41562 / 41477 / 39491*. Downloads sha256-verified against the release digests before conversion.
+
+| id | name / display_name | version | file (md5-named) | size |
+|---|---|---|---|---|
+| 1353 | `MTR_WN_Turnip_v1.02_Axxx_b` | `WN-1.02-b` | `62a6e21852f503d813e023713106c7f8.tzst` | 1,996,504 |
+| 1354 | `MTR_WN_Turnip_v1.02_Axxx_p` | `WN-1.02-p` | `222087d5f1b664a0ad00fee74b8abb41.tzst` | 1,997,802 |
+
+### Naming convention
+Matched the prior WinNative pair (ids 1335/1336 `MTR_WN_Turnip_v1.01_Axxx_b/_p`): `name == display_name`, `version` = the meta.json `driverVersion` string (`WN-1.02-b`/`-p`, not a guessed Vulkan x.y.z), and **md5-named** `file_name`. `b` = "Balanced", `p` = "Performance" (from each zip's meta.json).
+
+### Packaging
+Per the verified Turnip recipe: strip the AdrenoTools `meta.json`, keep only `libvulkan_freedreno.so`, repack as a single root-owned `./libvulkan_freedreno.so` member via `tar --owner=0 --group=0 --sort=name | zstd -19`. Both pass `scripts/check_component_layout.sh`. Binaries uploaded to the `Components` release.
+
+### Build + ship
+`npm run build` regenerated 21 files (GPU Drivers count 279→281, total 562; the "missing files" warning is the usual pre-existing tech-debt + the two just-added until upload, non-fatal). Commit `149b7d0`, pushed **both** `main` and `master`.
+
+**Gotcha:** the first `git add -A` swept in untracked local-only files — the unpushed Nightlies-mirror scaffold (`mirror-nightlies-emulation.yml` + `scripts/sync_nightlies.py` + `data/nightlies_sync.json`), an `.xml.bak`, and `gamehub_reports/5X_API_UPSTREAM_AUDIT.md`. Caught before push; `git reset --soft HEAD~1` + staged only `data/custom_components.json components/ simulator/`. Stage explicit paths in this repo — it carries local-only scaffolds.
+
+### Live verification
+Both names present at `https://bannerhub-api.the412banner.workers.dev/simulator/v2/getAllComponentList` (plain + `/v6/` paths) and on raw GitHub `main`.
