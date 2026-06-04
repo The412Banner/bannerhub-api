@@ -5,7 +5,7 @@
     "type": 2,
     "type_name": "drivers",
     "display_name": "GPU Drivers",
-    "total": 281,
+    "total": 283,
     "components": [
       {
         "display_name": "",
@@ -3939,6 +3939,34 @@
         "name": "MTR_WN_Turnip_v1.02_Axxx_p",
         "type": 2,
         "version": "WN-1.02-p",
+        "version_code": 1
+      },
+      {
+        "display_name": "Vauzi Turnip 710/720/722 v2.6",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/874ff9b1df7c9e981e488109dd500624.tzst",
+        "file_md5": "874ff9b1df7c9e981e488109dd500624",
+        "file_name": "874ff9b1df7c9e981e488109dd500624.tzst",
+        "file_size": 2598742,
+        "id": 1355,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "Vauzi-Turnip-710-720-722-v2.6",
+        "type": 2,
+        "version": "Vulkan 1.4.352",
+        "version_code": 1
+      },
+      {
+        "display_name": "Vauzi Turnip 710/720/722 v2.6 (fix2)",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/1d91bf21f5b87878a65dfcc93e9f8acc.tzst",
+        "file_md5": "1d91bf21f5b87878a65dfcc93e9f8acc",
+        "file_name": "1d91bf21f5b87878a65dfcc93e9f8acc.tzst",
+        "file_size": 2598758,
+        "id": 1356,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "Vauzi-Turnip-710-720-722-v2.6-fix2",
+        "type": 2,
+        "version": "Vulkan 1.4.352",
         "version_code": 1
       }
     ]

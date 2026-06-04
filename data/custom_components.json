@@ -51,7 +51,7 @@
       "file_size": "10922243",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e41acf1248a8e48411ce2b7f8c73dc65.tzst",
       "display_name": "Fex-20260321",
-      "blurb": "FEX-Emu \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1104,
@@ -508,7 +508,7 @@
       "file_size": "6473244",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/65d81dc54578a980c8424de0ad297193.tzst",
       "display_name": "DXVK-2.3.1-1-gplasync",
-      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1140,
@@ -521,7 +521,7 @@
       "file_size": "7646114",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ea36cee0e4e1008492ce9eb7d9fa3da5.tzst",
       "display_name": "DXVK-2.4.1-1-gplasync-pre-reg",
-      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1141,
@@ -534,7 +534,7 @@
       "file_size": "7224767",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ab28f1764e4b09bfe205ca8bb21824d8.tzst",
       "display_name": "DXVK-2.4.1-1-gplasync",
-      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1142,
@@ -547,7 +547,7 @@
       "file_size": "7856283",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dbbff17c3777deeaeca592bd2483d98a.tzst",
       "display_name": "DXVK-2.5.3-1-gplasync",
-      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1143,
@@ -560,7 +560,7 @@
       "file_size": "8159145",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9e68f12b3437e225b1a9a974fa9d70b4.tzst",
       "display_name": "DXVK-2.6.2-1-gplasync",
-      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1144,
@@ -573,7 +573,7 @@
       "file_size": "8359172",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e24dbfd879ff0f2c972612ec45af3a7a.tzst",
       "display_name": "DXVK-2.7.1-1-gplasync",
-      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1145,
@@ -586,7 +586,7 @@
       "file_size": "6732370",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5ebc435712155473430b0c4a93e33292.tzst",
       "display_name": "DXVK-2.3.1-1-gplasync-arm64ec",
-      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1146,
@@ -599,7 +599,7 @@
       "file_size": "8032187",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/789213bb5f0b2ad5d650e4288a3ba7c5.tzst",
       "display_name": "DXVK-2.4.1-1-gplasync-arm64ec-pre-reg",
-      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1147,
@@ -612,7 +612,7 @@
       "file_size": "7612876",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/59a10aa0db94a4508f70c3a86ca57b3c.tzst",
       "display_name": "DXVK-2.4.1-1-gplasync-arm64ec",
-      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1148,
@@ -625,7 +625,7 @@
       "file_size": "8233266",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ff82c8383294831760b65054ebc6403a.tzst",
       "display_name": "DXVK-2.5.3-1-gplasync-arm64ec",
-      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1149,
@@ -638,7 +638,7 @@
       "file_size": "8378263",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6f53b8657f6a213eebe4b2497457f828.tzst",
       "display_name": "DXVK-2.6.2-1-gplasync-arm64ec",
-      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1150,
@@ -651,7 +651,7 @@
       "file_size": "8555891",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b2c5d5daae9b81633699f69638ff070a.tzst",
       "display_name": "DXVK-2.7.1-1-gplasync-arm64ec",
-      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1151,
@@ -664,7 +664,7 @@
       "file_size": "1528749",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/7135e13eec3f762ad16c3e60b4a22c4b.tzst",
       "display_name": "FEXCore-2412",
-      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1152,
@@ -677,7 +677,7 @@
       "file_size": "2124187",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/e9c7fd7d4423f016117bf7123fa5b91e.tzst",
       "display_name": "FEXCore-2507",
-      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1153,
@@ -690,7 +690,7 @@
       "file_size": "4267456",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/916808cdf7578f912f470a696d6530a0.tzst",
       "display_name": "FEXCore-2508",
-      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1154,
@@ -703,7 +703,7 @@
       "file_size": "4085906",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a35f4369e3d984d8976bee6c70a24ce9.tzst",
       "display_name": "FEXCore-2509",
-      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1155,
@@ -716,7 +716,7 @@
       "file_size": "1332792",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b825cae37911cf67d04bc48f98e79872.tzst",
       "display_name": "FEXCore-2601-aabdded",
-      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1156,
@@ -729,7 +729,7 @@
       "file_size": "2300330",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0216e6a86e6c284b4da10276b49cb185.tzst",
       "display_name": "FEXCore-2603",
-      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1157,
@@ -755,7 +755,7 @@
       "file_size": "6799644",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0e52b83f4e97942aaafe330dbfaa741b.tzst",
       "display_name": "DXVK-2.6.2-gplasync-arm64ec",
-      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1159,
@@ -768,7 +768,7 @@
       "file_size": "3347004",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ad272409778c5c4988eb351cc0f7ca0c.tzst",
       "display_name": "FEXCore-2510.1",
-      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1160,
@@ -2534,7 +2534,7 @@
       "file_size": "2202281",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6c73748ec3b5ef321604bb758b1c5afb.tzst",
       "display_name": "Fex_20260428",
-      "blurb": "FEX-Emu \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1293,
@@ -2573,7 +2573,7 @@
       "file_size": "3128035",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/83de62e6a0fa71012277af53efc106d5.tzst",
       "display_name": "vkd3d-proton-3.0.1",
-      "blurb": "VKD3D-Proton Direct3D 12 \u2192 Vulkan translation layer."
+      "blurb": "VKD3D-Proton Direct3D 12 → Vulkan translation layer."
     },
     {
       "id": 1299,
@@ -2586,7 +2586,7 @@
       "file_size": "3144152",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/61957eab69e72d5ab1da83675bf5aee8.tzst",
       "display_name": "vkd3d-proton-arm64ec-3.0.1",
-      "blurb": "VKD3D-Proton ARM64EC build. Direct3D 12 \u2192 Vulkan translation layer."
+      "blurb": "VKD3D-Proton ARM64EC build. Direct3D 12 → Vulkan translation layer."
     },
     {
       "id": 1300,
@@ -2781,7 +2781,7 @@
       "file_size": "1696433",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d2bc791642757a507eb395ac548e2aa8.tzst",
       "display_name": "FEXCore-2605",
-      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1315,
@@ -2794,7 +2794,7 @@
       "file_size": "1675639",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/413f44586f2fccaf93a2792f6198495d.tzst",
       "display_name": "Fex_20260509",
-      "blurb": "FEX-Emu \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1316,
@@ -2962,7 +2962,7 @@
       "file_size": "3346298",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/acb1b8a2f851285747443a0d4b7b0629.tzst",
       "display_name": "DXVK-1.9.4-async",
-      "blurb": "DXVK with async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK with async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1329,
@@ -2975,7 +2975,7 @@
       "file_size": "3167495",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f74724b310f964e761f123b9863a815c.tzst",
       "display_name": "DXVK-1.7.3-async",
-      "blurb": "DXVK with async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK with async pipeline compilation. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1330,
@@ -3105,7 +3105,7 @@
       "file_size": "8493387",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3fa28e6e10c256a7ae4f55749f453d4f.tzst",
       "display_name": "DXVK-2.4.1-fix",
-      "blurb": "DXVK 2.4.1 with sys-driver fixes. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+      "blurb": "DXVK 2.4.1 with sys-driver fixes. Direct3D 9/10/11 → Vulkan translation layer."
     },
     {
       "id": 1340,
@@ -3209,7 +3209,7 @@
       "file_size": "10053747",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ca5bd4701a4b3dd2bf6ab6cdde225032.tzst",
       "display_name": "DXVK-2.7.1-arm64ec-pre-regress-gplasync",
-      "blurb": "DXVK 2.7.1 ARM64EC pre-regress (GPLAsync + Leegao timeline-semaphore fix). Direct3D 8/9/10/11 \u2192 Vulkan."
+      "blurb": "DXVK 2.7.1 ARM64EC pre-regress (GPLAsync + Leegao timeline-semaphore fix). Direct3D 8/9/10/11 → Vulkan."
     },
     {
       "id": 1348,
@@ -3248,7 +3248,7 @@
       "file_size": "8484231",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ba9bcf6e114332827592ed8c9ed6183b.tzst",
       "display_name": "DXVK-2.7.1-gplasync-pre-regress",
-      "blurb": "DXVK 2.7.1 pre-regress (GPLAsync + Leegao timeline-semaphore fix). Direct3D 8/9/10/11 \u2192 Vulkan."
+      "blurb": "DXVK 2.7.1 pre-regress (GPLAsync + Leegao timeline-semaphore fix). Direct3D 8/9/10/11 → Vulkan."
     },
     {
       "id": 1351,
@@ -3261,7 +3261,7 @@
       "file_size": "4638101",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/62d36c28a5987a67f9d4701004d8fc14.tzst",
       "display_name": "vkd3d-proton-3.0.1-110e8bd4",
-      "blurb": "VKD3D-Proton 3.0.1 (build 110e8bd4). Direct3D 12 \u2192 Vulkan translation layer."
+      "blurb": "VKD3D-Proton 3.0.1 (build 110e8bd4). Direct3D 12 → Vulkan translation layer."
     },
     {
       "id": 1352,
@@ -3274,7 +3274,7 @@
       "file_size": "3983811",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b5a082174974219f43c7e3a220eca0e7.tzst",
       "display_name": "vkd3d-proton-arm64ec-3.0.1-110e8bd4",
-      "blurb": "VKD3D-Proton ARM64EC 3.0.1 (build 110e8bd4). Direct3D 12 \u2192 Vulkan translation layer."
+      "blurb": "VKD3D-Proton ARM64EC 3.0.1 (build 110e8bd4). Direct3D 12 → Vulkan translation layer."
     },
     {
       "id": 1353,
@@ -3301,6 +3301,32 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/222087d5f1b664a0ad00fee74b8abb41.tzst",
       "display_name": "MTR_WN_Turnip_v1.02_Axxx_p",
       "blurb": "WinNative Turnip v1.02 \"Performance\" (Mesa 26.2.0-devel, git 154d3b5). Targets Adreno Axxx. Includes MR 41562, 41477, 39491."
+    },
+    {
+      "id": 1355,
+      "name": "Vauzi-Turnip-710-720-722-v2.6",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "874ff9b1df7c9e981e488109dd500624.tzst",
+      "file_md5": "874ff9b1df7c9e981e488109dd500624",
+      "file_size": "2598742",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/874ff9b1df7c9e981e488109dd500624.tzst",
+      "display_name": "Vauzi Turnip 710/720/722 v2.6",
+      "blurb": "EXPERIMENTAL Turnip for Adreno 710/720/722 by vauzi (Mesa 26.2.0, Vulkan 1.4.352). Per-GPU magic register tuning + documented GMEM sizes (710=512KiB, 720/722=1MiB). Recommended mode: sysmem. Other GPUs unaffected."
+    },
+    {
+      "id": 1356,
+      "name": "Vauzi-Turnip-710-720-722-v2.6-fix2",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "1d91bf21f5b87878a65dfcc93e9f8acc.tzst",
+      "file_md5": "1d91bf21f5b87878a65dfcc93e9f8acc",
+      "file_size": "2598758",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/1d91bf21f5b87878a65dfcc93e9f8acc.tzst",
+      "display_name": "Vauzi Turnip 710/720/722 v2.6 (fix2)",
+      "blurb": "EXPERIMENTAL Turnip for Adreno 710/720/722 by vauzi - fix2 rebuild (corrected build, supersedes v2.6). Mesa 26.2.0, Vulkan 1.4.352. Per-GPU magic register tuning + documented GMEM sizes (710=512KiB, 720/722=1MiB). Recommended mode: sysmem. Other GPUs unaffected."
     }
   ]
 }

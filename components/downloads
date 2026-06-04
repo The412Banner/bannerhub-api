@@ -2803,6 +2803,24 @@
         "version": "Vulkan 1.4.295"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/874ff9b1df7c9e981e488109dd500624.tzst",
+        "file_md5": "874ff9b1df7c9e981e488109dd500624",
+        "file_name": "874ff9b1df7c9e981e488109dd500624.tzst",
+        "file_size": 2598742,
+        "name": "Vauzi-Turnip-710-720-722-v2.6",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/1d91bf21f5b87878a65dfcc93e9f8acc.tzst",
+        "file_md5": "1d91bf21f5b87878a65dfcc93e9f8acc",
+        "file_name": "1d91bf21f5b87878a65dfcc93e9f8acc.tzst",
+        "file_size": 2598758,
+        "name": "Vauzi-Turnip-710-720-722-v2.6-fix2",
+        "type": 2,
+        "version": "Vulkan 1.4.352"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/81de750512d55045b940e7d11c56c938.tzst",
         "file_md5": "81de750512d55045b940e7d11c56c938",
         "file_name": "81de750512d55045b940e7d11c56c938.tzst",
@@ -5062,6 +5080,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 562
+    "total": 564
   }
 }
