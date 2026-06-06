@@ -3820,13 +3820,13 @@
         "version": "1.0.8"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/216fccca808125c3c1eaf910cdbc32dd.tzst",
-        "file_md5": "216fccca808125c3c1eaf910cdbc32dd",
-        "file_name": "216fccca808125c3c1eaf910cdbc32dd.tzst",
-        "file_size": 969498,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/44a86207563ca327ca74ea84293d8843.tzst",
+        "file_md5": "44a86207563ca327ca74ea84293d8843",
+        "file_name": "44a86207563ca327ca74ea84293d8843.tzst",
+        "file_size": 1022529,
         "name": "SteamAgent2",
         "type": 5,
-        "version": "1.0.2"
+        "version": "1.0.3"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/TESV_Settings.tzst",
