@@ -5,7 +5,7 @@
     "type": 2,
     "type_name": "drivers",
     "display_name": "GPU Drivers",
-    "total": 285,
+    "total": 283,
     "components": [
       {
         "display_name": "",
@@ -1278,8 +1278,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "turnip_v26.0.0_R8_b2",
         "type": 2,
-        "version": "1.0.1",
-        "version_code": 2
+        "version": "1.0.0",
+        "version_code": 1
       },
       {
         "display_name": "turnip_v26.0.0_R8_b3",
@@ -1292,8 +1292,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "turnip_v26.0.0_R8_b3",
         "type": 2,
-        "version": "1.0.2",
-        "version_code": 3
+        "version": "1.0.0",
+        "version_code": 1
       },
       {
         "display_name": "turnip_v26.0.0_R8_b4",
@@ -1306,8 +1306,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "turnip_v26.0.0_R8_b4",
         "type": 2,
-        "version": "1.0.3",
-        "version_code": 4
+        "version": "1.0.0",
+        "version_code": 1
       },
       {
         "display_name": "turnip_v26.0.0_R8_b5",
@@ -1320,8 +1320,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "turnip_v26.0.0_R8_b5",
         "type": 2,
-        "version": "1.0.1",
-        "version_code": 2
+        "version": "1.0.0",
+        "version_code": 1
       },
       {
         "display_name": "turnip_v26.0.0_R8_mem",
@@ -1460,8 +1460,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "turnip_v26.1.0_b5",
         "type": 2,
-        "version": "1.0.1",
-        "version_code": 2
+        "version": "1.0.0",
+        "version_code": 1
       },
       {
         "display_name": "turnip_v26.1.0_b6",
@@ -1502,8 +1502,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "turnip_v26.1.0_b8",
         "type": 2,
-        "version": "1.0.1",
-        "version_code": 2
+        "version": "1.0.0",
+        "version_code": 1
       },
       {
         "display_name": "Turnip-Deck_26.0.0",
@@ -3967,34 +3967,6 @@
         "name": "Vauzi-Turnip-710-720-722-v2.6-fix2",
         "type": 2,
         "version": "Vulkan 1.4.352",
-        "version_code": 1
-      },
-      {
-        "display_name": "turnip_v26.2.0_b2",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b3ff82106efc935814fc0976982d3be0.tzst",
-        "file_md5": "b3ff82106efc935814fc0976982d3be0",
-        "file_name": "b3ff82106efc935814fc0976982d3be0.tzst",
-        "file_size": 2459818,
-        "id": 1357,
-        "is_ui": 1,
-        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "turnip_v26.2.0_b2",
-        "type": 2,
-        "version": "1.0.0",
-        "version_code": 1
-      },
-      {
-        "display_name": "turnip_v26.2.0_b3",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/54b9d1ebcbfc0768a5767db9190365a6.tzst",
-        "file_md5": "54b9d1ebcbfc0768a5767db9190365a6",
-        "file_name": "54b9d1ebcbfc0768a5767db9190365a6.tzst",
-        "file_size": 2459682,
-        "id": 1358,
-        "is_ui": 1,
-        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
-        "name": "turnip_v26.2.0_b3",
-        "type": 2,
-        "version": "1.0.0",
         "version_code": 1
       }
     ]
