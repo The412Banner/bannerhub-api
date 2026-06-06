@@ -3955,10 +3955,10 @@
         "version": "9.0"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_proton10.0-arm64x-5.4.tar.zst",
-        "file_md5": "3dcf8ebb7989c755a2c1ef9deef9074a",
-        "file_name": "wine_proton10.0-arm64x-5.4.tar.zst",
-        "file_size": 237038746,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_proton10.0-arm64x-5.5.tar.zst",
+        "file_md5": "70f5f263fb7c4d2932a099b277764341",
+        "file_name": "wine_proton10.0-arm64x-5.5.tar.zst",
+        "file_size": 237065859,
         "name": "wine_proton10.0_arm64x-2",
         "type": 5,
         "version": "10.0"
