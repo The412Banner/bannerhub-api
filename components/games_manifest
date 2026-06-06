@@ -23,17 +23,17 @@
       },
       {
         "display_name": "SteamAgent2",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/216fccca808125c3c1eaf910cdbc32dd.tzst",
-        "file_md5": "216fccca808125c3c1eaf910cdbc32dd",
-        "file_name": "216fccca808125c3c1eaf910cdbc32dd.tzst",
-        "file_size": 969498,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/44a86207563ca327ca74ea84293d8843.tzst",
+        "file_md5": "44a86207563ca327ca74ea84293d8843",
+        "file_name": "44a86207563ca327ca74ea84293d8843.tzst",
+        "file_size": 1022529,
         "id": 1295,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "SteamAgent2",
         "type": 5,
-        "version": "1.0.2",
-        "version_code": 3
+        "version": "1.0.3",
+        "version_code": 4
       },
       {
         "display_name": "Wine Proton 10.0 (x64)",
@@ -51,17 +51,17 @@
       },
       {
         "display_name": "Wine Proton 10.0 (arm64x)",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_proton10.0-arm64x-5.4.tar.zst",
-        "file_md5": "3dcf8ebb7989c755a2c1ef9deef9074a",
-        "file_name": "wine_proton10.0-arm64x-5.4.tar.zst",
-        "file_size": 237038746,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_proton10.0-arm64x-5.5.tar.zst",
+        "file_md5": "70f5f263fb7c4d2932a099b277764341",
+        "file_name": "wine_proton10.0-arm64x-5.5.tar.zst",
+        "file_size": 237065859,
         "id": 1136,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "wine_proton10.0_arm64x-2",
         "type": 5,
         "version": "10.0",
-        "version_code": 1
+        "version_code": 2
       },
       {
         "display_name": "Wine Proton 9.0 (x64)",
