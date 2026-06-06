@@ -2350,7 +2350,7 @@
         "file_size": 3347953,
         "name": "turnip_v26.0.0_R8_b2",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/012fbdc108267acf65d5f8fdbb182532.tzst",
@@ -2359,7 +2359,7 @@
         "file_size": 3438059,
         "name": "turnip_v26.0.0_R8_b3",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.2"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ecfa50f7d3cc3001369299ad60276494.tzst",
@@ -2368,7 +2368,7 @@
         "file_size": 3354467,
         "name": "turnip_v26.0.0_R8_b4",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.3"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/2090111d85c99cdf2ec9b077bfc1962f.tzst",
@@ -2377,7 +2377,7 @@
         "file_size": 3123812,
         "name": "turnip_v26.0.0_R8_b5",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/24ba605e127248c2c179f9ea2a2754df.tzst",
@@ -2458,7 +2458,7 @@
         "file_size": 3148936,
         "name": "turnip_v26.1.0_b5",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0355094c7f329334e7957217b5514504.tzst",
@@ -2494,7 +2494,7 @@
         "file_size": 2322322,
         "name": "turnip_v26.1.0_b8",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3ae13ec0a178d3eeec7005d5c1388a80.tzst",
@@ -2574,6 +2574,24 @@
         "file_name": "5d92be400392ef2e16c42b4d0c24f680.tzst",
         "file_size": 2432554,
         "name": "turnip_v26.2.0_b1",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b3ff82106efc935814fc0976982d3be0.tzst",
+        "file_md5": "b3ff82106efc935814fc0976982d3be0",
+        "file_name": "b3ff82106efc935814fc0976982d3be0.tzst",
+        "file_size": 2459818,
+        "name": "turnip_v26.2.0_b2",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/54b9d1ebcbfc0768a5767db9190365a6.tzst",
+        "file_md5": "54b9d1ebcbfc0768a5767db9190365a6",
+        "file_name": "54b9d1ebcbfc0768a5767db9190365a6.tzst",
+        "file_size": 2459682,
+        "name": "turnip_v26.2.0_b3",
         "type": 2,
         "version": "1.0.0"
       },
@@ -3820,13 +3838,13 @@
         "version": "1.0.8"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/216fccca808125c3c1eaf910cdbc32dd.tzst",
-        "file_md5": "216fccca808125c3c1eaf910cdbc32dd",
-        "file_name": "216fccca808125c3c1eaf910cdbc32dd.tzst",
-        "file_size": 969498,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/44a86207563ca327ca74ea84293d8843.tzst",
+        "file_md5": "44a86207563ca327ca74ea84293d8843",
+        "file_name": "44a86207563ca327ca74ea84293d8843.tzst",
+        "file_size": 1022529,
         "name": "SteamAgent2",
         "type": 5,
-        "version": "1.0.2"
+        "version": "1.0.3"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/TESV_Settings.tzst",
@@ -3955,10 +3973,10 @@
         "version": "9.0"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_proton10.0-arm64x-5.4.tar.zst",
-        "file_md5": "3dcf8ebb7989c755a2c1ef9deef9074a",
-        "file_name": "wine_proton10.0-arm64x-5.4.tar.zst",
-        "file_size": 237038746,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wine_proton10.0-arm64x-5.5.tar.zst",
+        "file_md5": "70f5f263fb7c4d2932a099b277764341",
+        "file_name": "wine_proton10.0-arm64x-5.5.tar.zst",
+        "file_size": 237065859,
         "name": "wine_proton10.0_arm64x-2",
         "type": 5,
         "version": "10.0"
@@ -5080,6 +5098,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 564
+    "total": 566
   }
 }
