@@ -1301,3 +1301,19 @@ Tested on the bannerhub-revanced v6 client (6.0.8 base): the previously-failing 
 
 ### ⛔ STANDING RULE — firmware/imagefs updates
 Every firmware/imagefs version change MUST update the **7 lockstep sites AND redeploy the Cloudflare worker together — worker FIRST, then push Pages.** Never push the catalog alone (push-only = split-brain = "Download Game Config failed" on 6.0). Pre-check `base.tzst` vs upstream. Full step-by-step in the two entries above; CF deploy recipe in the "DONE CORRECTLY" entry.
+
+## 2026-06-08 — Banner Turnip replace: 20260531 → v26.2.0-20260608-r5
+
+Replaced the three Banner-branded Turnip drivers in place (ids **1344/1345/1346**) with the newer `v26.2.0-20260608-r5` release from `The412Banner/Banners-Turnip` (tag `v26.2.0-20260608-r5`). Mesa `main` git **127e5b5**, **Vulkan 1.4.353** (was 1.4.352 / git e22cdeb). `version_code` 1→2 on all three to force clients to re-download.
+
+| id | name | file_md5 | size |
+| :-- | :-- | :-- | :-- |
+| 1344 | `Banners-Turnip-v26.2.0-20260608-r5` (A6xx/A7xx) | `05ac4dce84431411dc6f1e53a4755789` | 2002165 |
+| 1345 | `…-A8xx` (Snapdragon 8 Elite A810/825/829/830) | `c3383f785744d37242326c79398d5695` | 2002659 |
+| 1346 | `…-710-720-Test` (Adreno 710/720/722, experimental) | `585511b4d7a6603316a01ffda8a166f1` | 2002396 |
+
+- **Packing** (matches existing Banner layout): each upstream zip → extract `libvulkan_freedreno.so` only (no meta.json) → `tar --format=ustar --owner=0 --group=0 ./libvulkan_freedreno.so | zstd -19`. Single member `./libvulkan_freedreno.so` root/root.
+- Uploaded the three `.tzst` to the `Components` GitHub release (`gh release upload … --clobber`); `npm run build` regenerated payloads; `npm run validate` ✓.
+- Reverted **15 time-only churn** files (`time` field bumps only): `executeScript/{generic,qualcomm}`, `getContainerDetail/2-11`, `getContainerList`, `getDefaultComponent`, `getImagefsDetail`. Kept `data/custom_components.json`, `components/{downloads,drivers_manifest}`, `simulator/v2/{getAllComponentList,getComponentList}`.
+- This is a **component-only** change → **Pages-only push** (NOT a firmware/imagefs change, so no worker redeploy). Commit `98b3645`, pushed `master` + `main`. Pages deploy run `27143886807` ✅ success.
+- **Live-verified** on `bannerhub-api.the412banner.workers.dev/simulator/v2/getAllComponentList` + raw `main`: all three new md5s present, old base md5 `09cd0726…` gone, new filenames serving.
