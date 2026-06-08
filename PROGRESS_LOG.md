@@ -1278,3 +1278,20 @@ Bumped the Firmware (imagefs) catalog entry to upstream **1.4.2 / versionCode 32
 - **6.0 path NOT yet live:** `getImagefsDetail` for 6.0 is served by the inline `is60` branch in `bannerhub-worker.js`. There is **no wrangler/deploy workflow in the repo** — the worker must be redeployed manually (Cloudflare / `wrangler deploy`) before 6.0 clients see 1.4.2. Until then 6.0 keeps serving 1.4.1.
 
 **Note:** `mirror-imagefs.yml` is unrelated here — it's `workflow_dispatch`-only and mirrors a generic `imagefs.zst` from `Producdevity/gamehub-lite-api`, not the version-named `imagefs_142.zst` asset or any metadata JSON.
+
+### Reverted same day — split-brain broke 6.0
+Device-tested on the 6.0 client (bannerhub-revanced v6, 6.0.8 base): **"Task 'Download Game Config' failed."** Root cause: the worker redeploy was skipped, so the worker's inline `getImagefsDetail` stayed 1.4.1 while the Pages-served `executeScript` config (which the worker proxies, and which carries the imagefs block) flipped to 1.4.2 — a split-brain. The 6.0 client got a game config referencing 1.4.2 while firmware-detail reported 1.4.1, and the config task failed. Reverted via `git revert 4d05618` → `6840ec8`, pushed `master` + `main`; Pages redeployed, all surfaces back to 1.4.1, live-verified. (`mirror-imagefs.yml` / worker both confirmed 1.4.1.)
+
+## 2026-06-07 (later) — imagefs Firmware 1.4.1 → 1.4.2, DONE CORRECTLY (Pages + worker in lockstep)
+
+Re-applied 1.4.2 **with the worker redeploy this time**, eliminating the split-brain that broke the first attempt.
+
+- **base.tzst pre-check:** confirmed our hosted `base_v101.tzst` is byte-identical to upstream `COMPONENT:base` (real md5 `96df60f3cff612a9747e56cae9d4c6e8`, size 83424612, v1.0.1/vc2, type 5) — no base change needed alongside the firmware.
+- **All 7 lockstep sites → 1.4.2** (same method as before: `data/imagefs.json` source → build → regen `getImagefsDetail` + `executeScript/{generic,qualcomm}`; `_steam` variants + worker `is60` branch hand-edited; ~14 time-only churn files reverted). Commit `033db6f`, pushed `master` + `main`.
+- **Worker deployed via CF REST API** (the missing step). No `wrangler.toml`; deploy = `PUT /accounts/{acct}/workers/scripts/bannerhub-api` multipart (`metadata` part with `main_module: bannerhub-worker.js`, `compatibility_date 2025-01-01`, explicit KV binding `TOKEN_STORE` ns `e94aa6c2c5c8439a890940d3c00f890f`, `keep_bindings: ["secret_text"]` to retain `SUPABASE_URL`/`SUPABASE_SERVICE_KEY` without their values + the JS module). CF creds from `~/cf-creds.txt` (account `a849…`, scoped token). Pre-deploy: confirmed the live deployed script was byte-identical to the repo `bannerhub-worker.js` (downloaded via the multipart GET on `/workers/scripts/bannerhub-api` — note `/content` returns 10405 for token auth, the base endpoint works). Post-deploy: all 3 bindings intact, `startup_time_ms 0`.
+- **Ordering to avoid split-brain:** worker deployed to 1.4.2 FIRST (firmware-detail ahead of config = harmless direction), THEN pushed Pages so `executeScript` caught up.
+
+### Live verification — full lockstep, no split-brain
+All surfaces serve `imagefs_142 / 1.4.2 / vc32`: worker inline `getImagefsDetail` (6.0), worker→Pages `executeScript` proxy (the Game Config route that failed before, both `/v6/` and 5.x), and the Pages statics (`getImagefsDetail`, `executeScript/{generic,qualcomm}_steam`). Pages deploy `27111348292`-era + worker modified `2026-06-08T01:56:55Z`.
+
+**Deploy recipe (for next worker change) now documented here** — overrides the stale "see memory/…" pointer in `CLOUDFLARE_WORKER_REPORT.md`.
