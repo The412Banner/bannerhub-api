@@ -1260,3 +1260,21 @@ Per the verified Turnip recipe: strip the AdrenoTools `meta.json`, keep only `li
 
 ### Live verification
 Both names present at `https://bannerhub-api.the412banner.workers.dev/simulator/v2/getAllComponentList` (plain + `/v6/` paths) and on raw GitHub `main`.
+
+## 2026-06-07 — imagefs Firmware 1.4.1 → 1.4.2 (re-applied after earlier revert)
+
+Bumped the Firmware (imagefs) catalog entry to upstream **1.4.2 / versionCode 32**.
+
+- **Asset:** `imagefs_142.zst` (already on the `Components` release; md5 `6bcdc2568d26d6dbe90468fcdb4490ce`, size 173024718) — verified against the local Downloads copy + the live release asset before editing. No upload needed.
+- **Source upstream string:** `IMAGE_FS:Firmware` → version 1.4.2, vc32, `uxdl.mac520.com/.../imagefs.zst`, fileMd5 `6bcdc256…`, fileSize 173024718.
+- **All 7 lockstep metadata sites moved together:** `data/imagefs.json` (source of truth) → `npm run build` regenerated `simulator/v2/getImagefsDetail` + `simulator/executeScript/{generic,qualcomm}`; the `{generic,qualcomm}_steam` variants (not covered by the generator) + the worker `is60` inline branch (and its comment block) were hand-edited.
+- **Build churn reverted:** the build also rewrote ~14 other `simulator/v2/*` files with a regenerated `"time"` timestamp only — those were `git checkout`-reverted so the commit is scoped to the firmware bump.
+- Commit `4d05618` on `master`, pushed `master` + `main` (both FF `af28837..4d05618`).
+
+**Context — this re-applies a previously-reverted change.** `3c962fd` ("imagefs Firmware 1.4.1->1.4.2 ONLY, isolated test on 6.0.4 client" — to isolate whether the 6.0.7 imagefs broke the 6.0.4 client) was reverted by `99ede06`, and broader sync commits bundling 1.4.2 were also reverted. Maintainer confirmed 6.0.4 compatibility and chose to ship anyway.
+
+### Live verification
+- 5.x path live: `https://the412banner.github.io/bannerhub-api/simulator/v2/getImagefsDetail` → `version 1.4.2 / version_code 32 / imagefs_142` after Pages deploy `27111262116` (success). The worker proxies this static route, so 5.x clients get 1.4.2 immediately.
+- **6.0 path NOT yet live:** `getImagefsDetail` for 6.0 is served by the inline `is60` branch in `bannerhub-worker.js`. There is **no wrangler/deploy workflow in the repo** — the worker must be redeployed manually (Cloudflare / `wrangler deploy`) before 6.0 clients see 1.4.2. Until then 6.0 keeps serving 1.4.1.
+
+**Note:** `mirror-imagefs.yml` is unrelated here — it's `workflow_dispatch`-only and mirrors a generic `imagefs.zst` from `Producdevity/gamehub-lite-api`, not the version-named `imagefs_142.zst` asset or any metadata JSON.
