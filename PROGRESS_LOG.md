@@ -1295,3 +1295,9 @@ Re-applied 1.4.2 **with the worker redeploy this time**, eliminating the split-b
 All surfaces serve `imagefs_142 / 1.4.2 / vc32`: worker inline `getImagefsDetail` (6.0), worker→Pages `executeScript` proxy (the Game Config route that failed before, both `/v6/` and 5.x), and the Pages statics (`getImagefsDetail`, `executeScript/{generic,qualcomm}_steam`). Pages deploy `27111348292`-era + worker modified `2026-06-08T01:56:55Z`.
 
 **Deploy recipe (for next worker change) now documented here** — overrides the stale "see memory/…" pointer in `CLOUDFLARE_WORKER_REPORT.md`.
+
+### ✅ DEVICE-CONFIRMED (2026-06-07)
+Tested on the bannerhub-revanced v6 client (6.0.8 base): the previously-failing **"Download Game Config"** task now downloads cleanly with imagefs 1.4.2. 1.4.2 firmware is confirmed compatible with the 6.0.8 client — the original failure was purely the worker/Pages split-brain, not firmware incompatibility.
+
+### ⛔ STANDING RULE — firmware/imagefs updates
+Every firmware/imagefs version change MUST update the **7 lockstep sites AND redeploy the Cloudflare worker together — worker FIRST, then push Pages.** Never push the catalog alone (push-only = split-brain = "Download Game Config failed" on 6.0). Pre-check `base.tzst` vs upstream. Full step-by-step in the two entries above; CF deploy recipe in the "DONE CORRECTLY" entry.
