@@ -944,12 +944,12 @@ export default {
       }
 
       // getImagefsDetail: serves Firmware metadata. Both 5.x and 6.0 now serve
-      // 1.4.2 — 6.0 from this inline is60 branch, 5.x from the static
+      // 1.4.1 — 6.0 from this inline is60 branch, 5.x from the static
       // simulator/v2/getImagefsDetail file. The Add-Game path on 5.x reads
       // simulator/executeScript/{generic,qualcomm}{,_steam} which was bumped
-      // to 1.4.2 alongside this comment. All 7 metadata sites stay in lockstep
-      // (asset imagefs_142.zst, md5 6bcdc256…). Source: upstream 1.4.2 firmware
-      // (uxdl.mac520.com imagefs.zst, versionCode 32).
+      // to 1.4.1 alongside this comment. All 7 metadata sites stay in lockstep
+      // (asset imagefs_141.zst, md5 643024d5…). Source: upstream 1.4.1 firmware
+      // (uxdl.mac520.com imagefs.zst, versionCode 31).
       if (url.pathname === '/simulator/v2/getImagefsDetail') {
         if (is60) {
           return new Response(JSON.stringify({
@@ -957,15 +957,15 @@ export default {
             msg: 'Success',
             data: {
               id: 1,
-              version: '1.4.2',
-              version_code: 32,
+              version: '1.4.1',
+              version_code: 31,
               name: 'Firmware',
               logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
               upgrade_msg: '',
               blurb: '',
-              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_142.zst',
-              file_md5: '6bcdc2568d26d6dbe90468fcdb4490ce',
-              file_size: '173024718',
+              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_141.zst',
+              file_md5: '643024d54f11d01196ffdb2918dc3c85',
+              file_size: '172206649',
               file_name: 'imagefs.zst',
               display_name: 'Firmware',
             },
