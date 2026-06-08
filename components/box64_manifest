@@ -5,7 +5,7 @@
     "type": 1,
     "type_name": "box64",
     "display_name": "Box64 Emulators",
-    "total": 36,
+    "total": 37,
     "components": [
       {
         "display_name": "",
@@ -510,6 +510,20 @@
         "type": 1,
         "version": "Hybrid-Bionic",
         "version_code": 2
+      },
+      {
+        "display_name": "FEXCore-2605-Nightly-e02953dc1",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/38986a5baa9eb2bb03795d4f01db61e4.tzst",
+        "file_md5": "38986a5baa9eb2bb03795d4f01db61e4",
+        "file_name": "38986a5baa9eb2bb03795d4f01db61e4.tzst",
+        "file_size": 1704963,
+        "id": 1357,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "FEXCore-2605-Nightly-e02953dc1",
+        "type": 1,
+        "version": "2605-Nightly-e02953dc1",
+        "version_code": 1
       }
     ]
   }

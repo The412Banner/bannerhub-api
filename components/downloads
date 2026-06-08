@@ -328,6 +328,15 @@
         "version": "2605"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/38986a5baa9eb2bb03795d4f01db61e4.tzst",
+        "file_md5": "38986a5baa9eb2bb03795d4f01db61e4",
+        "file_name": "38986a5baa9eb2bb03795d4f01db61e4.tzst",
+        "file_size": 1704963,
+        "name": "FEXCore-2605-Nightly-e02953dc1",
+        "type": 1,
+        "version": "2605-Nightly-e02953dc1"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d2c18569d828ba8b7c66804aa8be2d54.tzst",
         "file_md5": "d2c18569d828ba8b7c66804aa8be2d54",
         "file_name": "8Elite2-842.6.tzst",
@@ -5080,6 +5089,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 564
+    "total": 565
   }
 }

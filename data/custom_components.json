@@ -3327,6 +3327,19 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/1d91bf21f5b87878a65dfcc93e9f8acc.tzst",
       "display_name": "Vauzi Turnip 710/720/722 v2.6 (fix2)",
       "blurb": "EXPERIMENTAL Turnip for Adreno 710/720/722 by vauzi - fix2 rebuild (corrected build, supersedes v2.6). Mesa 26.2.0, Vulkan 1.4.352. Per-GPU magic register tuning + documented GMEM sizes (710=512KiB, 720/722=1MiB). Recommended mode: sysmem. Other GPUs unaffected."
+    },
+    {
+      "id": 1357,
+      "name": "FEXCore-2605-Nightly-e02953dc1",
+      "type": 1,
+      "version": "2605-Nightly-e02953dc1",
+      "version_code": 1,
+      "file_name": "38986a5baa9eb2bb03795d4f01db61e4.tzst",
+      "file_md5": "38986a5baa9eb2bb03795d4f01db61e4",
+      "file_size": "1704963",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/38986a5baa9eb2bb03795d4f01db61e4.tzst",
+      "display_name": "FEXCore-2605-Nightly-e02953dc1",
+      "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64. Nightly build e02953dc1 (2026-06-04)."
     }
   ]
 }
