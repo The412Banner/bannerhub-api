@@ -1317,3 +1317,13 @@ Replaced the three Banner-branded Turnip drivers in place (ids **1344/1345/1346*
 - Reverted **15 time-only churn** files (`time` field bumps only): `executeScript/{generic,qualcomm}`, `getContainerDetail/2-11`, `getContainerList`, `getDefaultComponent`, `getImagefsDetail`. Kept `data/custom_components.json`, `components/{downloads,drivers_manifest}`, `simulator/v2/{getAllComponentList,getComponentList}`.
 - This is a **component-only** change → **Pages-only push** (NOT a firmware/imagefs change, so no worker redeploy). Commit `98b3645`, pushed `master` + `main`. Pages deploy run `27143886807` ✅ success.
 - **Live-verified** on `bannerhub-api.the412banner.workers.dev/simulator/v2/getAllComponentList` + raw `main`: all three new md5s present, old base md5 `09cd0726…` gone, new filenames serving.
+
+## 2026-06-08 — Add FEXCore-2605-Nightly-e02953dc1 (id 1357)
+
+New type-1 translation layer from a user-supplied `.wcp` (`FEX-2605-Nightly-e02953dc1.wcp`, FEX nightly `e02953dc1`, built 2026-06-04). Distinct from the existing `FEXCore-2605` (id 1314) — different build hash, so a new id rather than a replace.
+
+- **id 1357**, `FEXCore-2605-Nightly-e02953dc1`, version `2605-Nightly-e02953dc1`, version_code 1, type 1.
+- tzst md5 **`38986a5baa9eb2bb03795d4f01db61e4`**, size 1704963.
+- Source `.wcp` was **XZ**-compressed (`profile.json` + `system32/{libarm64ecfex.dll,libwow64fex.dll}`). Converted with `scripts/wcp2tzst.sh --type fex` → flat `libarm64ecfex.dll` + `libwow64fex.dll` at root (drops profile.json + system32/ nesting), `check_component_layout.sh` → OK. md5-named tzst per FEXCore convention.
+- Uploaded to `Components` release; `npm run build` (count 36→37, total 564→565) + `validate` ✓. Kept `data/custom_components.json`, `components/{box64_manifest,downloads,index}`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files.
+- Component-only → **Pages-only push** (no worker redeploy). Commit `d17c127`, master + main pushed.
