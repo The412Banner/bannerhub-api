@@ -3340,6 +3340,45 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/38986a5baa9eb2bb03795d4f01db61e4.tzst",
       "display_name": "FEXCore-2605-Nightly-e02953dc1",
       "blurb": "FEX-Emu FEXCore — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64. Nightly build e02953dc1 (2026-06-04)."
+    },
+    {
+      "id": 1358,
+      "name": "SMXZ_Turnip_v26.2.0_R6",
+      "type": 2,
+      "version": "Vulkan 1.4.353",
+      "version_code": 1,
+      "file_name": "bb4e1159a2f9e3f248d4def2c4caa456.tzst",
+      "file_md5": "bb4e1159a2f9e3f248d4def2c4caa456",
+      "file_size": "2003080",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/bb4e1159a2f9e3f248d4def2c4caa456.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R6",
+      "blurb": "Turnip v26.2.0-R6 by stevenmx (Mesa 26.2.0, Vulkan 1.4.353). Targets Adreno A6xx/A7xx. Built from latest Mesa main."
+    },
+    {
+      "id": 1359,
+      "name": "SMXZ_Turnip_v26.2.0_R6_OneUI",
+      "type": 2,
+      "version": "Vulkan 1.4.353",
+      "version_code": 1,
+      "file_name": "f391aa2917898225c2e019ff15c1096c.tzst",
+      "file_md5": "f391aa2917898225c2e019ff15c1096c",
+      "file_size": "2003084",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f391aa2917898225c2e019ff15c1096c.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R6 (OneUI)",
+      "blurb": "Turnip v26.2.0-R6 OneUI variant by stevenmx (Mesa 26.2.0, Vulkan 1.4.353). Targets Adreno A6xx/A7xx on Samsung One UI devices. Built from latest Mesa main."
+    },
+    {
+      "id": 1360,
+      "name": "SMXZ_Turnip_Gen8_V32",
+      "type": 2,
+      "version": "Vulkan 1.4.352",
+      "version_code": 1,
+      "file_name": "bda10c08dfe5a92682360e37d87a6b63.tzst",
+      "file_md5": "bda10c08dfe5a92682360e37d87a6b63",
+      "file_size": "1989571",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/bda10c08dfe5a92682360e37d87a6b63.tzst",
+      "display_name": "SMXZ Turnip Gen8 V32",
+      "blurb": "EXPERIMENTAL Turnip Gen8 V32 by stevenmx (whitebelyash mesa-unified turnip/gen8, Vulkan 1.4.352). A8xx support for Adreno a810/a825/a829/a830/a840. Recommended mode: sysmem (TU_DEBUG=sysmem)."
     }
   ]
 }
