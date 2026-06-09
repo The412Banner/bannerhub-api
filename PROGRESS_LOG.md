@@ -1327,3 +1327,14 @@ New type-1 translation layer from a user-supplied `.wcp` (`FEX-2605-Nightly-e029
 - Source `.wcp` was **XZ**-compressed (`profile.json` + `system32/{libarm64ecfex.dll,libwow64fex.dll}`). Converted with `scripts/wcp2tzst.sh --type fex` → flat `libarm64ecfex.dll` + `libwow64fex.dll` at root (drops profile.json + system32/ nesting), `check_component_layout.sh` → OK. md5-named tzst per FEXCore convention.
 - Uploaded to `Components` release; `npm run build` (count 36→37, total 564→565) + `validate` ✓. Kept `data/custom_components.json`, `components/{box64_manifest,downloads,index}`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files.
 - Component-only → **Pages-only push** (no worker redeploy). Commit `d17c127`, master + main pushed.
+
+## 2026-06-09 — Add SMXZ Turnip v26.2.0 R6 (+OneUI) + Gen8 V32 (ids 1358-1360)
+
+Three new type-2 Turnip GPU drivers from StevenMXZ/Adreno-Tools-Drivers releases `v26.2.0-R6` (2 assets) and `v32`. Natural successors to the existing R5 (1341/1342) and Gen8 V31 (1332).
+
+- **id 1358** `SMXZ_Turnip_v26.2.0_R6`, version `Vulkan 1.4.353` — A6xx/A7xx (`Turnip_v26.2.0-R6.zip`, meta "A7xx main"). tzst md5 **`bb4e1159a2f9e3f248d4def2c4caa456`**, size 2003080.
+- **id 1359** `SMXZ_Turnip_v26.2.0_R6_OneUI`, version `Vulkan 1.4.353` — A6xx/A7xx Samsung One UI (`Turnip_v26.2.0-R6_Oneui.zip`, meta "A7xx-oneui main"). tzst md5 **`f391aa2917898225c2e019ff15c1096c`**, size 2003084.
+- **id 1360** `SMXZ_Turnip_Gen8_V32`, version `Vulkan 1.4.352` — A8xx a810/825/829/830/840 (`Turnip_Gen8_V32.zip`, whitebelyash mesa-unified turnip/gen8). tzst md5 **`bda10c08dfe5a92682360e37d87a6b63`**, size 1989571.
+- Each adreno zip (`.so` + `meta.json`) repacked to flat `./libvulkan_freedreno.so` tar + zstd-19, md5-named, per Turnip convention; `check_component_layout.sh` → OK on all 3. All 3 `.so` verified arm64 aarch64 ELF (NDK r29, minApi 28).
+- Uploaded to `Components` release; `npm run build` (index count 283→286, total 565→568) ✓. Kept `data/custom_components.json`, `components/{drivers_manifest,downloads,index}`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files (executeScript generic/qualcomm, getContainerList, getDefaultComponent, getImagefsDetail, getContainerDetail/2-11).
+- Component-only → **Pages-only push** (no worker redeploy). Commit `21ab4a5`, master + main pushed lockstep. Pages deploy run `27215514263` ✓, live-verified all 3 ids on `the412banner.github.io/bannerhub-api/simulator/v2/getAllComponentList`.
