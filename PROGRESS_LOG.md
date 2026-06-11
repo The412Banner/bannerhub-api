@@ -1338,3 +1338,11 @@ Three new type-2 Turnip GPU drivers from StevenMXZ/Adreno-Tools-Drivers releases
 - Each adreno zip (`.so` + `meta.json`) repacked to flat `./libvulkan_freedreno.so` tar + zstd-19, md5-named, per Turnip convention; `check_component_layout.sh` → OK on all 3. All 3 `.so` verified arm64 aarch64 ELF (NDK r29, minApi 28).
 - Uploaded to `Components` release; `npm run build` (index count 283→286, total 565→568) ✓. Kept `data/custom_components.json`, `components/{drivers_manifest,downloads,index}`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files (executeScript generic/qualcomm, getContainerList, getDefaultComponent, getImagefsDetail, getContainerDetail/2-11).
 - Component-only → **Pages-only push** (no worker redeploy). Commit `21ab4a5`, master + main pushed lockstep. Pages deploy run `27215514263` ✓, live-verified all 3 ids on `the412banner.github.io/bannerhub-api/simulator/v2/getAllComponentList`.
+
+## 2026-06-10 — INCIDENT: stale worker deploy split-brained imagefs (1.4.1 vs 1.4.2), fixed by redeploy
+
+While adding the Steam-chat R2 image routes, I deployed `bannerhub-worker.js` from a LOCAL checkout that was 12 commits behind origin/master — it still carried imagefs **1.4.1** in the `is60` inline branch. The git push was rejected (remote ahead) only AFTER the deploy, so Cloudflare ran 1.4.1 while Pages `executeScript` served 1.4.2 → classic split-brain → 6.0 clients prompted to "download firmware/imagefs" on game launch (the "Download Game Config failed" family). Device-reported by user.
+
+FIX: rebased onto origin/master (worker file → 1.4.2 + R2 routes), then **redeployed the worker from HEAD** via CF REST (same bindings: KV TOKEN_STORE + R2 CHAT_IMAGES + keep secrets). Verified ALL surfaces now 1.4.2 vc32: worker `/v6/getImagefsDetail` ✅, worker `/getImagefsDetail` (5.x) ✅, Pages `executeScript` (imagefs_142.zst) ✅, and R2 `/chat/upload-image` still returns a URL ✅. No code change needed — repo was always correct; only the deployed artifact was stale.
+
+LESSON: ALWAYS `git fetch` + confirm local == origin/master BEFORE deploying the worker, and ALWAYS redeploy from the final pushed HEAD (re-deploy after any rebase). The existing "verify deployed==repo first" step exists precisely for this — don't skip it.
