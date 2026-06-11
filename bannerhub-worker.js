@@ -546,6 +546,54 @@ export default {
         return handleChatRooms(env, corsHeaders)
       }
 
+      // ── Steam chat image hosting (R2) ───────────────────────────────────────
+      // The native friends.upload_chat_image 401s (Steam web access-token
+      // expiry), so the in-game overlay POSTs the picked image here and sends
+      // the returned URL as a normal Steam chat message (Steam embeds it
+      // inline). Stored in the bannerhub-chat-images R2 bucket with a 7-day
+      // lifecycle; served back from /chat/i/<key>.
+      if (url.pathname === '/chat/upload-image') {
+        if (request.method !== 'POST') {
+          return new Response(JSON.stringify({ error: 'method_not_allowed' }),
+            { status: 405, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        // Lightweight gate (bounds casual abuse; not a security boundary).
+        if (request.headers.get('x-bh-chat') !== 'bh6img') {
+          return new Response(JSON.stringify({ error: 'forbidden' }),
+            { status: 403, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        const ct = request.headers.get('content-type') || 'image/jpeg'
+        if (!ct.startsWith('image/')) {
+          return new Response(JSON.stringify({ error: 'image_only' }),
+            { status: 415, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        const buf = await request.arrayBuffer()
+        if (buf.byteLength === 0 || buf.byteLength > 5 * 1024 * 1024) {
+          return new Response(JSON.stringify({ error: 'bad_size' }),
+            { status: 413, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+        }
+        const ext = ct === 'image/png' ? 'png'
+          : ct === 'image/gif' ? 'gif'
+          : ct === 'image/webp' ? 'webp' : 'jpg'
+        const key = crypto.randomUUID().replace(/-/g, '') + '.' + ext
+        await env.CHAT_IMAGES.put(key, buf, { httpMetadata: { contentType: ct } })
+        const imgUrl = `https://${url.host}/chat/i/${key}`
+        return new Response(JSON.stringify({ url: imgUrl }),
+          { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+      }
+
+      if (url.pathname.startsWith('/chat/i/')) {
+        const key = decodeURIComponent(url.pathname.slice('/chat/i/'.length))
+        if (!key || key.includes('/')) return new Response('not found', { status: 404 })
+        const obj = await env.CHAT_IMAGES.get(key)
+        if (!obj) return new Response('not found', { status: 404 })
+        const h = new Headers(corsHeaders)
+        obj.writeHttpMetadata(h)
+        h.set('cache-control', 'public, max-age=604800, immutable')
+        if (!h.get('content-type')) h.set('content-type', 'image/jpeg')
+        return new Response(obj.body, { headers: h })
+      }
+
       // ── Keep-alive ping (scheduled cron calls this) ─────────────────────────
       if (url.pathname === '/chat/keepalive') {
         try {
