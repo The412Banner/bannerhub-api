@@ -3469,6 +3469,15 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/1e2e9469187a4d50221e6ce8ae4d2b7c.tzst",
+        "file_md5": "1e2e9469187a4d50221e6ce8ae4d2b7c",
+        "file_name": "1e2e9469187a4d50221e6ce8ae4d2b7c.tzst",
+        "file_size": 991,
+        "name": "ACM",
+        "type": 5,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/Alice_Settings.tzst",
         "file_md5": "026ec394e980e628f71eb57b09abfa6d",
         "file_name": "Alice_Settings.tzst",
@@ -3555,6 +3564,15 @@
         "file_name": "DARK_Settings.tzst",
         "file_size": 9310345,
         "name": "DARK_Settings",
+        "type": 5,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/331db94341bd49359ffd4cab3659c0b3.tzst",
+        "file_md5": "331db94341bd49359ffd4cab3659c0b3",
+        "file_name": "331db94341bd49359ffd4cab3659c0b3.tzst",
+        "file_size": 462261,
+        "name": "DeadSpace(2023)",
         "type": 5,
         "version": "1.0.0"
       },
@@ -3690,6 +3708,15 @@
         "file_name": "Hzd_Settings.tzst",
         "file_size": 2264951,
         "name": "Hzd_Settings",
+        "type": 5,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/565796c13769026a2d1b12a777293f9e.tzst",
+        "file_md5": "565796c13769026a2d1b12a777293f9e",
+        "file_name": "565796c13769026a2d1b12a777293f9e.tzst",
+        "file_size": 212967,
+        "name": "id Software",
         "type": 5,
         "version": "1.0.0"
       },
@@ -4009,6 +4036,15 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b43c7da08a4557f041bdf54ed93d9d95.tzst",
+        "file_md5": "b43c7da08a4557f041bdf54ed93d9d95",
+        "file_name": "b43c7da08a4557f041bdf54ed93d9d95.tzst",
+        "file_size": 1339,
+        "name": "WRC10",
+        "type": 5,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/98b2e6918f362a024c2eb8e354af7d5b.tzst",
         "file_md5": "98b2e6918f362a024c2eb8e354af7d5b",
         "file_name": "Wreckfest_Settings.tzst",
@@ -4041,15 +4077,6 @@
         "file_name": "aairruntime.yml",
         "file_size": 419,
         "name": "aairruntime",
-        "type": 6,
-        "version": "1.0.0"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/1e2e9469187a4d50221e6ce8ae4d2b7c.tzst",
-        "file_md5": "1e2e9469187a4d50221e6ce8ae4d2b7c",
-        "file_name": "1e2e9469187a4d50221e6ce8ae4d2b7c.tzst",
-        "file_size": 991,
-        "name": "ACM",
         "type": 6,
         "version": "1.0.0"
       },
@@ -4158,15 +4185,6 @@
         "file_name": "d3dx9.yml",
         "file_size": 1694,
         "name": "d3dx9",
-        "type": 6,
-        "version": "1.0.0"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/331db94341bd49359ffd4cab3659c0b3.tzst",
-        "file_md5": "331db94341bd49359ffd4cab3659c0b3",
-        "file_name": "331db94341bd49359ffd4cab3659c0b3.tzst",
-        "file_size": 462261,
-        "name": "DeadSpace(2023)",
         "type": 6,
         "version": "1.0.0"
       },
@@ -4536,15 +4554,6 @@
         "file_name": "gmdls.yml",
         "file_size": 715,
         "name": "gmdls",
-        "type": 6,
-        "version": "1.0.0"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/565796c13769026a2d1b12a777293f9e.tzst",
-        "file_md5": "565796c13769026a2d1b12a777293f9e",
-        "file_name": "565796c13769026a2d1b12a777293f9e.tzst",
-        "file_size": 212967,
-        "name": "id Software",
         "type": 6,
         "version": "1.0.0"
       },
@@ -5013,15 +5022,6 @@
         "file_name": "winXP.yml",
         "file_size": 227,
         "name": "winXP",
-        "type": 6,
-        "version": "1.0.0"
-      },
-      {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b43c7da08a4557f041bdf54ed93d9d95.tzst",
-        "file_md5": "b43c7da08a4557f041bdf54ed93d9d95",
-        "file_name": "b43c7da08a4557f041bdf54ed93d9d95.tzst",
-        "file_size": 1339,
-        "name": "WRC10",
         "type": 6,
         "version": "1.0.0"
       },

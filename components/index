@@ -32,14 +32,14 @@
         "type": 4
       },
       {
-        "count": 65,
+        "count": 69,
         "display_name": "Game Patches",
         "manifest_url": "/components/games_manifest",
         "name": "games",
         "type": 5
       },
       {
-        "count": 117,
+        "count": 113,
         "display_name": "System Libraries",
         "manifest_url": "/components/libraries_manifest",
         "name": "libraries",

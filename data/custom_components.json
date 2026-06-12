@@ -6,7 +6,7 @@
     {
       "id": 1100,
       "name": "ACM",
-      "type": 6,
+      "type": 5,
       "version": "1.0.0",
       "version_code": 1,
       "file_name": "1e2e9469187a4d50221e6ce8ae4d2b7c.tzst",
@@ -31,7 +31,7 @@
     {
       "id": 1102,
       "name": "DeadSpace(2023)",
-      "type": 6,
+      "type": 5,
       "version": "1.0.0",
       "version_code": 1,
       "file_name": "331db94341bd49359ffd4cab3659c0b3.tzst",
@@ -69,7 +69,7 @@
     {
       "id": 1105,
       "name": "WRC10",
-      "type": 6,
+      "type": 5,
       "version": "1.0.0",
       "version_code": 1,
       "file_name": "b43c7da08a4557f041bdf54ed93d9d95.tzst",
@@ -81,7 +81,7 @@
     {
       "id": 1106,
       "name": "id Software",
-      "type": 6,
+      "type": 5,
       "version": "1.0.0",
       "version_code": 1,
       "file_name": "565796c13769026a2d1b12a777293f9e.tzst",
