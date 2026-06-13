@@ -478,6 +478,136 @@ const GITHUB_ROUTES = new Set([
   '/vtouch/startType_steam',
 ])
 
+// ── In-game voice: hosted WebRTC room ───────────────────────────────────────
+// Replaces the old WebView approach where the call page was loaded via
+// loadDataWithBaseURL — that gave the page an *opaque* origin and Chromium
+// blocks getUserMedia on opaque origins, so the mic never opened. Serving the
+// SAME page from this real https origin fixes that. SDP/ICE are relayed through
+// an R2-backed mailbox (CHAT_IMAGES bucket, `voice/` prefix) instead of Steam
+// chat — R2 is strongly consistent (KV's 60s negative-cache would stall the
+// handshake). Audio then flows peer-to-peer (TURN-assisted across NATs). Room =
+// sorted SteamID pair. Each signal is one tiny object the recipient drains and
+// deletes on its next poll; the bucket lifecycle sweeps anything orphaned.
+const VOICE_ID_RE = /^[a-zA-Z0-9_-]{1,40}$/
+
+function jsonRes(obj, status, corsHeaders) {
+  return new Response(JSON.stringify(obj),
+    { status, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+}
+
+// POST /voice/signal {room,to,from,payload} → drop one SDP/ICE blob in to's mailbox
+async function handleVoiceSignal(request, env, corsHeaders) {
+  let b
+  try { b = await request.json() } catch (e) { return jsonRes({ error: 'invalid_json' }, 400, corsHeaders) }
+  const { room, to, from, payload } = b || {}
+  if (!VOICE_ID_RE.test(room || '') || !VOICE_ID_RE.test(to || '') || !VOICE_ID_RE.test(from || '')) {
+    return jsonRes({ error: 'invalid_id' }, 400, corsHeaders)
+  }
+  if (typeof payload !== 'string' || payload.length === 0 || payload.length > 16000) {
+    return jsonRes({ error: 'invalid_payload' }, 400, corsHeaders)
+  }
+  // Time-prefixed key → recipient's prefix lists in chronological order.
+  const key = `voice/${room}/${to}/${Date.now()}-${crypto.randomUUID().slice(0, 8)}.json`
+  await env.CHAT_IMAGES.put(key, payload, { httpMetadata: { contentType: 'application/json' } })
+  return jsonRes({ ok: true }, 200, corsHeaders)
+}
+
+// GET /voice/poll?room=&self= → drain (read + delete) self's mailbox
+async function handleVoicePoll(url, env, corsHeaders) {
+  const room = url.searchParams.get('room') || ''
+  const self = url.searchParams.get('self') || ''
+  if (!VOICE_ID_RE.test(room) || !VOICE_ID_RE.test(self)) return jsonRes({ error: 'invalid_id' }, 400, corsHeaders)
+  const prefix = `voice/${room}/${self}/`
+  const listed = await env.CHAT_IMAGES.list({ prefix, limit: 100 })
+  const keys = listed.objects.map(o => o.key).sort()  // chronological (time-prefixed)
+  const signals = []
+  for (const k of keys) {
+    const obj = await env.CHAT_IMAGES.get(k)
+    if (obj) signals.push({ payload: await obj.text() })
+    await env.CHAT_IMAGES.delete(k)
+  }
+  return jsonRes({ ok: true, signals }, 200, corsHeaders)
+}
+
+// GET /voice/turn → ICE servers. STUN always; a free public TURN covers
+// cross-NAT until Cloudflare Realtime TURN is enabled (swap this entry then).
+function handleVoiceTurn(corsHeaders) {
+  const iceServers = [
+    { urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'] },
+    {
+      urls: ['turn:openrelay.metered.ca:80', 'turn:openrelay.metered.ca:443', 'turn:openrelay.metered.ca:443?transport=tcp'],
+      username: 'openrelayproject',
+      credential: 'openrelayproject',
+    },
+  ]
+  return jsonRes({ iceServers }, 200, corsHeaders)
+}
+
+// GET /voice/room — the call page. Reads room/self/peer from its OWN query
+// string, so no server-side templating; the offerer is deterministically the
+// lexicographically-smaller `self` (no glare). Works standalone in a browser
+// (open the URL twice with swapped self/peer) and inside the app's WebView,
+// where the optional window.BhVoice bridge surfaces state to the overlay.
+const VOICE_PAGE_HTML =
+  '<!doctype html><html><head><meta charset=utf-8>' +
+  '<meta name=viewport content="width=device-width,initial-scale=1"><title>BannerHub Voice</title>' +
+  '<style>body{margin:0;background:#10141c;color:#cfe;font:14px sans-serif;display:flex;' +
+  'align-items:center;justify-content:center;height:100vh}#s{opacity:.85}</style></head>' +
+  '<body><audio id=a autoplay></audio><div id=s>starting…</div><script>\n' +
+  '(function(){\n' +
+  'var q=new URLSearchParams(location.search);\n' +
+  'var ROOM=q.get("room")||"",SELF=q.get("self")||"",PEER=q.get("peer")||"";\n' +
+  'var API=location.origin,CALLER=SELF<PEER;\n' +
+  'var pc,localStream,dead=false,pendingIce=[],sEl=document.getElementById("s");\n' +
+  'function status(s,d){sEl.textContent=s+(d?(" — "+d):"");try{if(window.BhVoice&&BhVoice.state)BhVoice.state(s,d||"");}catch(e){}}\n' +
+  'function jlog(m){try{if(window.BhVoice&&BhVoice.log)BhVoice.log(""+m);}catch(e){}}\n' +
+  'function send(o){return fetch(API+"/voice/signal",{method:"POST",headers:{"Content-Type":"application/json"},' +
+  'body:JSON.stringify({room:ROOM,to:PEER,from:SELF,payload:JSON.stringify(o)})}).catch(function(){});}\n' +
+  'async function getIce(){try{var r=await fetch(API+"/voice/turn");var j=await r.json();return j.iceServers;}' +
+  'catch(e){return [{urls:["stun:stun.l.google.com:19302"]}];}}\n' +
+  'async function flushIce(){while(pendingIce.length){try{await pc.addIceCandidate(pendingIce.shift());}catch(e){jlog("ice add "+e);}}}\n' +
+  'async function handle(m){if(!pc)return;try{\n' +
+  ' if(m.t==="offer"){await pc.setRemoteDescription({type:"offer",sdp:m.sdp});var an=await pc.createAnswer();' +
+  'await pc.setLocalDescription(an);send({t:"answer",sdp:an.sdp});await flushIce();}\n' +
+  ' else if(m.t==="answer"){await pc.setRemoteDescription({type:"answer",sdp:m.sdp});await flushIce();}\n' +
+  ' else if(m.t==="ice"){if(pc.remoteDescription&&pc.remoteDescription.type){try{await pc.addIceCandidate(m.c);}catch(e){jlog("ice add "+e);}}else{pendingIce.push(m.c);}}\n' +
+  ' else if(m.t==="bye"){status("ended","peer left");cleanup();}\n' +
+  '}catch(e){jlog("handle "+e);}}\n' +
+  'async function poll(){if(dead)return;try{\n' +
+  ' var r=await fetch(API+"/voice/poll?room="+encodeURIComponent(ROOM)+"&self="+encodeURIComponent(SELF));\n' +
+  ' var j=await r.json();if(j&&j.signals){\n' +
+  '  for(var i=0;i<j.signals.length;i++){var m;try{m=JSON.parse(j.signals[i].payload);}catch(e){continue;}await handle(m);}}\n' +
+  '}catch(e){}if(!dead)setTimeout(poll,1200);}\n' +
+  'function cleanup(){if(dead)return;dead=true;try{if(pc)pc.close();}catch(e){}' +
+  'try{if(localStream)localStream.getTracks().forEach(function(t){t.stop();});}catch(e){}}\n' +
+  'window.bhHangup=function(){try{send({t:"bye"});}catch(e){}status("ended","");cleanup();};\n' +
+  'window.bhSetMuted=function(m){if(localStream)localStream.getAudioTracks().forEach(function(t){t.enabled=!m;});};\n' +
+  'async function init(){jlog("voice page init self="+SELF+" peer="+PEER+" caller="+CALLER);\n' +
+  ' status(CALLER?"calling":"connecting");\n' +
+  ' try{var tmo=new Promise(function(_,r){setTimeout(function(){r(new Error("timeout"));},10000);});\n' +
+  '  localStream=await Promise.race([navigator.mediaDevices.getUserMedia({audio:true,video:false}),tmo]);}\n' +
+  ' catch(e){status("failed","mic "+e);return;}\n' +
+  ' pc=new RTCPeerConnection({iceServers:await getIce()});\n' +
+  ' localStream.getTracks().forEach(function(t){pc.addTrack(t,localStream);});\n' +
+  ' pc.onicecandidate=function(e){if(e.candidate)send({t:"ice",c:e.candidate});};\n' +
+  ' pc.ontrack=function(e){var a=document.getElementById("a");if(a.srcObject!==e.streams[0])a.srcObject=e.streams[0];};\n' +
+  ' pc.onconnectionstatechange=function(){var st=pc.connectionState;jlog("pc "+st);\n' +
+  '  if(st==="connected")status("in-call");else if(st==="failed")status("failed","ice");\n' +
+  '  else if(st==="disconnected")status("connecting","reconnecting");else if(st==="closed")status("ended","");};\n' +
+  ' poll();\n' +
+  ' if(CALLER){var off=await pc.createOffer();await pc.setLocalDescription(off);send({t:"offer",sdp:off.sdp});}\n' +
+  '}\n' +
+  'init();\n' +
+  '})();\n' +
+  '</scr'+'ipt></body></html>'
+
+function handleVoiceRoom(corsHeaders) {
+  const h = new Headers(corsHeaders)
+  h.set('Content-Type', 'text/html; charset=utf-8')
+  h.set('cache-control', 'no-store')
+  return new Response(VOICE_PAGE_HTML, { headers: h })
+}
+
 export default {
   async scheduled(event, env, ctx) {
     // Keep-alive ping — fires every 5 minutes via cron trigger
@@ -609,6 +739,23 @@ export default {
           return new Response(JSON.stringify({ ok: false }),
             { status: 500, headers: { 'Content-Type': 'application/json', ...corsHeaders } })
         }
+      }
+
+      // ── In-game voice room (hosted WebRTC; handlers defined above) ───────────
+      if (url.pathname === '/voice/room') {
+        return handleVoiceRoom(corsHeaders)
+      }
+      if (url.pathname === '/voice/turn') {
+        return handleVoiceTurn(corsHeaders)
+      }
+      if (url.pathname === '/voice/signal') {
+        if (request.method !== 'POST') {
+          return jsonRes({ error: 'method_not_allowed' }, 405, corsHeaders)
+        }
+        return handleVoiceSignal(request, env, corsHeaders)
+      }
+      if (url.pathname === '/voice/poll') {
+        return handleVoicePoll(url, env, corsHeaders)
       }
 
       // steam/steamid/store: app sends SteamID64 after login → stored in KV
