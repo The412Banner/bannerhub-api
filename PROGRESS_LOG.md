@@ -1355,3 +1355,21 @@ User reported "id Software" (DOOM 2016 save/config overlay) always failing with 
 - `npm run build`: 4 entries moved libraries_manifest→games_manifest (index counts: Game Patches 65→69, System Libraries 117→113). Kept `data/custom_components.json`, `components/{downloads,games_manifest,index,libraries_manifest}`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 16 time-only churn files (executeScript ×2, getContainerList, getDefaultComponent, getImagefsDetail, getContainerDetail/2-11).
 - Catalog-only → **Pages-only push** (no worker redeploy). Commit **`11156a9`** (rebased over `7bed7a4`), master + main lockstep. Pages run `27446784704` ✓, live-verified all 4 ids type 5 on worker `/simulator/v2/getAllComponentList`.
 - NOTE: upstream also uses human `fileName` ("id Software.tzst") + empty displayName; left ours md5-named (other md5-named components install fine — type was the breakage). Awaiting device confirm on the install.
+
+---
+
+## In-game voice: hosted WebRTC room (`7165547`, deployed 2026-06-13)
+
+The WebView-based voice in bannerhub-revanced chat v2 failed device testing twice: `getUserMedia` hung forever because the page was loaded via `loadDataWithBaseURL` → opaque origin → Chromium refuses the mic. Fix = serve the call page from this real origin + move signalling off Steam chat into a hosted room.
+
+**New routes (all additive — 147 insertions, 0 deletions; imagefs/component/`is60`/reshape handlers untouched, verified by diff):**
+- `GET /voice/room?room=&self=&peer=` — the WebRTC page (reads params from its own query; deterministic offerer = lexicographically-smaller `self`; buffers ICE until remote description set). Works standalone in two browsers.
+- `POST /voice/signal {room,to,from,payload}` — drop one SDP/ICE blob in `to`'s mailbox.
+- `GET /voice/poll?room=&self=` — read+delete `self`'s mailbox.
+- `GET /voice/turn` — ICE servers (STUN + free public openrelay TURN for cross-NAT until Cloudflare Realtime TURN is enabled).
+
+**Signalling backend = R2** (`CHAT_IMAGES` bucket, `voice/<room>/<recipient>/<ts>-<rand>.json`), chosen over KV because R2 is strongly consistent (KV's 60s negative-cache would stall the handshake) and over Supabase because it needs no new table / dashboard action.
+
+**Deploy:** CF REST multipart PUT, metadata bindings = KV `TOKEN_STORE` + **R2 `CHAT_IMAGES`** + `keep_bindings:["secret_text"]` (the recipe's KV-only metadata would have DROPPED R2 — must declare both). Pre-deploy: confirmed live==repo-pre-voice (only multipart envelope differed); rebased onto origin/main first (was 2 commits behind = component type-fix commits, worker untouched). Post-deploy verified: success, 4/4 bindings, `/voice/*` all 200 + signal round-trip + drain, and **regression OK — imagefs 1.4.2/vc32 still served on 5.x and /v6, chat/rooms 200.**
+
+NEXT: rewrite bannerhub-revanced `BhVoiceController` to just load `https://bannerhub-api.the412banner.workers.dev/voice/room?room=&self=&peer=` in the attached WebView (drop SIG_PREFIX/sendSignalTo/handleVoiceSignal) + overlay ring-poll, cut pre7, 2-device retest. Later: swap openrelay TURN → Cloudflare Realtime once dashboard-enabled.
