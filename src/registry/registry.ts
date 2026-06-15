@@ -11,10 +11,18 @@ import { COMPONENT_TYPE_META } from '../types/index.js';
 
 /**
  * Picker types where newer entries should appear at the bottom of the list
- * (Box64/FEX = 1, GPU drivers = 2, VKD3D = 4). Other types keep their default
- * ordering (newest first for manifests, name-sorted for simulator endpoints).
+ * (Box64/FEX = 1, VKD3D = 4). Other types keep their default ordering
+ * (newest first for manifests, name-sorted for simulator endpoints).
  */
-export const PICKER_NEWEST_LAST_TYPES = new Set<number>([1, 2, 4]);
+export const PICKER_NEWEST_LAST_TYPES = new Set<number>([1, 4]);
+
+/**
+ * Picker types where newer entries should appear at the TOP of the list
+ * (GPU drivers = 2). Manifests already default to newest-first via
+ * sortByIdDescending; this set forces the simulator list endpoints to use
+ * ID descending too (instead of name-sorting) so the order matches.
+ */
+export const PICKER_NEWEST_FIRST_TYPES = new Set<number>([2]);
 
 /**
  * Info about a component's original CDN URL (for downloading missing files)
@@ -187,13 +195,15 @@ export class ComponentRegistry {
   /**
    * Sort components for list endpoints: type ascending, then per-type ordering.
    * Types in PICKER_NEWEST_LAST_TYPES sort by ID ascending so newer versions
-   * appear at the bottom of the picker; other types fall back to name with
-   * numeric collation.
+   * appear at the bottom of the picker; types in PICKER_NEWEST_FIRST_TYPES sort
+   * by ID descending so newer versions appear at the top; other types fall back
+   * to name with numeric collation.
    */
   sortByTypeAndIdDescending(components: Component[]): Component[] {
     return [...components].sort((a, b) => {
       if (a.type !== b.type) return a.type - b.type;
       if (PICKER_NEWEST_LAST_TYPES.has(a.type)) return a.id - b.id;
+      if (PICKER_NEWEST_FIRST_TYPES.has(a.type)) return b.id - a.id;
       return (a.name || '').localeCompare(b.name || '', undefined, { numeric: true, sensitivity: 'base' });
     });
   }

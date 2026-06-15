@@ -1384,3 +1384,13 @@ Two new type-2 Turnip GPU drivers from **whitebelyash/AdrenoToolsDrivers** relea
 - Each adreno zip repacked to flat root-owned `./libvulkan_freedreno.so` tar + zstd-19, md5-named, per Turnip convention; `check_component_layout.sh` → OK on both. Hosted tzst md5 re-verified against filename after upload.
 - Uploaded to `Components` release; `npm run build` (GPU Drivers count 286→288, total 568→570) ✓. Kept `data/custom_components.json`, `components/{drivers_manifest,downloads,index}`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files (executeScript generic/qualcomm, getContainerList, getDefaultComponent, getImagefsDetail, getContainerDetail/2-11).
 - Component-only → **Pages-only push** (no worker redeploy). master + main lockstep.
+
+## 2026-06-15 — Flip GPU driver picker to newest-at-TOP (type 2)
+
+User asked to reverse the GPU driver list so the newest driver shows at the top of the in-app picker instead of the bottom.
+
+- Root: ordering is config-driven in `src/registry/registry.ts`. `PICKER_NEWEST_LAST_TYPES` (was `{1,2,4}` = Box64/FEX, GPU drivers, VKD3D) makes those types sort by **id ascending** (newest last) in both the per-type manifests and the simulator list endpoints.
+- Change: **removed type 2** from `PICKER_NEWEST_LAST_TYPES` (now `{1,4}`) and added **`PICKER_NEWEST_FIRST_TYPES = {2}`**. `sortByTypeAndIdDescending` now returns `b.id - a.id` (descending) for type 2; the per-type manifest already defaults to `sortByIdDescending` once 2 leaves the newest-last set. Net: GPU drivers sort **id descending (newest first)** in `components/drivers_manifest`, `simulator/v2/getAllComponentList`, and `simulator/v2/getComponentList`.
+- Verified post-build: type-2 now `1362,1361,1360,…` at top → `…45,44,42` at bottom in all three surfaces. **Box64/FEX (1) and VKD3D (4) unchanged (still newest-last).** Only type 2 affected.
+- `npm run build`; kept `src/registry/registry.ts`, `components/drivers_manifest`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files.
+- Catalog/ordering-only → **Pages-only push** (no worker redeploy; worker proxies the list statics, reshapeFor60/remapSteamFor60 don't reorder type 2). master + main lockstep.
