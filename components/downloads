@@ -2911,6 +2911,24 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b82929f13b611364658318c8ee9e4fe8.tzst",
+        "file_md5": "b82929f13b611364658318c8ee9e4fe8",
+        "file_name": "b82929f13b611364658318c8ee9e4fe8.tzst",
+        "file_size": 2011269,
+        "name": "WHITE_Turnip_A8XX_V29",
+        "type": 2,
+        "version": "Vulkan 1.4.335"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4b349f9b1fd5b34b421edd09a6377ea6.tzst",
+        "file_md5": "4b349f9b1fd5b34b421edd09a6377ea6",
+        "file_name": "4b349f9b1fd5b34b421edd09a6377ea6.tzst",
+        "file_size": 2013995,
+        "name": "WHITE_Turnip_A8XX_V29_sync",
+        "type": 2,
+        "version": "Vulkan 1.4.335"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-0.96.tzst",
         "file_md5": "33983fdd3da95bf015deda2c76895820",
         "file_name": "dxvk-0.96.tzst",
@@ -5116,6 +5134,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 568
+    "total": 570
   }
 }

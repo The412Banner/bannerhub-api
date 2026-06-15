@@ -3379,6 +3379,32 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/bda10c08dfe5a92682360e37d87a6b63.tzst",
       "display_name": "SMXZ Turnip Gen8 V32",
       "blurb": "EXPERIMENTAL Turnip Gen8 V32 by stevenmx (whitebelyash mesa-unified turnip/gen8, Vulkan 1.4.352). A8xx support for Adreno a810/a825/a829/a830/a840. Recommended mode: sysmem (TU_DEBUG=sysmem)."
+    },
+    {
+      "id": 1361,
+      "name": "WHITE_Turnip_A8XX_V29",
+      "type": 2,
+      "version": "Vulkan 1.4.335",
+      "version_code": 1,
+      "file_name": "b82929f13b611364658318c8ee9e4fe8.tzst",
+      "file_md5": "b82929f13b611364658318c8ee9e4fe8",
+      "file_size": "2011269",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b82929f13b611364658318c8ee9e4fe8.tzst",
+      "display_name": "WHITE Turnip A8XX V29",
+      "blurb": "Turnip A8XX V29 by whitebelyash (Mesa, Vulkan 1.4.335). A8xx support for Adreno 810/825/829/830/840 (+ A7xx/A6xx, reduced perf). Recommended mode: sysmem (TU_DEBUG=sysmem); TU_DEBUG=deck_emu spoofs Steam Deck. Built from whitebelyash mesa-unified turnip/gen8."
+    },
+    {
+      "id": 1362,
+      "name": "WHITE_Turnip_A8XX_V29_sync",
+      "type": 2,
+      "version": "Vulkan 1.4.335",
+      "version_code": 1,
+      "file_name": "4b349f9b1fd5b34b421edd09a6377ea6.tzst",
+      "file_md5": "4b349f9b1fd5b34b421edd09a6377ea6",
+      "file_size": "2013995",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4b349f9b1fd5b34b421edd09a6377ea6.tzst",
+      "display_name": "WHITE Turnip A8XX V29 (sync)",
+      "blurb": "Turnip A8XX V29 (sync) by whitebelyash (Mesa, Vulkan 1.4.335). Synchronization-enabled build. A8xx support for Adreno 810/825/829/830/840 (+ A7xx/A6xx, reduced perf). Recommended mode: sysmem (TU_DEBUG=sysmem); TU_DEBUG=deck_emu spoofs Steam Deck. Built from whitebelyash mesa-unified turnip/gen8."
     }
   ]
 }

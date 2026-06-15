@@ -1373,3 +1373,14 @@ The WebView-based voice in bannerhub-revanced chat v2 failed device testing twic
 **Deploy:** CF REST multipart PUT, metadata bindings = KV `TOKEN_STORE` + **R2 `CHAT_IMAGES`** + `keep_bindings:["secret_text"]` (the recipe's KV-only metadata would have DROPPED R2 — must declare both). Pre-deploy: confirmed live==repo-pre-voice (only multipart envelope differed); rebased onto origin/main first (was 2 commits behind = component type-fix commits, worker untouched). Post-deploy verified: success, 4/4 bindings, `/voice/*` all 200 + signal round-trip + drain, and **regression OK — imagefs 1.4.2/vc32 still served on 5.x and /v6, chat/rooms 200.**
 
 NEXT: rewrite bannerhub-revanced `BhVoiceController` to just load `https://bannerhub-api.the412banner.workers.dev/voice/room?room=&self=&peer=` in the attached WebView (drop SIG_PREFIX/sendSignalTo/handleVoiceSignal) + overlay ring-poll, cut pre7, 2-device retest. Later: swap openrelay TURN → Cloudflare Realtime once dashboard-enabled.
+
+## 2026-06-15 — Add WHITE Turnip A8XX V29 (base + sync) (ids 1361-1362)
+
+Two new type-2 Turnip GPU drivers from **whitebelyash/AdrenoToolsDrivers** release `tu_v29` ("Turnip A8XX v29"), both assets. Whitebelyash's own builds (the same upstream gen8 branch that StevenMXZ repackaged as the existing Gen8 V32 at id 1360; this adds the author's direct release per user request).
+
+- **id 1361** `WHITE_Turnip_A8XX_V29`, version `Vulkan 1.4.335` — A8xx 810/825/829/830/840 (+ A7xx/A6xx, reduced perf). Asset `a8xx-turnip-gen8-V29.zip` (no-sync). tzst md5 **`b82929f13b611364658318c8ee9e4fe8`**, size 2011269.
+- **id 1362** `WHITE_Turnip_A8XX_V29_sync`, version `Vulkan 1.4.335` — same family, synchronization-enabled build. Asset `a8xx-turnip-gen8-sync-V29.zip`. tzst md5 **`4b349f9b1fd5b34b421edd09a6377ea6`**, size 2013995.
+- Both `meta.json` identical (Mesa, driverVersion "Vulkan 1.4.335", minApi 28); only the `.so` differs (sync variant). Recommended mode sysmem (`TU_DEBUG=sysmem`); `TU_DEBUG=deck_emu` spoofs Steam Deck.
+- Each adreno zip repacked to flat root-owned `./libvulkan_freedreno.so` tar + zstd-19, md5-named, per Turnip convention; `check_component_layout.sh` → OK on both. Hosted tzst md5 re-verified against filename after upload.
+- Uploaded to `Components` release; `npm run build` (GPU Drivers count 286→288, total 568→570) ✓. Kept `data/custom_components.json`, `components/{drivers_manifest,downloads,index}`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files (executeScript generic/qualcomm, getContainerList, getDefaultComponent, getImagefsDetail, getContainerDetail/2-11).
+- Component-only → **Pages-only push** (no worker redeploy). master + main lockstep.
