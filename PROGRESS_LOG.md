@@ -1394,3 +1394,14 @@ User asked to reverse the GPU driver list so the newest driver shows at the top 
 - Verified post-build: type-2 now `1362,1361,1360,…` at top → `…45,44,42` at bottom in all three surfaces. **Box64/FEX (1) and VKD3D (4) unchanged (still newest-last).** Only type 2 affected.
 - `npm run build`; kept `src/registry/registry.ts`, `components/drivers_manifest`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files.
 - Catalog/ordering-only → **Pages-only push** (no worker redeploy; worker proxies the list statics, reshapeFor60/remapSteamFor60 don't reorder type 2). master + main lockstep.
+
+## 2026-06-16 — In-game voice: mesh group calls (roster + per-peer signalling)
+
+Extended the WebRTC voice feature (BannerHub v6 in-game overlay) from 1:1 to **peer-to-peer mesh group calls**. Worker-only change, `main` `6d99a94`, deployed via CF REST.
+
+- **`/voice/room` rewritten 1:1 → mesh**: a `Map<peerId→RTCPeerConnection>`. Discovers room members via the new `/voice/roster`, opens one pc per other member (offerer per pair = lexicographically-smaller id, so no glare), one `<audio>` element per peer. Fast-path `ensurePc(PEER)` keeps the initial 1:1 instant; ends when the last peer leaves. Reports the live roster to the app via `BhVoice.roster(csv)`.
+- **New `/voice/roster`**: `POST {room,self}` heartbeats presence (re-stamps an R2 object's upload time); `GET ?room=` lists members seen in the last 15s. Each page heartbeats ~5s; stale entries age out.
+- **`/voice/signal`+`/voice/poll` now carry `from`** (stored as `{from,payload}`) so the mesh page routes each signal to the right connection. Backward-compatible: the native lobby-ring poll still reads `.payload`.
+- Reuses existing R2 signalling + openrelay TURN. Practical cap ~4–5 (mesh = each client uploads mic once per peer); SFU (Cloudflare Realtime) is the future path for larger rooms.
+- **Safety**: voice-only diff (nothing outside `/voice/*`); deployed with KV `TOKEN_STORE` + R2 `CHAT_IMAGES` + `keep_bindings:["secret_text"]` (all 4 bindings verified post-deploy). No Pages/catalog change → no split-brain. Post-deploy live-verified UNAFFECTED: firmware/imagefs **1.4.2/vc32** (6.0 inline + 5.x proxy), `executeScript` 200 (v6+5x), `getAllComponentList` 568 entries incl. id 1361, `getComponentList` 200.
+- Client side = bannerhub-revanced `feature/steam-chat-v2` pre12 (Add button + live participant roster).
