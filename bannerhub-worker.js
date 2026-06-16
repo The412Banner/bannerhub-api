@@ -566,6 +566,34 @@ async function handleVoiceRoster(request, url, env, corsHeaders) {
   return jsonRes({ ok: true, members }, 200, corsHeaders)
 }
 
+// /voice/log — multi-party WebRTC diagnostics. POST {room,self,msg} appends a
+// tiny timestamped line; GET ?room= returns the merged recent timeline so every
+// participant's events (offer/answer/ICE/roster) are visible server-side without
+// each device's logcat. Entries are tiny and age out with the bucket lifecycle.
+async function handleVoiceLog(request, url, env, corsHeaders) {
+  if (request.method === 'POST') {
+    let b
+    try { b = await request.json() } catch (e) { return jsonRes({ error: 'invalid_json' }, 400, corsHeaders) }
+    const { room, self, msg } = b || {}
+    if (!VOICE_ID_RE.test(room || '') || !VOICE_ID_RE.test(self || '')) return jsonRes({ error: 'invalid_id' }, 400, corsHeaders)
+    const m = (typeof msg === 'string' ? msg : '').slice(0, 400)
+    const key = `vlog/${Date.now()}-${crypto.randomUUID().slice(0, 6)}.json`
+    await env.CHAT_IMAGES.put(key, JSON.stringify({ t: Date.now(), room, self, msg: m }),
+      { httpMetadata: { contentType: 'application/json' } })
+    return jsonRes({ ok: true }, 200, corsHeaders)
+  }
+  const room = url.searchParams.get('room') || ''
+  const listed = await env.CHAT_IMAGES.list({ prefix: 'vlog/', limit: 1000 })
+  const keys = listed.objects.map(o => o.key).sort().slice(-250)  // most recent ~250
+  const entries = []
+  for (const k of keys) {
+    const obj = await env.CHAT_IMAGES.get(k)
+    if (!obj) continue
+    try { const e = JSON.parse(await obj.text()); if (!room || e.room === room) entries.push(e) } catch (e) {}
+  }
+  return jsonRes({ ok: true, count: entries.length, entries }, 200, corsHeaders)
+}
+
 // GET /voice/turn → ICE servers. STUN always; a free public TURN covers
 // cross-NAT until Cloudflare Realtime TURN is enabled (swap this entry then).
 function handleVoiceTurn(corsHeaders) {
@@ -598,8 +626,9 @@ const VOICE_PAGE_HTML =
   'var q=new URLSearchParams(location.search);\n' +
   'var ROOM=q.get("room")||"",SELF=q.get("self")||"",PEER=q.get("peer")||"";\n' +
   'var API=location.origin;\n' +
-  'var pcs={},localStream=null,dead=false,connected=false,ice=null,sEl=document.getElementById("s");\n' +
+  'var pcs={},localStream=null,dead=false,connected=false,ice=null,lastRoster="",sEl=document.getElementById("s");\n' +
   'function jlog(m){try{if(window.BhVoice&&BhVoice.log)BhVoice.log(""+m);}catch(e){}}\n' +
+  'function dlog(m){jlog(m);try{fetch(API+"/voice/log",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({room:ROOM,self:SELF,msg:""+m})}).catch(function(){});}catch(e){}}\n' +
   'function status(s,d){sEl.textContent=s+(d?(" — "+d):"");try{if(window.BhVoice&&BhVoice.state)BhVoice.state(s,d||"");}catch(e){}}\n' +
   'function reportRoster(){try{if(window.BhVoice&&BhVoice.roster){var ids=[SELF];for(var k in pcs){if(pcs[k].connected)ids.push(k);}BhVoice.roster(ids.join(","));}}catch(e){}}\n' +
   'function getIce(){return fetch(API+"/voice/turn").then(function(r){return r.json();}).then(function(j){return j.iceServers;}).catch(function(){return [{urls:["stun:stun.l.google.com:19302"]}];});}\n' +
@@ -608,16 +637,23 @@ const VOICE_PAGE_HTML =
   'function ensurePc(id){\n' +
   ' if(dead||!id||id===SELF||pcs[id])return pcs[id];\n' +
   ' var pc=new RTCPeerConnection({iceServers:ice});var ent={pc:pc,pending:[],connected:false};pcs[id]=ent;\n' +
+  ' dlog("ensurePc "+id+" offerer="+(SELF<id));\n' +
   ' if(localStream)localStream.getTracks().forEach(function(t){pc.addTrack(t,localStream);});\n' +
   ' pc.onicecandidate=function(e){if(e.candidate)sendTo(id,{t:"ice",c:e.candidate});};\n' +
   ' pc.ontrack=function(e){var a=audioFor(id);if(a.srcObject!==e.streams[0])a.srcObject=e.streams[0];};\n' +
-  ' pc.onconnectionstatechange=function(){var st=pc.connectionState;jlog("pc["+id+"] "+st);\n' +
+  ' pc.oniceconnectionstatechange=function(){dlog("ice["+id+"] "+pc.iceConnectionState);};\n' +
+  ' pc.onconnectionstatechange=function(){var st=pc.connectionState;dlog("pc["+id+"] "+st);\n' +
   '  if(st==="connected"){ent.connected=true;connected=true;status("in-call");reportRoster();}\n' +
   '  else if(st==="failed"||st==="closed"){dropPeer(id);}};\n' +
-  ' if(SELF<id){pc.createOffer().then(function(off){return pc.setLocalDescription(off).then(function(){sendTo(id,{t:"offer",sdp:off.sdp});});}).catch(function(e){jlog("offer "+e);});}\n' +
+  // Poke the peer so they create their side of the connection immediately, even
+  // if their own roster poll hasn\'t discovered us yet — a single discovery (by
+  // either side, via roster or the fast-path) now bootstraps both. The lower id
+  // still makes the offer; ensurePc dedups so the hello can\'t loop.
+  ' sendTo(id,{t:"hello"});\n' +
+  ' if(SELF<id){pc.createOffer().then(function(off){return pc.setLocalDescription(off).then(function(){dlog("->offer "+id);sendTo(id,{t:"offer",sdp:off.sdp});});}).catch(function(e){dlog("offer-err "+id+" "+e);});}\n' +
   ' return ent;\n' +
   '}\n' +
-  'function dropPeer(id){var ent=pcs[id];if(!ent)return;try{ent.pc.close();}catch(e){}delete pcs[id];var a=document.getElementById("a_"+id);if(a){try{a.srcObject=null;a.remove();}catch(e){}}reportRoster();\n' +
+  'function dropPeer(id){var ent=pcs[id];if(!ent)return;dlog("drop "+id);try{ent.pc.close();}catch(e){}delete pcs[id];var a=document.getElementById("a_"+id);if(a){try{a.srcObject=null;a.remove();}catch(e){}}reportRoster();\n' +
   ' if(!Object.keys(pcs).length){status("ended","call ended");cleanup();}}\n' +
   'function flush(ent){while(ent.pending.length){ent.pc.addIceCandidate(ent.pending.shift()).catch(function(e){jlog("icef "+e);});}}\n' +
   'function handleFrom(from,m){\n' +
@@ -625,8 +661,8 @@ const VOICE_PAGE_HTML =
   ' if(m.t==="bye"){dropPeer(from);return;}\n' +
   ' var ent=ensurePc(from);if(!ent)return;var pc=ent.pc;\n' +
   ' try{\n' +
-  '  if(m.t==="offer"){pc.setRemoteDescription({type:"offer",sdp:m.sdp}).then(function(){return pc.createAnswer();}).then(function(an){return pc.setLocalDescription(an).then(function(){sendTo(from,{t:"answer",sdp:an.sdp});});}).then(function(){flush(ent);}).catch(function(e){jlog("ans "+e);});}\n' +
-  '  else if(m.t==="answer"){pc.setRemoteDescription({type:"answer",sdp:m.sdp}).then(function(){flush(ent);}).catch(function(e){jlog("setans "+e);});}\n' +
+  '  if(m.t==="offer"){dlog("<-offer "+from+" state="+pc.signalingState);pc.setRemoteDescription({type:"offer",sdp:m.sdp}).then(function(){return pc.createAnswer();}).then(function(an){return pc.setLocalDescription(an).then(function(){dlog("->answer "+from);sendTo(from,{t:"answer",sdp:an.sdp});});}).then(function(){flush(ent);}).catch(function(e){dlog("ans-err "+from+" "+e);});}\n' +
+  '  else if(m.t==="answer"){dlog("<-answer "+from+" state="+pc.signalingState);pc.setRemoteDescription({type:"answer",sdp:m.sdp}).then(function(){flush(ent);}).catch(function(e){dlog("setans-err "+from+" "+e);});}\n' +
   '  else if(m.t==="ice"){if(pc.remoteDescription&&pc.remoteDescription.type){pc.addIceCandidate(m.c).catch(function(e){jlog("ice "+e);});}else{ent.pending.push(m.c);}}\n' +
   ' }catch(e){jlog("handle "+e);}}\n' +
   'function poll(){if(dead)return;\n' +
@@ -634,11 +670,11 @@ const VOICE_PAGE_HTML =
   '  if(j&&j.signals){for(var i=0;i<j.signals.length;i++){var s=j.signals[i],m;try{m=JSON.parse(s.payload);}catch(e){continue;}handleFrom(s.from,m);}}\n' +
   ' }).catch(function(){}).then(function(){if(!dead)setTimeout(poll,1200);});}\n' +
   'function heartbeat(){if(dead)return;fetch(API+"/voice/roster",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({room:ROOM,self:SELF})}).catch(function(){}).then(function(){if(!dead)setTimeout(heartbeat,5000);});}\n' +
-  'function rosterPoll(){if(dead)return;fetch(API+"/voice/roster?room="+encodeURIComponent(ROOM)).then(function(r){return r.json();}).then(function(j){if(j&&j.members)for(var i=0;i<j.members.length;i++){var id=j.members[i];if(id&&id!==SELF)ensurePc(id);}}).catch(function(){}).then(function(){if(!dead)setTimeout(rosterPoll,3000);});}\n' +
+  'function rosterPoll(){if(dead)return;fetch(API+"/voice/roster?room="+encodeURIComponent(ROOM)).then(function(r){return r.json();}).then(function(j){if(j&&j.members){var rs=j.members.join(",");if(rs!==lastRoster){lastRoster=rs;dlog("roster ["+rs+"]");}for(var i=0;i<j.members.length;i++){var id=j.members[i];if(id&&id!==SELF)ensurePc(id);}}}).catch(function(){}).then(function(){if(!dead)setTimeout(rosterPoll,2500);});}\n' +
   'function cleanup(){if(dead)return;dead=true;for(var k in pcs){try{pcs[k].pc.close();}catch(e){}}pcs={};try{if(localStream)localStream.getTracks().forEach(function(t){t.stop();});}catch(e){}}\n' +
   'window.bhHangup=function(){try{for(var k in pcs)sendTo(k,{t:"bye"});}catch(e){}status("ended","");cleanup();};\n' +
   'window.bhSetMuted=function(m){if(localStream)localStream.getAudioTracks().forEach(function(t){t.enabled=!m;});};\n' +
-  'function init(){jlog("voice page init self="+SELF+" room="+ROOM);status("connecting");\n' +
+  'function init(){dlog("init self="+SELF+" room="+ROOM+" peer="+PEER);status("connecting");\n' +
   ' var tmo=new Promise(function(_,r){setTimeout(function(){r(new Error("timeout"));},10000);});\n' +
   ' Promise.race([navigator.mediaDevices.getUserMedia({audio:true,video:false}),tmo]).then(function(s){localStream=s;return getIce();}).then(function(srv){ice=srv;poll();heartbeat();rosterPoll();if(PEER)ensurePc(PEER);}).catch(function(e){status("failed","mic "+e);});\n' +
   '}\n' +
@@ -804,6 +840,9 @@ export default {
       }
       if (url.pathname === '/voice/roster') {
         return handleVoiceRoster(request, url, env, corsHeaders)
+      }
+      if (url.pathname === '/voice/log') {
+        return handleVoiceLog(request, url, env, corsHeaders)
       }
 
       // steam/steamid/store: app sends SteamID64 after login → stored in KV
