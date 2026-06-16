@@ -594,17 +594,29 @@ async function handleVoiceLog(request, url, env, corsHeaders) {
   return jsonRes({ ok: true, count: entries.length, entries }, 200, corsHeaders)
 }
 
-// GET /voice/turn → ICE servers. STUN always; a free public TURN covers
-// cross-NAT until Cloudflare Realtime TURN is enabled (swap this entry then).
-function handleVoiceTurn(corsHeaders) {
+// GET /voice/turn → ICE servers. Public STUN always; plus Cloudflare Realtime
+// TURN with SHORT-LIVED credentials minted per request (TTL'd, so nothing static
+// is ever exposed). Falls back to STUN-only if TURN isn't configured. (Replaced
+// the dead free openrelay TURN whose static creds metered deprecated, which left
+// strict-NAT pairs stuck at ICE "checking" → failed.)
+async function handleVoiceTurn(env, corsHeaders) {
   const iceServers = [
     { urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302'] },
-    {
-      urls: ['turn:openrelay.metered.ca:80', 'turn:openrelay.metered.ca:443', 'turn:openrelay.metered.ca:443?transport=tcp'],
-      username: 'openrelayproject',
-      credential: 'openrelayproject',
-    },
   ]
+  if (env.TURN_KEY_ID && env.TURN_API_TOKEN) {
+    try {
+      const r = await fetch(`https://rtc.live.cloudflare.com/v1/turn/keys/${env.TURN_KEY_ID}/credentials/generate`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${env.TURN_API_TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ttl: 86400 }),
+      })
+      if (r.ok) {
+        const j = await r.json()
+        const cf = j && j.iceServers ? (Array.isArray(j.iceServers) ? j.iceServers : [j.iceServers]) : []
+        for (const s of cf) iceServers.push(s)
+      }
+    } catch (e) {}
+  }
   return jsonRes({ iceServers }, 200, corsHeaders)
 }
 
@@ -827,7 +839,7 @@ export default {
         return handleVoiceRoom(corsHeaders)
       }
       if (url.pathname === '/voice/turn') {
-        return handleVoiceTurn(corsHeaders)
+        return await handleVoiceTurn(env, corsHeaders)
       }
       if (url.pathname === '/voice/signal') {
         if (request.method !== 'POST') {
