@@ -596,7 +596,7 @@ const VOICE_PAGE_HTML =
   '<body><div id=s>starting…</div><script>\n' +
   '(function(){\n' +
   'var q=new URLSearchParams(location.search);\n' +
-  'var ROOM=q.get("room")||"",SELF=q.get("self")||"";\n' +
+  'var ROOM=q.get("room")||"",SELF=q.get("self")||"",PEER=q.get("peer")||"";\n' +
   'var API=location.origin;\n' +
   'var pcs={},localStream=null,dead=false,connected=false,ice=null,sEl=document.getElementById("s");\n' +
   'function jlog(m){try{if(window.BhVoice&&BhVoice.log)BhVoice.log(""+m);}catch(e){}}\n' +
@@ -618,7 +618,7 @@ const VOICE_PAGE_HTML =
   ' return ent;\n' +
   '}\n' +
   'function dropPeer(id){var ent=pcs[id];if(!ent)return;try{ent.pc.close();}catch(e){}delete pcs[id];var a=document.getElementById("a_"+id);if(a){try{a.srcObject=null;a.remove();}catch(e){}}reportRoster();\n' +
-  ' if(connected&&!Object.keys(pcs).length){status("ended","everyone left");cleanup();}}\n' +
+  ' if(!Object.keys(pcs).length){status("ended","call ended");cleanup();}}\n' +
   'function flush(ent){while(ent.pending.length){ent.pc.addIceCandidate(ent.pending.shift()).catch(function(e){jlog("icef "+e);});}}\n' +
   'function handleFrom(from,m){\n' +
   ' if(!from||from===SELF)return;\n' +
@@ -640,7 +640,7 @@ const VOICE_PAGE_HTML =
   'window.bhSetMuted=function(m){if(localStream)localStream.getAudioTracks().forEach(function(t){t.enabled=!m;});};\n' +
   'function init(){jlog("voice page init self="+SELF+" room="+ROOM);status("connecting");\n' +
   ' var tmo=new Promise(function(_,r){setTimeout(function(){r(new Error("timeout"));},10000);});\n' +
-  ' Promise.race([navigator.mediaDevices.getUserMedia({audio:true,video:false}),tmo]).then(function(s){localStream=s;return getIce();}).then(function(srv){ice=srv;heartbeat();rosterPoll();poll();}).catch(function(e){status("failed","mic "+e);});\n' +
+  ' Promise.race([navigator.mediaDevices.getUserMedia({audio:true,video:false}),tmo]).then(function(s){localStream=s;return getIce();}).then(function(srv){ice=srv;poll();heartbeat();rosterPoll();if(PEER)ensurePc(PEER);}).catch(function(e){status("failed","mic "+e);});\n' +
   '}\n' +
   'init();\n' +
   '})();\n' +
