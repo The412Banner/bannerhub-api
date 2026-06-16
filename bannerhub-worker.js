@@ -506,13 +506,18 @@ async function handleVoiceSignal(request, env, corsHeaders) {
   if (typeof payload !== 'string' || payload.length === 0 || payload.length > 16000) {
     return jsonRes({ error: 'invalid_payload' }, 400, corsHeaders)
   }
-  // Time-prefixed key → recipient's prefix lists in chronological order.
+  // Time-prefixed key → recipient's prefix lists in chronological order. Store
+  // {from,payload} so the recipient knows which peer a signal came from — the
+  // mesh room has many peers and routes each signal to the right connection by
+  // sender. (1:1 rings ignore `from` and just read `payload`.)
   const key = `voice/${room}/${to}/${Date.now()}-${crypto.randomUUID().slice(0, 8)}.json`
-  await env.CHAT_IMAGES.put(key, payload, { httpMetadata: { contentType: 'application/json' } })
+  await env.CHAT_IMAGES.put(key, JSON.stringify({ from, payload }),
+    { httpMetadata: { contentType: 'application/json' } })
   return jsonRes({ ok: true }, 200, corsHeaders)
 }
 
-// GET /voice/poll?room=&self= → drain (read + delete) self's mailbox
+// GET /voice/poll?room=&self= → drain (read + delete) self's mailbox.
+// Returns [{from,payload}] (payload = the original signal string).
 async function handleVoicePoll(url, env, corsHeaders) {
   const room = url.searchParams.get('room') || ''
   const self = url.searchParams.get('self') || ''
@@ -523,10 +528,42 @@ async function handleVoicePoll(url, env, corsHeaders) {
   const signals = []
   for (const k of keys) {
     const obj = await env.CHAT_IMAGES.get(k)
-    if (obj) signals.push({ payload: await obj.text() })
+    if (obj) {
+      const text = await obj.text()
+      let from = '', payload = text
+      try { const w = JSON.parse(text); if (w && typeof w.payload === 'string') { from = w.from || ''; payload = w.payload } } catch (e) {}
+      signals.push({ from, payload })
+    }
     await env.CHAT_IMAGES.delete(k)
   }
   return jsonRes({ ok: true, signals }, 200, corsHeaders)
+}
+
+// /voice/roster — group-call membership. POST {room,self} heartbeats presence
+// (re-stamps an R2 object's upload time); GET ?room= lists members seen in the
+// last 15s. Each member's mesh page heartbeats every ~5s; stale entries (left /
+// crashed) simply age out of the list.
+async function handleVoiceRoster(request, url, env, corsHeaders) {
+  if (request.method === 'POST') {
+    let b
+    try { b = await request.json() } catch (e) { return jsonRes({ error: 'invalid_json' }, 400, corsHeaders) }
+    const { room, self } = b || {}
+    if (!VOICE_ID_RE.test(room || '') || !VOICE_ID_RE.test(self || '')) return jsonRes({ error: 'invalid_id' }, 400, corsHeaders)
+    await env.CHAT_IMAGES.put(`voice/${room}/_members/${self}`, String(Date.now()),
+      { httpMetadata: { contentType: 'text/plain' } })
+    return jsonRes({ ok: true }, 200, corsHeaders)
+  }
+  const room = url.searchParams.get('room') || ''
+  if (!VOICE_ID_RE.test(room)) return jsonRes({ error: 'invalid_id' }, 400, corsHeaders)
+  const listed = await env.CHAT_IMAGES.list({ prefix: `voice/${room}/_members/`, limit: 50 })
+  const now = Date.now()
+  const members = []
+  for (const o of listed.objects) {
+    if (o.uploaded && (now - o.uploaded.getTime()) > 15000) continue
+    const id = o.key.split('/').pop()
+    if (id) members.push(id)
+  }
+  return jsonRes({ ok: true, members }, 200, corsHeaders)
 }
 
 // GET /voice/turn → ICE servers. STUN always; a free public TURN covers
@@ -543,59 +580,67 @@ function handleVoiceTurn(corsHeaders) {
   return jsonRes({ iceServers }, 200, corsHeaders)
 }
 
-// GET /voice/room — the call page. Reads room/self/peer from its OWN query
-// string, so no server-side templating; the offerer is deterministically the
-// lexicographically-smaller `self` (no glare). Works standalone in a browser
-// (open the URL twice with swapped self/peer) and inside the app's WebView,
-// where the optional window.BhVoice bridge surfaces state to the overlay.
+// GET /voice/room — the call page. Reads room/self from its OWN query string,
+// so no server-side templating. MESH group call: it discovers everyone in the
+// room via /voice/roster and opens one RTCPeerConnection per other member
+// (offerer per pair = the lexicographically-smaller id, so no glare). Signals
+// are routed to the right connection by sender (`from`). Works standalone in a
+// browser (open the URL on N devices with the same room + distinct self) and
+// inside the app's WebView, where the optional window.BhVoice bridge surfaces
+// call state + the live participant roster to the overlay.
 const VOICE_PAGE_HTML =
   '<!doctype html><html><head><meta charset=utf-8>' +
   '<meta name=viewport content="width=device-width,initial-scale=1"><title>BannerHub Voice</title>' +
   '<style>body{margin:0;background:#10141c;color:#cfe;font:14px sans-serif;display:flex;' +
   'align-items:center;justify-content:center;height:100vh}#s{opacity:.85}</style></head>' +
-  '<body><audio id=a autoplay></audio><div id=s>starting…</div><script>\n' +
+  '<body><div id=s>starting…</div><script>\n' +
   '(function(){\n' +
   'var q=new URLSearchParams(location.search);\n' +
-  'var ROOM=q.get("room")||"",SELF=q.get("self")||"",PEER=q.get("peer")||"";\n' +
-  'var API=location.origin,CALLER=SELF<PEER;\n' +
-  'var pc,localStream,dead=false,pendingIce=[],sEl=document.getElementById("s");\n' +
-  'function status(s,d){sEl.textContent=s+(d?(" — "+d):"");try{if(window.BhVoice&&BhVoice.state)BhVoice.state(s,d||"");}catch(e){}}\n' +
+  'var ROOM=q.get("room")||"",SELF=q.get("self")||"";\n' +
+  'var API=location.origin;\n' +
+  'var pcs={},localStream=null,dead=false,connected=false,ice=null,sEl=document.getElementById("s");\n' +
   'function jlog(m){try{if(window.BhVoice&&BhVoice.log)BhVoice.log(""+m);}catch(e){}}\n' +
-  'function send(o){return fetch(API+"/voice/signal",{method:"POST",headers:{"Content-Type":"application/json"},' +
-  'body:JSON.stringify({room:ROOM,to:PEER,from:SELF,payload:JSON.stringify(o)})}).catch(function(){});}\n' +
-  'async function getIce(){try{var r=await fetch(API+"/voice/turn");var j=await r.json();return j.iceServers;}' +
-  'catch(e){return [{urls:["stun:stun.l.google.com:19302"]}];}}\n' +
-  'async function flushIce(){while(pendingIce.length){try{await pc.addIceCandidate(pendingIce.shift());}catch(e){jlog("ice add "+e);}}}\n' +
-  'async function handle(m){if(!pc)return;try{\n' +
-  ' if(m.t==="offer"){await pc.setRemoteDescription({type:"offer",sdp:m.sdp});var an=await pc.createAnswer();' +
-  'await pc.setLocalDescription(an);send({t:"answer",sdp:an.sdp});await flushIce();}\n' +
-  ' else if(m.t==="answer"){await pc.setRemoteDescription({type:"answer",sdp:m.sdp});await flushIce();}\n' +
-  ' else if(m.t==="ice"){if(pc.remoteDescription&&pc.remoteDescription.type){try{await pc.addIceCandidate(m.c);}catch(e){jlog("ice add "+e);}}else{pendingIce.push(m.c);}}\n' +
-  ' else if(m.t==="bye"){status("ended","peer left");cleanup();}\n' +
-  '}catch(e){jlog("handle "+e);}}\n' +
-  'async function poll(){if(dead)return;try{\n' +
-  ' var r=await fetch(API+"/voice/poll?room="+encodeURIComponent(ROOM)+"&self="+encodeURIComponent(SELF));\n' +
-  ' var j=await r.json();if(j&&j.signals){\n' +
-  '  for(var i=0;i<j.signals.length;i++){var m;try{m=JSON.parse(j.signals[i].payload);}catch(e){continue;}await handle(m);}}\n' +
-  '}catch(e){}if(!dead)setTimeout(poll,1200);}\n' +
-  'function cleanup(){if(dead)return;dead=true;try{if(pc)pc.close();}catch(e){}' +
-  'try{if(localStream)localStream.getTracks().forEach(function(t){t.stop();});}catch(e){}}\n' +
-  'window.bhHangup=function(){try{send({t:"bye"});}catch(e){}status("ended","");cleanup();};\n' +
+  'function status(s,d){sEl.textContent=s+(d?(" — "+d):"");try{if(window.BhVoice&&BhVoice.state)BhVoice.state(s,d||"");}catch(e){}}\n' +
+  'function reportRoster(){try{if(window.BhVoice&&BhVoice.roster){var ids=[SELF];for(var k in pcs){if(pcs[k].connected)ids.push(k);}BhVoice.roster(ids.join(","));}}catch(e){}}\n' +
+  'function getIce(){return fetch(API+"/voice/turn").then(function(r){return r.json();}).then(function(j){return j.iceServers;}).catch(function(){return [{urls:["stun:stun.l.google.com:19302"]}];});}\n' +
+  'function sendTo(to,o){return fetch(API+"/voice/signal",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({room:ROOM,to:to,from:SELF,payload:JSON.stringify(o)})}).catch(function(){});}\n' +
+  'function audioFor(id){var aid="a_"+id,a=document.getElementById(aid);if(!a){a=document.createElement("audio");a.id=aid;a.autoplay=true;document.body.appendChild(a);}return a;}\n' +
+  'function ensurePc(id){\n' +
+  ' if(dead||!id||id===SELF||pcs[id])return pcs[id];\n' +
+  ' var pc=new RTCPeerConnection({iceServers:ice});var ent={pc:pc,pending:[],connected:false};pcs[id]=ent;\n' +
+  ' if(localStream)localStream.getTracks().forEach(function(t){pc.addTrack(t,localStream);});\n' +
+  ' pc.onicecandidate=function(e){if(e.candidate)sendTo(id,{t:"ice",c:e.candidate});};\n' +
+  ' pc.ontrack=function(e){var a=audioFor(id);if(a.srcObject!==e.streams[0])a.srcObject=e.streams[0];};\n' +
+  ' pc.onconnectionstatechange=function(){var st=pc.connectionState;jlog("pc["+id+"] "+st);\n' +
+  '  if(st==="connected"){ent.connected=true;connected=true;status("in-call");reportRoster();}\n' +
+  '  else if(st==="failed"||st==="closed"){dropPeer(id);}};\n' +
+  ' if(SELF<id){pc.createOffer().then(function(off){return pc.setLocalDescription(off).then(function(){sendTo(id,{t:"offer",sdp:off.sdp});});}).catch(function(e){jlog("offer "+e);});}\n' +
+  ' return ent;\n' +
+  '}\n' +
+  'function dropPeer(id){var ent=pcs[id];if(!ent)return;try{ent.pc.close();}catch(e){}delete pcs[id];var a=document.getElementById("a_"+id);if(a){try{a.srcObject=null;a.remove();}catch(e){}}reportRoster();\n' +
+  ' if(connected&&!Object.keys(pcs).length){status("ended","everyone left");cleanup();}}\n' +
+  'function flush(ent){while(ent.pending.length){ent.pc.addIceCandidate(ent.pending.shift()).catch(function(e){jlog("icef "+e);});}}\n' +
+  'function handleFrom(from,m){\n' +
+  ' if(!from||from===SELF)return;\n' +
+  ' if(m.t==="bye"){dropPeer(from);return;}\n' +
+  ' var ent=ensurePc(from);if(!ent)return;var pc=ent.pc;\n' +
+  ' try{\n' +
+  '  if(m.t==="offer"){pc.setRemoteDescription({type:"offer",sdp:m.sdp}).then(function(){return pc.createAnswer();}).then(function(an){return pc.setLocalDescription(an).then(function(){sendTo(from,{t:"answer",sdp:an.sdp});});}).then(function(){flush(ent);}).catch(function(e){jlog("ans "+e);});}\n' +
+  '  else if(m.t==="answer"){pc.setRemoteDescription({type:"answer",sdp:m.sdp}).then(function(){flush(ent);}).catch(function(e){jlog("setans "+e);});}\n' +
+  '  else if(m.t==="ice"){if(pc.remoteDescription&&pc.remoteDescription.type){pc.addIceCandidate(m.c).catch(function(e){jlog("ice "+e);});}else{ent.pending.push(m.c);}}\n' +
+  ' }catch(e){jlog("handle "+e);}}\n' +
+  'function poll(){if(dead)return;\n' +
+  ' fetch(API+"/voice/poll?room="+encodeURIComponent(ROOM)+"&self="+encodeURIComponent(SELF)).then(function(r){return r.json();}).then(function(j){\n' +
+  '  if(j&&j.signals){for(var i=0;i<j.signals.length;i++){var s=j.signals[i],m;try{m=JSON.parse(s.payload);}catch(e){continue;}handleFrom(s.from,m);}}\n' +
+  ' }).catch(function(){}).then(function(){if(!dead)setTimeout(poll,1200);});}\n' +
+  'function heartbeat(){if(dead)return;fetch(API+"/voice/roster",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({room:ROOM,self:SELF})}).catch(function(){}).then(function(){if(!dead)setTimeout(heartbeat,5000);});}\n' +
+  'function rosterPoll(){if(dead)return;fetch(API+"/voice/roster?room="+encodeURIComponent(ROOM)).then(function(r){return r.json();}).then(function(j){if(j&&j.members)for(var i=0;i<j.members.length;i++){var id=j.members[i];if(id&&id!==SELF)ensurePc(id);}}).catch(function(){}).then(function(){if(!dead)setTimeout(rosterPoll,3000);});}\n' +
+  'function cleanup(){if(dead)return;dead=true;for(var k in pcs){try{pcs[k].pc.close();}catch(e){}}pcs={};try{if(localStream)localStream.getTracks().forEach(function(t){t.stop();});}catch(e){}}\n' +
+  'window.bhHangup=function(){try{for(var k in pcs)sendTo(k,{t:"bye"});}catch(e){}status("ended","");cleanup();};\n' +
   'window.bhSetMuted=function(m){if(localStream)localStream.getAudioTracks().forEach(function(t){t.enabled=!m;});};\n' +
-  'async function init(){jlog("voice page init self="+SELF+" peer="+PEER+" caller="+CALLER);\n' +
-  ' status(CALLER?"calling":"connecting");\n' +
-  ' try{var tmo=new Promise(function(_,r){setTimeout(function(){r(new Error("timeout"));},10000);});\n' +
-  '  localStream=await Promise.race([navigator.mediaDevices.getUserMedia({audio:true,video:false}),tmo]);}\n' +
-  ' catch(e){status("failed","mic "+e);return;}\n' +
-  ' pc=new RTCPeerConnection({iceServers:await getIce()});\n' +
-  ' localStream.getTracks().forEach(function(t){pc.addTrack(t,localStream);});\n' +
-  ' pc.onicecandidate=function(e){if(e.candidate)send({t:"ice",c:e.candidate});};\n' +
-  ' pc.ontrack=function(e){var a=document.getElementById("a");if(a.srcObject!==e.streams[0])a.srcObject=e.streams[0];};\n' +
-  ' pc.onconnectionstatechange=function(){var st=pc.connectionState;jlog("pc "+st);\n' +
-  '  if(st==="connected")status("in-call");else if(st==="failed")status("failed","ice");\n' +
-  '  else if(st==="disconnected")status("connecting","reconnecting");else if(st==="closed")status("ended","");};\n' +
-  ' poll();\n' +
-  ' if(CALLER){var off=await pc.createOffer();await pc.setLocalDescription(off);send({t:"offer",sdp:off.sdp});}\n' +
+  'function init(){jlog("voice page init self="+SELF+" room="+ROOM);status("connecting");\n' +
+  ' var tmo=new Promise(function(_,r){setTimeout(function(){r(new Error("timeout"));},10000);});\n' +
+  ' Promise.race([navigator.mediaDevices.getUserMedia({audio:true,video:false}),tmo]).then(function(s){localStream=s;return getIce();}).then(function(srv){ice=srv;heartbeat();rosterPoll();poll();}).catch(function(e){status("failed","mic "+e);});\n' +
   '}\n' +
   'init();\n' +
   '})();\n' +
@@ -756,6 +801,9 @@ export default {
       }
       if (url.pathname === '/voice/poll') {
         return handleVoicePoll(url, env, corsHeaders)
+      }
+      if (url.pathname === '/voice/roster') {
+        return handleVoiceRoster(request, url, env, corsHeaders)
       }
 
       // steam/steamid/store: app sends SteamID64 after login → stored in KV
