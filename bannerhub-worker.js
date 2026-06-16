@@ -636,7 +636,9 @@ const VOICE_PAGE_HTML =
   '<body><div id=s>starting…</div><script>\n' +
   '(function(){\n' +
   'var q=new URLSearchParams(location.search);\n' +
-  'var ROOM=q.get("room")||"",SELF=q.get("self")||"",PEER=q.get("peer")||"";\n' +
+  // self may be omitted (a shared invite link) — mint a random guest id so
+  // anyone with a browser (PC, other emulator, no Steam) can join the mesh.
+  'var ROOM=q.get("room")||"",SELF=q.get("self")||("g"+Math.random().toString(36).slice(2,10)),PEER=q.get("peer")||"";\n' +
   'var API=location.origin;\n' +
   'var pcs={},localStream=null,dead=false,connected=false,ice=null,lastRoster="",sEl=document.getElementById("s");\n' +
   'function jlog(m){try{if(window.BhVoice&&BhVoice.log)BhVoice.log(""+m);}catch(e){}}\n' +
