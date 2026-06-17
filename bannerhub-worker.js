@@ -598,10 +598,14 @@ async function handleVoiceRoster(request, url, env, corsHeaders) {
   if (request.method === 'POST') {
     let b
     try { b = await request.json() } catch (e) { return jsonRes({ error: 'invalid_json' }, 400, corsHeaders) }
-    const { room, self } = b || {}
+    const { room, self, name } = b || {}
     if (!VOICE_ID_RE.test(room || '') || !VOICE_ID_RE.test(self || '')) return jsonRes({ error: 'invalid_id' }, 400, corsHeaders)
-    await env.CHAT_IMAGES.put(`voice/${room}/_members/${self}`, String(Date.now()),
-      { httpMetadata: { contentType: 'text/plain' } })
+    // Body carries the member's chosen nickname (optional); GET reads it back so
+    // the mesh page can label peers. Older clients sent a bare timestamp — still
+    // valid (parsed defensively below).
+    const nm = (typeof name === 'string' ? name : '').slice(0, 40)
+    await env.CHAT_IMAGES.put(`voice/${room}/_members/${self}`, JSON.stringify({ t: Date.now(), name: nm }),
+      { httpMetadata: { contentType: 'application/json' } })
     return jsonRes({ ok: true }, 200, corsHeaders)
   }
   const room = url.searchParams.get('room') || ''
@@ -609,12 +613,58 @@ async function handleVoiceRoster(request, url, env, corsHeaders) {
   const listed = await env.CHAT_IMAGES.list({ prefix: `voice/${room}/_members/`, limit: 50 })
   const now = Date.now()
   const members = []
+  const names = {}
   for (const o of listed.objects) {
     if (o.uploaded && (now - o.uploaded.getTime()) > 15000) continue
     const id = o.key.split('/').pop()
-    if (id) members.push(id)
+    if (!id) continue
+    members.push(id)
+    // Body may be JSON {t,name} (current) or a bare timestamp (older clients).
+    try {
+      const obj = await env.CHAT_IMAGES.get(o.key)
+      if (obj) { const txt = await obj.text(); if (txt && txt[0] === '{') { const p = JSON.parse(txt); if (p && p.name) names[id] = p.name } }
+    } catch (e) {}
   }
-  return jsonRes({ ok: true, members }, 200, corsHeaders)
+  return jsonRes({ ok: true, members, names }, 200, corsHeaders)
+}
+
+// Nickname registry for in-game voice chat (BannerHub 3.7.5 / 5.3.5 base).
+// Backed by R2 (CHAT_IMAGES) under `nick/<normalized>` → clientId, so it's
+// strongly consistent (KV's ~60s negative cache could let two users claim the
+// same name in a race). Ownership is the device's stable client id, so a user
+// re-checking their own name sees it as available ("yours").
+const NICK_RE = /^[A-Za-z0-9 _-]{3,20}$/
+function normNick(s) {
+  return (typeof s === 'string' ? s : '').trim().replace(/\s+/g, ' ').toLowerCase()
+}
+
+// GET /voice/nick/check?name=&self= → { status: free | taken | yours | invalid }
+async function handleNickCheck(url, env, corsHeaders) {
+  const raw = url.searchParams.get('name') || ''
+  const self = url.searchParams.get('self') || ''
+  if (!NICK_RE.test(raw.trim()) || !VOICE_ID_RE.test(self)) return jsonRes({ status: 'invalid' }, 200, corsHeaders)
+  const key = `nick/${normNick(raw)}`
+  const obj = await env.CHAT_IMAGES.get(key)
+  if (!obj) return jsonRes({ status: 'free' }, 200, corsHeaders)
+  const owner = (await obj.text()).trim()
+  return jsonRes({ status: owner === self ? 'yours' : 'taken' }, 200, corsHeaders)
+}
+
+// POST /voice/nick/claim {name,self} → { status: ok | yours | taken | invalid }
+async function handleNickClaim(request, env, corsHeaders) {
+  let b
+  try { b = await request.json() } catch (e) { return jsonRes({ status: 'invalid' }, 200, corsHeaders) }
+  const { name, self } = b || {}
+  if (!NICK_RE.test((name || '').trim()) || !VOICE_ID_RE.test(self || '')) return jsonRes({ status: 'invalid' }, 200, corsHeaders)
+  const key = `nick/${normNick(name)}`
+  const obj = await env.CHAT_IMAGES.get(key)
+  if (obj) {
+    const owner = (await obj.text()).trim()
+    if (owner !== self) return jsonRes({ status: 'taken' }, 200, corsHeaders)
+    return jsonRes({ status: 'yours' }, 200, corsHeaders)
+  }
+  await env.CHAT_IMAGES.put(key, self, { httpMetadata: { contentType: 'text/plain' } })
+  return jsonRes({ status: 'ok' }, 200, corsHeaders)
 }
 
 // /voice/log — multi-party WebRTC diagnostics. POST {room,self,msg} appends a
@@ -689,13 +739,14 @@ const VOICE_PAGE_HTML =
   'var q=new URLSearchParams(location.search);\n' +
   // self may be omitted (a shared invite link) — mint a random guest id so
   // anyone with a browser (PC, other emulator, no Steam) can join the mesh.
-  'var ROOM=q.get("room")||"",SELF=q.get("self")||("g"+Math.random().toString(36).slice(2,10)),PEER=q.get("peer")||"";\n' +
+  'var ROOM=q.get("room")||"",SELF=q.get("self")||("g"+Math.random().toString(36).slice(2,10)),PEER=q.get("peer")||"",NAME=(q.get("name")||"").slice(0,40);\n' +
   'var API=location.origin;\n' +
-  'var pcs={},localStream=null,dead=false,connected=false,ice=null,lastRoster="",sEl=document.getElementById("s");\n' +
+  'var pcs={},localStream=null,dead=false,connected=false,ice=null,lastRoster="",names={},sEl=document.getElementById("s");\n' +
+  'names[SELF]=NAME;\n' +
   'function jlog(m){try{if(window.BhVoice&&BhVoice.log)BhVoice.log(""+m);}catch(e){}}\n' +
   'function dlog(m){jlog(m);try{fetch(API+"/voice/log",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({room:ROOM,self:SELF,msg:""+m})}).catch(function(){});}catch(e){}}\n' +
   'function status(s,d){sEl.textContent=s+(d?(" — "+d):"");try{if(window.BhVoice&&BhVoice.state)BhVoice.state(s,d||"");}catch(e){}}\n' +
-  'function reportRoster(){try{if(window.BhVoice&&BhVoice.roster){var ids=[SELF];for(var k in pcs){if(pcs[k].connected)ids.push(k);}BhVoice.roster(ids.join(","));}}catch(e){}}\n' +
+  'function reportRoster(){try{var ids=[SELF];for(var k in pcs){if(pcs[k].connected)ids.push(k);}if(window.BhVoice&&BhVoice.roster)BhVoice.roster(ids.join(","));if(window.BhVoice&&BhVoice.rosterNames){var nm={};for(var i=0;i<ids.length;i++)nm[ids[i]]=names[ids[i]]||"";BhVoice.rosterNames(JSON.stringify(nm));}}catch(e){}}\n' +
   'function getIce(){return fetch(API+"/voice/turn").then(function(r){return r.json();}).then(function(j){return j.iceServers;}).catch(function(){return [{urls:["stun:stun.l.google.com:19302"]}];});}\n' +
   'function sendTo(to,o){return fetch(API+"/voice/signal",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({room:ROOM,to:to,from:SELF,payload:JSON.stringify(o)})}).catch(function(){});}\n' +
   'function audioFor(id){var aid="a_"+id,a=document.getElementById(aid);if(!a){a=document.createElement("audio");a.id=aid;a.autoplay=true;document.body.appendChild(a);}return a;}\n' +
@@ -734,8 +785,8 @@ const VOICE_PAGE_HTML =
   ' fetch(API+"/voice/poll?room="+encodeURIComponent(ROOM)+"&self="+encodeURIComponent(SELF)).then(function(r){return r.json();}).then(function(j){\n' +
   '  if(j&&j.signals){for(var i=0;i<j.signals.length;i++){var s=j.signals[i],m;try{m=JSON.parse(s.payload);}catch(e){continue;}handleFrom(s.from,m);}}\n' +
   ' }).catch(function(){}).then(function(){if(!dead)setTimeout(poll,1200);});}\n' +
-  'function heartbeat(){if(dead)return;fetch(API+"/voice/roster",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({room:ROOM,self:SELF})}).catch(function(){}).then(function(){if(!dead)setTimeout(heartbeat,5000);});}\n' +
-  'function rosterPoll(){if(dead)return;fetch(API+"/voice/roster?room="+encodeURIComponent(ROOM)).then(function(r){return r.json();}).then(function(j){if(j&&j.members){var rs=j.members.join(",");if(rs!==lastRoster){lastRoster=rs;dlog("roster ["+rs+"]");}for(var i=0;i<j.members.length;i++){var id=j.members[i];if(id&&id!==SELF)ensurePc(id);}}}).catch(function(){}).then(function(){if(!dead)setTimeout(rosterPoll,2500);});}\n' +
+  'function heartbeat(){if(dead)return;fetch(API+"/voice/roster",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({room:ROOM,self:SELF,name:NAME})}).catch(function(){}).then(function(){if(!dead)setTimeout(heartbeat,5000);});}\n' +
+  'function rosterPoll(){if(dead)return;fetch(API+"/voice/roster?room="+encodeURIComponent(ROOM)).then(function(r){return r.json();}).then(function(j){if(j&&j.members){var nch=false;if(j.names){for(var nk in j.names){if(names[nk]!==j.names[nk]){names[nk]=j.names[nk];nch=true;}}}var rs=j.members.join(",");if(rs!==lastRoster){lastRoster=rs;dlog("roster ["+rs+"]");}for(var i=0;i<j.members.length;i++){var id=j.members[i];if(id&&id!==SELF)ensurePc(id);}if(nch)reportRoster();}}).catch(function(){}).then(function(){if(!dead)setTimeout(rosterPoll,2500);});}\n' +
   'function cleanup(){if(dead)return;dead=true;for(var k in pcs){try{pcs[k].pc.close();}catch(e){}}pcs={};try{if(localStream)localStream.getTracks().forEach(function(t){t.stop();});}catch(e){}}\n' +
   'window.bhHangup=function(){try{for(var k in pcs)sendTo(k,{t:"bye"});}catch(e){}status("ended","");cleanup();};\n' +
   'window.bhSetMuted=function(m){if(localStream)localStream.getAudioTracks().forEach(function(t){t.enabled=!m;});};\n' +
@@ -908,6 +959,15 @@ export default {
       }
       if (url.pathname === '/voice/log') {
         return handleVoiceLog(request, url, env, corsHeaders)
+      }
+      if (url.pathname === '/voice/nick/check') {
+        return await handleNickCheck(url, env, corsHeaders)
+      }
+      if (url.pathname === '/voice/nick/claim') {
+        if (request.method !== 'POST') {
+          return jsonRes({ error: 'method_not_allowed' }, 405, corsHeaders)
+        }
+        return await handleNickClaim(request, env, corsHeaders)
       }
 
       // steam/steamid/store: app sends SteamID64 after login → stored in KV
