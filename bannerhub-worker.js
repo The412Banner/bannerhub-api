@@ -650,21 +650,42 @@ async function handleNickCheck(url, env, corsHeaders) {
   return jsonRes({ status: owner === self ? 'yours' : 'taken' }, 200, corsHeaders)
 }
 
-// POST /voice/nick/claim {name,self} → { status: ok | yours | taken | invalid }
+// POST /voice/nick/claim {name,self,force?} → { status: ok | yours | reclaimed | taken | invalid }
+// force=true rebinds a name to the requester even if another (e.g. orphaned)
+// client id owns it — the dashboard "Reclaim" path for "this is me, I lost my id".
+// Low-stakes (a friends-group nickname), so a deliberate force is acceptable.
 async function handleNickClaim(request, env, corsHeaders) {
+  let b
+  try { b = await request.json() } catch (e) { return jsonRes({ status: 'invalid' }, 200, corsHeaders) }
+  const { name, self, force } = b || {}
+  if (!NICK_RE.test((name || '').trim()) || !VOICE_ID_RE.test(self || '')) return jsonRes({ status: 'invalid' }, 200, corsHeaders)
+  const key = `nick/${normNick(name)}`
+  const obj = await env.CHAT_IMAGES.get(key)
+  if (obj) {
+    const owner = (await obj.text()).trim()
+    if (owner === self) return jsonRes({ status: 'yours' }, 200, corsHeaders)
+    if (!force) return jsonRes({ status: 'taken' }, 200, corsHeaders)
+    await env.CHAT_IMAGES.put(key, self, { httpMetadata: { contentType: 'text/plain' } })
+    return jsonRes({ status: 'reclaimed' }, 200, corsHeaders)
+  }
+  await env.CHAT_IMAGES.put(key, self, { httpMetadata: { contentType: 'text/plain' } })
+  return jsonRes({ status: 'ok' }, 200, corsHeaders)
+}
+
+// POST /voice/nick/release {name,self} → { status: released | not_yours | free | invalid }
+// Voluntarily free a name you own (before switching devices, etc.).
+async function handleNickRelease(request, env, corsHeaders) {
   let b
   try { b = await request.json() } catch (e) { return jsonRes({ status: 'invalid' }, 200, corsHeaders) }
   const { name, self } = b || {}
   if (!NICK_RE.test((name || '').trim()) || !VOICE_ID_RE.test(self || '')) return jsonRes({ status: 'invalid' }, 200, corsHeaders)
   const key = `nick/${normNick(name)}`
   const obj = await env.CHAT_IMAGES.get(key)
-  if (obj) {
-    const owner = (await obj.text()).trim()
-    if (owner !== self) return jsonRes({ status: 'taken' }, 200, corsHeaders)
-    return jsonRes({ status: 'yours' }, 200, corsHeaders)
-  }
-  await env.CHAT_IMAGES.put(key, self, { httpMetadata: { contentType: 'text/plain' } })
-  return jsonRes({ status: 'ok' }, 200, corsHeaders)
+  if (!obj) return jsonRes({ status: 'free' }, 200, corsHeaders)
+  const owner = (await obj.text()).trim()
+  if (owner !== self) return jsonRes({ status: 'not_yours' }, 200, corsHeaders)
+  await env.CHAT_IMAGES.delete(key)
+  return jsonRes({ status: 'released' }, 200, corsHeaders)
 }
 
 // /voice/log — multi-party WebRTC diagnostics. POST {room,self,msg} appends a
@@ -968,6 +989,12 @@ export default {
           return jsonRes({ error: 'method_not_allowed' }, 405, corsHeaders)
         }
         return await handleNickClaim(request, env, corsHeaders)
+      }
+      if (url.pathname === '/voice/nick/release') {
+        if (request.method !== 'POST') {
+          return jsonRes({ error: 'method_not_allowed' }, 405, corsHeaders)
+        }
+        return await handleNickRelease(request, env, corsHeaders)
       }
 
       // steam/steamid/store: app sends SteamID64 after login → stored in KV
