@@ -1448,3 +1448,19 @@ Audited entire served catalog against `sp_winemu_unified_resources.xml` (upstrea
 24 files downloaded from upstream, all md5+size verified pre-upload; all live assets re-verified post-upload. `npm run build`; kept custom_components.json + sp_winemu_all_components12.xml + components/* manifests + getAllComponentList/getComponentList; reverted time-only churn. Component-only → Pages-only push (no worker). main `6fc4485` (ff), master `00b2cdf` (cherry-pick); Pages deploy verified, final live audit = FULL PARITY.
 
 **Still NOT 1:1 by design:** (1) our ids differ (new entries 1363–1368 not upstream 438–443; ~40 mirrored comps in our 1100s/1400s vs upstream 391–437); (2) we serve a superset (568 vs 357 — extra custom drivers + extra wine containers at ids 6/7 which upstream uses for dxvk-1.10.3/vkd3d-2.12 components, harmless: endpoint-scoped namespaces); (3) fixed-name vs md5-named download URLs (bytes identical). `upstream_overrides.json` only carries blurbs, not version/md5.
+
+## 2026-06-16 — Worker fix: paginate + KV-cache Steam library augmentation (huge-library crash)
+
+**Symptom (user report, Odin 3, 14k-game Steam library on v6 6.08):** library no longer finishes caching before force-closing; pre-6.08 it worked. Diagnosed as OUR worker's Steam Library Augmentation, not the device/app alone.
+
+**Root cause:** `augmentSteamLibrary` injected the user's ENTIRE owned-games list into page 1's library-sync response and overrode `total` to the full count (~14000). The app then tried to cache the whole library + ~4 cover URLs/card (~56k images) in one shot → OOM/force-close mid-cache. Plus the multi-MB steamcommunity XML was re-fetched + regex-parsed on every page/refresh with no cache → risk of tripping the Worker CPU limit (an uncatchable kill = hard sync failure).
+
+**Fix (`bannerhub-worker.js`, commit main `343c46b` / master `f6015d9`):**
+- `augmentSteamLibrary(body, env, page, pageSize)` now builds the canonical full list once (GameHub known cards + missing Steam cards, stable appid order), caches it in KV `steam_fulllib_<steamId>` (15min TTL), and returns ONLY the requested page's slice. `total` = full length so the app paginates incrementally.
+- `fetchSteamOwnedGames(steamId, env)` caches the parsed owned list in KV `steam_owned_<steamId>` (1h) — one fetch+parse/hour instead of per-page/per-refresh.
+- Trigger augmentation on EVERY page of the sweep (`page_size===1000`), not just page 1.
+- Unit-tested (`/tmp/test_aug.mjs`): 14k mock lib → 1000 cards/page, total=14000, **1** steam fetch across 14 pages; 200-game lib unchanged (all on page 1, total=265). No regression for small libraries.
+
+**Deployed to Cloudflare** (manual REST PUT, from pushed main HEAD). ⚠️ Worker now has **6 bindings** (KV TOKEN_STORE + R2 CHAT_IMAGES + 4 secrets SUPABASE_URL/SUPABASE_SERVICE_KEY/TURN_API_TOKEN/TURN_KEY_ID) — declared KV+R2 explicitly + `keep_bindings:["secret_text"]` for all secrets; verified all 6 present post-deploy and `/voice/*` still 200. **Live instantly for existing 6.08 clients (no app update needed)** on next library refresh, provided Steam login succeeds.
+
+**NOT addressed here (separate issues in the same report):** "steam login failed" on refresh (Steam client session/token expiry — augmentation no-ops without a valid `steam_user_steamid`) and "6.08 overseas check error" (update/region version-check endpoint). Missing games like Dead As Disco / Fatal Fury show in GameNative (broad steamdb catalog) but not ours because augmentation only injects OWNED games from the public community profile.
