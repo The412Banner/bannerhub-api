@@ -291,7 +291,22 @@ async function handleChatRooms(env, corsHeaders) {
 // Fetch full Steam owned games list using the public community XML endpoint.
 // Works for any public Steam profile — no API key needed.
 // Returns [{appid, name}] or null on failure.
-async function fetchSteamOwnedGames(steamId) {
+//
+// Cached in KV (key steam_owned_<steamId>, 1h TTL) so we don't re-fetch and
+// re-parse a multi-MB XML on every page request / refresh — critical for
+// huge libraries (10k+ games) where the parse alone is CPU-heavy enough to
+// risk the Worker CPU limit.
+async function fetchSteamOwnedGames(steamId, env) {
+  const cacheKey = `steam_owned_${steamId}`
+  if (env && env.TOKEN_STORE) {
+    try {
+      const cached = await env.TOKEN_STORE.get(cacheKey)
+      if (cached) {
+        const parsed = JSON.parse(cached)
+        if (Array.isArray(parsed) && parsed.length) return parsed
+      }
+    } catch (e) {}
+  }
   const url = `https://steamcommunity.com/${steamId}/games/?tab=all&xml=1`
   try {
     const res = await fetch(url, { headers: { 'User-Agent': 'BannerHub/1.0' } })
@@ -312,7 +327,11 @@ async function fetchSteamOwnedGames(steamId) {
         })
       }
     }
-    return games.length ? games : null
+    if (!games.length) return null
+    if (env && env.TOKEN_STORE) {
+      try { await env.TOKEN_STORE.put(cacheKey, JSON.stringify(games), { expirationTtl: 3600 }) } catch (e) {}
+    }
+    return games
   } catch (e) {
     return null
   }
@@ -340,8 +359,17 @@ function buildSteamCard(appid, name) {
   }
 }
 
-// Augment a GameHub library sync response with missing Steam games
-async function augmentSteamLibrary(gamehubBody, env) {
+// Augment a GameHub library sync response with missing Steam games.
+//
+// PAGINATED: builds the canonical full library once (GameHub's known cards +
+// the user's missing Steam games), caches it in KV per steamId, and returns
+// only the requested page's slice. This is what keeps a 14k-game library from
+// crashing the app: previously we dumped ALL ~14k cards into page 1's response
+// (with total overridden to 14000), so the device tried to cache the entire
+// library + ~56k cover images in one shot → OOM / force-close. Now each page
+// carries at most `pageSize` cards and the app caches incrementally across the
+// pages it requests (total tells it how many pages to walk).
+async function augmentSteamLibrary(gamehubBody, env, page, pageSize) {
   try {
     // Parse GameHub response
     let respData
@@ -350,39 +378,62 @@ async function augmentSteamLibrary(gamehubBody, env) {
 
     // Get card_list — may be a JSON string or a real array
     let cardList = respData.data.card_list
-    if (typeof cardList === 'string') {
+    const cardListIsString = typeof cardList === 'string'
+    if (cardListIsString) {
       try { cardList = JSON.parse(cardList) } catch (e) { return gamehubBody }
     }
     if (!Array.isArray(cardList)) return gamehubBody
-
-    // Collect appids already in the GameHub list
-    const knownIds = new Set(cardList.map(c => String(c.id || c.steam_appid || '')).filter(Boolean))
 
     // Get stored SteamID64 (set by app smali patch after Steam login)
     const steamId = await env.TOKEN_STORE.get('steam_user_steamid')
     if (!steamId) return gamehubBody
 
-    // Fetch full Steam library — no API key needed
-    const steamGames = await fetchSteamOwnedGames(steamId)
-    if (!steamGames || !steamGames.length) return gamehubBody
+    const pg = Math.max(1, parseInt(page, 10) || 1)
+    const size = parseInt(pageSize, 10) > 0 ? parseInt(pageSize, 10) : 1000
+    const fullKey = `steam_fulllib_${steamId}`
 
-    // Identify missing games (in Steam but not in GameHub's list)
-    const missing = steamGames.filter(g => !knownIds.has(String(g.appid)))
-    if (!missing.length) return gamehubBody
-
-    // Build card objects for missing games
-    const injected = missing.map(g => buildSteamCard(g.appid, g.name))
-
-    // Merge into response
-    const merged = [...cardList, ...injected]
-    if (typeof respData.data.card_list === 'string') {
-      respData.data.card_list = JSON.stringify(merged)
-    } else {
-      respData.data.card_list = merged
+    // Canonical full library. On page 1 we (re)build it from GameHub's known
+    // cards + missing Steam cards and cache it. On later pages GameHub returns
+    // no Steam cards of its own, so we slice the cached full list instead.
+    let full = null
+    if (pg > 1 && env.TOKEN_STORE) {
+      try {
+        const cachedFull = await env.TOKEN_STORE.get(fullKey)
+        if (cachedFull) {
+          const parsed = JSON.parse(cachedFull)
+          if (Array.isArray(parsed) && parsed.length) full = parsed
+        }
+      } catch (e) {}
     }
-    if (respData.data.total !== undefined) {
-      respData.data.total = merged.length
+
+    if (!full) {
+      // Fetch full Steam library (KV-cached) — no API key needed
+      const steamGames = await fetchSteamOwnedGames(steamId, env)
+      if (!steamGames || !steamGames.length) return gamehubBody
+
+      // Identify missing games (in Steam but not in GameHub's list), stable order
+      const knownIds = new Set(cardList.map(c => String(c.id || c.steam_appid || '')).filter(Boolean))
+      const missing = steamGames
+        .filter(g => !knownIds.has(String(g.appid)))
+        .sort((a, b) => a.appid - b.appid)
+      if (!missing.length) return gamehubBody
+
+      const injected = missing.map(g => buildSteamCard(g.appid, g.name))
+      full = [...cardList, ...injected]
+      // Cache the assembled full list (15 min) so the page 2..N sweep can slice it
+      if (env.TOKEN_STORE) {
+        try { await env.TOKEN_STORE.put(fullKey, JSON.stringify(full), { expirationTtl: 900 }) } catch (e) {}
+      }
     }
+
+    // Return only this page's slice
+    const start = (pg - 1) * size
+    const pageSlice = full.slice(start, start + size)
+
+    respData.data.card_list = cardListIsString ? JSON.stringify(pageSlice) : pageSlice
+    if (respData.data.total !== undefined) respData.data.total = full.length
+    if (respData.data.page !== undefined) respData.data.page = pg
+    if (respData.data.page_size !== undefined) respData.data.page_size = size
 
     return JSON.stringify(respData)
   } catch (e) {
@@ -1484,8 +1535,10 @@ export default {
       ) {
         try {
           const parsedFwd = JSON.parse(forwardBody)
-          if (parsedFwd.page_size === 1000 && parsedFwd.page === 1 && !parsedFwd.steam_appids) {
-            resBody = await augmentSteamLibrary(resBody, env)
+          // Augment every page of the library sweep (not just page 1) so the
+          // app can paginate through the full Steam library incrementally.
+          if (parsedFwd.page_size === 1000 && !parsedFwd.steam_appids) {
+            resBody = await augmentSteamLibrary(resBody, env, parsedFwd.page || 1, parsedFwd.page_size || 1000)
           }
         } catch (e) {}
       }
