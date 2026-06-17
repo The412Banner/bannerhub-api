@@ -1477,3 +1477,12 @@ Additive support for the new BannerHub 3.7.5 (GameHub 5.3.5) in-game voice chat 
 
 ### Deploy
 Committed (`a39675c`) + ff-pushed to `master`. Deployed via CF REST PUT (recipe per imagefs/worker-deploy ref). **Verified deployed == base before deploy** (`String(Date.now())` present, my markers absent). Preserved all **6 bindings** (KV `TOKEN_STORE` + R2 `CHAT_IMAGES` + 4 secrets) via explicit KV+R2 in metadata + `keep_bindings:["secret_text"]`. Post-deploy live checks: 6/6 bindings; nick `free→ok→yours→taken→invalid` correct; `/voice/room` 200 with `BhVoice.roster` intact + `rosterNames` guarded; `/voice/turn` STUN+TURN; `/voice/roster` + `getImagefsDetail` (v6 firmware path) both 200. No Pages/catalog change (voice-only). `origin/main` left diverged (pre-existing) — only `master` updated.
+
+## 2026-06-17 — Voice: nickname reclaim (force) + release endpoint (`b1d0527`)
+
+Recovery support for 3.7.5 voice (a storage-migration in the client regenerated the device client id → users' own nicknames read "taken" with no way back). Additive + v6-safe.
+
+- `POST /voice/nick/claim` now accepts `force:true` → rebinds the name to the requester even if another (orphaned) client id owns it. Returns `reclaimed`. Drives the dashboard "Reclaim" button. Low-stakes (a friends-group nickname), so a deliberate force is acceptable.
+- NEW `POST /voice/nick/release {name,self}` → the owner frees their name (`released`/`not_yours`/`free`/`invalid`). Drives "Release".
+
+**Deploy:** committed + ff-pushed to `master` (`b1d0527`), CF REST PUT (same metadata: KV+R2 explicit + `keep_bindings:["secret_text"]`). Verified: 6/6 bindings; full flow `ok→taken→reclaimed→released→free`; `/voice/room` still 200. Also that session: manually freed the stuck key `nick/the412banner` via the CF R2 objects DELETE API (the Workers token can do R2 object ops) so the user could re-claim.
