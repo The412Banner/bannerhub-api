@@ -1394,3 +1394,29 @@ User asked to reverse the GPU driver list so the newest driver shows at the top 
 - Verified post-build: type-2 now `1362,1361,1360,…` at top → `…45,44,42` at bottom in all three surfaces. **Box64/FEX (1) and VKD3D (4) unchanged (still newest-last).** Only type 2 affected.
 - `npm run build`; kept `src/registry/registry.ts`, `components/drivers_manifest`, `simulator/v2/{getAllComponentList,getComponentList}`; reverted 15 time-only churn files.
 - Catalog/ordering-only → **Pages-only push** (no worker redeploy; worker proxies the list statics, reshapeFor60/remapSteamFor60 don't reorder type 2). master + main lockstep.
+
+## 2026-06-16 — Proton 11 container v1.0.4 → v1.0.5 (build 6.16)
+
+Upstream `sp_winemu_unified_resources.xml` bumped container id=11 `proton11.0-arm64x` to **v1.0.5/vc6** (build `-6.16`). Mirrored both payloads from `uxdl.mac520.com` to our `Components` release (md5+size verified end-to-end):
+- main `wine_proton11.0-arm64x-6.16.tar.zst` md5 `5ea665ac850fc38153adf1349c0c2b67` (252,255,525 B)
+- sub `d2e7dd0f3bd35199e88f0650bbb85865.tzst` md5 `d2e7dd0f3bd35199e88f0650bbb85865` (32,368,353 B)
+
+`data/containers.json` id=11 → v1.0.5/vc6, new md5/size/url; sub_data named by sub's own md5 (our convention). Rebuilt; reverted 14 time-only-churn files (kept containers.json + getContainerDetail/11 + getContainerList). Old `wine_proton11.0-arm64x.tar.zst` asset deleted. Commit on master + cherry-picked to main; Pages deploy verified live (`…/simulator/v2/getContainerDetail/11` = 1.0.5/vc6).
+
+**GOTCHA (recurring):** plain `git fetch origin` does NOT update `origin/main` on this repo (custom fetch refspec) — it reported stale `4619626` while server `main` was at `671bf23`. Use `git fetch origin 'refs/heads/main:refs/remotes/origin/main' --force` (or `git ls-remote origin refs/heads/main`) to get the true tip, then cherry-pick onto it and push. `main` also gets raced by hourly badge auto-commits.
+
+## 2026-06-16 — Full component sync to upstream unified XML (parity) + rollback point
+
+Audited entire served catalog against `sp_winemu_unified_resources.xml` (upstream 357 components / 10 containers / 1 imagefs; we serve 568+). Found and fixed all gaps → **FULL PARITY (0 missing / 0 newer / 0 md5-drift)** verified against live catalog.
+
+**Rollback point FIRST (user hard-asked):** git tag `rollback-pre-upstream-sync-20260616` (catalog source) + same-named **prerelease** holding the 17 fixed-name `.yml` assets that get clobbered (md5-verified backups) + `CATALOG_SNAPSHOT.json` (manifest of all 570 comp + 10 cont). Restore = re-upload `.yml` w/ `--clobber` + `git checkout <tag> -- data/` + rebuild/push.
+
+**Synced (user: match upstream "even the false positives"; ID decision = KEEP OUR IDS):**
+- **6 missing → ADDED** at our ids **1363–1368**: `turnip_v26.2.0_b2/b3/b4/b5` (type2), `GSE` (type5), `xaudio2.7` (type6, fixed-name `xaudio2.7.yml`) — `data/custom_components.json`.
+- **17 stale deps → REFRESHED** version/md5 in `data/sp_winemu_all_components12.xml` (NOT custom_components): vcredist2005/2008/2010/2012/2015(→v1.0.3/vc946)/2022, mono, mono-10.1.0/10.3.0/10.4.1, physx, gecko, oalinst, cjkfonts, K-Lite(→v1.0.6/vc1143), XLiveRedist, VulkanRT. These are fixed-name `.yml` manifests → re-uploaded upstream bytes w/ `--clobber` (destructive; that's why rollback backs them up). Upstream serves them content-addressed `<md5>.yml`; we keep fixed names.
+- **vkd3d-proton-3.0.1 (id 1298) → RE-POINTED** md5 `83de62e6`→`26b2cbf4` (upstream rebuilt same version in place); md5-named .tzst, additive.
+- **6 "false-positive" turnips → label bump only** (R8_b2/b3/b4/b5, 26.1.0_b5/b8): our served bytes already == upstream latest md5; just bumped version/version_code to upstream's. No upload.
+
+24 files downloaded from upstream, all md5+size verified pre-upload; all live assets re-verified post-upload. `npm run build`; kept custom_components.json + sp_winemu_all_components12.xml + components/* manifests + getAllComponentList/getComponentList; reverted time-only churn. Component-only → Pages-only push (no worker). main `6fc4485` (ff), master `00b2cdf` (cherry-pick); Pages deploy verified, final live audit = FULL PARITY.
+
+**Still NOT 1:1 by design:** (1) our ids differ (new entries 1363–1368 not upstream 438–443; ~40 mirrored comps in our 1100s/1400s vs upstream 391–437); (2) we serve a superset (568 vs 357 — extra custom drivers + extra wine containers at ids 6/7 which upstream uses for dxvk-1.10.3/vkd3d-2.12 components, harmless: endpoint-scoped namespaces); (3) fixed-name vs md5-named download URLs (bytes identical). `upstream_overrides.json` only carries blurbs, not version/md5.
