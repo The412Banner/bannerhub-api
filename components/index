@@ -11,7 +11,7 @@
         "type": 1
       },
       {
-        "count": 288,
+        "count": 292,
         "display_name": "GPU Drivers",
         "manifest_url": "/components/drivers_manifest",
         "name": "drivers",
@@ -32,14 +32,14 @@
         "type": 4
       },
       {
-        "count": 69,
+        "count": 70,
         "display_name": "Game Patches",
         "manifest_url": "/components/games_manifest",
         "name": "games",
         "type": 5
       },
       {
-        "count": 113,
+        "count": 114,
         "display_name": "System Libraries",
         "manifest_url": "/components/libraries_manifest",
         "name": "libraries",
@@ -60,6 +60,6 @@
         "type": 8
       }
     ],
-    "total_components": 570
+    "total_components": 576
   }
 }

@@ -5,8 +5,22 @@
     "type": 5,
     "type_name": "games",
     "display_name": "Game Patches",
-    "total": 69,
+    "total": 70,
     "components": [
+      {
+        "display_name": "GSE",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4eab0113521066e467e4ab42e55989d3.tzst",
+        "file_md5": "4eab0113521066e467e4ab42e55989d3",
+        "file_name": "4eab0113521066e467e4ab42e55989d3.tzst",
+        "file_size": 32253,
+        "id": 1367,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "GSE",
+        "type": 5,
+        "version": "1.0.0",
+        "version_code": 1
+      },
       {
         "display_name": "GOOD",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5c4e8b3c447f3015bcadd12e94a5c23f.tzst",

@@ -2386,7 +2386,7 @@
         "file_size": 3347953,
         "name": "turnip_v26.0.0_R8_b2",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/012fbdc108267acf65d5f8fdbb182532.tzst",
@@ -2395,7 +2395,7 @@
         "file_size": 3438059,
         "name": "turnip_v26.0.0_R8_b3",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.2"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ecfa50f7d3cc3001369299ad60276494.tzst",
@@ -2404,7 +2404,7 @@
         "file_size": 3354467,
         "name": "turnip_v26.0.0_R8_b4",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.3"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/2090111d85c99cdf2ec9b077bfc1962f.tzst",
@@ -2413,7 +2413,7 @@
         "file_size": 3123812,
         "name": "turnip_v26.0.0_R8_b5",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/24ba605e127248c2c179f9ea2a2754df.tzst",
@@ -2494,7 +2494,7 @@
         "file_size": 3148936,
         "name": "turnip_v26.1.0_b5",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0355094c7f329334e7957217b5514504.tzst",
@@ -2530,7 +2530,7 @@
         "file_size": 2322322,
         "name": "turnip_v26.1.0_b8",
         "type": 2,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3ae13ec0a178d3eeec7005d5c1388a80.tzst",
@@ -2610,6 +2610,42 @@
         "file_name": "5d92be400392ef2e16c42b4d0c24f680.tzst",
         "file_size": 2432554,
         "name": "turnip_v26.2.0_b1",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b3ff82106efc935814fc0976982d3be0.tzst",
+        "file_md5": "b3ff82106efc935814fc0976982d3be0",
+        "file_name": "b3ff82106efc935814fc0976982d3be0.tzst",
+        "file_size": 2459818,
+        "name": "turnip_v26.2.0_b2",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/54b9d1ebcbfc0768a5767db9190365a6.tzst",
+        "file_md5": "54b9d1ebcbfc0768a5767db9190365a6",
+        "file_name": "54b9d1ebcbfc0768a5767db9190365a6.tzst",
+        "file_size": 2459682,
+        "name": "turnip_v26.2.0_b3",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/6f5be6958bcfc7f8c0c3889729fdd29c.tzst",
+        "file_md5": "6f5be6958bcfc7f8c0c3889729fdd29c",
+        "file_name": "6f5be6958bcfc7f8c0c3889729fdd29c.tzst",
+        "file_size": 2448837,
+        "name": "turnip_v26.2.0_b4",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/129f141b177296682bf7cc77311f9ef0.tzst",
+        "file_md5": "129f141b177296682bf7cc77311f9ef0",
+        "file_name": "129f141b177296682bf7cc77311f9ef0.tzst",
+        "file_size": 2461046,
+        "name": "turnip_v26.2.0_b5",
         "type": 2,
         "version": "1.0.0"
       },
@@ -3415,10 +3451,10 @@
         "version": "1.1.1"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/83de62e6a0fa71012277af53efc106d5.tzst",
-        "file_md5": "83de62e6a0fa71012277af53efc106d5",
-        "file_name": "83de62e6a0fa71012277af53efc106d5.tzst",
-        "file_size": 3128035,
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/26b2cbf4738b74bb257c1877ade9a1cb.tzst",
+        "file_md5": "26b2cbf4738b74bb257c1877ade9a1cb",
+        "file_name": "26b2cbf4738b74bb257c1877ade9a1cb.tzst",
+        "file_size": 5178980,
         "name": "vkd3d-proton-3.0.1",
         "type": 4,
         "version": "1.0.0"
@@ -3681,6 +3717,15 @@
         "file_name": "GrimDawnController_Settings.tzst",
         "file_size": 61334912,
         "name": "GrimDawnController_Settings",
+        "type": 5,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/4eab0113521066e467e4ab42e55989d3.tzst",
+        "file_md5": "4eab0113521066e467e4ab42e55989d3",
+        "file_name": "4eab0113521066e467e4ab42e55989d3.tzst",
+        "file_size": 32253,
+        "name": "GSE",
         "type": 5,
         "version": "1.0.0"
       },
@@ -4136,12 +4181,12 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/cjkfonts.yml",
-        "file_md5": "fd3d7cfbff1e2f8325694c23d0f38c8a",
+        "file_md5": "a7907ac50b78a6de437e3eb6c1360037",
         "file_name": "cjkfonts.yml",
-        "file_size": 4028,
+        "file_size": 4013,
         "name": "cjkfonts",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/cnc-ddraw.yml",
@@ -4550,12 +4595,12 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gecko.yml",
-        "file_md5": "765bfc3fd099c3608fe14adfd977f5f7",
+        "file_md5": "39bf8130cf0a66c8dd8c5e6358ad0004",
         "file_name": "gecko.yml",
-        "file_size": 661,
+        "file_size": 677,
         "name": "gecko",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/gfw.yml",
@@ -4604,12 +4649,12 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/K-Lite.yml",
-        "file_md5": "492db87ac2e9b3122f3db2ad03dd605c",
+        "file_md5": "a408473ba1386cf39e15a7bb1b59827a",
         "file_name": "K-Lite.yml",
-        "file_size": 422,
+        "file_size": 392,
         "name": "K-Lite",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.6"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/l3codecx.yml",
@@ -4676,39 +4721,39 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mono.yml",
-        "file_md5": "e02f1ca1e23781c71f4a85596161621a",
+        "file_md5": "b9d6016c3aab2bb836c8335b2e06a04b",
         "file_name": "mono.yml",
-        "file_size": 505,
+        "file_size": 490,
         "name": "mono",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mono-10.1.0.yml",
-        "file_md5": "5a297af2e8061637e992d14b8f342b7f",
+        "file_md5": "294e578d4325b19d60e98f81012ecf3f",
         "file_name": "mono-10.1.0.yml",
-        "file_size": 509,
+        "file_size": 494,
         "name": "mono-10.1.0",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mono-10.3.0.yml",
-        "file_md5": "d606ef52edc04f18b172a8542d599643",
+        "file_md5": "4862ad0883ef2dd6419f0f1ac38c225c",
         "file_name": "mono-10.3.0.yml",
-        "file_size": 509,
+        "file_size": 494,
         "name": "mono-10.3.0",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/mono-10.4.1.yml",
-        "file_md5": "c7047732b6261572c7df94680698d2d8",
+        "file_md5": "294e578d4325b19d60e98f81012ecf3f",
         "file_name": "mono-10.4.1.yml",
-        "file_size": 491,
+        "file_size": 494,
         "name": "mono-10.4.1",
         "type": 6,
-        "version": "1.0.1"
+        "version": "1.0.3"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/msasn1.yml",
@@ -4775,21 +4820,21 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/oalinst.yml",
-        "file_md5": "054077fd9e2e0cf623dfbee57ea85d4c",
+        "file_md5": "c131cd67a1f028c82dff21628a2f6c95",
         "file_name": "oalinst.yml",
-        "file_size": 422,
+        "file_size": 407,
         "name": "oalinst",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/physx.yml",
-        "file_md5": "e69d8d250639e0175c01843c583cb019",
+        "file_md5": "6d9e00fa670ac3f5eedd0006b10040e5",
         "file_name": "physx.yml",
-        "file_size": 538,
+        "file_size": 523,
         "name": "physx",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/powershell.yml",
@@ -4901,39 +4946,39 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2005.yml",
-        "file_md5": "fc8c516a93a69f1ee119add6ffe22492",
+        "file_md5": "3ff1b801eaa4760b3c02830374ce2677",
         "file_name": "vcredist2005.yml",
-        "file_size": 1121,
+        "file_size": 1091,
         "name": "vcredist2005",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2008.yml",
-        "file_md5": "230efdf130d33f103d2db25be79ca839",
+        "file_md5": "dc4f22dd8028c6eba432ba8d46998c05",
         "file_name": "vcredist2008.yml",
-        "file_size": 1121,
+        "file_size": 1105,
         "name": "vcredist2008",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2010.yml",
-        "file_md5": "36d3fd3ee6bd7a5290d09a9cc45c48b5",
+        "file_md5": "315fd6cc33ca6ff33d795e501a63d6be",
         "file_name": "vcredist2010.yml",
-        "file_size": 1065,
+        "file_size": 1049,
         "name": "vcredist2010",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2012.yml",
-        "file_md5": "de244c2763e6d80c9587773f26a6e518",
+        "file_md5": "b6498f6b34280ed2fb7e089e6eb74124",
         "file_name": "vcredist2012.yml",
-        "file_size": 1071,
+        "file_size": 1049,
         "name": "vcredist2012",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2013.yml",
@@ -4946,12 +4991,12 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2015.yml",
-        "file_md5": "4a5013a798aecc9004bc864d246566ba",
+        "file_md5": "f7d385146463652a72bd8260d8b09e3f",
         "file_name": "vcredist2015.yml",
-        "file_size": 2557,
+        "file_size": 2511,
         "name": "vcredist2015",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.3"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2019.yml",
@@ -4964,12 +5009,12 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist2022.yml",
-        "file_md5": "481d6eac7393ef2754cc5d791d8b0bca",
+        "file_md5": "793aa93426d903a6526d434cd1652aa3",
         "file_name": "vcredist2022.yml",
-        "file_size": 1659,
+        "file_size": 1629,
         "name": "vcredist2022",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vcredist6.yml",
@@ -4991,12 +5036,12 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/VulkanRT.yml",
-        "file_md5": "97cb1b29cb679f012753cd85b6280e27",
+        "file_md5": "9875d27394bd0395d71307f98f32075c",
         "file_name": "VulkanRT.yml",
-        "file_size": 562,
+        "file_size": 547,
         "name": "VulkanRT",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/webview2.yml",
@@ -5071,6 +5116,15 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xaudio2.7.yml",
+        "file_md5": "62fa64dc0f761b2fc557b9eaa5ec8ea7",
+        "file_name": "xaudio2.7.yml",
+        "file_size": 846,
+        "name": "xaudio2.7",
+        "type": 6,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xinput.yml",
         "file_md5": "64044fedba8ee9189c2941081adb59db",
         "file_name": "xinput.yml",
@@ -5081,12 +5135,12 @@
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/XLiveRedist.yml",
-        "file_md5": "e5b3840a2c149722510c915560d5cac7",
+        "file_md5": "fb698a45d3a6ec01337cde14c931a723",
         "file_name": "XLiveRedist.yml",
-        "file_size": 424,
+        "file_size": 409,
         "name": "XLiveRedist",
         "type": 6,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xna31.yml",
@@ -5134,6 +5188,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 570
+    "total": 576
   }
 }
