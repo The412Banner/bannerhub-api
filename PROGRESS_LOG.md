@@ -1464,3 +1464,16 @@ Audited entire served catalog against `sp_winemu_unified_resources.xml` (upstrea
 **Deployed to Cloudflare** (manual REST PUT, from pushed main HEAD). ⚠️ Worker now has **6 bindings** (KV TOKEN_STORE + R2 CHAT_IMAGES + 4 secrets SUPABASE_URL/SUPABASE_SERVICE_KEY/TURN_API_TOKEN/TURN_KEY_ID) — declared KV+R2 explicitly + `keep_bindings:["secret_text"]` for all secrets; verified all 6 present post-deploy and `/voice/*` still 200. **Live instantly for existing 6.08 clients (no app update needed)** on next library refresh, provided Steam login succeeds.
 
 **NOT addressed here (separate issues in the same report):** "steam login failed" on refresh (Steam client session/token expiry — augmentation no-ops without a valid `steam_user_steamid`) and "6.08 overseas check error" (update/region version-check endpoint). Missing games like Dead As Disco / Fatal Fury show in GameNative (broad steamdb catalog) but not ours because augmentation only injects OWNED games from the public community profile.
+
+## 2026-06-17 — Voice: nickname registry + roster nicknames for BannerHub 3.7.5 in-game voice (`a39675c`)
+
+Additive support for the new BannerHub 3.7.5 (GameHub 5.3.5) in-game voice chat (no-Steam room model — see The412Banner/BannerHub branch `voice-chat`). **Audited + live-verified v6-SAFE**: same `/voice/room` page, mesh, and TURN that v6 uses.
+
+### Changes (`bannerhub-worker.js`)
+- `/voice/room` page reads an optional `name` query param; the roster heartbeat (`POST /voice/roster`) now carries it.
+- `/voice/roster` GET returns a `names` map `{id:name}` — populated ONLY for members that actually set a name (v6 members send `name:""` → no entry, so a v6-only room's `names` is `{}`). Member body changed from a bare timestamp to `{t,name}` (parsed defensively; staleness still uses R2 `uploaded` time).
+- Page applies `j.names` and calls a NEW **guarded** `BhVoice.rosterNames(json)` bridge. v6's bridge has no such method → it's skipped; `BhVoice.roster(ids.join(","))` output is **byte-identical** to before. The extra `reportRoster()` in `rosterPoll` only fires when a name actually changes (`nch` guard) → **zero extra calls for v6 rooms**.
+- NEW `GET /voice/nick/check?name=&self=` and `POST /voice/nick/claim` — nickname registry backed by **R2** (`CHAT_IMAGES`, key `nick/<normalized>` → clientId; strong consistency avoids KV's negative-cache race). Statuses: `free`/`yours`/`taken`/`invalid`/`ok`. Ownership keyed to the device's stable client id.
+
+### Deploy
+Committed (`a39675c`) + ff-pushed to `master`. Deployed via CF REST PUT (recipe per imagefs/worker-deploy ref). **Verified deployed == base before deploy** (`String(Date.now())` present, my markers absent). Preserved all **6 bindings** (KV `TOKEN_STORE` + R2 `CHAT_IMAGES` + 4 secrets) via explicit KV+R2 in metadata + `keep_bindings:["secret_text"]`. Post-deploy live checks: 6/6 bindings; nick `free→ok→yours→taken→invalid` correct; `/voice/room` 200 with `BhVoice.roster` intact + `rosterNames` guarded; `/voice/turn` STUN+TURN; `/voice/roster` + `getImagefsDetail` (v6 firmware path) both 200. No Pages/catalog change (voice-only). `origin/main` left diverged (pre-existing) — only `master` updated.
