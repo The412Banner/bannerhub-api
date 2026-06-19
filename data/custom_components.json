@@ -3483,6 +3483,19 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/xaudio2.7.yml",
       "display_name": "xaudio2.7",
       "blurb": "XAudio2.7 runtime (system library)."
+    },
+    {
+      "id": 1369,
+      "name": "Fex_20260618",
+      "type": 1,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "ef87e56ab5311baf56129f85203a3c8e.tzst",
+      "file_md5": "ef87e56ab5311baf56129f85203a3c8e",
+      "file_size": "16546289",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ef87e56ab5311baf56129f85203a3c8e.tzst",
+      "display_name": "Fex_20260618",
+      "blurb": "FEX-Emu — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     }
   ]
 }
