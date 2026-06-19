@@ -5,7 +5,7 @@
     "type": 1,
     "type_name": "box64",
     "display_name": "Box64 Emulators",
-    "total": 37,
+    "total": 38,
     "components": [
       {
         "display_name": "",
@@ -523,6 +523,20 @@
         "name": "FEXCore-2605-Nightly-e02953dc1",
         "type": 1,
         "version": "2605-Nightly-e02953dc1",
+        "version_code": 1
+      },
+      {
+        "display_name": "Fex_20260618",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ef87e56ab5311baf56129f85203a3c8e.tzst",
+        "file_md5": "ef87e56ab5311baf56129f85203a3c8e",
+        "file_name": "ef87e56ab5311baf56129f85203a3c8e.tzst",
+        "file_size": 16546289,
+        "id": 1369,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "Fex_20260618",
+        "type": 1,
+        "version": "1.0.0",
         "version_code": 1
       }
     ]
