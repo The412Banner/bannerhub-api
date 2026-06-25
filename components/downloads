@@ -3361,6 +3361,42 @@
         "version": "2.7.1-gplasync-pre-regress"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/92ca7cd6deccf94ad439e43085b5f6c6.tzst",
+        "file_md5": "92ca7cd6deccf94ad439e43085b5f6c6",
+        "file_name": "92ca7cd6deccf94ad439e43085b5f6c6.tzst",
+        "file_size": 17564124,
+        "name": "DXVK-3.0",
+        "type": 3,
+        "version": "3.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/521ca85be06f9c2556ac40c7a6ca9668.tzst",
+        "file_md5": "521ca85be06f9c2556ac40c7a6ca9668",
+        "file_name": "521ca85be06f9c2556ac40c7a6ca9668.tzst",
+        "file_size": 16901900,
+        "name": "DXVK-3.0-1-gplasync",
+        "type": 3,
+        "version": "3.0-1-gplasync"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/46e18ebebf18d0823195b08656503bb2.tzst",
+        "file_md5": "46e18ebebf18d0823195b08656503bb2",
+        "file_name": "46e18ebebf18d0823195b08656503bb2.tzst",
+        "file_size": 13221158,
+        "name": "DXVK-3.0-1-gplasync-arm64ec",
+        "type": 3,
+        "version": "3.0-1-gplasync-arm64ec"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/c85980c87fa2eff59c7916d2bc3b4f2b.tzst",
+        "file_md5": "c85980c87fa2eff59c7916d2bc3b4f2b",
+        "file_name": "c85980c87fa2eff59c7916d2bc3b4f2b.tzst",
+        "file_size": 13337919,
+        "name": "DXVK-3.0-arm64ec",
+        "type": 3,
+        "version": "3.0-arm64ec"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a37fad0a11761851655437a38e8d8557.tzst",
         "file_md5": "a37fad0a11761851655437a38e8d8557",
         "file_name": "dxvk-v1.11.0-async.tzst",
@@ -5197,6 +5233,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 577
+    "total": 581
   }
 }

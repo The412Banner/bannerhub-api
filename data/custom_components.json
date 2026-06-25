@@ -3496,6 +3496,58 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ef87e56ab5311baf56129f85203a3c8e.tzst",
       "display_name": "Fex_20260618",
       "blurb": "FEX-Emu — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+    },
+    {
+      "id": 1370,
+      "name": "DXVK-3.0",
+      "type": 3,
+      "version": "3.0",
+      "version_code": 1,
+      "file_name": "92ca7cd6deccf94ad439e43085b5f6c6.tzst",
+      "file_md5": "92ca7cd6deccf94ad439e43085b5f6c6",
+      "file_size": "17564124",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/92ca7cd6deccf94ad439e43085b5f6c6.tzst",
+      "display_name": "DXVK-3.0",
+      "blurb": "DXVK stable release. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+    },
+    {
+      "id": 1371,
+      "name": "DXVK-3.0-arm64ec",
+      "type": 3,
+      "version": "3.0-arm64ec",
+      "version_code": 1,
+      "file_name": "c85980c87fa2eff59c7916d2bc3b4f2b.tzst",
+      "file_md5": "c85980c87fa2eff59c7916d2bc3b4f2b",
+      "file_size": "13337919",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/c85980c87fa2eff59c7916d2bc3b4f2b.tzst",
+      "display_name": "DXVK-3.0-arm64ec",
+      "blurb": "DXVK ARM64EC stable release. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+    },
+    {
+      "id": 1372,
+      "name": "DXVK-3.0-1-gplasync",
+      "type": 3,
+      "version": "3.0-1-gplasync",
+      "version_code": 1,
+      "file_name": "521ca85be06f9c2556ac40c7a6ca9668.tzst",
+      "file_md5": "521ca85be06f9c2556ac40c7a6ca9668",
+      "file_size": "16901900",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/521ca85be06f9c2556ac40c7a6ca9668.tzst",
+      "display_name": "DXVK-3.0-1-gplasync",
+      "blurb": "DXVK with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+    },
+    {
+      "id": 1373,
+      "name": "DXVK-3.0-1-gplasync-arm64ec",
+      "type": 3,
+      "version": "3.0-1-gplasync-arm64ec",
+      "version_code": 1,
+      "file_name": "46e18ebebf18d0823195b08656503bb2.tzst",
+      "file_md5": "46e18ebebf18d0823195b08656503bb2",
+      "file_size": "13221158",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/46e18ebebf18d0823195b08656503bb2.tzst",
+      "display_name": "DXVK-3.0-1-gplasync-arm64ec",
+      "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
     }
   ]
 }
