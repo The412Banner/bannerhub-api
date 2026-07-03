@@ -1464,3 +1464,18 @@ Audited entire served catalog against `sp_winemu_unified_resources.xml` (upstrea
 **Deployed to Cloudflare** (manual REST PUT, from pushed main HEAD). ⚠️ Worker now has **6 bindings** (KV TOKEN_STORE + R2 CHAT_IMAGES + 4 secrets SUPABASE_URL/SUPABASE_SERVICE_KEY/TURN_API_TOKEN/TURN_KEY_ID) — declared KV+R2 explicitly + `keep_bindings:["secret_text"]` for all secrets; verified all 6 present post-deploy and `/voice/*` still 200. **Live instantly for existing 6.08 clients (no app update needed)** on next library refresh, provided Steam login succeeds.
 
 **NOT addressed here (separate issues in the same report):** "steam login failed" on refresh (Steam client session/token expiry — augmentation no-ops without a valid `steam_user_steamid`) and "6.08 overseas check error" (update/region version-check endpoint). Missing games like Dead As Disco / Fatal Fury show in GameNative (broad steamdb catalog) but not ours because augmentation only injects OWNED games from the public community profile.
+
+## 2026-07-03 — Add FEXCore 2607 stables (non-PPA + PPA) as components 1374/1375
+
+Added the two FEX-2607 stable builds (cut from the exact `FEX-2607` tag, commit `1cc4b93e`)
+as new type-1 components in `data/custom_components.json`:
+
+- **id 1374 `FEXCore-2607`** — non-PPA. `3249eae590696faba9e6be0ec367def3.tzst` (1,705,560 B).
+- **id 1375 `FEXCore-2607-PPA`** — PPA-flavor (mirrors official FEX-Emu Launchpad packaging).
+  `85eb267db66ba7dc246c78e44e692090.tzst` (2,353,762 B).
+
+Both converted from Winlator `.wcp` via `scripts/wcp2tzst.sh --type fex` (strips profile.json +
+system32/ nesting → bare `libarm64ecfex.dll` + `libwow64fex.dll`); `check_component_layout.sh`
+= OK on both. `.tzst` uploaded to the `Components` release; `npm run build` regenerated
+endpoints; reverted time-only churn (kept custom_components.json + box64_manifest + downloads +
+index + getAllComponentList + getComponentList). Component-only → Pages-only (no Worker deploy).
