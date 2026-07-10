@@ -3495,7 +3495,7 @@
       "file_size": "16546289",
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ef87e56ab5311baf56129f85203a3c8e.tzst",
       "display_name": "Fex_20260618",
-      "blurb": "FEX-Emu — x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
+      "blurb": "FEX-Emu \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64."
     },
     {
       "id": 1370,
@@ -3548,6 +3548,84 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/46e18ebebf18d0823195b08656503bb2.tzst",
       "display_name": "DXVK-3.0-1-gplasync-arm64ec",
       "blurb": "DXVK ARM64EC build with GPL async pipeline compilation. Direct3D 9/10/11 \u2192 Vulkan translation layer."
+    },
+    {
+      "id": 1374,
+      "name": "FEXCore-2607",
+      "type": 1,
+      "version": "2607",
+      "version_code": 1,
+      "file_name": "3249eae590696faba9e6be0ec367def3.tzst",
+      "file_md5": "3249eae590696faba9e6be0ec367def3",
+      "file_size": "1705560",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3249eae590696faba9e6be0ec367def3.tzst",
+      "display_name": "FEXCore-2607",
+      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64. Built from the FEX-2607 release tag."
+    },
+    {
+      "id": 1375,
+      "name": "FEXCore-2607-PPA",
+      "type": 1,
+      "version": "2607",
+      "version_code": 1,
+      "file_name": "85eb267db66ba7dc246c78e44e692090.tzst",
+      "file_md5": "85eb267db66ba7dc246c78e44e692090",
+      "file_size": "2353762",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/85eb267db66ba7dc246c78e44e692090.tzst",
+      "display_name": "FEXCore-2607-PPA",
+      "blurb": "FEX-Emu FEXCore \u2014 x86/x86_64-to-ARM64 dynamic recompiler. WoW64 layer that lets Wine run 32-bit and 64-bit Windows binaries on ARM64. PPA-flavor build matching the official FEX-Emu Launchpad packaging. Built from the FEX-2607 release tag."
+    },
+    {
+      "id": 1376,
+      "name": "SMXZ_Turnip_v26.2.0_R7",
+      "type": 2,
+      "version": "Vulkan 1.4.354",
+      "version_code": 1,
+      "file_name": "be22e93b2ac9df0a52e5610d37651c9c.tzst",
+      "file_md5": "be22e93b2ac9df0a52e5610d37651c9c",
+      "file_size": "2460639",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/be22e93b2ac9df0a52e5610d37651c9c.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R7",
+      "blurb": "Turnip v26.2.0-R7 by stevenmx (Mesa 26.2.0, Vulkan 1.4.354). Targets Adreno A6xx/A7xx. Based on the latest Mesa main with newest fixes and improvements."
+    },
+    {
+      "id": 1377,
+      "name": "SMXZ_Turnip_v26.2.0_R7_OneUI",
+      "type": 2,
+      "version": "Vulkan 1.4.354",
+      "version_code": 1,
+      "file_name": "f49ae65f8666eadded7c550d6c3920f2.tzst",
+      "file_md5": "f49ae65f8666eadded7c550d6c3920f2",
+      "file_size": "2461002",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f49ae65f8666eadded7c550d6c3920f2.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R7 (OneUI)",
+      "blurb": "Turnip v26.2.0-R7 OneUI variant by stevenmx (Mesa 26.2.0, Vulkan 1.4.354). Targets Adreno A6xx/A7xx on Samsung One UI devices. Based on the latest Mesa main with newest fixes and improvements."
+    },
+    {
+      "id": 1378,
+      "name": "SMXZ_Turnip_v26.2.0_R8",
+      "type": 2,
+      "version": "Vulkan 1.4.354",
+      "version_code": 1,
+      "file_name": "0dd3e5b23a5758b7a63cba399d11722d.tzst",
+      "file_md5": "0dd3e5b23a5758b7a63cba399d11722d",
+      "file_size": "2460764",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0dd3e5b23a5758b7a63cba399d11722d.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R8",
+      "blurb": "Turnip v26.2.0-R8 by stevenmx (Mesa 26.2.0, Vulkan 1.4.354). Targets Adreno A6xx/A7xx. Based on the latest Mesa main with newest fixes and improvements."
+    },
+    {
+      "id": 1379,
+      "name": "SMXZ_Turnip_v26.2.0_R8_OneUI",
+      "type": 2,
+      "version": "Vulkan 1.4.354",
+      "version_code": 1,
+      "file_name": "49d8fb77ac08147f91a55f3757fe4a5e.tzst",
+      "file_md5": "49d8fb77ac08147f91a55f3757fe4a5e",
+      "file_size": "2460032",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/49d8fb77ac08147f91a55f3757fe4a5e.tzst",
+      "display_name": "SMXZ Turnip v26.2.0 R8 (OneUI)",
+      "blurb": "Turnip v26.2.0-R8 OneUI variant by stevenmx (Mesa 26.2.0, Vulkan 1.4.354). Targets Adreno A6xx/A7xx on Samsung One UI devices. Based on the latest Mesa main with newest fixes and improvements."
     }
   ]
 }

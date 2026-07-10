@@ -5,7 +5,7 @@
     "type": 1,
     "type_name": "box64",
     "display_name": "Box64 Emulators",
-    "total": 38,
+    "total": 40,
     "components": [
       {
         "display_name": "",
@@ -537,6 +537,34 @@
         "name": "Fex_20260618",
         "type": 1,
         "version": "1.0.0",
+        "version_code": 1
+      },
+      {
+        "display_name": "FEXCore-2607",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3249eae590696faba9e6be0ec367def3.tzst",
+        "file_md5": "3249eae590696faba9e6be0ec367def3",
+        "file_name": "3249eae590696faba9e6be0ec367def3.tzst",
+        "file_size": 1705560,
+        "id": 1374,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "FEXCore-2607",
+        "type": 1,
+        "version": "2607",
+        "version_code": 1
+      },
+      {
+        "display_name": "FEXCore-2607-PPA",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/85eb267db66ba7dc246c78e44e692090.tzst",
+        "file_md5": "85eb267db66ba7dc246c78e44e692090",
+        "file_name": "85eb267db66ba7dc246c78e44e692090.tzst",
+        "file_size": 2353762,
+        "id": 1375,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "FEXCore-2607-PPA",
+        "type": 1,
+        "version": "2607",
         "version_code": 1
       }
     ]
