@@ -1687,6 +1687,42 @@
         "version": "Vulkan 1.4.353"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/be22e93b2ac9df0a52e5610d37651c9c.tzst",
+        "file_md5": "be22e93b2ac9df0a52e5610d37651c9c",
+        "file_name": "be22e93b2ac9df0a52e5610d37651c9c.tzst",
+        "file_size": 2460639,
+        "name": "SMXZ_Turnip_v26.2.0_R7",
+        "type": 2,
+        "version": "Vulkan 1.4.354"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/f49ae65f8666eadded7c550d6c3920f2.tzst",
+        "file_md5": "f49ae65f8666eadded7c550d6c3920f2",
+        "file_name": "f49ae65f8666eadded7c550d6c3920f2.tzst",
+        "file_size": 2461002,
+        "name": "SMXZ_Turnip_v26.2.0_R7_OneUI",
+        "type": 2,
+        "version": "Vulkan 1.4.354"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0dd3e5b23a5758b7a63cba399d11722d.tzst",
+        "file_md5": "0dd3e5b23a5758b7a63cba399d11722d",
+        "file_name": "0dd3e5b23a5758b7a63cba399d11722d.tzst",
+        "file_size": 2460764,
+        "name": "SMXZ_Turnip_v26.2.0_R8",
+        "type": 2,
+        "version": "Vulkan 1.4.354"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/49d8fb77ac08147f91a55f3757fe4a5e.tzst",
+        "file_md5": "49d8fb77ac08147f91a55f3757fe4a5e",
+        "file_name": "49d8fb77ac08147f91a55f3757fe4a5e.tzst",
+        "file_size": 2460032,
+        "name": "SMXZ_Turnip_v26.2.0_R8_OneUI",
+        "type": 2,
+        "version": "Vulkan 1.4.354"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/8c55d76ebf822b41599a9b0d016283e7.tzst",
         "file_md5": "8c55d76ebf822b41599a9b0d016283e7",
         "file_name": "8c55d76ebf822b41599a9b0d016283e7.tzst",
@@ -5251,6 +5287,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 583
+    "total": 587
   }
 }
