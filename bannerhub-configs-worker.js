@@ -13,6 +13,15 @@
 //   comments:<g>/<f>   — comment array
 //   cache:list:<game>  — cached list response (3 min TTL)
 //   cache:games        — cached games list
+//
+// Bannerlator OPTIONAL accounts (ADDITIVE, all keys "bl"-prefixed, Bannerlator-global):
+//   bluser:<lowercased_username> — {user_id, username, pass:{hash,salt,iters},
+//                                   rec:{hash,salt,iters}, avatarUrl, createdAt}
+//   bluserid:<user_id>           — <lowercased_username>  (reverse lookup)
+//   blusertokens:<user_id>       — [{sha, game, filename, ts}]  cross-device upload registry
+//   blrl:create:<ip>             — account-creation rate-limit counter (TTL 1h)
+//   blrl:login:<ip>              — login/reset fail counter (TTL 15m)
+//   bllock:login:<ip>            — login/reset lockout flag  (TTL 15m)
 
 const GITHUB_OWNER = "The412Banner";
 
@@ -63,6 +72,9 @@ export default {
       else if (m === "POST" && p === "/admin/edit")   response = await handleAdminEdit(request, env);
       else if (m === "POST" && p === "/admin/purge")  response = await handleAdminPurge(request, env);
       else if (m === "GET"  && p === "/steam/search") response = await handleSteamSearch(url);
+      else if (m === "POST" && p === "/account/create") response = await handleAccountCreate(request, env);
+      else if (m === "POST" && p === "/account/login")  response = await handleAccountLogin(request, env);
+      else if (m === "POST" && p === "/account/reset")  response = await handleAccountReset(request, env);
       else response = json({ error: "Not found" }, 404);
 
       const out = new Response(response.body, { status: response.status, headers: new Headers(response.headers) });
@@ -192,7 +204,7 @@ async function handleUpload(request, env) {
   try { body = await request.json(); }
   catch { return json({ error: "Invalid JSON body" }, 400); }
 
-  const { game, filename, content, upload_token } = body;
+  const { game, filename, content, upload_token, session } = body;
   if (!game || !filename || !content) {
     return json({ error: "game, filename, and content are required" }, 400);
   }
@@ -234,6 +246,26 @@ async function handleUpload(request, env) {
           ns: ns
         }));
       } catch (e) { /* non-fatal — proceed without source tag */ }
+    }
+
+    // Cross-device upload registry (ADDITIVE) — only when a valid account session is present.
+    // Records this upload under the owning account so a user can recover their uploads on
+    // another device. Absent/invalid session → no-op (existing behavior byte-identical).
+    if (sha && session) {
+      try {
+        const sess = await readSession(session, env);
+        if (sess && sess.uid) {
+          const regKey = "blusertokens:" + sess.uid;
+          let arr = [];
+          try { const raw = await env.CONFIG_KV.get(regKey); if (raw) arr = JSON.parse(raw); } catch (e2) { /* reset */ }
+          if (!Array.isArray(arr)) arr = [];
+          if (!arr.some(x => x && x.sha === sha)) {
+            arr.push({ sha, game: safegame, filename: safefile, ts: Math.floor(Date.now() / 1000) });
+            if (arr.length > 500) arr = arr.slice(arr.length - 500);
+            await kvPut(env.CONFIG_KV, regKey, JSON.stringify(arr));
+          }
+        }
+      } catch (e) { /* non-fatal — upload already succeeded */ }
     }
 
     try {
@@ -827,5 +859,316 @@ function json(data, status = 200) {
     status,
     headers: { "Content-Type": "application/json" }
   });
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Bannerlator OPTIONAL accounts (ADDITIVE) — username claim, cross-device recovery.
+// SECURITY: passwords + recovery keys are NEVER stored or logged in plaintext; only
+// PBKDF2-SHA256 (150k iters, per-secret 16-byte salt) digests are kept. Sessions are
+// HMAC-SHA256(env.AUTH_SECRET) signed and fail closed if AUTH_SECRET is unset. All
+// hash/HMAC comparisons are constant-time. All KV keys are "bl"-prefixed.
+// ══════════════════════════════════════════════════════════════════════════════
+
+const PBKDF2_ITERS   = 100000;  // Cloudflare Workers caps PBKDF2 at 100k iterations (deriveBits throws above it).
+const RESERVED_NAMES = new Set(["admin", "anonymous", "bannerlator", "bannerhub"]);
+const BL_MAX_ATTEMPTS = 5;
+const BL_LOCKOUT_TTL  = 900; // 15 min
+const SESSION_TTL     = 30 * 24 * 3600; // 30 days
+// Dummy digest used to equalize PBKDF2 timing when a username does not exist, so the
+// response time never reveals whether an account exists. Value is irrelevant.
+const BL_DUMMY_PASS = {
+  hash:  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  salt:  "AAAAAAAAAAAAAAAAAAAAAA==",
+  iters: PBKDF2_ITERS
+};
+
+// ── Base64 helpers ────────────────────────────────────────────────────────────
+function bytesToB64(bytes) {
+  let s = "";
+  for (let i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+  return btoa(s);
+}
+function b64ToBytes(str) {
+  const bin = atob(str);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+function bytesToB64Url(bytes) {
+  return bytesToB64(bytes).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function b64UrlToBytes(str) {
+  let s = str.replace(/-/g, "+").replace(/_/g, "/");
+  while (s.length % 4) s += "=";
+  return b64ToBytes(s);
+}
+
+// ── Constant-time string compare ──────────────────────────────────────────────
+function ctEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string") return false;
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+// ── Random helpers ────────────────────────────────────────────────────────────
+function randHex(nBytes) {
+  const b = crypto.getRandomValues(new Uint8Array(nBytes));
+  let s = "";
+  for (let i = 0; i < b.length; i++) s += b[i].toString(16).padStart(2, "0");
+  return s;
+}
+function randRecoveryKey() {
+  // 20 chars from an unambiguous alphabet, formatted as 4 groups of 5.
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const bytes = crypto.getRandomValues(new Uint8Array(20));
+  let chars = "";
+  for (let i = 0; i < 20; i++) chars += alphabet[bytes[i] % alphabet.length];
+  return chars.match(/.{1,5}/g).join("-");
+}
+
+// ── PBKDF2-SHA256 hashing ─────────────────────────────────────────────────────
+async function pbkdf2(password, saltBytes, iters) {
+  const km = await crypto.subtle.importKey(
+    "raw", new TextEncoder().encode(password), { name: "PBKDF2" }, false, ["deriveBits"]
+  );
+  const bits = await crypto.subtle.deriveBits(
+    { name: "PBKDF2", salt: saltBytes, iterations: iters, hash: "SHA-256" }, km, 256
+  );
+  return bytesToB64(new Uint8Array(bits));
+}
+async function hashSecret(secret) {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const hash = await pbkdf2(secret, salt, PBKDF2_ITERS);
+  return { hash, salt: bytesToB64(salt), iters: PBKDF2_ITERS };
+}
+async function verifySecret(secret, stored) {
+  if (!stored || !stored.hash || !stored.salt || !stored.iters) return false;
+  try {
+    const salt = b64ToBytes(stored.salt);
+    const hash = await pbkdf2(secret, salt, stored.iters);
+    return ctEqual(hash, stored.hash);
+  } catch (e) { return false; }
+}
+
+// ── HMAC-SHA256 signed sessions ───────────────────────────────────────────────
+async function hmacSha256B64Url(secret, data) {
+  const key = await crypto.subtle.importKey(
+    "raw", new TextEncoder().encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(data));
+  return bytesToB64Url(new Uint8Array(sig));
+}
+async function makeSession(user_id, env) {
+  if (!env || !env.AUTH_SECRET) return null; // fail closed
+  try {
+    const payloadObj = { uid: user_id, exp: Math.floor(Date.now() / 1000) + SESSION_TTL };
+    const payload = bytesToB64Url(new TextEncoder().encode(JSON.stringify(payloadObj)));
+    const sig = await hmacSha256B64Url(env.AUTH_SECRET, payload);
+    return payload + "." + sig;
+  } catch (e) { return null; }
+}
+async function readSession(token, env) {
+  try {
+    if (!env || !env.AUTH_SECRET || !token || typeof token !== "string") return null;
+    const dot = token.indexOf(".");
+    if (dot < 0) return null;
+    const payload = token.slice(0, dot);
+    const sig     = token.slice(dot + 1);
+    const expected = await hmacSha256B64Url(env.AUTH_SECRET, payload);
+    if (!ctEqual(sig, expected)) return null;
+    const obj = JSON.parse(new TextDecoder().decode(b64UrlToBytes(payload)));
+    if (!obj || !obj.uid || !obj.exp) return null;
+    if (Math.floor(Date.now() / 1000) >= obj.exp) return null;
+    return { uid: obj.uid };
+  } catch (e) { return null; }
+}
+
+// ── Rate limiting + login brute-force lockout ─────────────────────────────────
+async function rateLimited(env, key, max, ttl) {
+  if (!env.CONFIG_KV) return false;
+  try {
+    const cur = parseInt(await env.CONFIG_KV.get(key) || "0");
+    if (cur >= max) return true;
+    await kvPut(env.CONFIG_KV, key, String(cur + 1), { expirationTtl: ttl });
+    return false;
+  } catch (e) { return false; }
+}
+async function loginLocked(env, ip) {
+  if (!env.CONFIG_KV) return false;
+  try { return !!(await env.CONFIG_KV.get("bllock:login:" + ip)); } catch (e) { return false; }
+}
+async function loginFail(env, ip) {
+  if (!env.CONFIG_KV) return;
+  try {
+    const failKey = "blrl:login:" + ip;
+    const fails = parseInt(await env.CONFIG_KV.get(failKey) || "0") + 1;
+    if (fails >= BL_MAX_ATTEMPTS) {
+      await kvPut(env.CONFIG_KV, "bllock:login:" + ip, "1", { expirationTtl: BL_LOCKOUT_TTL });
+      await kvDelete(env.CONFIG_KV, failKey);
+    } else {
+      await kvPut(env.CONFIG_KV, failKey, String(fails), { expirationTtl: BL_LOCKOUT_TTL });
+    }
+  } catch (e) { /* non-fatal */ }
+}
+async function loginClear(env, ip) {
+  if (!env.CONFIG_KV) return;
+  await kvDelete(env.CONFIG_KV, "blrl:login:" + ip);
+}
+
+// ── POST /account/create ──────────────────────────────────────────────────────
+// Body: { username, password }
+// Returns { success, user_id, username, session, recovery_key } — recovery_key is
+// returned ONE TIME, in plaintext, here only. It is never stored or returned again.
+async function handleAccountCreate(request, env) {
+  try {
+    if (!env.CONFIG_KV) return json({ error: "KV not configured" }, 503);
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
+
+    const username = String(body.username || "").trim();
+    const password = String(body.password || "");
+    const lower    = username.toLowerCase();
+
+    if (username.length < 3 || username.length > 20 || !/^[a-zA-Z0-9_-]+$/.test(username)) {
+      return json({ error: "invalid_username" }, 400);
+    }
+    if (RESERVED_NAMES.has(lower)) return json({ error: "username_reserved" }, 400);
+    if (password.length < 6)       return json({ error: "weak_password" }, 400);
+
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+    if (await rateLimited(env, "blrl:create:" + ip, 10, 3600)) {
+      return json({ error: "rate_limited" }, 429);
+    }
+
+    const existing = await env.CONFIG_KV.get("bluser:" + lower);
+    if (existing) return json({ error: "username_taken" }, 409);
+
+    const user_id = randHex(16);
+    // Build session first so a missing AUTH_SECRET fails BEFORE any record is written.
+    const session = await makeSession(user_id, env);
+    if (!session) return json({ error: "server_misconfigured" }, 503);
+
+    const pass = await hashSecret(password);
+    const recovery_key = randRecoveryKey();
+    const rec  = await hashSecret(recovery_key);
+
+    const record = {
+      user_id,
+      username,
+      pass,
+      rec,
+      avatarUrl: null,
+      createdAt: Math.floor(Date.now() / 1000)
+    };
+    await kvPut(env.CONFIG_KV, "bluser:" + lower, JSON.stringify(record));
+    await kvPut(env.CONFIG_KV, "bluserid:" + user_id, lower);
+
+    return json({ success: true, user_id, username, session, recovery_key });
+  } catch (e) {
+    return json({ error: "server_error" }, 500);
+  }
+}
+
+// ── POST /account/login ───────────────────────────────────────────────────────
+// Body: { username, password }
+// Returns { success, user_id, username, session, avatarUrl, uploads } on success.
+// Fails with a generic { error: "invalid" } 401 that never reveals account existence.
+async function handleAccountLogin(request, env) {
+  try {
+    if (!env.CONFIG_KV) return json({ error: "KV not configured" }, 503);
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
+
+    const username = String(body.username || "").trim();
+    const password = String(body.password || "");
+    const lower    = username.toLowerCase();
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+
+    if (await loginLocked(env, ip)) {
+      return json({ error: "Too many failed attempts — try again in 15 minutes." }, 429);
+    }
+
+    let record = null;
+    if (lower) {
+      const raw = await env.CONFIG_KV.get("bluser:" + lower);
+      if (raw) { try { record = JSON.parse(raw); } catch { record = null; } }
+    }
+
+    // Always run PBKDF2 (real or dummy) to keep timing constant vs. missing accounts.
+    const ok = await verifySecret(password, record ? record.pass : BL_DUMMY_PASS);
+    if (!record || !ok || !password) {
+      await loginFail(env, ip);
+      return json({ error: "invalid" }, 401);
+    }
+
+    await loginClear(env, ip);
+    const session = await makeSession(record.user_id, env);
+    if (!session) return json({ error: "server_misconfigured" }, 503);
+
+    let uploads = [];
+    try {
+      const u = await env.CONFIG_KV.get("blusertokens:" + record.user_id);
+      if (u) uploads = JSON.parse(u);
+      if (!Array.isArray(uploads)) uploads = [];
+    } catch { uploads = []; }
+
+    return json({
+      success:   true,
+      user_id:   record.user_id,
+      username:  record.username,
+      session,
+      avatarUrl: record.avatarUrl || null,
+      uploads
+    });
+  } catch (e) {
+    return json({ error: "server_error" }, 500);
+  }
+}
+
+// ── POST /account/reset ───────────────────────────────────────────────────────
+// Body: { username, recovery_key, new_password }
+// Verifies the recovery key (constant-time) and re-hashes the new password.
+async function handleAccountReset(request, env) {
+  try {
+    if (!env.CONFIG_KV) return json({ error: "KV not configured" }, 503);
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
+
+    const username     = String(body.username || "").trim();
+    const recovery_key = String(body.recovery_key || "");
+    const new_password = String(body.new_password || "");
+    const lower        = username.toLowerCase();
+    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+
+    if (await loginLocked(env, ip)) {
+      return json({ error: "Too many failed attempts — try again in 15 minutes." }, 429);
+    }
+    if (new_password.length < 6) return json({ error: "weak_password" }, 400);
+
+    let record = null;
+    if (lower) {
+      const raw = await env.CONFIG_KV.get("bluser:" + lower);
+      if (raw) { try { record = JSON.parse(raw); } catch { record = null; } }
+    }
+
+    // Always run PBKDF2 (real or dummy) to keep timing constant.
+    const ok = await verifySecret(recovery_key, record ? record.rec : BL_DUMMY_PASS);
+    if (!record || !ok || !recovery_key) {
+      await loginFail(env, ip);
+      return json({ error: "invalid" }, 401);
+    }
+
+    record.pass = await hashSecret(new_password);
+    await kvPut(env.CONFIG_KV, "bluser:" + lower, JSON.stringify(record));
+    await loginClear(env, ip);
+
+    const session = await makeSession(record.user_id, env);
+    if (!session) return json({ error: "server_misconfigured" }, 503);
+    return json({ success: true, session });
+  } catch (e) {
+    return json({ error: "server_error" }, 500);
+  }
 }
 
