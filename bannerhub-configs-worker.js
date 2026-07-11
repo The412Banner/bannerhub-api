@@ -262,7 +262,8 @@ async function handleUpload(request, env) {
           try { const raw = await env.CONFIG_KV.get(regKey); if (raw) arr = JSON.parse(raw); } catch (e2) { /* reset */ }
           if (!Array.isArray(arr)) arr = [];
           if (!arr.some(x => x && x.sha === sha)) {
-            arr.push({ sha, game: safegame, filename: safefile, ts: Math.floor(Date.now() / 1000) });
+            // token stored so a new-device login can restore delete/edit for the user's own uploads.
+            arr.push({ sha, game: safegame, filename: safefile, token: upload_token || null, ts: Math.floor(Date.now() / 1000) });
             if (arr.length > 500) arr = arr.slice(arr.length - 500);
             await kvPut(env.CONFIG_KV, regKey, JSON.stringify(arr));
           }
