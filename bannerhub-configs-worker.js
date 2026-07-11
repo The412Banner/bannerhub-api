@@ -15,7 +15,19 @@
 //   cache:games        — cached games list
 
 const GITHUB_OWNER = "The412Banner";
-const GITHUB_REPO  = "bannerhub-game-configs";
+
+// ── Namespace → repo routing (ADDITIVE, 2026-07-11) ──────────────────────────
+// The calling APP declares its namespace via ?ns=<name>. There is NO auto-detection.
+// NO ns (or an unknown ns) → "bannerhub" = the ORIGINAL repo and behavior, preserved
+// byte-for-byte so existing BannerHub clients are completely unaffected.
+// ns=bannerlator → the SEPARATE Bannerlator repo. BannerHub clients never send this
+// param, so they can never see Bannerlator configs (asymmetric visibility by design).
+const REPOS = {
+  bannerhub:   "bannerhub-game-configs",
+  bannerlator: "bannerlator-game-configs",
+};
+function nsOf(url)  { const ns = url.searchParams.get("ns"); return REPOS[ns] ? ns : "bannerhub"; }
+function repoOf(ns) { return REPOS[ns] || REPOS.bannerhub; }
 
 const CORS = {
   "Access-Control-Allow-Origin":  "*",
@@ -77,7 +89,8 @@ async function kvDelete(kv, key) {
 // Returns [{name, count}] from the pre-built games.json in the repo (updated every 30 min by CI).
 // Falls back to GitHub directory listing if games.json is unavailable.
 async function handleGames(url, env) {
-  const rawUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/main/games.json`;
+  const repo = repoOf(nsOf(url));
+  const rawUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${repo}/main/games.json`;
   const res = await fetch(rawUrl);
   if (res.ok) {
     const text = await res.text();
@@ -85,7 +98,7 @@ async function handleGames(url, env) {
   }
 
   // Fallback: directory listing
-  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/configs`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/configs`;
   const r2 = await ghFetch(apiUrl, env);
   if (r2.status === 404) return json([], 200);
   if (!r2.ok) return json({ error: "GitHub error: " + r2.status }, 502);
@@ -104,7 +117,8 @@ async function handleList(url, env) {
   const game = url.searchParams.get("game");
   if (!game) return json({ error: "game parameter required" }, 400);
   const bust = url.searchParams.get("refresh") === "1";
-  const cacheKey = "cache:list:" + game;
+  const repo = repoOf(nsOf(url));
+  const cacheKey = "cache:list:" + repo + ":" + game;
 
   if (!bust && env.CONFIG_KV) {
     try {
@@ -113,7 +127,7 @@ async function handleList(url, env) {
     } catch (e) { /* re-fetch */ }
   }
 
-  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/configs/${encodeURIComponent(game)}`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/configs/${encodeURIComponent(game)}`;
   const res = await ghFetch(apiUrl, env);
   if (res.status === 404) return json([], 200);
   if (!res.ok) return json({ error: "GitHub error: " + res.status }, 502);
@@ -171,6 +185,9 @@ async function handleList(url, env) {
 // Body: { game, filename, content (base64), upload_token (optional) }
 // Returns: { success, path, sha }
 async function handleUpload(request, env) {
+  const url = new URL(request.url);
+  const ns  = nsOf(url);
+  const repo = repoOf(ns);
   let body;
   try { body = await request.json(); }
   catch { return json({ error: "Invalid JSON body" }, 400); }
@@ -184,7 +201,7 @@ async function handleUpload(request, env) {
   const safefile = filename.replace(/[^a-zA-Z0-9_\-\.]/g, "_");
   const path     = `configs/${safegame}/${safefile}`;
 
-  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/${path}`;
   const res = await ghFetch(apiUrl, env, {
     method: "PUT",
     body: JSON.stringify({
@@ -213,7 +230,8 @@ async function handleUpload(request, env) {
         await kvPut(env.CONFIG_KV, "source:" + sha, JSON.stringify({
           app_source: appSource,
           game: safegame,
-          filename: safefile
+          filename: safefile,
+          ns: ns
         }));
       } catch (e) { /* non-fatal — proceed without source tag */ }
     }
@@ -227,8 +245,8 @@ async function handleUpload(request, env) {
 
   // Update recent.json + devices.json in repo (non-fatal if they fail)
   await Promise.all([
-    updateRecentJson(env, safegame, safefile),
-    updateDevicesJson(env, safegame, safefile, content)
+    updateRecentJson(env, repo, safegame, safefile),
+    updateDevicesJson(env, repo, safegame, safefile, content)
   ]);
 
   return json({ success: true, path, sha });
@@ -236,7 +254,7 @@ async function handleUpload(request, env) {
 
 // ── Update devices.json ───────────────────────────────────────────────────────
 // Adds new device entry for the game, commits back.
-async function updateDevicesJson(env, game, filename, contentBase64) {
+async function updateDevicesJson(env, repo, game, filename, contentBase64) {
   try {
     const base = filename.replace(/\.json$/, "");
     const parts = base.split("-");
@@ -251,7 +269,7 @@ async function updateDevicesJson(env, game, filename, contentBase64) {
       if (decoded.meta && decoded.meta.soc) soc = decoded.meta.soc;
     } catch { /* ignore */ }
 
-    const devUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/devices.json`;
+    const devUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/devices.json`;
     const getRes = await ghFetch(devUrl, env);
 
     let currentSha = null;
@@ -279,7 +297,7 @@ async function updateDevicesJson(env, game, filename, contentBase64) {
 
 // ── Update recent.json ────────────────────────────────────────────────────────
 // Prepends new entry, deduplicates, trims to 20, commits back to repo.
-async function updateRecentJson(env, game, filename) {
+async function updateRecentJson(env, repo, game, filename) {
   try {
     // Parse manufacturer, device, timestamp from filename
     // Format: GameName-...-Manufacturer-Model-timestamp.json
@@ -293,7 +311,7 @@ async function updateRecentJson(env, game, filename) {
     const timestamp    = parseInt(ts);
 
     // Fetch current recent.json to get its SHA for the update commit
-    const recentUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/recent.json`;
+    const recentUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/recent.json`;
     const getRes = await ghFetch(recentUrl, env);
 
     let currentSha = null;
@@ -331,7 +349,8 @@ async function handleDownload(url, env) {
   const sha  = url.searchParams.get("sha");
   if (!game || !file) return json({ error: "game and file required" }, 400);
 
-  const rawUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/main/configs/${encodeURIComponent(game)}/${encodeURIComponent(file)}`;
+  const repo = repoOf(nsOf(url));
+  const rawUrl = `https://raw.githubusercontent.com/${GITHUB_OWNER}/${repo}/main/configs/${encodeURIComponent(game)}/${encodeURIComponent(file)}`;
   const res = await fetch(rawUrl);
   if (!res.ok) return json({ error: "Config not found" }, 404);
   const text = await res.text();
@@ -543,6 +562,8 @@ async function checkAdminAuth(request, env, password) {
 // Body: { sha, game, filename, upload_token }
 // Verifies upload_token matches stored token, then deletes file + cleans up KV.
 async function handleUserDelete(request, env) {
+  const url = new URL(request.url);
+  const repo = repoOf(nsOf(url));
   let body;
   try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
   const { sha, game, filename, upload_token } = body;
@@ -560,7 +581,7 @@ async function handleUserDelete(request, env) {
   // Fallback: KV entry missing — verify via upload_token embedded in the file itself
   if (!verified) {
     try {
-      const fileApiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/configs/${encodeURIComponent(game)}/${encodeURIComponent(filename)}`;
+      const fileApiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/configs/${encodeURIComponent(game)}/${encodeURIComponent(filename)}`;
       const fileRes = await ghFetch(fileApiUrl, env);
       if (fileRes.ok) {
         const fileData = await fileRes.json();
@@ -581,7 +602,7 @@ async function handleUserDelete(request, env) {
   }
 
   const path = `configs/${game}/${filename}`;
-  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/configs/${encodeURIComponent(game)}/${encodeURIComponent(filename)}`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/configs/${encodeURIComponent(game)}/${encodeURIComponent(filename)}`;
 
   const getRes = await ghFetch(apiUrl, env);
   if (!getRes.ok) return json({ error: "File not found on server" }, 404);
@@ -610,7 +631,7 @@ async function handleUserDelete(request, env) {
     await kvDelete(env.CONFIG_KV, "desc:"       + sha);
     await kvDelete(env.CONFIG_KV, "source:"     + sha);
     await kvDelete(env.CONFIG_KV, `comments:${game}/${filename}`);
-    await kvDelete(env.CONFIG_KV, "cache:list:" + game);
+    await kvDelete(env.CONFIG_KV, "cache:list:" + repo + ":" + game);
     await kvDelete(env.CONFIG_KV, "cache:games");
     // Decrement game count
     const cur = parseInt(await env.CONFIG_KV.get("counts:" + game) || "0");
@@ -624,6 +645,7 @@ async function handleUserDelete(request, env) {
 // ── POST /admin/delete ────────────────────────────────────────────────────────
 // Body: { game, filename, password }
 async function handleAdminDelete(request, env) {
+  const repo = repoOf(nsOf(new URL(request.url)));
   let body;
   try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
   const { game, filename, password } = body;
@@ -632,7 +654,7 @@ async function handleAdminDelete(request, env) {
   if (!game || !filename) return json({ error: "game and filename required" }, 400);
 
   const path = `configs/${game}/${filename}`;
-  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${encodeURIComponent(path)}`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/${encodeURIComponent(path)}`;
 
   const getRes = await ghFetch(apiUrl, env);
   if (!getRes.ok) return json({ error: "File not found" }, 404);
@@ -654,7 +676,7 @@ async function handleAdminDelete(request, env) {
 
   if (env.CONFIG_KV) {
     await kvDelete(env.CONFIG_KV, "cache:games");
-    await kvDelete(env.CONFIG_KV, "cache:list:" + game);
+    await kvDelete(env.CONFIG_KV, "cache:list:" + repo + ":" + game);
     await kvDelete(env.CONFIG_KV, "source:"     + fileData.sha);
   }
 
@@ -664,6 +686,7 @@ async function handleAdminDelete(request, env) {
 // ── POST /admin/edit ──────────────────────────────────────────────────────────
 // Body: { game, filename, content (JSON string), password }
 async function handleAdminEdit(request, env) {
+  const repo = repoOf(nsOf(new URL(request.url)));
   let body;
   try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
   const { game, filename, content, password } = body;
@@ -674,7 +697,7 @@ async function handleAdminEdit(request, env) {
   try { JSON.parse(content); } catch { return json({ error: "Content is not valid JSON" }, 400); }
 
   const path = `configs/${game}/${filename}`;
-  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${encodeURIComponent(path)}`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/${encodeURIComponent(path)}`;
 
   const getRes = await ghFetch(apiUrl, env);
   if (!getRes.ok) return json({ error: "File not found" }, 404);
@@ -695,7 +718,7 @@ async function handleAdminEdit(request, env) {
     return json({ error: "GitHub error: " + err }, 502);
   }
 
-  if (env.CONFIG_KV) await kvDelete(env.CONFIG_KV, "cache:list:" + game);
+  if (env.CONFIG_KV) await kvDelete(env.CONFIG_KV, "cache:list:" + repo + ":" + game);
 
   return json({ success: true });
 }
@@ -734,9 +757,11 @@ async function handleAdminPurge(request, env) {
         const { game, filename } = meta;
         if (!game || !filename) { skipped++; return; }
         const sha = key.replace("source:", "");
+        // Route to the repo this config was uploaded to (recorded in source:<sha>.ns).
+        const repo = repoOf(meta.ns);
 
         // Delete from GitHub
-        const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/configs/${encodeURIComponent(game)}/${encodeURIComponent(filename)}`;
+        const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${repo}/contents/configs/${encodeURIComponent(game)}/${encodeURIComponent(filename)}`;
         const getRes = await ghFetch(apiUrl, env);
         if (getRes.ok) {
           const fileData = await getRes.json();
@@ -765,7 +790,7 @@ async function handleAdminPurge(request, env) {
           kvDelete(env.CONFIG_KV, "reports:"    + sha),
           kvDelete(env.CONFIG_KV, "desc:"       + sha),
           kvDelete(env.CONFIG_KV, `comments:${game}/${filename}`),
-          kvDelete(env.CONFIG_KV, "cache:list:" + game),
+          kvDelete(env.CONFIG_KV, "cache:list:" + repo + ":" + game),
         ]);
         // Decrement game count
         const cur = parseInt(await env.CONFIG_KV.get("counts:" + game) || "0");
