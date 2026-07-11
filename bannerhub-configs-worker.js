@@ -75,6 +75,8 @@ export default {
       else if (m === "POST" && p === "/account/create") response = await handleAccountCreate(request, env);
       else if (m === "POST" && p === "/account/login")  response = await handleAccountLogin(request, env);
       else if (m === "POST" && p === "/account/reset")  response = await handleAccountReset(request, env);
+      else if (m === "POST" && p === "/account/avatar") response = await handleAccountAvatar(request, env);
+      else if (m === "GET"  && p === "/account/avatar") response = await handleGetAvatar(url, env);
       else response = json({ error: "Not found" }, 404);
 
       const out = new Response(response.body, { status: response.status, headers: new Headers(response.headers) });
@@ -1167,6 +1169,70 @@ async function handleAccountReset(request, env) {
     const session = await makeSession(record.user_id, env);
     if (!session) return json({ error: "server_misconfigured" }, 503);
     return json({ success: true, session });
+  } catch (e) {
+    return json({ error: "server_error" }, 500);
+  }
+}
+
+// ── POST /account/avatar ──────────────────────────────────────────────────────
+// Body: { session, image (base64), content_type }. Stores the image in R2 keyed by
+// the session's user_id (one object per user, overwritten on change) and records the
+// served URL on the account. Max 512 KB, jpeg/png/webp only.
+async function handleAccountAvatar(request, env) {
+  try {
+    if (!env.AVATARS)   return json({ error: "avatars_unavailable" }, 503);
+    if (!env.CONFIG_KV) return json({ error: "KV not configured" }, 503);
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
+
+    const sess = await readSession(body.session, env);
+    if (!sess || !sess.uid) return json({ error: "unauthorized" }, 401);
+    const uid = sess.uid;
+
+    const ct = String(body.content_type || "").toLowerCase();
+    if (!(ct === "image/jpeg" || ct === "image/png" || ct === "image/webp")) {
+      return json({ error: "bad_type" }, 400);
+    }
+    let bytes;
+    try { bytes = b64ToBytes(String(body.image || "")); }
+    catch { return json({ error: "bad_image" }, 400); }
+    if (!bytes.length || bytes.length > 512 * 1024) return json({ error: "bad_size" }, 400);
+
+    await env.AVATARS.put("avatars/" + uid, bytes, { httpMetadata: { contentType: ct } });
+
+    const origin = new URL(request.url).origin;
+    const avatarUrl = origin + "/account/avatar?uid=" + encodeURIComponent(uid);
+    try {
+      const lower = await env.CONFIG_KV.get("bluserid:" + uid);
+      if (lower) {
+        const raw = await env.CONFIG_KV.get("bluser:" + lower);
+        if (raw) {
+          const rec = JSON.parse(raw);
+          rec.avatarUrl = avatarUrl;
+          await kvPut(env.CONFIG_KV, "bluser:" + lower, JSON.stringify(rec));
+        }
+      }
+    } catch (e) { /* non-fatal — the image is stored regardless */ }
+
+    return json({ success: true, avatarUrl });
+  } catch (e) {
+    return json({ error: "server_error" }, 500);
+  }
+}
+
+// ── GET /account/avatar?uid=<user_id> ─────────────────────────────────────────
+// Serves the avatar image from the (private) R2 bucket via the worker.
+async function handleGetAvatar(url, env) {
+  try {
+    if (!env.AVATARS) return json({ error: "avatars_unavailable" }, 503);
+    const uid = url.searchParams.get("uid");
+    if (!uid) return json({ error: "uid required" }, 400);
+    const obj = await env.AVATARS.get("avatars/" + uid);
+    if (!obj) return json({ error: "not_found" }, 404);
+    const ct = (obj.httpMetadata && obj.httpMetadata.contentType) || "image/jpeg";
+    return new Response(obj.body, {
+      headers: { "Content-Type": ct, "Cache-Control": "public, max-age=300" }
+    });
   } catch (e) {
     return json({ error: "server_error" }, 500);
   }
