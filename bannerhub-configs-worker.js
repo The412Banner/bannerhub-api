@@ -77,6 +77,7 @@ export default {
       else if (m === "POST" && p === "/account/reset")  response = await handleAccountReset(request, env);
       else if (m === "POST" && p === "/account/avatar") response = await handleAccountAvatar(request, env);
       else if (m === "GET"  && p === "/account/avatar") response = await handleGetAvatar(url, env);
+      else if (m === "GET"  && p === "/account/count")  response = await handleAccountCount(env);
       else response = json({ error: "Not found" }, 404);
 
       const out = new Response(response.body, { status: response.status, headers: new Headers(response.headers) });
@@ -1236,6 +1237,28 @@ async function handleGetAvatar(url, env) {
     });
   } catch (e) {
     return json({ error: "server_error" }, 500);
+  }
+}
+
+// ── GET /account/count ────────────────────────────────────────────────────────
+// Public, read-only: the number of REGISTERED accounts, for the repo README badge.
+// Counts `bluser:<username>` keys (one per account) and EXCLUDES throwaway test
+// accounts (`bluser:zztest*`). No write path is touched. The `bluser:` prefix does
+// not collide with `bluserid:` / `blusertokens:` / `blusercount` (none start with
+// "bluser:"). Paginated so it stays correct past 1000 accounts.
+async function handleAccountCount(env) {
+  try {
+    if (!env.CONFIG_KV) return json({ users: 0 });
+    let users = 0, cursor;
+    for (;;) {
+      const r = await env.CONFIG_KV.list({ prefix: "bluser:", cursor, limit: 1000 });
+      for (const k of r.keys) { if (!k.name.startsWith("bluser:zztest")) users++; }
+      if (r.list_complete) break;
+      cursor = r.cursor;
+    }
+    return json({ users });
+  } catch (e) {
+    return json({ users: 0 });
   }
 }
 
