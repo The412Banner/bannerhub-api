@@ -78,6 +78,10 @@ export default {
       else if (m === "POST" && p === "/account/avatar") response = await handleAccountAvatar(request, env);
       else if (m === "GET"  && p === "/account/avatar") response = await handleGetAvatar(url, env);
       else if (m === "GET"  && p === "/account/count")  response = await handleAccountCount(env);
+      else if (m === "POST" && p === "/lan/host")   response = await handleLanHost(request, env);
+      else if (m === "POST" && p === "/lan/join")   response = await handleLanJoin(request, env);
+      else if (m === "GET"  && p === "/lan/status") response = await handleLanStatus(url, env);
+      else if (m === "POST" && p === "/lan/leave")  response = await handleLanLeave(request, env);
       else response = json({ error: "Not found" }, 404);
 
       const out = new Response(response.body, { status: response.status, headers: new Headers(response.headers) });
@@ -931,6 +935,17 @@ function randRecoveryKey() {
   for (let i = 0; i < 20; i++) chars += alphabet[bytes[i] % alphabet.length];
   return chars.match(/.{1,5}/g).join("-");
 }
+// 6-char room code from the same unambiguous alphabet (~31^6 ≈ 8.9e8 combos).
+function randRoomCode() {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const bytes = crypto.getRandomValues(new Uint8Array(6));
+  let code = "";
+  for (let i = 0; i < 6; i++) code += alphabet[bytes[i] % alphabet.length];
+  return code;
+}
+function normalizeRoomCode(v) {
+  return String(v || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 6);
+}
 
 // ── PBKDF2-SHA256 hashing ─────────────────────────────────────────────────────
 async function pbkdf2(password, saltBytes, iters) {
@@ -1260,5 +1275,100 @@ async function handleAccountCount(env) {
   } catch (e) {
     return json({ users: 0 });
   }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// LAN-over-internet room signaling (P1). ADDITIVE, isolated: KV keys "lan:"-prefixed,
+// TTL-expiring, never touches configs/accounts. The worker only allocates a memorable
+// room code and tells both peers which relay to use — it does NOT relay traffic (a
+// separate UDP relay does that). Accounts are OPTIONAL (anonymous host/join works).
+// ══════════════════════════════════════════════════════════════════════════════
+const LAN_ROOM_TTL   = 1800;  // 30 min — a waiting/active room self-expires
+const LAN_MAX_MEMBERS = 2;    // v1 = host + one joiner
+
+function lanRelay(env) {
+  // Set LAN_RELAY_HOST/PORT vars once the relay VPS is deployed (P1.4). Until then
+  // this returns a clearly-non-real placeholder so the contract is testable.
+  return {
+    relay: (env && env.LAN_RELAY_HOST) || "relay-unset.lan.invalid",
+    port:  parseInt((env && env.LAN_RELAY_PORT) || "48800", 10)
+  };
+}
+
+// POST /lan/host  {session?}  ->  {code, relay, port, room, role:1}
+async function handleLanHost(request, env) {
+  if (!env.CONFIG_KV) return json({ error: "storage unavailable" }, 503);
+  let body = {};
+  try { body = await request.json(); } catch (e) { /* body optional */ }
+
+  let host_uid = null;
+  if (body.session) { const s = await readSession(body.session, env); if (s) host_uid = s.uid; }
+
+  // allocate a collision-free code (retry a few times)
+  let code = null;
+  for (let i = 0; i < 6; i++) {
+    const c = randRoomCode();
+    const exists = await env.CONFIG_KV.get("lan:" + c);
+    if (!exists) { code = c; break; }
+  }
+  if (!code) return json({ error: "could not allocate room, retry" }, 503);
+
+  const { relay, port } = lanRelay(env);
+  const rec = { code, relay, port, members: 1, max: LAN_MAX_MEMBERS,
+                host_uid, created: Date.now() };
+  await kvPut(env.CONFIG_KV, "lan:" + code, JSON.stringify(rec), { expirationTtl: LAN_ROOM_TTL });
+  return json({ code, relay, port, room: code, role: 1 });
+}
+
+// POST /lan/join  {code, session?}  ->  {relay, port, room, role:2, host_uid?}
+async function handleLanJoin(request, env) {
+  if (!env.CONFIG_KV) return json({ error: "storage unavailable" }, 503);
+  let body = {};
+  try { body = await request.json(); } catch (e) { /* fallthrough */ }
+  const code = normalizeRoomCode(body.code);
+  if (code.length !== 6) return json({ error: "invalid code" }, 400);
+
+  const raw = await env.CONFIG_KV.get("lan:" + code);
+  if (!raw) return json({ error: "room not found or expired" }, 404);
+  let rec;
+  try { rec = JSON.parse(raw); } catch (e) { return json({ error: "room corrupt" }, 500); }
+
+  if (rec.members >= (rec.max || LAN_MAX_MEMBERS)) return json({ error: "room full" }, 409);
+
+  rec.members += 1;
+  rec.joined = Date.now();
+  await kvPut(env.CONFIG_KV, "lan:" + code, JSON.stringify(rec), { expirationTtl: LAN_ROOM_TTL });
+  return json({ relay: rec.relay, port: rec.port, room: code, role: 2, host_uid: rec.host_uid || null });
+}
+
+// GET /lan/status?code=CODE  ->  {code, members, max, status}
+async function handleLanStatus(url, env) {
+  if (!env.CONFIG_KV) return json({ error: "storage unavailable" }, 503);
+  const code = normalizeRoomCode(url.searchParams.get("code"));
+  if (code.length !== 6) return json({ error: "invalid code" }, 400);
+  const raw = await env.CONFIG_KV.get("lan:" + code);
+  if (!raw) return json({ error: "room not found or expired" }, 404);
+  let rec; try { rec = JSON.parse(raw); } catch (e) { return json({ error: "room corrupt" }, 500); }
+  const max = rec.max || LAN_MAX_MEMBERS;
+  return json({ code, members: rec.members, max, status: rec.members >= max ? "ready" : "waiting" });
+}
+
+// POST /lan/leave  {code}  ->  {ok:true}   (idempotent; TTL is the real cleanup)
+async function handleLanLeave(request, env) {
+  if (!env.CONFIG_KV) return json({ error: "storage unavailable" }, 503);
+  let body = {};
+  try { body = await request.json(); } catch (e) { /* fallthrough */ }
+  const code = normalizeRoomCode(body.code);
+  if (code.length !== 6) return json({ error: "invalid code" }, 400);
+  const raw = await env.CONFIG_KV.get("lan:" + code);
+  if (raw) {
+    let rec; try { rec = JSON.parse(raw); } catch (e) { rec = null; }
+    if (rec) {
+      rec.members = Math.max(0, (rec.members || 1) - 1);
+      if (rec.members <= 0) await kvDelete(env.CONFIG_KV, "lan:" + code);
+      else await kvPut(env.CONFIG_KV, "lan:" + code, JSON.stringify(rec), { expirationTtl: LAN_ROOM_TTL });
+    }
+  }
+  return json({ ok: true });
 }
 
