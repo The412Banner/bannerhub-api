@@ -979,10 +979,13 @@ async function hmacSha256B64Url(secret, data) {
   const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(data));
   return bytesToB64Url(new Uint8Array(sig));
 }
-async function makeSession(user_id, env) {
+async function makeSession(user_id, env, username) {
   if (!env || !env.AUTH_SECRET) return null; // fail closed
   try {
     const payloadObj = { uid: user_id, exp: Math.floor(Date.now() / 1000) + SESSION_TTL };
+    // Bake the display name into the SIGNED token → tamper-proof "Hosted by <name>".
+    // Optional/additive: old tokens without it simply resolve name=null (anonymous display).
+    if (username && typeof username === "string") payloadObj.name = username;
     const payload = bytesToB64Url(new TextEncoder().encode(JSON.stringify(payloadObj)));
     const sig = await hmacSha256B64Url(env.AUTH_SECRET, payload);
     return payload + "." + sig;
@@ -1000,7 +1003,7 @@ async function readSession(token, env) {
     const obj = JSON.parse(new TextDecoder().decode(b64UrlToBytes(payload)));
     if (!obj || !obj.uid || !obj.exp) return null;
     if (Math.floor(Date.now() / 1000) >= obj.exp) return null;
-    return { uid: obj.uid };
+    return { uid: obj.uid, name: (typeof obj.name === "string" ? obj.name : null) };
   } catch (e) { return null; }
 }
 
@@ -1066,7 +1069,7 @@ async function handleAccountCreate(request, env) {
 
     const user_id = randHex(16);
     // Build session first so a missing AUTH_SECRET fails BEFORE any record is written.
-    const session = await makeSession(user_id, env);
+    const session = await makeSession(user_id, env, username);
     if (!session) return json({ error: "server_misconfigured" }, 503);
 
     const pass = await hashSecret(password);
@@ -1123,7 +1126,7 @@ async function handleAccountLogin(request, env) {
     }
 
     await loginClear(env, ip);
-    const session = await makeSession(record.user_id, env);
+    const session = await makeSession(record.user_id, env, record.username);
     if (!session) return json({ error: "server_misconfigured" }, 503);
 
     let uploads = [];
@@ -1183,7 +1186,7 @@ async function handleAccountReset(request, env) {
     await kvPut(env.CONFIG_KV, "bluser:" + lower, JSON.stringify(record));
     await loginClear(env, ip);
 
-    const session = await makeSession(record.user_id, env);
+    const session = await makeSession(record.user_id, env, record.username);
     if (!session) return json({ error: "server_misconfigured" }, 503);
     return json({ success: true, session });
   } catch (e) {
@@ -1301,8 +1304,14 @@ async function handleLanHost(request, env) {
   let body = {};
   try { body = await request.json(); } catch (e) { /* body optional */ }
 
-  let host_uid = null;
-  if (body.session) { const s = await readSession(body.session, env); if (s) host_uid = s.uid; }
+  // OPTIONAL identity: a signed-in host passes a session; we stamp the account id + display
+  // name (both from the tamper-proof signed token). Anonymous hosts pass nothing → both null,
+  // and joiners simply see no "Hosted by" line.
+  let host_uid = null, host_username = null;
+  if (body.session) {
+    const s = await readSession(body.session, env);
+    if (s) { host_uid = s.uid; host_username = s.name; }   // s.name is null for older tokens
+  }
 
   // allocate a collision-free code (retry a few times)
   let code = null;
@@ -1315,9 +1324,9 @@ async function handleLanHost(request, env) {
 
   const { relay, port } = lanRelay(env);
   const rec = { code, relay, port, members: 1, max: LAN_MAX_MEMBERS,
-                host_uid, created: Date.now() };
+                host_uid, host_username, created: Date.now() };
   await kvPut(env.CONFIG_KV, "lan:" + code, JSON.stringify(rec), { expirationTtl: LAN_ROOM_TTL });
-  return json({ code, relay, port, room: code, role: 1 });
+  return json({ code, relay, port, room: code, role: 1, host_username: host_username || null });
 }
 
 // POST /lan/join  {code, session?}  ->  {relay, port, room, role:2, host_uid?}
@@ -1338,7 +1347,8 @@ async function handleLanJoin(request, env) {
   rec.members += 1;
   rec.joined = Date.now();
   await kvPut(env.CONFIG_KV, "lan:" + code, JSON.stringify(rec), { expirationTtl: LAN_ROOM_TTL });
-  return json({ relay: rec.relay, port: rec.port, room: code, role: 2, host_uid: rec.host_uid || null });
+  return json({ relay: rec.relay, port: rec.port, room: code, role: 2,
+                host_uid: rec.host_uid || null, host_username: rec.host_username || null });
 }
 
 // GET /lan/status?code=CODE  ->  {code, members, max, status}

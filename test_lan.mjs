@@ -73,5 +73,27 @@ check(r.status === 200 && r.j.members === 1 && r.j.status === "waiting", "after 
 r = await call("GET", "/lan/status");
 check(r.status === 400, "status without code -> 400 (no crash)");
 
+// ── username tie-in: signed-in host → "Hosted by <name>" ──────────────────────
+console.log("/lan/* username tie-in:");
+r = await call("POST", "/account/create", { username: "HostGuy", password: "secret6" });
+check(r.status === 200 && !!r.j.session, "account create returns a session");
+const sess = r.j.session;
+r = await call("POST", "/lan/host", { session: sess });
+check(r.status === 200 && r.j.host_username === "HostGuy", "host WITH session -> host_username stamped from signed token");
+const hc = r.j.code;
+r = await call("POST", "/lan/join", { code: hc });
+check(r.status === 200 && r.j.host_username === "HostGuy", "join returns host_username");
+
+// no-username case #1: anonymous host (no session)
+r = await call("POST", "/lan/host", {});
+check(r.status === 200 && (r.j.host_username == null), "anonymous host -> host_username null");
+const ac = r.j.code;
+r = await call("POST", "/lan/join", { code: ac });
+check(r.status === 200 && (r.j.host_username == null), "join on anon room -> host_username null (no 'Hosted by')");
+
+// no-username case #2: a legacy/nameless token (uid only) degrades gracefully
+r = await call("POST", "/lan/host", { session: "garbage.token" });
+check(r.status === 200 && (r.j.host_username == null), "invalid/nameless session -> anonymous, still hosts fine");
+
 console.log(fails ? `\nFAILED (${fails})` : "\nALL PASS");
 process.exit(fails ? 1 : 0);
