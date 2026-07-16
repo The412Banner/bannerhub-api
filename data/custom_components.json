@@ -3626,6 +3626,58 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/49d8fb77ac08147f91a55f3757fe4a5e.tzst",
       "display_name": "SMXZ Turnip v26.2.0 R8 (OneUI)",
       "blurb": "Turnip v26.2.0-R8 OneUI variant by stevenmx (Mesa 26.2.0, Vulkan 1.4.354). Targets Adreno A6xx/A7xx on Samsung One UI devices. Based on the latest Mesa main with newest fixes and improvements."
+    },
+    {
+      "id": 1380,
+      "name": "SMXZ_Turnip_v26.3.0_R1",
+      "type": 2,
+      "version": "Mesa 26.3.0-devel",
+      "version_code": 1,
+      "file_name": "a56681b15c8932e3ccfde33d23081c67.tzst",
+      "file_md5": "a56681b15c8932e3ccfde33d23081c67",
+      "file_size": "2021037",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a56681b15c8932e3ccfde33d23081c67.tzst",
+      "display_name": "SMXZ Turnip v26.3.0 R1",
+      "blurb": "Turnip v26.3.0-R1 by stevenmx (Mesa 26.3.0-devel, git-ed41cf233f). Targets Adreno A6xx/A7xx. Based on the latest Mesa main with newest fixes and improvements."
+    },
+    {
+      "id": 1381,
+      "name": "SMXZ_Turnip_v26.3.0_R1_OneUI",
+      "type": 2,
+      "version": "Mesa 26.3.0-devel",
+      "version_code": 1,
+      "file_name": "db7af5b1ccc00614c63e5843973fcf01.tzst",
+      "file_md5": "db7af5b1ccc00614c63e5843973fcf01",
+      "file_size": "2021281",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/db7af5b1ccc00614c63e5843973fcf01.tzst",
+      "display_name": "SMXZ Turnip v26.3.0 R1 (OneUI)",
+      "blurb": "Turnip v26.3.0-R1 OneUI variant by stevenmx (Mesa 26.3.0-devel, git-ed41cf233f). Targets Adreno A6xx/A7xx on Samsung One UI devices. Based on the latest Mesa main with newest fixes and improvements."
+    },
+    {
+      "id": 1382,
+      "name": "WN-Turnip-1.05-p",
+      "type": 2,
+      "version": "Mesa 26.2.0-devel",
+      "version_code": 1,
+      "file_name": "ef8f44c1a5e338dbaa7d4060892c34ae.tzst",
+      "file_md5": "ef8f44c1a5e338dbaa7d4060892c34ae",
+      "file_size": "2030947",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/ef8f44c1a5e338dbaa7d4060892c34ae.tzst",
+      "display_name": "WN-Turnip 1.05 p (Performance)",
+      "blurb": "WinNative Turnip 1.05 Performance (Mesa 26.2.0-devel, git-be00f53d4d). Targets Adreno Axxx. Performance-tuned build by WinNative."
+    },
+    {
+      "id": 1383,
+      "name": "WN-Turnip-1.05-b",
+      "type": 2,
+      "version": "Mesa 26.2.0-devel",
+      "version_code": 1,
+      "file_name": "5795ccb0bda90fa10f78bbb1f4c3284d.tzst",
+      "file_md5": "5795ccb0bda90fa10f78bbb1f4c3284d",
+      "file_size": "2030275",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5795ccb0bda90fa10f78bbb1f4c3284d.tzst",
+      "display_name": "WN-Turnip 1.05 b (Balanced)",
+      "blurb": "WinNative Turnip 1.05 Balanced (Mesa 26.2.0-devel, git-be00f53d4d). Targets Adreno Axxx. Balanced build by WinNative."
     }
   ]
 }
