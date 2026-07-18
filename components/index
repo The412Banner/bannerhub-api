@@ -18,7 +18,7 @@
         "type": 2
       },
       {
-        "count": 55,
+        "count": 61,
         "display_name": "DXVK Layers",
         "manifest_url": "/components/dxvk_manifest",
         "name": "dxvk",
@@ -60,6 +60,6 @@
         "type": 8
       }
     ],
-    "total_components": 591
+    "total_components": 597
   }
 }

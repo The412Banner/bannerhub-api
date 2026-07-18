@@ -3487,6 +3487,60 @@
         "version": "3.0-arm64ec"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/b832115a6ac41cf62925aaa307b149e3.tzst",
+        "file_md5": "b832115a6ac41cf62925aaa307b149e3",
+        "file_name": "b832115a6ac41cf62925aaa307b149e3.tzst",
+        "file_size": 17662022,
+        "name": "DXVK-3.0.2",
+        "type": 3,
+        "version": "3.0.2"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/7d4c99833f1104f102a89013c7a38e60.tzst",
+        "file_md5": "7d4c99833f1104f102a89013c7a38e60",
+        "file_name": "7d4c99833f1104f102a89013c7a38e60.tzst",
+        "file_size": 16871497,
+        "name": "DXVK-3.0.2-1-binsem-gplasync",
+        "type": 3,
+        "version": "3.0.2-1-binsem-gplasync"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3a20d5b814cd3aa2564029e11f169661.tzst",
+        "file_md5": "3a20d5b814cd3aa2564029e11f169661",
+        "file_name": "3a20d5b814cd3aa2564029e11f169661.tzst",
+        "file_size": 13218064,
+        "name": "DXVK-3.0.2-1-binsem-gplasync-arm64ec",
+        "type": 3,
+        "version": "3.0.2-1-binsem-gplasync-arm64ec"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a0a6dba90017a7b2b0fd767b2ae2c101.tzst",
+        "file_md5": "a0a6dba90017a7b2b0fd767b2ae2c101",
+        "file_name": "a0a6dba90017a7b2b0fd767b2ae2c101.tzst",
+        "file_size": 16995817,
+        "name": "DXVK-3.0.2-1-gplasync",
+        "type": 3,
+        "version": "3.0.2-1-gplasync"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5221a589b4a8e09bf7c826e2fea1abe7.tzst",
+        "file_md5": "5221a589b4a8e09bf7c826e2fea1abe7",
+        "file_name": "5221a589b4a8e09bf7c826e2fea1abe7.tzst",
+        "file_size": 13141041,
+        "name": "DXVK-3.0.2-1-gplasync-arm64ec",
+        "type": 3,
+        "version": "3.0.2-1-gplasync-arm64ec"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/2718725323cb9bcd3098f2d0c5ec455c.tzst",
+        "file_md5": "2718725323cb9bcd3098f2d0c5ec455c",
+        "file_name": "2718725323cb9bcd3098f2d0c5ec455c.tzst",
+        "file_size": 13249187,
+        "name": "DXVK-3.0.2-arm64ec",
+        "type": 3,
+        "version": "3.0.2-arm64ec"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/a37fad0a11761851655437a38e8d8557.tzst",
         "file_md5": "a37fad0a11761851655437a38e8d8557",
         "file_name": "dxvk-v1.11.0-async.tzst",
@@ -5323,6 +5377,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 591
+    "total": 597
   }
 }
