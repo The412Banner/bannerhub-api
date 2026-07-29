@@ -1741,3 +1741,53 @@ recommended flag and the default bundle are independent.
 ⏸️ **NOT DEVICE-TESTED.** `Turnip_v26.3.0-R1` is now the recommended GPU driver for new 6.0
 containers and has never run on this hardware. Revert is a one-line worker change (drop it from the
 set + redeploy). Test a new container before trusting it.
+
+## 2026-07-29 — Final audit slice: the 8 remaining missing binaries mirrored (ids 1399-1406)
+
+Closes the audit's "missing" bucket. All 8 pulled from upstream's CDN, **md5 AND size verified against
+upstream's catalog entry before upload**, `check_component_layout.sh` OK on every one, uploaded
+md5-named, kept under upstream's exact names so the audit stops flagging them. Served catalog
+606 → 614.
+
+| id | name | type | upstream asset name (what it actually is) | md5 | size |
+|---|---|---|---|---|---|
+| 1399 | `Turnip-v2.6` | 2 | `Turnip-v2.6.tzst` — Vauzi v2.6 lineage | `d7719614…` | 3,229,054 |
+| 1400 | `turnip_v26.2.0_b6` | 2 | `WN-Turnip-1.02-p.tzst` — WinNative 1.02 p | `7909d78d…` | 2,481,717 |
+| 1401 | `turnip_v26.2.0_b7` | 2 | `WN-Turnip-1.04-p_Axxx.tzst` — WinNative 1.04 p Axxx | `864b2ed4…` | 2,501,333 |
+| 1402 | `turnip_v26.2.0_b8` | 2 | `Turnip_Gen8_V33.tzst` — SMXZ Gen8 V33 | `66d9124a…` | 2,483,130 |
+| 1403 | `turnip_v26.2.0_b9` | 2 | `Turnip-26.2.0-gamesir.tzst` — GameSir variant | `948c4851…` | 2,060,336 |
+| 1404 | `Turnip_v26.3.0-R1-Oneui` | 2 | One UI variant, sibling of id 1397 | `9f0fac7b…` | 2,500,073 |
+| 1405 | `dxvk-v3.0-1-async` | 3 | DXVK 3.0-1 async, D3D8/9/10/11 | `806363a7…` | 17,700,942 |
+| 1406 | `vkd3d-3.0.1-arm64ec` | 4 | VKD3D-Proton 3.0.1 ARM64EC | `96bc2806…` | 3,993,549 |
+
+🔑 **Upstream's `fileName` field is what identifies these** — the `turnip_v26.2.0_bN` names are opaque,
+but the asset names reveal each is upstream's own packaging of a driver family we already serve under a
+more descriptive name (`MTR_WN_Turnip_v1.02_Axxx_p` id 1354, `SMXZ_Turnip_Gen8_V32` id 1360,
+`Vauzi-Turnip-710-720-722-v2.6` id 1355, `DXVK-3.0-1-gplasync` id 1372,
+`vkd3d-proton-arm64ec-3.0.1-110e8bd4` id 1352). **All md5s differ from ours** — different packaging of
+the same driver family, not byte-identical duplicates. And we already mirror `turnip_v26.2.0_b2`–`b5`
+at ids 1363-1366, so b6-b9 continue an existing series.
+
+### ⚠️ Picker-order side effect (user-visible, not a bug)
+
+`PICKER_NEWEST_FIRST_TYPES = {2}` (`src/registry/registry.ts`) sorts GPU drivers by **id descending**,
+so the 6 new type-2 entries take the top 6 slots of the driver picker:
+`Turnip_v26.3.0-R1-Oneui, turnip_v26.2.0_b9, b8, b7, b6, Turnip-v2.6` — pushing `Turnip_v26.3.0-R1`
+to #7 and our SMXZ/WN builds below it. Four of those six are 26.2.0-era or older repackagings, so the
+top of the list no longer reads newest-first by actual driver version.
+
+Ids were sequenced deliberately so the block is internally correct (26.3.0 One UI highest, Vauzi 2.6
+lowest), but the block as a whole still sits above older ids. Chronological placement was not possible:
+**ids 1340-1398 are fully allocated, zero gaps.** If the ordering matters, the fix is the
+config (`PICKER_NEWEST_FIRST_TYPES` / the sort in `src/generators/manifest-generator.ts`), not
+per-entry id hacks.
+
+Catalog-only: Pages-only, **no Worker deploy** — none of the 8 appear in `UPSTREAM_YML_OVERRIDES` or
+`UPSTREAM_STATUS1` (the recommended set names `Turnip_v26.3.0-R1`, not the One UI sibling).
+
+### Audit "missing" bucket now closed
+
+17 rows → 7 game-patch ymls (ids 1390-1396), `Turnip_v26.3.0-R1` + `vkd3d-3.0.1-Gamesir` (1397/1398),
+these 8 (1399-1406), and 1 permanent skip: **`arm64ec-3.0.1-3dfc6f07`** — a type-13 row present only
+in upstream's legacy dump with empty md5/size/fileName and no download URL. Nothing to mirror; it is
+upstream junk data.

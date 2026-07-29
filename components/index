@@ -11,21 +11,21 @@
         "type": 1
       },
       {
-        "count": 301,
+        "count": 307,
         "display_name": "GPU Drivers",
         "manifest_url": "/components/drivers_manifest",
         "name": "drivers",
         "type": 2
       },
       {
-        "count": 61,
+        "count": 62,
         "display_name": "DXVK Layers",
         "manifest_url": "/components/dxvk_manifest",
         "name": "dxvk",
         "type": 3
       },
       {
-        "count": 10,
+        "count": 11,
         "display_name": "VKD3D Proton",
         "manifest_url": "/components/vkd3d_manifest",
         "name": "vkd3d",
@@ -60,6 +60,6 @@
         "type": 8
       }
     ],
-    "total_components": 606
+    "total_components": 614
   }
 }

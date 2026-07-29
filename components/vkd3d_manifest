@@ -5,7 +5,7 @@
     "type": 4,
     "type_name": "vkd3d",
     "display_name": "VKD3D Proton",
-    "total": 10,
+    "total": 11,
     "components": [
       {
         "display_name": "",
@@ -146,6 +146,20 @@
         "type": 4,
         "version": "1.0.1",
         "version_code": 2
+      },
+      {
+        "display_name": "vkd3d-3.0.1-arm64ec",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/96bc280612ec6505f0e44b8f1509ff29.tzst",
+        "file_md5": "96bc280612ec6505f0e44b8f1509ff29",
+        "file_name": "96bc280612ec6505f0e44b8f1509ff29.tzst",
+        "file_size": 3993549,
+        "id": 1406,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "vkd3d-3.0.1-arm64ec",
+        "type": 4,
+        "version": "1.0.0",
+        "version_code": 1
       }
     ]
   }

@@ -2731,6 +2731,42 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/7909d78d55868ae2f70444598174fb11.tzst",
+        "file_md5": "7909d78d55868ae2f70444598174fb11",
+        "file_name": "7909d78d55868ae2f70444598174fb11.tzst",
+        "file_size": 2481717,
+        "name": "turnip_v26.2.0_b6",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/864b2ed45ae92bfaa27de3fb705d2d49.tzst",
+        "file_md5": "864b2ed45ae92bfaa27de3fb705d2d49",
+        "file_name": "864b2ed45ae92bfaa27de3fb705d2d49.tzst",
+        "file_size": 2501333,
+        "name": "turnip_v26.2.0_b7",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/66d9124ad7901ee6a2dae310b9ba850f.tzst",
+        "file_md5": "66d9124ad7901ee6a2dae310b9ba850f",
+        "file_name": "66d9124ad7901ee6a2dae310b9ba850f.tzst",
+        "file_size": 2483130,
+        "name": "turnip_v26.2.0_b8",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/948c4851babe2f5d1c1012758c6a20a6.tzst",
+        "file_md5": "948c4851babe2f5d1c1012758c6a20a6",
+        "file_name": "948c4851babe2f5d1c1012758c6a20a6.tzst",
+        "file_size": 2060336,
+        "name": "turnip_v26.2.0_b9",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/c1ea3d759308447a808949ff54abc02a.tzst",
         "file_md5": "c1ea3d759308447a808949ff54abc02a",
         "file_name": "c1ea3d759308447a808949ff54abc02a.tzst",
@@ -2754,6 +2790,15 @@
         "file_name": "9f09fd304ad7c514af5e81818ff1d69a.tzst",
         "file_size": 2499929,
         "name": "Turnip_v26.3.0-R1",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9f0fac7b76b6812da5ec166a970ca35f.tzst",
+        "file_md5": "9f0fac7b76b6812da5ec166a970ca35f",
+        "file_name": "9f0fac7b76b6812da5ec166a970ca35f.tzst",
+        "file_size": 2500073,
+        "name": "Turnip_v26.3.0-R1-Oneui",
         "type": 2,
         "version": "1.0.0"
       },
@@ -2909,6 +2954,15 @@
         "name": "Turnip-R1-26.0.0",
         "type": 2,
         "version": "26.0.0/vk1.4.328"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d7719614fb6c2da076838046ca1990a6.tzst",
+        "file_md5": "d7719614fb6c2da076838046ca1990a6",
+        "file_name": "d7719614fb6c2da076838046ca1990a6.tzst",
+        "file_size": 3229054,
+        "name": "Turnip-v2.6",
+        "type": 2,
+        "version": "1.0.0"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/33dd3451cb292e0c8daaa8700ff6f172.tzst",
@@ -3613,6 +3667,15 @@
         "version": "1.0.1"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/806363a7901230ba0bff23e1b6cc4aa8.tzst",
+        "file_md5": "806363a7901230ba0bff23e1b6cc4aa8",
+        "file_name": "806363a7901230ba0bff23e1b6cc4aa8.tzst",
+        "file_size": 17700942,
+        "name": "dxvk-v3.0-1-async",
+        "type": 3,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wined3d8.0.tzst",
         "file_md5": "84e78270cdf324c22ca80495d8e2b9b2",
         "file_name": "wined3d8.0.tzst",
@@ -3638,6 +3701,15 @@
         "name": "vkd3d-2.13",
         "type": 4,
         "version": "1.1.1"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/96bc280612ec6505f0e44b8f1509ff29.tzst",
+        "file_md5": "96bc280612ec6505f0e44b8f1509ff29",
+        "file_name": "96bc280612ec6505f0e44b8f1509ff29.tzst",
+        "file_size": 3993549,
+        "name": "vkd3d-3.0.1-arm64ec",
+        "type": 4,
+        "version": "1.0.0"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3d3b4b51d56dbfe61864221865de168.tzst",
@@ -5458,6 +5530,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 606
+    "total": 614
   }
 }

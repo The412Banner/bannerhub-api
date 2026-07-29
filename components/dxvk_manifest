@@ -5,8 +5,22 @@
     "type": 3,
     "type_name": "dxvk",
     "display_name": "DXVK Layers",
-    "total": 61,
+    "total": 62,
     "components": [
+      {
+        "display_name": "dxvk-v3.0-1-async",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/806363a7901230ba0bff23e1b6cc4aa8.tzst",
+        "file_md5": "806363a7901230ba0bff23e1b6cc4aa8",
+        "file_name": "806363a7901230ba0bff23e1b6cc4aa8.tzst",
+        "file_size": 17700942,
+        "id": 1405,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "dxvk-v3.0-1-async",
+        "type": 3,
+        "version": "1.0.0",
+        "version_code": 1
+      },
       {
         "display_name": "DXVK-3.0.2-1-binsem-gplasync-arm64ec",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3a20d5b814cd3aa2564029e11f169661.tzst",
