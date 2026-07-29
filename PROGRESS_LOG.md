@@ -1628,3 +1628,20 @@ lockstep with the XML entry.
   `wuchang.yml` (type 6) to our `WUCHANG.tzst` (type 5) by lowercased name. Both legitimately
   exist: upstream's `WUCHANG` type-5 entry is byte-identical to ours (1.0.0/vc1, md5 `f355b90b…`),
   and the type-6 yml shipped earlier today as custom id 1396.
+
+### ⚠️ Discovered while deploying the K-Lite half: production was running `master`'s worker, not `main`'s
+
+Pre-deploy parity check (GET the live script, diff against git) caught it: the deployed worker was
+**byte-identical to `origin/master:bannerhub-worker.js` (89,069 b)** and 5 KB LARGER than
+`main`'s (84,128 b). The extra code is commit **`a39675c` "feat(voice): nickname registry + roster
+nicknames for 3.7.5 in-game voice"** — the `/voice/nick/{check,claim,release}` endpoints plus
+nickname-labelled roster entries, which exist **only on `master`** and nowhere in `main`'s history.
+
+**Deploying `main`'s worker as-is would have silently deleted live in-game-voice nickname
+endpoints.** Exactly the trap the "verify deployed==repo FIRST" step exists for.
+
+Resolved by adopting the deployed bytes as `main`'s worker baseline and re-applying the K-Lite map
+edit on top, so **git `main` now matches production exactly**. Verified the divergence was ONLY that
+feature (`a39675c` touched no other file, and the rest of the two workers are identical), so nothing
+from `main` is lost. Note this is worker *code*, not catalog data — it does not reintroduce master's
+conflicting component ids, and the "bannerhub-api = `main` only" rule for catalog work stands.
