@@ -39,7 +39,7 @@
         "type": 5
       },
       {
-        "count": 114,
+        "count": 121,
         "display_name": "System Libraries",
         "manifest_url": "/components/libraries_manifest",
         "name": "libraries",
@@ -60,6 +60,6 @@
         "type": 8
       }
     ],
-    "total_components": 597
+    "total_components": 604
   }
 }

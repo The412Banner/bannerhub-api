@@ -3756,6 +3756,97 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/3a20d5b814cd3aa2564029e11f169661.tzst",
       "display_name": "DXVK-3.0.2-1-binsem-gplasync-arm64ec",
       "blurb": "DXVK ARM64EC build with GPL async pipeline compilation + Leegao binary-semaphore timeline fix (set DXVK_DISABLE_TIMELINE_SEMAPHORES=1). Direct3D 9/10/11 → Vulkan translation layer."
+    },
+    {
+      "id": 1390,
+      "name": "witcher32",
+      "type": 6,
+      "version": "1.0.3",
+      "version_code": 4,
+      "file_name": "witcher32.yml",
+      "file_md5": "60dcda1b5c13bb635c4c435f4d67bc68",
+      "file_size": "387",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/witcher32.yml",
+      "display_name": "witcher32",
+      "blurb": "The Witcher 3 DirectX 11 fallback dynamic-path patch (silent installer)."
+    },
+    {
+      "id": 1391,
+      "name": "dmc52",
+      "type": 6,
+      "version": "1.0.2",
+      "version_code": 3,
+      "file_name": "dmc52.yml",
+      "file_md5": "e6e26d8b9fd2afc8225ea14565cb3a65",
+      "file_size": "364",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dmc52.yml",
+      "display_name": "dmc52",
+      "blurb": "Devil May Cry 5 DirectX 11 dynamic-path patch (silent installer)."
+    },
+    {
+      "id": 1392,
+      "name": "bannerlord2",
+      "type": 6,
+      "version": "1.0.2",
+      "version_code": 3,
+      "file_name": "bannerlord2.yml",
+      "file_md5": "15f00ab7bbb362a5522f9fed788f0818",
+      "file_size": "398",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/bannerlord2.yml",
+      "display_name": "bannerlord2",
+      "blurb": "Mount & Blade II: Bannerlord Watchdog dynamic-path patch (silent installer)."
+    },
+    {
+      "id": 1393,
+      "name": "sf62",
+      "type": 6,
+      "version": "1.0.2",
+      "version_code": 3,
+      "file_name": "sf62.yml",
+      "file_md5": "73529fc5bca9da4ec968a998d02ae961",
+      "file_size": "361",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/sf62.yml",
+      "display_name": "sf62",
+      "blurb": "Street Fighter 6 config.ini dynamic-path patch (silent installer)."
+    },
+    {
+      "id": 1394,
+      "name": "tloul",
+      "type": 6,
+      "version": "1.0.4",
+      "version_code": 5,
+      "file_name": "tloul.yml",
+      "file_md5": "392e52e4db8a762feb7d84d72cdad715",
+      "file_size": "363",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/tloul.yml",
+      "display_name": "tloul",
+      "blurb": "The Last of Us Part I compatibility patch (silent installer)."
+    },
+    {
+      "id": 1395,
+      "name": "tloull1",
+      "type": 6,
+      "version": "1.0.5",
+      "version_code": 6,
+      "file_name": "tloull1.yml",
+      "file_md5": "aa3f32b1fd43443e698e1b96ba563492",
+      "file_size": "387",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/tloull1.yml",
+      "display_name": "tloull1",
+      "blurb": "The Last of Us Part II multi-version compatibility patch (silent installer)."
+    },
+    {
+      "id": 1396,
+      "name": "wuchang",
+      "type": 6,
+      "version": "1.0.2",
+      "version_code": 3,
+      "file_name": "wuchang.yml",
+      "file_md5": "b7f157787aa5ae345edb36ddd72ad8e6",
+      "file_size": "376",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wuchang.yml",
+      "display_name": "wuchang",
+      "blurb": "WUCHANG: Fallen Feathers resolution-save patch (silent installer)."
     }
   ]
 }

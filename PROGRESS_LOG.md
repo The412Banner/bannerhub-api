@@ -1516,3 +1516,53 @@ Worker (JSON: versionName/versionCode/abi/channel/downloadUrl/forceUpdate/min-ma
 md5/sha256/schemaVersion/sizeBytes/rolloutPercent), reached via the `/v6/` prefix or a
 `customVersionUrl` override patch in the v6 build. Pin `100-1`, `forceUpdate=false`, wide host-version
 window, `sha256=ad27bbc2…`. No Worker/Pages change in this entry — release asset only.
+
+## 2026-07-29 — Rehost 7 upstream game-patch `.yml` components off XiaoJi's CDN (ids 1390-1396)
+
+Found by a full upstream-vs-ours catalog audit against a fresh device
+`sp_winemu_all_components12.xml` dump (377 upstream components vs our 307 XML + 290 custom):
+17 missing, 11 out of date, 1 payload swapped in place, 21 metadata drifts.
+
+First slice shipped here: the 7 per-game patch `.yml` install scripts upstream added that we served
+nowhere. Each yml is a 3-line `install_exe` recipe that pulls a small silent-installer `.exe` from
+`uxdl.mac520.com/ux-landscape/simulator_other/`.
+
+**Both halves are now on our `Components` release — yml AND the exe it fetches.** Leaving the exe on
+XiaoJi's CDN would have kept a live dependency on their infra (breaks the moment they rotate the
+path) and beaconed a user IP per install.
+
+| id | name | ver/vc | yml md5 (ours) | yml size | exe | patches |
+|---|---|---|---|---|---|---|
+| 1390 | witcher32   | 1.0.3/4 | `60dcda1b5c13bb635c4c435f4d67bc68` | 387 | 102,912 | The Witcher 3 DX11 fallback |
+| 1391 | dmc52       | 1.0.2/3 | `e6e26d8b9fd2afc8225ea14565cb3a65` | 364 | 102,912 | Devil May Cry 5 DX11 |
+| 1392 | bannerlord2 | 1.0.2/3 | `15f00ab7bbb362a5522f9fed788f0818` | 398 | 102,912 | Mount & Blade II Watchdog |
+| 1393 | sf62        | 1.0.2/3 | `73529fc5bca9da4ec968a998d02ae961` | 361 | 107,520 | Street Fighter 6 config.ini |
+| 1394 | tloul       | 1.0.4/5 | `392e52e4db8a762feb7d84d72cdad715` | 363 | 24,064 | The Last of Us Part I |
+| 1395 | tloull1     | 1.0.5/6 | `aa3f32b1fd43443e698e1b96ba563492` | 387 | 100,352 | The Last of Us Part II (multi-version) |
+| 1396 | wuchang     | 1.0.2/3 | `b7f157787aa5ae345edb36ddd72ad8e6` | 376 | 110,592 | WUCHANG resolution save |
+
+Exe bytes are byte-identical to upstream's (md5-verified against each yml's own `file_checksum`), so
+only the `url:` line inside each yml changed — the client's post-download integrity check on the exe
+still passes untouched.
+
+🔑 **Rewriting the url changed each yml's own md5**, so the catalog entries carry OUR md5 + size, not
+upstream's (e.g. witcher32 `60dcda1b…`/387, not `0fd1fbb6…`/366). Serving upstream's md5 against our
+rewritten yml would fail the client integrity check on the yml itself.
+
+`type: 6` (System Libraries) and `version`/`version_code` copied from upstream for fidelity — upstream
+marks all 7 `type=6, isDep=true, status=0, fileType=0`. Same shape as the existing `xaudio2.7`
+yml-based type-6 entry (id 1368).
+
+Catalog-only change ⇒ **Pages-only, NO Worker deploy** (no yml override map, no `UPSTREAM_STATUS1`
+entry, and the `/v6/` merge lets our entry win on name collision). Generated files kept to
+`components/{downloads,index,libraries_manifest}` + `simulator/v2/{getAllComponentList,getComponentList}`;
+the ~14 time-only churn files were reverted. Served catalog: 597 → 604 entries.
+
+### Not done yet (rest of the audit backlog)
+
+10 genuinely missing binaries (7 Turnips, `dxvk-v3.0-1-async`, `vkd3d-3.0.1-arm64ec`,
+`vkd3d-3.0.1-Gamesir`) — several are upstream repacks of drivers we already serve under our own
+names, so each needs a call, not a bulk import. 11 outdated (7 are metadata-only versionCode bumps
+with identical md5; real payload updates are `xact_x64`, `K-Lite`, `dxvk-3.0`). `id Software` swapped
+payload in place upstream (41 MB → 213 KB) — inspect before adopting. 21 metadata drifts, mostly
+`status`/`fileType` flips and `depInfo` changes on dependency components.
