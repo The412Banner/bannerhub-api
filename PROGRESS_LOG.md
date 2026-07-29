@@ -1856,3 +1856,18 @@ NOT drift)"** instead of being silently mis-bucketed.
 - 1 id collision = the 390 case above
 
 Nothing actionable is left in the audit.
+
+## 2026-07-29 — `Turnip_v26.3.0-R1` as the new v6 default: no device test owed
+
+The one caveat left on the `UPSTREAM_STATUS1` refresh is withdrawn. **The user confirmed they have
+already been running Turnip v26.3.0-R1 on device across other sessions**, so the driver now recommended
+for new 6.0 containers is proven in practice rather than unverified.
+
+Only the *packaging* is new to the catalog: id 1397 is upstream's own tzst, while our build of the same
+Mesa Turnip 26.3.0 R1 driver ships as `SMXZ_Turnip_v26.3.0_R1` / `_OneUI` (ids 1380/1381).
+
+**⇒ The upstream-audit sweep of 2026-07-29 is closed with no open items:** 7 game-patch ymls + their
+exes rehosted (1390-1396), 8 outdated entries synced incl. K-Lite 1.0.8, 3 rejected with cause, the 21
+metadata drifts shown to be unserved fields, all 10 remaining missing binaries mirrored (1397-1406), the
+`id Software` row proven a false alarm, and `scripts/xmldiff.py` checked in and hardened against the
+id-collision bug that produced it.
