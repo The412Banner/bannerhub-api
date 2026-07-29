@@ -5,8 +5,22 @@
     "type": 2,
     "type_name": "drivers",
     "display_name": "GPU Drivers",
-    "total": 300,
+    "total": 301,
     "components": [
+      {
+        "display_name": "Turnip_v26.3.0-R1",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9f09fd304ad7c514af5e81818ff1d69a.tzst",
+        "file_md5": "9f09fd304ad7c514af5e81818ff1d69a",
+        "file_name": "9f09fd304ad7c514af5e81818ff1d69a.tzst",
+        "file_size": 2499929,
+        "id": 1397,
+        "is_ui": 1,
+        "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
+        "name": "Turnip_v26.3.0-R1",
+        "type": 2,
+        "version": "1.0.0",
+        "version_code": 1
+      },
       {
         "display_name": "WN-Turnip 1.05 b (Balanced)",
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/5795ccb0bda90fa10f78bbb1f4c3284d.tzst",

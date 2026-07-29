@@ -2749,6 +2749,15 @@
         "version": "1.0.0"
       },
       {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9f09fd304ad7c514af5e81818ff1d69a.tzst",
+        "file_md5": "9f09fd304ad7c514af5e81818ff1d69a",
+        "file_name": "9f09fd304ad7c514af5e81818ff1d69a.tzst",
+        "file_size": 2499929,
+        "name": "Turnip_v26.3.0-R1",
+        "type": 2,
+        "version": "1.0.0"
+      },
+      {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9b5a941f7d5f3893be49b9c530621696.tzst",
         "file_md5": "9b5a941f7d5f3893be49b9c530621696",
         "file_name": "9b5a941f7d5f3893be49b9c530621696.tzst",
@@ -3629,6 +3638,15 @@
         "name": "vkd3d-2.13",
         "type": 4,
         "version": "1.1.1"
+      },
+      {
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3d3b4b51d56dbfe61864221865de168.tzst",
+        "file_md5": "d3d3b4b51d56dbfe61864221865de168",
+        "file_name": "d3d3b4b51d56dbfe61864221865de168.tzst",
+        "file_size": 4274656,
+        "name": "vkd3d-3.0.1-Gamesir",
+        "type": 4,
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/vkd3d-proton-2.14.1.tzst",
@@ -5440,6 +5458,6 @@
         "version": "1.0.0"
       }
     ],
-    "total": 604
+    "total": 606
   }
 }

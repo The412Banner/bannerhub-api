@@ -1192,16 +1192,36 @@ export default {
       // steam_client_0403 + vkd3d-2.12 and likely contributed to "task
       // install components failed" on Brawlhalla. Update this set when
       // upstream rotates a recommended component.
+      // Refreshed 2026-07-29 against upstream's current v6 catalog dump. Upstream's
+      // own set is exactly: base, dxvk-2.3.1-async, Fex_20260509, turnip_v26.1.0_R4,
+      // Turnip_v26.3.0-R1, vkd3d-3.0.1-Gamesir, vkd3d-proton-3.0.1 — it had rotated
+      // OFF vkd3d-2.12 and Turnip_v26.2.0_R3 (both dropped here) and ON the three
+      // newer drivers/VKD3D builds. Turnip_v26.3.0-R1 + vkd3d-3.0.1-Gamesir did not
+      // exist in our catalog until they were mirrored in as ids 1397/1398.
+      //
+      // The last 5 are BannerHub's own, NOT upstream's, and are deliberately kept:
+      // steam_client_0403 / vcredist2019 / SteamAgent2 were added by the 2026-05-12
+      // "task install components failed" fix (Brawlhalla, device-proven) and
+      // mono / mono-10.4.1 by the Round 7 field audit. Upstream no longer marks them
+      // because its own rotation moved on, but dropping them here would risk
+      // regressing those fixes — so this set is upstream's picks UNION ours.
+      //
+      // Dropping vkd3d-2.12 is safe even though getDefaultComponent still names it
+      // as the default VKD3D: the default bundle's DXVK (dxvk-1.10.3-async) has
+      // always been status=0 and installs fine, so the flag and the default bundle
+      // are independent.
       const UPSTREAM_STATUS1 = new Set([
         'base',
-        'steam_client_0403',
-        'vkd3d-2.12',
         'dxvk-2.3.1-async',
+        'Fex_20260509',
+        'turnip_v26.1.0_R4',
+        'Turnip_v26.3.0-R1',
+        'vkd3d-3.0.1-Gamesir',
+        'vkd3d-proton-3.0.1',
+        // BannerHub-specific, see comment above
+        'steam_client_0403',
         'vcredist2019',
         'SteamAgent2',
-        'Fex_20260509',
-        'Turnip_v26.2.0_R3',
-        'turnip_v26.1.0_R4',
         'mono',
         'mono-10.4.1',
       ])

@@ -11,7 +11,7 @@
         "type": 1
       },
       {
-        "count": 300,
+        "count": 301,
         "display_name": "GPU Drivers",
         "manifest_url": "/components/drivers_manifest",
         "name": "drivers",
@@ -25,7 +25,7 @@
         "type": 3
       },
       {
-        "count": 9,
+        "count": 10,
         "display_name": "VKD3D Proton",
         "manifest_url": "/components/vkd3d_manifest",
         "name": "vkd3d",
@@ -60,6 +60,6 @@
         "type": 8
       }
     ],
-    "total_components": 604
+    "total_components": 606
   }
 }

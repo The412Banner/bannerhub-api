@@ -1697,3 +1697,47 @@ added three we don't currently mark. ⚠️ **Two of upstream's picks (`Turnip_v
 this cannot be copied verbatim — it needs a decision about substituting our nearest equivalents
 (e.g. our `SMXZ Turnip v26.3.0-R1`). NOT changed here: it alters the default component every new
 container gets.
+
+## 2026-07-29 — Mirror upstream's 2 missing recommended components (ids 1397/1398) + refresh the v6 "recommended" set
+
+Follow-on from the metadata-drift finding: the field that actually decides what a new container
+defaults to on 6.0 is the Worker's `UPSTREAM_STATUS1`, and ours was months behind upstream's rotation.
+Upstream's current picks included two components we did not serve at all, so those were mirrored in
+first (user's call: rehost rather than substitute our nearest equivalents).
+
+### Mirrored from upstream, byte-for-byte
+
+| id | name | type | ver/vc | md5 | size | layout check |
+|---|---|---|---|---|---|---|
+| 1397 | `Turnip_v26.3.0-R1` | 2 (GPU driver) | 1.0.0/vc1 | `9f09fd304ad7c514af5e81818ff1d69a` | 2,499,929 | OK — bare `libvulkan_freedreno.so` |
+| 1398 | `vkd3d-3.0.1-Gamesir` | 4 (VKD3D) | 1.0.1/vc2 | `d3d3b4b51d56dbfe61864221865de168` | 4,274,656 | OK — `system32/` + `syswow64/` d3d12 |
+
+md5 AND size verified against upstream's catalog entry before upload; `check_component_layout.sh`
+printed OK for both. Kept upstream's exact names so the status set can reference them and the audit
+stops flagging them as missing. Assets uploaded md5-named. Served catalog 604 → 606.
+
+Note `Turnip_v26.3.0-R1-Oneui` (md5 `9f0fac7b…`, 2,500,073 b) is the sibling of 1397 and is still in
+the missing list — not mirrored here because upstream does not mark it recommended. Also note we
+already serve our own `SMXZ Turnip v26.3.0-R1` (ids 1380-1383), built from SMXZ's release rather than
+upstream's packaging — both now coexist, deliberately.
+
+### `UPSTREAM_STATUS1` refreshed (worker deploy)
+
+Upstream's current set is exactly: `base, dxvk-2.3.1-async, Fex_20260509, turnip_v26.1.0_R4,
+Turnip_v26.3.0-R1, vkd3d-3.0.1-Gamesir, vkd3d-proton-3.0.1`. Adopted in full — which **drops
+`vkd3d-2.12` and `Turnip_v26.2.0_R3`** (upstream rotated them off) and **adds the three newer
+builds**.
+
+⚠️ **Deliberate deviation from a verbatim mirror:** kept `steam_client_0403`, `vcredist2019`,
+`SteamAgent2` (added by the 2026-05-12 device-proven "task install components failed" / Brawlhalla
+fix) and `mono`, `mono-10.4.1` (Round 7 field audit). Upstream no longer marks these because its own
+rotation moved on, but dropping them risks regressing those fixes. So the set is **upstream's picks
+UNION BannerHub's own** — 12 names.
+
+Dropping `vkd3d-2.12` is safe despite `getDefaultComponent` still naming it the default VKD3D: that
+bundle's default DXVK (`dxvk-1.10.3-async`) has always been status=0 and installs fine, so the
+recommended flag and the default bundle are independent.
+
+⏸️ **NOT DEVICE-TESTED.** `Turnip_v26.3.0-R1` is now the recommended GPU driver for new 6.0
+containers and has never run on this hardware. Revert is a one-line worker change (drop it from the
+set + redeploy). Test a new container before trusting it.

@@ -3847,6 +3847,32 @@
       "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wuchang.yml",
       "display_name": "wuchang",
       "blurb": "WUCHANG: Fallen Feathers resolution-save patch (silent installer)."
+    },
+    {
+      "id": 1397,
+      "name": "Turnip_v26.3.0-R1",
+      "type": 2,
+      "version": "1.0.0",
+      "version_code": 1,
+      "file_name": "9f09fd304ad7c514af5e81818ff1d69a.tzst",
+      "file_md5": "9f09fd304ad7c514af5e81818ff1d69a",
+      "file_size": "2499929",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9f09fd304ad7c514af5e81818ff1d69a.tzst",
+      "display_name": "Turnip_v26.3.0-R1",
+      "blurb": "Mesa Turnip Vulkan driver for Adreno, upstream GameHub build R1 of 26.3.0. Mirrored byte-for-byte from upstream; upstream's currently recommended GPU driver."
+    },
+    {
+      "id": 1398,
+      "name": "vkd3d-3.0.1-Gamesir",
+      "type": 4,
+      "version": "1.0.1",
+      "version_code": 2,
+      "file_name": "d3d3b4b51d56dbfe61864221865de168.tzst",
+      "file_md5": "d3d3b4b51d56dbfe61864221865de168",
+      "file_size": "4274656",
+      "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/d3d3b4b51d56dbfe61864221865de168.tzst",
+      "display_name": "vkd3d-3.0.1-Gamesir",
+      "blurb": "VKD3D-Proton 3.0.1, GameSir variant. Direct3D 12 to Vulkan translation layer. Mirrored byte-for-byte from upstream; upstream's currently recommended VKD3D build."
     }
   ]
 }
