@@ -1645,3 +1645,55 @@ edit on top, so **git `main` now matches production exactly**. Verified the dive
 feature (`a39675c` touched no other file, and the rest of the two workers are identical), so nothing
 from `main` is lost. Note this is worker *code*, not catalog data — it does not reintroduce master's
 conflicting component ids, and the "bannerhub-api = `main` only" rule for catalog work stands.
+
+## 2026-07-29 — Audit follow-up: the 21 "metadata drifts" are COSMETIC — none of those fields are served
+
+Third slice of the upstream audit, and the useful result is a negative one. The 21 rows split into
+`status` (8), `fileType` (3) and `depInfo` (13) differences — and **our build pipeline emits none of
+those three fields.**
+
+**Proof, not inference.** A generated 5.x catalog entry carries exactly 12 fields:
+`display_name, download_url, file_md5, file_name, file_size, id, is_ui, logo, name, type, version,
+version_code` — uniformly across all 604 entries. No `status`, no `fileType`, no `depInfo`. And after
+applying all 11 status/fileType edits below, `simulator/v2/{getAllComponentList,getComponentList}`
+differed **only in the regenerated `time` field** — byte-identical output otherwise, so those two
+files were reverted and are not in this commit.
+
+On `/v6/` the same fields are synthesized by the Worker regardless of the catalog:
+`bannerhub-worker.js:1127` does `e.status = UPSTREAM_STATUS1.has(e.name) ? 1 : 0` (overwrites status
+for EVERY component) and `reshapeFor60` forces `fileType = 4` unconditionally.
+
+### Applied anyway — 11 source-XML alignments (inert on the wire, kills recurring audit noise)
+
+`data/sp_winemu_all_components12.xml` only, matched to upstream's 5.x dump:
+`status 1→0` on **Box64-0.37-b1, Fex_20250910, turnip_v25.0.0_R1, Rock_Settings, Cyberpunk2077,
+sifu_Settings, VulkanRT**; `status 0→1` on **Fex-20260103, gecko, mono-10.4.1**; `fileType 4→0` on
+Box64-0.37-b1 + Fex_20250910 and `0→4` on turnip_v26.0.0_R1. 11 lines changed, 11 added.
+
+### Rejected — all 13 `depInfo` rows (adopting them would be a regression, twice over)
+
+`depInfo` is a component's embedded install recipe (obfuscated keys a–g = name/description/provider/
+license/license_url/dependencies/steps). What "drifted":
+- **`gecko`**: recipes are identical *apart from the payload host* — ours points at
+  `dl.winehq.org` (the original vendor), upstream's at `uxdl.mac520.com`. Same shape as the
+  `xact_x64` rejection: adopting would swap WineHQ for XiaoJi.
+- **`mono`, `mono-10.3.0`, `mono-10.4.1`, `physx`, `vcredist2010/2012/2019/2022`, `dotnet48`,
+  `dotnet452`, `d3dcompiler_47`, `VulkanRT`**: upstream's `depInfo` is **`null`** where ours is a
+  fully populated recipe pointing at our own rehosted MSIs. Adopting = deleting our recipes.
+- On the v6 dump `depInfo` is `null` for all 13 — v6 doesn't carry recipes in that cache at all.
+- And it is not served either way. **Permanent intentional divergence; the audit should stop
+  flagging depInfo host-only/null-upstream differences.**
+
+### ⏭️ The field that DOES matter is in the Worker, and it is stale
+
+`UPSTREAM_STATUS1` (11 names: base, steam_client_0403, vkd3d-2.12, dxvk-2.3.1-async, vcredist2019,
+SteamAgent2, Fex_20260509, Turnip_v26.2.0_R3, turnip_v26.1.0_R4, mono, mono-10.4.1) is what actually
+decides which component 6.0 marks "active/recommended" — the flag the install task uses to seed
+defaults for new containers. Upstream's current v6 set is 7 names: base, dxvk-2.3.1-async,
+Fex_20260509, turnip_v26.1.0_R4, **Turnip_v26.3.0-R1**, **vkd3d-3.0.1-Gamesir**,
+**vkd3d-proton-3.0.1** — i.e. upstream has since dropped `vkd3d-2.12` and `Turnip_v26.2.0_R3` and
+added three we don't currently mark. ⚠️ **Two of upstream's picks (`Turnip_v26.3.0-R1`,
+`vkd3d-3.0.1-Gamesir`) are names we do not serve at all** (both are in the audit's missing list), so
+this cannot be copied verbatim — it needs a decision about substituting our nearest equivalents
+(e.g. our `SMXZ Turnip v26.3.0-R1`). NOT changed here: it alters the default component every new
+container gets.
