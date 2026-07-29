@@ -1820,3 +1820,39 @@ Everything remaining is expected and accounted for:
 - **303 metadata drift** (v6) = that dump carries `fileType=4` universally vs `0` in our source XML;
   the worker forces 4 on `/v6/` regardless. Pure noise.
 - **1 ours only** (v6) = `steam_9866233`, the 5.x Steam client; `/v6/` uses `steam_client_0403`.
+
+## 2026-07-29 — `id Software`: FALSE ALARM (audit id-collision bug), and the audit tool now guards against it
+
+The one row flagged as needing investigation — upstream apparently replacing `id Software`'s payload in
+place, 41,192,642 b → 212,967 b under the same version — **was not real.**
+
+- **We already serve upstream's exact current payload.** Our `id Software` is custom **id 1106**, md5
+  `565796c13769026a2d1b12a777293f9e`, 212,967 b, type 5 — byte-identical to upstream's entry (their id
+  390). Verified live on 5.x and `/v6/`, and the asset re-downloaded from its catalog URL with matching
+  md5 and size.
+- **The payload is correct and complete**, not a stub: it extracts to
+  `drive_c/users/steamuser/Saved Games/id Software/DOOM/base/` containing `DOOMConfig.cfg` (12,610 b),
+  `DOOMConfig.local`, and `savegame.user/76561197960267366/PROFILE/profile.bin` (210,008 b). A DOOM 2016
+  config + profile overlay — 213 KB is exactly the right size, and the `drive_c/...` layout is exactly
+  what type 5 expects.
+- **Where the 41 MB came from:** the audit falls back to matching by id when the name lookup misses.
+  Upstream's id 390 is `id Software` (type 5); **OUR xml id 390 is `steam_9866232`** (type 7, a
+  41,192,642 b Steam client). Ids drifted between the upstream snapshot our XML was localised from and
+  upstream's current catalog, so the tool compared a Steam client against a DOOM save overlay.
+
+**Tool fixed:** `scripts/xmldiff.py` id-based lookups now require the names to match too; rejected
+pairings are reported in a new section **"4b. ID COLLISIONS — same id, different component (ignored,
+NOT drift)"** instead of being silently mis-bucketed.
+
+### Audit fully clean — every row now explained
+
+`SUMMARY: 1 missing | 3 outdated | 7 payload-changed | 14 metadata drift | 0 ours-only` + 1 id collision.
+
+- 1 missing = `arm64ec-3.0.1-3dfc6f07` upstream junk row (no payload)
+- 3 outdated = the documented deliberate rejections (`xact_x64`, `dxvk-3.0`, `wuchang`)
+- **7 payload-changed = 100% by design** — the rehosted `.yml` components whose md5 must differ because
+  we rewrote their `url:` line (witcher32, dmc52, bannerlord2, sf62, tloul, tloull1, K-Lite)
+- 14 metadata drift = the 13 rejected `depInfo` rows + one status flag, none of which this build emits
+- 1 id collision = the 390 case above
+
+Nothing actionable is left in the audit.

@@ -30,6 +30,11 @@ Known permanent / expected rows as of 2026-07-29 (do not "fix" these):
     fileType=4. So these rows never affect a client. depInfo specifically must
     NOT be adopted: upstream's is either null or points at their mirror where
     ours carries a full recipe using our rehosted payloads.
+  * Section "4b. ID COLLISIONS" lists upstream rows whose id matches one of ours
+    but whose NAME does not. Those are ignored on purpose — ids drifted between
+    upstream snapshots. Expect `[390] upstream 'id Software' vs ours
+    'steam_9866232'`. Before this guard existed that pairing was reported as a
+    payload change and read as upstream shrinking a component 41 MB -> 213 KB.
   * Against the v6 unified dump expect ~300 metadata rows: that dump carries
     fileType=4 universally while our source XML uses 0. Pure noise.
   * "OURS ONLY: steam_9866233" — the 5.x Steam client; /v6/ uses
@@ -132,15 +137,35 @@ def main():
     print()
 
     missing, outdated, payload, meta, extra = [], [], [], [], []
+    id_collisions = []
+
+    def by_id(mapping, u):
+        """Look up one of OUR components by upstream's id — but only trust it if
+        the names also match.
+
+        Component ids have drifted between the upstream snapshot our XML was
+        localised from and upstream's current catalog, so a bare id match pairs
+        unrelated components and reports nonsense. Real example that cost a
+        round of investigation: upstream id 390 is 'id Software' (type 5, a
+        213 KB DOOM save overlay) while OUR xml id 390 is 'steam_9866232'
+        (type 7, a 41 MB Steam client) — compared blindly, that looked like
+        upstream had shrunk a payload 200x in place."""
+        c = mapping.get(u['id'])
+        if c is None:
+            return None
+        if str(c.get('name') or '').lower() != str(u['name'] or '').lower():
+            id_collisions.append((u, c))
+            return None
+        return c
 
     for key, u in up.items():
-        o = ours.get(key) or ours_by_id.get(u['id'])
+        o = ours.get(key) or by_id(ours_by_id, u)
         if o is None:
             same = ours_by_name.get(str(u['name'] or '').lower())
             o = same[0] if same else None
         src = 'xml'
         if o is None:
-            cc = custom_by_id.get(u['id']) or (custom_by_name.get(str(u['name'] or '').lower()) or [None])[0]
+            cc = by_id(custom_by_id, u) or (custom_by_name.get(str(u['name'] or '').lower()) or [None])[0]
             if cc:
                 o, src = cc, 'custom'
         if o is None:
@@ -200,6 +225,12 @@ def main():
         print(f"  [{str(u['id']):>5}] {str(u['name']):<40}")
         for d in diffs:
             print(f"          {d}")
+
+    if id_collisions:
+        print(f"\n{'='*80}\n4b. ID COLLISIONS — same id, different component (ignored, NOT drift)  ({len(id_collisions)})\n{'='*80}")
+        for u, c in sorted(id_collisions, key=lambda p: p[0]['id'] or 0):
+            print(f"  [{str(u['id']):>5}] upstream {str(u['name'])!r} (type {u.get('type')})"
+                  f"  vs ours {str(c.get('name'))!r} (type {c.get('type')})")
 
     print(f"\n{'='*80}\n5. OURS ONLY — in our XML, absent upstream  ({len(extra)})\n{'='*80}")
     for o in sorted(extra, key=lambda c: (c['type'] or 0, c['id'] or 0)):
