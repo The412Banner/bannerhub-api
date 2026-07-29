@@ -3547,7 +3547,7 @@
         "file_size": 7808927,
         "name": "dxvk-v1.11.0-async",
         "type": 3,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/9f83bc10819ff9636a7300dcd114ba87.tzst",
@@ -3556,7 +3556,7 @@
         "file_size": 7789100,
         "name": "dxvk-v1.11.1-mali-fix",
         "type": 3,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.4.1-async.tzst",
@@ -3565,7 +3565,7 @@
         "file_size": 9150064,
         "name": "dxvk-v2.4.1-async",
         "type": 3,
-        "version": "1.1.0"
+        "version": "1.1.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.5.2-1-gplasync.tzst",
@@ -3574,7 +3574,7 @@
         "file_size": 9731037,
         "name": "dxvk-v2.5.2-1-async",
         "type": 3,
-        "version": "1.1.0"
+        "version": "1.1.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.6-1-gplasync.tzst",
@@ -3583,7 +3583,7 @@
         "file_size": 10238841,
         "name": "dxvk-v2.6-1-async",
         "type": 3,
-        "version": "1.1.0"
+        "version": "1.1.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/dxvk-v2.6.2-1-async.tzst",
@@ -3592,7 +3592,7 @@
         "file_size": 10037215,
         "name": "dxvk-v2.6.2-1-async",
         "type": 3,
-        "version": "1.1.0"
+        "version": "1.1.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/28c475da895104fee43cebc9b80a3a6d.tzst",
@@ -3601,7 +3601,7 @@
         "file_size": 10256370,
         "name": "dxvk-v2.7.1-1-async",
         "type": 3,
-        "version": "1.0.0"
+        "version": "1.0.1"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/wined3d8.0.tzst",
@@ -4855,13 +4855,13 @@
         "version": "1.0.0"
       },
       {
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/K-Lite.yml",
-        "file_md5": "a408473ba1386cf39e15a7bb1b59827a",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0d1145c0aa9a45de3e7688dc57fb01a7.yml",
+        "file_md5": "0d1145c0aa9a45de3e7688dc57fb01a7",
         "file_name": "K-Lite.yml",
-        "file_size": 392,
+        "file_size": 408,
         "name": "K-Lite",
         "type": 6,
-        "version": "1.0.6"
+        "version": "1.0.8"
       },
       {
         "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/l3codecx.yml",

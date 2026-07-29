@@ -466,8 +466,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "dxvk-v2.7.1-1-async",
         "type": 3,
-        "version": "1.0.0",
-        "version_code": 1
+        "version": "1.0.1",
+        "version_code": 2
       },
       {
         "display_name": "",
@@ -494,8 +494,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "dxvk-v1.11.1-mali-fix",
         "type": 3,
-        "version": "1.0.0",
-        "version_code": 1
+        "version": "1.0.1",
+        "version_code": 2
       },
       {
         "display_name": "",
@@ -508,8 +508,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "dxvk-v1.11.0-async",
         "type": 3,
-        "version": "1.0.0",
-        "version_code": 1
+        "version": "1.0.1",
+        "version_code": 2
       },
       {
         "display_name": "",
@@ -550,8 +550,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "dxvk-v2.6.2-1-async",
         "type": 3,
-        "version": "1.1.0",
-        "version_code": 1904
+        "version": "1.1.1",
+        "version_code": 1905
       },
       {
         "display_name": "",
@@ -620,8 +620,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "dxvk-v2.4.1-async",
         "type": 3,
-        "version": "1.1.0",
-        "version_code": 1073
+        "version": "1.1.1",
+        "version_code": 1074
       },
       {
         "display_name": "",
@@ -634,8 +634,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "dxvk-v2.6-1-async",
         "type": 3,
-        "version": "1.1.0",
-        "version_code": 1976
+        "version": "1.1.1",
+        "version_code": 1977
       },
       {
         "display_name": "",
@@ -648,8 +648,8 @@
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "dxvk-v2.5.2-1-async",
         "type": 3,
-        "version": "1.1.0",
-        "version_code": 1952
+        "version": "1.1.1",
+        "version_code": 1953
       },
       {
         "display_name": "",

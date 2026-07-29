@@ -1566,3 +1566,65 @@ names, so each needs a call, not a bulk import. 11 outdated (7 are metadata-only
 with identical md5; real payload updates are `xact_x64`, `K-Lite`, `dxvk-3.0`). `id Software` swapped
 payload in place upstream (41 MB → 213 KB) — inspect before adopting. 21 metadata drifts, mostly
 `status`/`fileType` flips and `depInfo` changes on dependency components.
+
+## 2026-07-29 — Audit follow-up: the 11 "out of date" rows (8 bumped, 3 rejected with cause)
+
+Second slice of the upstream audit. Versions cross-checked against BOTH upstream dumps — the legacy
+`sp_winemu_all_components12.xml` and the current v6 `sp_winemu_unified_resources.xml` (454,434 b,
+783 `uxdl.mac520.com` URLs / 0 github = genuinely upstream). Both agree on every version/versionCode
+below, and all 11 components exist in the v6 catalog, so every row here is v6-relevant.
+
+### Bumped — 7 DXVK entries, metadata only (md5 IDENTICAL, no asset work)
+
+| id | name | was | now |
+|---|---|---|---|
+| 224 | dxvk-v2.5.2-1-async | 1.1.0/vc1952 | 1.1.1/vc1953 |
+| 225 | dxvk-v2.6-1-async | 1.1.0/vc1976 | 1.1.1/vc1977 |
+| 259 | dxvk-v2.4.1-async | 1.1.0/vc1073 | 1.1.1/vc1074 |
+| 280 | dxvk-v2.6.2-1-async | 1.1.0/vc1904 | 1.1.1/vc1905 |
+| 328 | dxvk-v1.11.0-async | 1.0.0/vc1 | 1.0.1/vc2 |
+| 329 | dxvk-v1.11.1-mali-fix | 1.0.0/vc1 | 1.0.1/vc2 |
+| 333 | dxvk-v2.7.1-1-async | 1.0.0/vc1 | 1.0.1/vc2 |
+
+🔑 **Worth doing precisely because we were serving a LOWER version_code than upstream.** A user who
+ran vanilla GameHub before switching has upstream's vc on disk; our lower number reads as a
+*downgrade*, which is the same gate that caused the proton10 `null wine` install failure (see the
+container-serving notes). Cost: clients holding one of these will see an update and re-download a
+byte-identical payload once (~7-10 MB each).
+
+Edited surgically in `data/sp_winemu_all_components12.xml` — each entry's `entry.version`,
+`entry.version_code` and the wrapper `version`, anchored per block with a count assertion. 8 lines
+changed, 8 lines added; no reformat. All 7 `download_url`s HEAD-checked 200 with exact
+`Content-Length` == catalog `file_size` (the build's "missing files" warnings for
+`dxvk-v1.11.0-async` / `-mali-fix` / `-v2.7.1-1-async` are the known `file_name`-vs-md5-named-asset
+false positive — the URLs the client actually uses are fine).
+
+### Bumped — K-Lite 1.0.6/vc1143 → 1.0.8/vc1145 (real payload update, id 253)
+
+Upstream moved the codec pack from build 1960 to 1982. **Installer rehosted**:
+`K-Lite_1982.exe` (40,782,662 b, md5 `DD0E786C…`, matches the yml's own `file_checksum`) now on our
+`Components` release, yml `url:` repointed at us → our own yml md5
+`0d1145c0aa9a45de3e7688dc57fb01a7` (408 b), uploaded md5-named (no clobber of the old
+`K-Lite.yml`, which stays immutable and unreferenced).
+
+⚠️ **This one needed a Worker deploy, not just Pages.** `UPSTREAM_YML_OVERRIDES` in
+`bannerhub-worker.js` hardcodes K-Lite at 1.0.6/vc1143 and **wins on `/v6/`** — a catalog-only bump
+would have left every 6.0 client pinned at 1.0.6 while 5.x moved to 1.0.8. Map row updated in
+lockstep with the XML entry.
+
+### Rejected — 3 rows that are NOT updates
+
+- **`xact_x64` (id 174) — upstream 1.0.1/vc132 NOT adopted.** Diffed both ymls: the *only* change is
+  the payload URL, repointed from Microsoft's official CDN (`download.microsoft.com/.../
+  directx_Jun2010_redist.exe`, which is what OURS already serves) to `uxdl.mac520.com`. Adopting it
+  would *add* a XiaoJi dependency we don't currently have — backwards. And bumping the vc with no
+  content change would force every user with it installed to re-run a ~95 MB DirectX redist
+  download for nothing. **Deliberate permanent drift** — expect the audit to keep flagging it.
+- **`dxvk-3.0` (id 448 upstream) — not ours to update.** Upstream's `dxvk-3.0` v1.0.0 md5
+  `575998bd…` (17,616,227 b) is their own packaging of DXVK 3.0; our `DXVK-3.0` (custom id 1370,
+  md5 `92ca7cd6…`, 17,564,124 b) is our own build of the same upstream release. The audit paired
+  them by lowercased name. Different artifacts, ours stays.
+- **`wuchang` (id 460) — false positive, already resolved.** The audit matched upstream's
+  `wuchang.yml` (type 6) to our `WUCHANG.tzst` (type 5) by lowercased name. Both legitimately
+  exist: upstream's `WUCHANG` type-5 entry is byte-identical to ours (1.0.0/vc1, md5 `f355b90b…`),
+  and the type-6 yml shipped earlier today as custom id 1396.

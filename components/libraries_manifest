@@ -219,17 +219,17 @@
       },
       {
         "display_name": "",
-        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/K-Lite.yml",
-        "file_md5": "a408473ba1386cf39e15a7bb1b59827a",
+        "download_url": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/0d1145c0aa9a45de3e7688dc57fb01a7.yml",
+        "file_md5": "0d1145c0aa9a45de3e7688dc57fb01a7",
         "file_name": "K-Lite.yml",
-        "file_size": 392,
+        "file_size": 408,
         "id": 253,
         "is_ui": 1,
         "logo": "https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png",
         "name": "K-Lite",
         "type": 6,
-        "version": "1.0.6",
-        "version_code": 1143
+        "version": "1.0.8",
+        "version_code": 1145
       },
       {
         "display_name": "",

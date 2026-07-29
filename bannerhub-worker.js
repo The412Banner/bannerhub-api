@@ -1129,7 +1129,12 @@ export default {
       // serves our pre-existing v1.0.0 .yml entries via the raw passthrough.
       // Update entries here when upstream bumps a .yml file.
       const UPSTREAM_YML_OVERRIDES = new Map([
-        ['K-Lite', { file_md5: 'a408473ba1386cf39e15a7bb1b59827a', file_size: 392, file_name: 'K-Lite.yml', version: '1.0.6', version_code: 1143, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/a408473ba1386cf39e15a7bb1b59827a.yml' }],
+        // K-Lite 1.0.6/vc1143 -> 1.0.8/vc1145 (2026-07-29): upstream moved the codec
+        // pack from build 1960 to 1982. Installer rehosted on our Components release
+        // (K-Lite_1982.exe), so the yml's url line differs from upstream's -> our own
+        // md5. Must stay in lockstep with the XML entry (id 253); this map WINS on
+        // /v6/, so a catalog-only bump would leave 6.0 clients pinned at 1.0.6.
+        ['K-Lite', { file_md5: '0d1145c0aa9a45de3e7688dc57fb01a7', file_size: 408, file_name: 'K-Lite.yml', version: '1.0.8', version_code: 1145, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/0d1145c0aa9a45de3e7688dc57fb01a7.yml' }],
         ['VulkanRT', { file_md5: '9875d27394bd0395d71307f98f32075c', file_size: 547, file_name: 'VulkanRT.yml', version: '1.0.1', version_code: 1493, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/9875d27394bd0395d71307f98f32075c.yml' }],
         ['XLiveRedist', { file_md5: 'fb698a45d3a6ec01337cde14c931a723', file_size: 409, file_name: 'XLiveRedist.yml', version: '1.0.1', version_code: 1593, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/fb698a45d3a6ec01337cde14c931a723.yml' }],
         ['cjkfonts', { file_md5: 'a7907ac50b78a6de437e3eb6c1360037', file_size: 4013, file_name: 'cjkfonts.yml', version: '1.0.1', version_code: 1000, download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/a7907ac50b78a6de437e3eb6c1360037.yml' }],
