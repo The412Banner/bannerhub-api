@@ -1791,3 +1791,32 @@ Catalog-only: Pages-only, **no Worker deploy** — none of the 8 appear in `UPST
 these 8 (1399-1406), and 1 permanent skip: **`arm64ec-3.0.1-3dfc6f07`** — a type-13 row present only
 in upstream's legacy dump with empty md5/size/fileName and no download URL. Nothing to mirror; it is
 upstream junk data.
+
+### Re-audit after all four slices — buckets closed
+
+Re-ran the diff against both upstream dumps. `scripts/xmldiff.py` is now checked into the repo (it
+only existed in a scratch dir) with a header documenting every expected/permanent row so future runs
+are interpretable.
+
+| bucket | before | vs legacy dump | vs v6 dump |
+|---|---|---|---|
+| missing | 17 | **1** | **0** |
+| out of date | 11 | **3** | 3 |
+| same version, different payload | 1 | 8 | 8 |
+| metadata drift | 21 | 14 | 303 |
+| ours only | 0 | 0 | 1 |
+
+Everything remaining is expected and accounted for:
+- **1 missing** = `arm64ec-3.0.1-3dfc6f07`, upstream's type-13 junk row (no payload).
+- **3 out of date** = the three documented rejections: `xact_x64` (upstream only repointed Microsoft →
+  their mirror), `dxvk-3.0` (their packaging vs our own build), `wuchang` (name collision, both exist).
+- **8 payload-changed** = 7 **by design** — the rehosted `.yml` components (witcher32, dmc52,
+  bannerlord2, sf62, tloul, tloull1, K-Lite) whose md5 necessarily differs because we rewrote the
+  `url:` line — plus **`id Software`**, the one genuinely open item: upstream replaced its payload
+  in place under the same version, 41,192,642 b → 212,967 b (md5 `565796c1…`). Never examined; a
+  200× shrink under an unchanged version number deserves a look before adopting.
+- **14 metadata drift** (legacy) = the 13 rejected `depInfo` rows + `dxvk-v2.4.1-async`'s status flag —
+  all fields this build never emits.
+- **303 metadata drift** (v6) = that dump carries `fileType=4` universally vs `0` in our source XML;
+  the worker forces 4 on `/v6/` regardless. Pure noise.
+- **1 ours only** (v6) = `steam_9866233`, the 5.x Steam client; `/v6/` uses `steam_client_0403`.
