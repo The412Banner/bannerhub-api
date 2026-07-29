@@ -1479,3 +1479,40 @@ system32/ nesting → bare `libarm64ecfex.dll` + `libwow64fex.dll`); `check_comp
 = OK on both. `.tzst` uploaded to the `Components` release; `npm run build` regenerated
 endpoints; reverted time-only churn (kept custom_components.json + box64_manifest + downloads +
 index + getAllComponentList + getComponentList). Component-only → Pages-only (no Worker deploy).
+
+## 2026-07-29 — Host the GameHub 6.1.0 PC-engine plugin (v6-signed + genuine) for BannerHub v6
+
+GameHub 6.1.0+ extracted the whole PC emulation runtime out of the APK into a downloadable,
+hash-verified plugin (`com.xiaoji.egggame.plugin.pcengine`, loaded via DexClassLoader into a
+`:pcengine` process). To keep BannerHub v6 pulling everything from us and cut the last tie to
+XiaoJi servers, the plugin is now hosted here.
+
+### New release `pcengine-plugin-610` (prerelease, assets uploaded, state=uploaded)
+
+| Asset | Purpose | size | sha256 | signing cert |
+|---|---|---|---|---|
+| `pcengine-100-1-bannerhub-v6.apk` | **SERVE THIS.** Genuine plugin re-signed with the BannerHub v6 keystore (`keystore/bannerhub.keystore`, cert `10895a31…894ce0ba`) so its cert equals the re-signed v6 host → loads natively (the 3 pcengine sig-bypass patches stay as a redundant seatbelt). | 22765391 | `ad27bbc22cc8ac241b712a68e30dee11fa87e5911e2b34b34b731364570049c6` | `10895a31…894ce0ba` |
+| `pcengine-100-1-genuine.apk` | Provenance / re-sign source — unmodified XiaoJi original. | 22761293 | `2457a32b7eed3cd36d28ce29294848eef7f1e27d767200f81e050d2b9f5670bc` | `f6dc8925…c9775` |
+
+Re-signed APK is byte-identical to genuine except the signing block (same 2 dex + same native
+libs libwinemu/libxserver/libvfs/libgpuinfo). Signed locally with
+`java -jar android-sdk/build-tools/35.0.0/lib/apksigner.jar sign --ks keystore/bannerhub.keystore
+--ks-pass pass:bannerhub --ks-key-alias bannerhub --v1/-v2/-v3 true --v4 false` (alignment
+preserved, no zipalign). Plugin declares versionName `100-1`, versionCode `100`, ABI `arm64-v8a`,
+SCHEMA_VERSION 1.
+
+Download URL (the manifest `downloadUrl` to use when wiring):
+`https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6.apk`
+
+### Model: sign once → serve forever
+
+We own the plugin manifest, so upstream can never push an update to our users. Re-sign only if we
+ever choose to adopt a new upstream plugin (rare, on our schedule).
+
+### STILL TODO (not wired — this session only staged the artifact)
+
+Nothing points the app here yet. Needs a **v6-gated `PcEnginePluginVersion` manifest** served by the
+Worker (JSON: versionName/versionCode/abi/channel/downloadUrl/forceUpdate/min-maxHostVersionCode/
+md5/sha256/schemaVersion/sizeBytes/rolloutPercent), reached via the `/v6/` prefix or a
+`customVersionUrl` override patch in the v6 build. Pin `100-1`, `forceUpdate=false`, wide host-version
+window, `sha256=ad27bbc2…`. No Worker/Pages change in this entry — release asset only.
