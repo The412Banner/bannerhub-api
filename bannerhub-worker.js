@@ -29,7 +29,17 @@ const PCENGINE_PLUGIN = {
   // enum branch and it bails on any mismatch. These are not cosmetic.
   pluginName: 'pcengine',
   schemaVersion: '1', // a STRING on the wire, not a number
-  pluginVersion: '100-1',
+  // plugin_version is the numeric version CODE as a string, NOT the versionName.
+  // The client runs Kotlin toLongOrNull() on it (xy5.smali:14181, at :cond_1b
+  // after the name/schema checks) and a null result is rejected outright with
+  //   服务端插件版本号不合法: <value>   ("server plugin version number is invalid")
+  // logged as a kind:"Verification" failure and surfaced to the user as the
+  // generic toast "Failed to install the PC engine plugin." — with no hint that
+  // the manifest was at fault or that the version field was the problem.
+  // The plugin's versionName is "100-1", which is NOT parseable as a Long; its
+  // versionCode is 100. Send the code. Device-diagnosed 2026-07-30 from
+  // pc_engine_plugin_manager_journal.json (9 identical Verification failures).
+  pluginVersion: '100',
   apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6.apk',
   md5: 'a07d9ef80a2bbfbb6b5ee0b2d05ef623',
   sha256: 'ad27bbc22cc8ac241b712a68e30dee11fa87e5911e2b34b34b731364570049c6',
