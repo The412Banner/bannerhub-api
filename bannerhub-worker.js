@@ -3,6 +3,40 @@ const GAMEHUB_API = 'https://landscape-api.vgabc.com'
 const SECRET_KEY = 'all-egg-shell-y7ZatUDk'
 
 // ============================================================
+// PC ENGINE PLUGIN (GameHub 6.1.0+)
+// 6.1.0 moved the entire PC emulation engine out of the APK into a downloadable,
+// hash-verified ComboLite plugin loaded by DexClassLoader into a :pcengine
+// process. The host asks a server which engine to install and installs whatever
+// it is told — so on an unpatched build XiaoJi decides that, remotely, forever.
+// Patched BannerHub builds redirect the manifest request here (see
+// PcEnginePluginManifestRedirectPatch in bannerhub-revanced) and we answer with
+// OUR OWN copy of the plugin, re-signed with the v6 keystore so its signing cert
+// matches the host and ComboLite loads it natively.
+//
+// The artifact is a GitHub release asset, never committed to git (same hosting
+// model as the .tzst component blobs). Signed once; served indefinitely.
+//   release: pcengine-plugin-610   cert: 10895a31…894ce0ba (v6 host cert)
+// XiaoJi's own build, for reference, is md5 0ab09364… — so if a device ends up
+// with THAT md5, the redirect did not take effect.
+const PCENGINE_PLUGIN = {
+  // update_type MUST be 'plugin'. The client maps this string to an enum
+  // (App / Plugin / Unknown) and branches on the ordinal; 'app' would select the
+  // APP-update path and anything else falls through to Unknown, which bails out
+  // without installing. The serializer's default is '' — i.e. sending nothing
+  // here silently means "no plugin update".
+  updateType: 'plugin',
+  // pluginName and schemaVersion are EQUALITY-CHECKED by the client after the
+  // enum branch and it bails on any mismatch. These are not cosmetic.
+  pluginName: 'pcengine',
+  schemaVersion: '1', // a STRING on the wire, not a number
+  pluginVersion: '100-1',
+  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6.apk',
+  md5: 'a07d9ef80a2bbfbb6b5ee0b2d05ef623',
+  sha256: 'ad27bbc22cc8ac241b712a68e30dee11fa87e5911e2b34b34b731364570049c6',
+  fileSize: 22765391,
+}
+
+// ============================================================
 // CHAT MODERATION & ROUTING
 // Routes: POST /chat/send, POST /chat/report, GET /chat/rooms
 // Required CF Worker secrets: SUPABASE_URL, SUPABASE_SERVICE_KEY
@@ -873,6 +907,42 @@ export default {
     const time = Math.floor(Date.now() / 1000).toString()
 
     try {
+      // ── PC engine plugin manifest (GameHub 6.1.0+) ─────────────────────────
+      // Answers the question "which PC engine should I install?" for patched
+      // 6.1.0 builds. See the PCENGINE_PLUGIN block at the top of this file for
+      // why this exists and why each field matters.
+      //
+      // Reply shape is the 8-field snake_case PcEnginePluginUpdateDataDto — NOT
+      // the client's 14-field camelCase PcEnginePluginVersion, which is its
+      // internal model. channel / rolloutPercent / forceUpdate /
+      // min-maxHostVersionCode are client-side defaults and cannot be set from
+      // here, so staged rollout is not available over this endpoint.
+      //
+      // The client rejects the payload unless md5 matches ^[a-f0-9]{32}$ and
+      // sha256 matches ^[a-f0-9]{64}$, and errors on an empty or non-JSON body.
+      //
+      // MUST stay above the generic fall-through proxy at the bottom of this
+      // handler: unallowlisted paths get forwarded to landscape-api.vgabc.com,
+      // which has never served this path. The patched client sends it with the
+      // /v6/ prefix, which is stripped above, so is60 is true here.
+      if (url.pathname === '/game/mobile/v1/plugin/latest') {
+        return new Response(JSON.stringify({
+          code: 200,
+          msg: 'Success',
+          time,
+          data: {
+            update_type: PCENGINE_PLUGIN.updateType,
+            plugin_name: PCENGINE_PLUGIN.pluginName,
+            plugin_version: PCENGINE_PLUGIN.pluginVersion,
+            schema_version: PCENGINE_PLUGIN.schemaVersion,
+            apk_url: PCENGINE_PLUGIN.apkUrl,
+            md5: PCENGINE_PLUGIN.md5,
+            sha256: PCENGINE_PLUGIN.sha256,
+            file_size: PCENGINE_PLUGIN.fileSize,
+          },
+        }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+      }
+
       // ── Chat routes ────────────────────────────────────────────────────────
       if (url.pathname === '/chat/send') {
         if (request.method !== 'POST') {
