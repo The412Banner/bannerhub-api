@@ -48,14 +48,28 @@ const PCENGINE_PLUGIN = {
   // this artifact, we patched the plugin's own Online host (xjp/bp6 enum, cn +
   // oversea fields) to point here. Beta/Test/dev hosts deliberately untouched.
   //
-  // SINGLE-STREAM FIX (imagefs "package invalid"): 6.1.0's plugin downloaded the
-  // imagefs firmware as a 3-part parallel Ktor stream multiplexed over ONE HTTP/2
-  // connection to release-assets.githubusercontent.com, which GitHub cut after
-  // ~150MB aggregate so all 3 range parts truncated → md5 mismatch → the host's
-  // "ImageFs package invalid, please retry." We patched the segment-count gate in
-  // xjp/wd0.D (the size-bucket head `if-nez v2, :cond_16` → `goto :goto_8`) to
-  // force segmentCount=1, routing every download to the single continuous
-  // wd0.F stream like the 6.0.x host downloader. Verified in the shipped dex.
+  // SINGLE-SEQUENTIAL FIX (imagefs "package invalid"): 6.1.0's plugin downloaded
+  // the imagefs firmware as a 3-part parallel Ktor stream multiplexed over ONE
+  // HTTP/2 connection to release-assets.githubusercontent.com, which GitHub cut
+  // after ~150MB aggregate so all 3 range parts truncated → md5 mismatch → the
+  // host's "ImageFs package invalid, please retry."
+  //
+  // The FIRST attempt (goto :goto_8 at wd0.D:10508) forced segmentCount=1 by
+  // rerouting to the single-stream wd0.F path — but that path SKIPS the
+  // NeedDownload→Ready state update the multi-part E/R/A path performs, so on a
+  // fresh install the firmware never downloaded and the strict install bailed in
+  // 2ms with state=NeedDownload. That REGRESSION is reverted here (10508 restored
+  // to the original `if-nez v2, :cond_16`).
+  //
+  // The CORRECTED fix keeps the multi-part E path (which downloads, assembles AND
+  // marks the component Ready) but forces its segment count to 1 for the 128-512MB
+  // bucket (imagefs ~165MB): in wd0.D that bucket's coerceIn(3,min,max) max
+  // `const/4 v0, 0x6`→0x1 and min `const/4 v15, 0x3`→0x1 (coerceIn(3,1,1)=1), and
+  // the count gate `if-le v14,v15`→`if-lt v14,v15` so count==1 falls through to the
+  // split loop (a 1-element part plan → path E) instead of diverting to F. Result:
+  // one sequential Range-GET connection, no parallel multiplexing GitHub cuts, and
+  // the Ready state IS set. The 16-128MB and >512MB buckets keep multi-part
+  // behavior for Phase-1 config resources. Verified in the shipped dex.
   //
   // The host literal carries the "/v6" marker inline so the plugin's requests
   // land on our 6.x branch without needing a separate prefix patch inside the
@@ -68,9 +82,9 @@ const PCENGINE_PLUGIN = {
   // already-installed device will NOT see this as an update — plugin state has
   // to be cleared to force a re-fetch. Do not bump pluginVersion above 100 here
   // while the APK still declares 100.
-  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-singlestream.apk',
-  md5: '9c4c357eb0b3c7c88595bc9092d0e6cf',
-  sha256: '043d8f1763b476550bf2ccfddde896d3498afb23844123e66dfdd0d6457e9a42',
+  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-seq.apk',
+  md5: '69d5ee71b66a1395ed726ff3c296121b',
+  sha256: 'aeb601a7fd0ba43ef83cbd3fb956d194c1614eb340f044bab168e5b9a021d382',
   fileSize: 23494479,
 }
 
