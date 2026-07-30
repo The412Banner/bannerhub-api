@@ -40,13 +40,22 @@ const PCENGINE_PLUGIN = {
   // versionCode is 100. Send the code. Device-diagnosed 2026-07-30 from
   // pc_engine_plugin_manager_journal.json (9 identical Verification failures).
   pluginVersion: '100',
-  // Serving the CATALOG-PATCHED plugin. 6.1.0 moved the component catalog into
-  // the plugin, which carries its own copy of the API host literals — so the
-  // host-app Redirect-catalog patch cannot reach it and every patched build was
-  // still pulling components from XiaoJi (device-proven: the on-device registry
+  // Serving the CATALOG-PATCHED + SINGLE-STREAM plugin. 6.1.0 moved the component
+  // catalog into the plugin, which carries its own copy of the API host literals —
+  // so the host-app Redirect-catalog patch cannot reach it and every patched build
+  // was still pulling components from XiaoJi (device-proven: the on-device registry
   // had 783 uxdl.mac520.com URLs and zero of ours). Since we re-sign and serve
   // this artifact, we patched the plugin's own Online host (xjp/bp6 enum, cn +
   // oversea fields) to point here. Beta/Test/dev hosts deliberately untouched.
+  //
+  // SINGLE-STREAM FIX (imagefs "package invalid"): 6.1.0's plugin downloaded the
+  // imagefs firmware as a 3-part parallel Ktor stream multiplexed over ONE HTTP/2
+  // connection to release-assets.githubusercontent.com, which GitHub cut after
+  // ~150MB aggregate so all 3 range parts truncated → md5 mismatch → the host's
+  // "ImageFs package invalid, please retry." We patched the segment-count gate in
+  // xjp/wd0.D (the size-bucket head `if-nez v2, :cond_16` → `goto :goto_8`) to
+  // force segmentCount=1, routing every download to the single continuous
+  // wd0.F stream like the 6.0.x host downloader. Verified in the shipped dex.
   //
   // The host literal carries the "/v6" marker inline so the plugin's requests
   // land on our 6.x branch without needing a separate prefix patch inside the
@@ -59,9 +68,9 @@ const PCENGINE_PLUGIN = {
   // already-installed device will NOT see this as an update — plugin state has
   // to be cleared to force a re-fetch. Do not bump pluginVersion above 100 here
   // while the APK still declares 100.
-  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-catalog.apk',
-  md5: 'ee4bae178d2957e5f52c541106c65110',
-  sha256: '1f381ba762d80bf73aa67b47342e4d2c4cef00cbdacc887f5f40d0d3f60e298f',
+  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-singlestream.apk',
+  md5: '9c4c357eb0b3c7c88595bc9092d0e6cf',
+  sha256: '043d8f1763b476550bf2ccfddde896d3498afb23844123e66dfdd0d6457e9a42',
   fileSize: 23494479,
 }
 
