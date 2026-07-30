@@ -40,10 +40,29 @@ const PCENGINE_PLUGIN = {
   // versionCode is 100. Send the code. Device-diagnosed 2026-07-30 from
   // pc_engine_plugin_manager_journal.json (9 identical Verification failures).
   pluginVersion: '100',
-  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6.apk',
-  md5: 'a07d9ef80a2bbfbb6b5ee0b2d05ef623',
-  sha256: 'ad27bbc22cc8ac241b712a68e30dee11fa87e5911e2b34b34b731364570049c6',
-  fileSize: 22765391,
+  // Serving the CATALOG-PATCHED plugin. 6.1.0 moved the component catalog into
+  // the plugin, which carries its own copy of the API host literals — so the
+  // host-app Redirect-catalog patch cannot reach it and every patched build was
+  // still pulling components from XiaoJi (device-proven: the on-device registry
+  // had 783 uxdl.mac520.com URLs and zero of ours). Since we re-sign and serve
+  // this artifact, we patched the plugin's own Online host (xjp/bp6 enum, cn +
+  // oversea fields) to point here. Beta/Test/dev hosts deliberately untouched.
+  //
+  // The host literal carries the "/v6" marker inline so the plugin's requests
+  // land on our 6.x branch without needing a separate prefix patch inside the
+  // plugin; the fetch handler normalizes duplicate slashes and accepts a bare
+  // "/v6" so this works however the plugin joins base+path.
+  //
+  // ⚠️ versionCode/versionName are still 100 / "100-1": apktool cannot rebuild
+  // resources under PRoot (aapt2 exits 132/SIGILL), so the APK was repacked by
+  // swapping only the compiled dex into the original zip. That means an
+  // already-installed device will NOT see this as an update — plugin state has
+  // to be cleared to force a re-fetch. Do not bump pluginVersion above 100 here
+  // while the APK still declares 100.
+  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-catalog.apk',
+  md5: 'ee4bae178d2957e5f52c541106c65110',
+  sha256: '1f381ba762d80bf73aa67b47342e4d2c4cef00cbdacc887f5f40d0d3f60e298f',
+  fileSize: 23494479,
 }
 
 // ============================================================
@@ -893,8 +912,21 @@ export default {
     // few endpoints that need a 6.0-only response variant (firmware 1.3.6,
     // future-only swaps). 5.x clients never carry the prefix and stay on the
     // default branch.
+    // Normalize duplicate slashes first. The 6.1.0 pcengine PLUGIN reaches us via
+    // a host literal that carries the "/v6" marker inline
+    // (bannerhub-api.the412banner.workers.dev/v6), because the plugin has its own
+    // catalog client and its own copy of the host — the host-app patches cannot
+    // reach it. Depending on how it joins base+path we can legitimately receive
+    // "/v6//simulator/..." or "/v6/simulator/...", so collapse runs of slashes
+    // rather than trying to predict which. Harmless for every other client.
+    if (url.pathname.includes('//')) url.pathname = url.pathname.replace(/\/{2,}/g, '/')
+
     let is60 = false
-    if (url.pathname.startsWith('/v6/')) {
+    // Accept a bare "/v6" (no trailing slash) as well, for the same reason.
+    if (url.pathname === '/v6') {
+      is60 = true
+      url.pathname = '/'
+    } else if (url.pathname.startsWith('/v6/')) {
       is60 = true
       url.pathname = url.pathname.slice(3) // keep the leading slash
     }
