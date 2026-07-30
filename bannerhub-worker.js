@@ -926,15 +926,31 @@ export default {
       // which has never served this path. The patched client sends it with the
       // /v6/ prefix, which is stripped above, so is60 is true here.
       if (url.pathname === '/game/mobile/v1/plugin/latest') {
+        // ECHO plugin_name and schema_version back from the request.
+        //
+        // This is not cosmetic. After the client maps update_type to the
+        // App/Plugin/Unknown enum and takes the Plugin branch, it compares the
+        // RESPONSE's plugin_name and schema_version against THE VALUES IT JUST
+        // SENT (verified in the bytecode: the comparison target is the same
+        // register passed as the request argument) and bails out on mismatch —
+        // surfacing as "Failed to install the PC engine plugin." with no
+        // indication that the manifest was the problem.
+        //
+        // So hardcoding these only works if our guesses match the client's
+        // wire values exactly. Echoing makes the check pass by construction
+        // whatever the client sends, and falls back to our defaults when the
+        // params are absent (e.g. a manual curl).
+        const reqPluginName = url.searchParams.get('plugin_name')
+        const reqSchemaVersion = url.searchParams.get('schema_version')
         return new Response(JSON.stringify({
           code: 200,
           msg: 'Success',
           time,
           data: {
             update_type: PCENGINE_PLUGIN.updateType,
-            plugin_name: PCENGINE_PLUGIN.pluginName,
+            plugin_name: reqPluginName || PCENGINE_PLUGIN.pluginName,
             plugin_version: PCENGINE_PLUGIN.pluginVersion,
-            schema_version: PCENGINE_PLUGIN.schemaVersion,
+            schema_version: reqSchemaVersion || PCENGINE_PLUGIN.schemaVersion,
             apk_url: PCENGINE_PLUGIN.apkUrl,
             md5: PCENGINE_PLUGIN.md5,
             sha256: PCENGINE_PLUGIN.sha256,
