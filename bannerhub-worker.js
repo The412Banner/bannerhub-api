@@ -82,9 +82,9 @@ const PCENGINE_PLUGIN = {
   // already-installed device will NOT see this as an update — plugin state has
   // to be cleared to force a re-fetch. Do not bump pluginVersion above 100 here
   // while the APK still declares 100.
-  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-seq.apk',
-  md5: '69d5ee71b66a1395ed726ff3c296121b',
-  sha256: 'aeb601a7fd0ba43ef83cbd3fb956d194c1614eb340f044bab168e5b9a021d382',
+  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-r2.apk',
+  md5: '30919ec3637d606a0c7cd574d28368bd',
+  sha256: '337bed5579301fcbda3be5fcf6088bcd6948919070fffc81f84f89126ab723e4',
   fileSize: 23494479,
 }
 
@@ -945,10 +945,19 @@ export default {
     if (url.pathname.includes('//')) url.pathname = url.pathname.replace(/\/{2,}/g, '/')
 
     let is60 = false
+    let isPlugin = false // true ONLY for the 6.1.0 pcengine plugin (its host literal carries /v6p)
     // Accept a bare "/v6" (no trailing slash) as well, for the same reason.
-    if (url.pathname === '/v6') {
+    // "/v6p" is the 6.1.0 pcengine-plugin marker: it flips is60 AND isPlugin so the
+    // plugin can be routed to R2-hosted firmware without affecting v5 / v6-6.0.x.
+    // Note: "/v6p/…" does NOT match startsWith('/v6/'), so the two are disjoint.
+    if (url.pathname === '/v6p' || url.pathname === '/v6') {
       is60 = true
+      isPlugin = url.pathname === '/v6p'
       url.pathname = '/'
+    } else if (url.pathname.startsWith('/v6p/')) {
+      is60 = true
+      isPlugin = true
+      url.pathname = url.pathname.slice(4) // strip "/v6p", keep the leading slash
     } else if (url.pathname.startsWith('/v6/')) {
       is60 = true
       url.pathname = url.pathname.slice(3) // keep the leading slash
@@ -1577,7 +1586,9 @@ export default {
               logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
               upgrade_msg: '',
               blurb: '',
-              download_url: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_142.zst',
+              download_url: isPlugin
+                ? 'https://pub-6ce127a347574cd3a34fc64283ecbaca.r2.dev/imagefs_142.zst'
+                : 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_142.zst',
               file_md5: '6bcdc2568d26d6dbe90468fcdb4490ce',
               file_size: '173024718',
               file_name: 'imagefs.zst',
