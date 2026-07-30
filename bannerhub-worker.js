@@ -48,28 +48,27 @@ const PCENGINE_PLUGIN = {
   // this artifact, we patched the plugin's own Online host (xjp/bp6 enum, cn +
   // oversea fields) to point here. Beta/Test/dev hosts deliberately untouched.
   //
-  // SINGLE-SEQUENTIAL FIX (imagefs "package invalid"): 6.1.0's plugin downloaded
-  // the imagefs firmware as a 3-part parallel Ktor stream multiplexed over ONE
-  // HTTP/2 connection to release-assets.githubusercontent.com, which GitHub cut
-  // after ~150MB aggregate so all 3 range parts truncated → md5 mismatch → the
-  // host's "ImageFs package invalid, please retry."
+  // HTTP/1.1 FIX (imagefs "package invalid"): 6.1.0's plugin downloaded the imagefs
+  // firmware as a 3-part parallel range stream multiplexed over ONE HTTP/2
+  // connection, which both GitHub and R2 cut mid-transfer (~72-90%) so all 3 parts
+  // truncated → md5 mismatch → the host's "ImageFs package invalid, please retry."
+  // Bytecode-patching the plugin's downloader (wd0) was proven a dead end (every
+  // wd0 edit broke the component download entirely), so wd0 is left BYTE-IDENTICAL
+  // to genuine here. The durable fix is to force OkHttp to HTTP/1.1 so the 3 range
+  // requests open 3 SEPARATE connections (no h2 multiplex to stall): in the
+  // createOkHttpClient builder-clone (xjp/fq1, registered by o25:137) the protocols
+  // copy is replaced with singletonList(Protocol.HTTP_1_1).
   //
-  // The FIRST attempt (goto :goto_8 at wd0.D:10508) forced segmentCount=1 by
-  // rerouting to the single-stream wd0.F path — but that path SKIPS the
-  // NeedDownload→Ready state update the multi-part E/R/A path performs, so on a
-  // fresh install the firmware never downloaded and the strict install bailed in
-  // 2ms with state=NeedDownload. That REGRESSION is reverted here (10508 restored
-  // to the original `if-nez v2, :cond_16`).
-  //
-  // The CORRECTED fix keeps the multi-part E path (which downloads, assembles AND
-  // marks the component Ready) but forces its segment count to 1 for the 128-512MB
-  // bucket (imagefs ~165MB): in wd0.D that bucket's coerceIn(3,min,max) max
-  // `const/4 v0, 0x6`→0x1 and min `const/4 v15, 0x3`→0x1 (coerceIn(3,1,1)=1), and
-  // the count gate `if-le v14,v15`→`if-lt v14,v15` so count==1 falls through to the
-  // split loop (a 1-element part plan → path E) instead of diverting to F. Result:
-  // one sequential Range-GET connection, no parallel multiplexing GitHub cuts, and
-  // the Ready state IS set. The 16-128MB and >512MB buckets keep multi-part
-  // behavior for Phase-1 config resources. Verified in the shipped dex.
+  // CORRECTED FIELD (this -h1b build): the previous -h1 build wrote the singleton
+  // Protocol list to the WRONG OkHttpClient$Builder field — `Builder.r`, which is
+  // connectionSpecs — so every plugin API request threw
+  //   ClassCastException: okhttp3.Protocol cannot be cast to okhttp3.ConnectionSpec
+  // and the whole download flow failed before it ever reached the imagefs. The
+  // protocols field is `Builder.s` (default source OkHttpClient.r = [h2,http/1.1];
+  // Builder.r's default source is OkHttpClient.q = the ConnectionSpec list). This
+  // build sets HTTP_1_1 on `Builder.s` and leaves `Builder.r` receiving the genuine
+  // OkHttpClient.q connectionSpecs — verified in the shipped dex. HTTP_1_1 =
+  // Protocol.d; the field types were confirmed against the Builder default <init>.
   //
   // The host literal carries the "/v6" marker inline so the plugin's requests
   // land on our 6.x branch without needing a separate prefix patch inside the
@@ -82,9 +81,9 @@ const PCENGINE_PLUGIN = {
   // already-installed device will NOT see this as an update — plugin state has
   // to be cleared to force a re-fetch. Do not bump pluginVersion above 100 here
   // while the APK still declares 100.
-  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-h1.apk',
-  md5: '5c1c8659cd7c3e01a0a3de26e872b2eb',
-  sha256: '402c311a7dcf619bb38c524a80a03290c36868e49b76192d0dc3a1c9eb47fba2',
+  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-h1b.apk',
+  md5: 'bef88e9cb9d585ef6a95efa63682091a',
+  sha256: '29930d7fc45352f47655b45e5adcdcf3959d957f06a0f3abf78e5d66310b1560',
   fileSize: 23494479,
 }
 
