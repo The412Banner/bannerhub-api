@@ -81,9 +81,9 @@ const PCENGINE_PLUGIN = {
   // already-installed device will NOT see this as an update — plugin state has
   // to be cleared to force a re-fetch. Do not bump pluginVersion above 100 here
   // while the APK still declares 100.
-  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-h1c.apk',
-  md5: '38eec954e42cfcf8cd9181d57b0009fb',
-  sha256: '3216fa5b4f6a38d44ff27bbe07d8fbe612137645030c7b9d8050fd9ea88f65d9',
+  apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-610/pcengine-100-1-bannerhub-v6-h1d.apk',
+  md5: '46e9c45f739b90f8b3b092b9eea593c3',
+  sha256: '5c33de384e0bc170121f4ca1704bd5ce343be4a8819147491685743b87711eae',
   fileSize: 23494479,
 }
 
