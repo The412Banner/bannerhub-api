@@ -87,6 +87,32 @@ const PCENGINE_PLUGIN = {
   fileSize: 23486287,
 }
 
+// Per-schema plugin table, keyed by the schema_version the HOST sends. A GameHub
+// 6.3.1 (vc141) host requires plugin schema 7 (f20.j == 7; the install gate
+// z5p.E0 checks the plugin's SCHEMA_VERSION manifest meta), so the 6.1.0 plugin
+// above cannot install there. Hosts whose schema is not listed here keep getting
+// PCENGINE_PLUGIN exactly as before (6.1.x builds = schema 5) — nothing changes
+// for existing BannerHub / v6 builds, and the firmware/imagefs surfaces are not
+// involved at all.
+//
+// 107-7 = XiaoJi's own 6.3.1 plugin (pulled from a stock install 2026-09-26),
+// RE-SIGNED with the v6 keystore only — no bytecode changes yet, so it still
+// carries XiaoJi's catalog host literals (the /v6p catalog + HTTP/1.1 fixes the
+// -h1e build has are NOT in it). versionCode 107 parses as a Long and exceeds
+// anything a fresh 6.3.1 host has installed.
+const PCENGINE_PLUGIN_BY_SCHEMA = {
+  '7': {
+    updateType: 'plugin',
+    pluginName: 'pcengine',
+    schemaVersion: '7',
+    pluginVersion: '107',
+    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-107-7-bannerhub-v6.apk',
+    md5: '72619fc594b3c8f25436e617122ccd71',
+    sha256: '5e6beaf0676cc2a6e576aa8a2b5110814b9a4336bae360d692008c7b5a5c507c',
+    fileSize: 26929927,
+  },
+}
+
 // ============================================================
 // CHAT MODERATION & ROUTING
 // Routes: POST /chat/send, POST /chat/report, GET /chat/rooms
@@ -1015,19 +1041,22 @@ export default {
         // params are absent (e.g. a manual curl).
         const reqPluginName = url.searchParams.get('plugin_name')
         const reqSchemaVersion = url.searchParams.get('schema_version')
+        // Pick the plugin by the host's schema (see PCENGINE_PLUGIN_BY_SCHEMA);
+        // unknown/absent schema → the long-standing default, unchanged.
+        const plugin = PCENGINE_PLUGIN_BY_SCHEMA[reqSchemaVersion] || PCENGINE_PLUGIN
         return new Response(JSON.stringify({
           code: 200,
           msg: 'Success',
           time,
           data: {
-            update_type: PCENGINE_PLUGIN.updateType,
-            plugin_name: reqPluginName || PCENGINE_PLUGIN.pluginName,
-            plugin_version: PCENGINE_PLUGIN.pluginVersion,
-            schema_version: reqSchemaVersion || PCENGINE_PLUGIN.schemaVersion,
-            apk_url: PCENGINE_PLUGIN.apkUrl,
-            md5: PCENGINE_PLUGIN.md5,
-            sha256: PCENGINE_PLUGIN.sha256,
-            file_size: PCENGINE_PLUGIN.fileSize,
+            update_type: plugin.updateType,
+            plugin_name: reqPluginName || plugin.pluginName,
+            plugin_version: plugin.pluginVersion,
+            schema_version: reqSchemaVersion || plugin.schemaVersion,
+            apk_url: plugin.apkUrl,
+            md5: plugin.md5,
+            sha256: plugin.sha256,
+            file_size: plugin.fileSize,
           },
         }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
       }
