@@ -2,6 +2,21 @@
 
 Chronological record of significant changes to the catalog data, the Cloudflare Worker, and the build system. Newest entries at the bottom.
 
+## 2026-09-26 — pcengine plugin 107-7 for GameHub 6.3.1 (schema 7), keyed Worker manifest
+
+### What changed
+- Release `pcengine-plugin-631`: `pcengine-107-7-genuine.apk` (XiaoJi, sha256 `91e8b4e3…`) + `pcengine-107-7-bannerhub-v6.apk` (re-signed with the v6 keystore only, sha256 `5e6beaf0…`, md5 `72619fc5…`, 26,929,927 B). Pulled from a stock 6.3.1 install; upstream URL `gamehub-cdn.masnet.cn/uploads/plugin/20260923/207b400f….apk`.
+- Worker `554e7dc`: `PCENGINE_PLUGIN_BY_SCHEMA['7']` → 107-7. `/game/mobile/v1/plugin/latest` picks by the host's `schema_version`; every other schema (6.1.x = 5) and the no-param default still return the -h1e 100 manifest byte-for-byte. Firmware/imagefs untouched (live-verified 1.4.2 on 5.x, `/v6`, `/v6p`).
+- Deployed from pushed HEAD, live == repo (102,615 B), 6/6 bindings intact. Deployment `be4dab8f-46c8-449a-99aa-1f44e04a1565`, version `c8ae3997-7222-4197-9656-8fa48f6006e1`.
+
+### Rollback
+- Repo: tag `pre-631-plugin` = `refs/backup/20260926/pre-631-plugin` = `d1060a5`.
+- Worker: previous deployment `d8d88b51-9548-4f42-8ce8-5b63b4eb5234` / version `8d9f6df1-a69f-41fc-b0dd-8ce12c48c322` (2026-07-31); local snapshot `.worker-backups/cfg_worker_deployed_20260926-195533.js` (== `d1060a5`'s `bannerhub-worker.js`). Redeploy that file with `.worker-backups/deploy-meta-bannerhub-api.json`.
+
+### Not done
+- 107-7 is re-signed only: XiaoJi's catalog host literals + no HTTP/1.1 fix inside it (the 610 `-h1e` plugin patches need re-deriving on 107-7 before component/firmware traffic from a 6.3.1 host routes through this API).
+- `simulator/v2/getImagefsList` still falls through to vgabc (host has called it since 6.2.0).
+
 ## 2026-05-02 — GameHub 6.0 catalog + Worker hardening session
 
 End-to-end session that moved 6.0 from "wrapper fix landed" to "fully documented + Steam working + zero unknowns in the type table."
