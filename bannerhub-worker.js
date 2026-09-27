@@ -114,17 +114,16 @@ const PCENGINE_PLUGIN_BY_SCHEMA = {
     updateType: 'plugin',
     pluginName: 'pcengine',
     schemaVersion: '7',
-    // 110-7 (-p5, 2026-09-27) = -p4 + picker patch: the PC-engine component
-    // pickers list ONLY catalog rows (nq6.b → getAllComponentList cache) and never
-    // join the registry, so injected components were registered but invisible.
-    // A classes2 helper (xjp/bhpick, reflection-invoked at the 8 picker sites in
-    // xe1/ue1/vv6/m8) appends registry entries of the picked type that are
-    // Extracted/INSTALLED and not in the catalog. Selection → launch path is by
-    // name (qr2.c), so injected rows launch like catalog ones. vc110 / "110-7".
-    pluginVersion: '110',
-    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-110-7-bannerhub-v6-p5.apk',
-    md5: '5067ea40a48a1132006cf3b182f7b43f',
-    sha256: '66d194e4ebad317c754d241856b4c45725cf551326ae4729f76dc6226029fe97',
+    // 111-7 (-p6, 2026-09-27) = -p5 + the merge moved INTO the catalog fetcher
+    // (nq6.b, the one success exit every picker passes through). -p5 only hooked
+    // the container-editor coroutines; the per-game settings picker
+    // (game_setting_select_download, fed by wt6/fy6 → nq6.a) never saw injected
+    // rows. The component type is stashed on the continuation (iq6.d) because
+    // the resume path re-enters with type=0. bhpick accepts Integer or ci1.
+    pluginVersion: '111',
+    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-111-7-bannerhub-v6-p6.apk',
+    md5: '3eabe6b7f5a97744af76ec8687164012',
+    sha256: '2d3743538f6988e62d522ebe4698683980696aa9623f85871b8a89aad0314ff7',
     fileSize: 27757319,
   },
 }
