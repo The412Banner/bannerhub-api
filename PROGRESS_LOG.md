@@ -2,6 +2,11 @@
 
 Chronological record of significant changes to the catalog data, the Cloudflare Worker, and the build system. Newest entries at the bottom.
 
+## 2026-09-27 — pcengine plugin 107-8 (-p2): BannerHub launch badge + auto-update versionCode
+
+- `pcengine-plugin-631` + `pcengine-107-8-bannerhub-v6-p2.apk` (27,757,319 B, md5 `23444c4a…`, sha256 `1060257d…`) = -p1 + `res/uy.png` (the 240×72 "Powered by GAMEFUSION" launch-screen bitmap, the plugin's copy of the old host `wine_logo` slot) replaced with the BannerHub logo, and the binary manifest `versionCode` 107→108 so installed 107 plugins auto-update. versionName stays 107-7; SCHEMA_VERSION 7 / ABI meta untouched; v6 cert.
+- Worker `99097e0`: schema-7 manifest → 108/-p2. Schema 5 and firmware surfaces unchanged (verified). Rollback: point the entry back at -p1.
+
 ## 2026-09-26 (night) — 6.x getAllComponentList de-dup + sluggish/ANR triage
 
 - `c53b56f`: `is60` getAllComponentList now one row per (type,name) — first occurrence kept. `data/custom_components.json` carries 8 duplicate-name GPU-driver pairs (ids 1227/1228, 1237/1238, 1239/1240, 1241/1242, 1243/1244, 1232/1233, 1235/1236, 1290/1291: same name/version, distinct md5 — flagged in the 07-29 audit, never resolved). The 6.x plugin's component registry is name-keyed, so it flip-flopped `syncEntryMetadataIfNeeded` between the two rows on every catalog refresh. 5.x still gets the raw file. Deployed; /v6 + /v6p = 630 unique rows.
