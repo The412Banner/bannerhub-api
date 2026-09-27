@@ -2,6 +2,12 @@
 
 Chronological record of significant changes to the catalog data, the Cloudflare Worker, and the build system. Newest entries at the bottom.
 
+## 2026-09-26 (night) — 6.x getAllComponentList de-dup + sluggish/ANR triage
+
+- `c53b56f`: `is60` getAllComponentList now one row per (type,name) — first occurrence kept. `data/custom_components.json` carries 8 duplicate-name GPU-driver pairs (ids 1227/1228, 1237/1238, 1239/1240, 1241/1242, 1243/1244, 1232/1233, 1235/1236, 1290/1291: same name/version, distinct md5 — flagged in the 07-29 audit, never resolved). The 6.x plugin's component registry is name-keyed, so it flip-flopped `syncEntryMetadataIfNeeded` between the two rows on every catalog refresh. 5.x still gets the raw file. Deployed; /v6 + /v6p = 630 unique rows.
+- ANR seen on the 6.3.1 plugin process (`PcEnginePluginSettingsHostActivity`, "Input dispatching timed out", 178% CPU at the ANR, stack dump failed). Two loops removed (heartbeat-401 token wipe → 30 s retries; duplicate-name reconcile); afterwards zero flip-flops / 401s / ANRs and the user reports it smoothed out. Root of the 167% burst not captured — watcher script `/data/local/tmp/bh_watch.sh` on the device dumps threads if it recurs.
+- Open: rename the 8 duplicate pairs properly in `custom_components.json` (needs to know which build is which — base vs OneUI/sync?) so 5.x users can pick both.
+
 ## 2026-09-26 (late) — 107-7-p1 patched plugin + 6.x heartbeat stub + getImagefsList; 6.3.1 launch chain device-proven
 
 - `6b8990d`: schema-7 manifest → `pcengine-107-7-bannerhub-v6-p1.apk` (27,757,319 B, md5 `0f03c8516f66275046118a171cf84f01`, sha256 `71960603…`) = XiaoJi 107-7 + the -h1e edits (Online catalog hosts → `…workers.dev/v6p`, HTTP/1.1 forced on the Ktor/OkHttp downloader, `ru4.waitPackages` imagefs/container poll). Deployment `7e2715ad…`.
