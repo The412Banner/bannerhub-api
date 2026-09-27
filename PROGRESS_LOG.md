@@ -2,6 +2,13 @@
 
 Chronological record of significant changes to the catalog data, the Cloudflare Worker, and the build system. Newest entries at the bottom.
 
+## 2026-09-26 (late) — 107-7-p1 patched plugin + 6.x heartbeat stub + getImagefsList; 6.3.1 launch chain device-proven
+
+- `6b8990d`: schema-7 manifest → `pcengine-107-7-bannerhub-v6-p1.apk` (27,757,319 B, md5 `0f03c8516f66275046118a171cf84f01`, sha256 `71960603…`) = XiaoJi 107-7 + the -h1e edits (Online catalog hosts → `…workers.dev/v6p`, HTTP/1.1 forced on the Ktor/OkHttp downloader, `ru4.waitPackages` imagefs/container poll). Deployment `7e2715ad…`.
+- `4f1fb70`: `is60 && /heartbeat/game/*` → 200 stub. The 6.3.1 plugin POSTs `heartbeat/game/update` with the BannerHub fake token; proxied to XiaoJi that is a 401, and the plugin's TokenRefreshPlugin answers a 401 by deleting its `auth_token` row → its profile flow (Room join of `user_account` + current `auth_token`) goes null → every download observer (keyed by userId) becomes `emptyFlow` → "Download observer ended before terminal state" + never-ending spinners + a 30 s retry loop. Also `is60 && /simulator/v2/getImagefsList` → our 1.4.2 row in upstream's list shape (was a 402 passthrough). 5.x untouched (heartbeat still passthrough, verified). Deployment `9ffb0a95…` / version `22519911…`. ⚠️ CF propagation lag ~20–60 s after PUT.
+- Device (BannerHub v6 1.0.0-631-pre3 Normal, `banner.hub`): plugin from our manifest ✓, catalog = ours ✓ (0 upstream URLs in egggame.db), firmware 1.4.2 from R2 ✓, ImageFs/Container/Components/Deps ✓ (6.3 s), Wine proton11.0-arm64x running ✓. Precondition discovered: the 6.3.1 plugin reads the logged-in user from the app DB (`user_account`/`auth_token` in `egggame.db`), not from the host's in-memory auth that Bypass-login fakes — rows were seeded by hand for this test; the durable fix belongs in the bannerhub-revanced Bypass-login extension.
+- Rollback unchanged: tag `pre-631-plugin` / worker version `8d9f6df1…`; plain re-signed 107-7 still on the release.
+
 ## 2026-09-26 — pcengine plugin 107-7 for GameHub 6.3.1 (schema 7), keyed Worker manifest
 
 ### What changed
