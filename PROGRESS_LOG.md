@@ -2028,3 +2028,4 @@ deploy.
 - 1.0.1-631-pre1 GREEN → staged `/sdcard/Download/BannerHub-631-1.0.1-pre1/` (sha256 `10957e76…`). Awaiting DOOM relaunch proof.
 - ✅ 13:34 DOOM relaunched on pre1 after the link clean-up: FEXCore-2608 + DXVK-3.1-gplasync + SMXZ Turnip R4 all mapped, game alive. In-app sweep still to be exercised end-to-end (inject → remove → relaunch).
 - 🐛 13:36 "Already there: Turnip-v26.3.0-20260927-r2 — a catalog component is already called…" when re-downloading a component that was removed: `nameConflict()` read `sp_winemu_unified_resources` through the HOST's SharedPreferences (loaded once → stale after our file-level purge). Device state proved the row/folder were gone. Fix `e9e45f7`: `unifiedRow()` fresh file read, catalog vs injected by id sign → CI `36337651194` = 1.0.1-631-pre2. Workaround on pre1: force-stop + reopen the app (or accept the `-inj` suffix).
+- `f470ece` orphan-row self-heal in nameConflict → pre3 run `36337840754` (supersedes pre2).
