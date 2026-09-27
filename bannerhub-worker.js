@@ -95,21 +95,30 @@ const PCENGINE_PLUGIN = {
 // for existing BannerHub / v6 builds, and the firmware/imagefs surfaces are not
 // involved at all.
 //
-// 107-7 = XiaoJi's own 6.3.1 plugin (pulled from a stock install 2026-09-26),
-// RE-SIGNED with the v6 keystore only — no bytecode changes yet, so it still
-// carries XiaoJi's catalog host literals (the /v6p catalog + HTTP/1.1 fixes the
-// -h1e build has are NOT in it). versionCode 107 parses as a Long and exceeds
-// anything a fresh 6.3.1 host has installed.
+// 107-7-p1 = XiaoJi's own 6.3.1 plugin (pulled from a stock install 2026-09-26)
+// with the same three -h1e edits the 6.1.0 plugin carries, re-signed v6:
+//   1. Online catalog hosts (xjp/p38, cn + oversea) → this Worker with the
+//      /v6p marker, so component/container/imagefs requests land here;
+//   2. HTTP/1.1 forced on the Ktor/OkHttp downloader (xjp/o32 createOkHttpClient,
+//      Builder.s = singletonList(Protocol.HTTP_1_1)) — 107-7 still downloads
+//      the imagefs as concurrent Range parts, which h2 multiplexing truncates;
+//   3. ru4.waitPackages: the ImageFs task still kicks the download and throws
+//      "ImageFs package invalid, please retry" instead of waiting; now polls
+//      imagefs + container state (60 x 500 ms, 3 attempts) before re-checking.
+// Beta/Test/dev hosts untouched. versionCode still 107 (dex-only repack), so an
+// already-installed 107-7 will NOT auto-update to -p1: clear plugin state (or
+// app data) to re-fetch. Plain re-signed build kept on the release as
+// pcengine-107-7-bannerhub-v6.apk (md5 72619fc5…) for rollback.
 const PCENGINE_PLUGIN_BY_SCHEMA = {
   '7': {
     updateType: 'plugin',
     pluginName: 'pcengine',
     schemaVersion: '7',
     pluginVersion: '107',
-    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-107-7-bannerhub-v6.apk',
-    md5: '72619fc594b3c8f25436e617122ccd71',
-    sha256: '5e6beaf0676cc2a6e576aa8a2b5110814b9a4336bae360d692008c7b5a5c507c',
-    fileSize: 26929927,
+    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-107-7-bannerhub-v6-p1.apk',
+    md5: '0f03c8516f66275046118a171cf84f01',
+    sha256: '71960603e2b1b1260e0972b3897d027b1afd1b7cb35bd7cb48733d60e609cce3',
+    fileSize: 27757319,
   },
 }
 
