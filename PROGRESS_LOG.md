@@ -2025,3 +2025,4 @@ deploy.
 - Device fix: deleted the 14 dangling links (containers/N/dosdevices `c:` relative links are fine). Plugin re-links on next launch.
 - Durable fix `c7aa4c8` (gamehub-631-build): `BhInjectedRegistry.sweepDanglingComponentLinks()` — bounded walk of `usr/home/{containers,virtual_containers}/*/drive_c/windows/{,system32,syswow64}`, deletes symlinks whose target is under `usr/home/components/` and missing; called from `remove()` and the manager's onResume (toast reports count). CI run `36337075250` = `1.0.1-631-pre1` (artifact only). Next stable on this line = 1.0.1-631 with this fix.
 - Explore page check (screenshot 13:25): the in-app "Features & What's New" already shows the 631 content (six headlines + refreshed list); cache fetched 13:25, prefs latest_ver 1.0.0-631.
+- 1.0.1-631-pre1 GREEN → staged `/sdcard/Download/BannerHub-631-1.0.1-pre1/` (sha256 `10957e76…`). Awaiting DOOM relaunch proof.
