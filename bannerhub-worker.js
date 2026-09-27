@@ -114,16 +114,18 @@ const PCENGINE_PLUGIN_BY_SCHEMA = {
     updateType: 'plugin',
     pluginName: 'pcengine',
     schemaVersion: '7',
-    // 107-8 (-p2, 2026-09-27) = -p1 + the launch screen's bottom-right badge
+    // 108-7 (-p3, 2026-09-27) = -p1 + the launch screen's bottom-right badge
     // (res/uy.png, the 240x72 "Powered by GAMEFUSION" bitmap — the plugin's
     // copy of the old host wine_logo slot) swapped for the BannerHub logo, and
-    // versionCode 107 -> 108 patched in the binary manifest so already-installed
-    // 107 plugins auto-update (the host only updates on remote > installed).
-    // versionName stays "107-7". -p1 kept on the release for rollback.
+    // versionCode 107 -> 108 AND versionName "107-7" -> "108-7" patched in the
+    // binary manifest: the host requires versionName == "<versionCode>-<schema>"
+    // (-p2 bumped only the code and was refused with 插件版本名不匹配 expected=108-7
+    // actual=107-7, re-downloading 28 MB on every launch). Installed 107 plugins
+    // now auto-update. -p1 kept on the release for rollback.
     pluginVersion: '108',
-    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-107-8-bannerhub-v6-p2.apk',
-    md5: '23444c4a50464970ed3d1afd8db052f0',
-    sha256: '1060257dd3ea04b47d3f91ced55e0fd2083213132487689843ea574f369af929',
+    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-108-7-bannerhub-v6-p3.apk',
+    md5: 'ff4d0c667e3883bc1d36af02c20714c6',
+    sha256: 'fcee0e07526ce0094c829e8bc648ca204bcd9e3a16cdb98a35a51fa9cedee744',
     fileSize: 27757319,
   },
 }
