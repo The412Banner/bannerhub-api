@@ -1986,3 +1986,10 @@ deploy.
 - Representative release assets across all types (DXVK/Box64/FEX/driver) return HTTP 200 with
   content-length matching the catalog `file_size`.
 - Pages `pages-build-deployment` for `8feef6d` went live within ~20 s of push.
+
+## 2026-09-27 — plugin -p5 (110-7): injected components now visible in the pickers
+- **Why:** pre14 + plugin -p4 proved injection end-to-end (entries reach `sp_winemu_unified_resources`), but the user's two injected components (`Qualcomm_840_adpkg` GPU zip, `dxvk-gplasync-2.4.1-1-pre-reg` wcp) never showed in the GPU/DXVK pickers. Cause: every picker builds its list from the catalog cache only (`nq6.b` → `getAllComponentList`) and never joins the registry.
+- **Fix:** classes2 helper `xjp/bhpick` (reflection-invoked from 8 picker sites in `xe1`/`ue1`/`vv6`/`m8`) appends registry entries of the picked type that are Extracted/INSTALLED and not already in the catalog. Selection resolves by name/version/fileName (`qr2.c`), so launch lands in `usr/home/components/<name>/` like a catalog row.
+- **Artifacts:** `pcengine-110-7-bannerhub-v6-p5.apk` — 27,757,319 B, md5 `5067ea40a48a1132006cf3b182f7b43f`, sha256 `66d194e4…29fe97`, signer = our v6 key; on release `pcengine-plugin-631` and in `/sdcard/Download/`. Workspace `~/pcengine-work/631/repack_p5.py`, `p5/`.
+- **Worker:** `PCENGINE_PLUGIN_BY_SCHEMA['7']` → 110 (commit `d3acb5b`, deployed via CF REST, live check `schema_version=7&plugin_version=109` → 110 ✅). Schema 5 / firmware 1.4.2 / all older builds untouched. Rollback = tag `rollback-631-plugin-p3` or re-point the entry to 109-7 (-p4, md5 `b1baa33785165f590d09d57f019dcb5a`).
+- **Next (device):** close + reopen BannerHub v6 (pre14) → plugin auto-updates to 110-7 → PC Engine settings → GPU driver + DXVK pickers should list the two injected rows → launch a game with them. Still unproven: FEX xz .wcp manual inject, online-repos download→inject, remove flow.
