@@ -1633,6 +1633,24 @@ export default {
         // upstream's steam_9866232/233 from /v6/ responses.
         all = all.filter(keepForSteamClientAllowlist60)
         for (const e of all) reshapeFor60(e)
+        // 6.x: one row per (type, name). The 6.x plugin's component registry is
+        // keyed by name — a second row with the same name is unreachable from
+        // the UI anyway, and on every catalog refresh the plugin's
+        // syncEntryMetadataIfNeeded flip-flops the local entry between the two
+        // rows' file names (device-seen 2026-09-26: 8 duplicate-name driver
+        // pairs, ids 1227/1228, 1237/1238, 1239/1240, 1241/1242, 1243/1244,
+        // 1232/1233, 1235/1236, 1290/1291 — same version, distinct md5). Keep
+        // the first occurrence (lower id). 5.x is served the raw file above
+        // and is unaffected.
+        {
+          const seen = new Set()
+          all = all.filter((e) => {
+            const key = `${e.type}\u0000${e.name}`
+            if (seen.has(key)) return false
+            seen.add(key)
+            return true
+          })
+        }
         return new Response(JSON.stringify({
           code: data.code ?? 200,
           msg: data.msg ?? 'Success',
