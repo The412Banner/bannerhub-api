@@ -114,10 +114,16 @@ const PCENGINE_PLUGIN_BY_SCHEMA = {
     updateType: 'plugin',
     pluginName: 'pcengine',
     schemaVersion: '7',
-    pluginVersion: '107',
-    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-107-7-bannerhub-v6-p1.apk',
-    md5: '0f03c8516f66275046118a171cf84f01',
-    sha256: '71960603e2b1b1260e0972b3897d027b1afd1b7cb35bd7cb48733d60e609cce3',
+    // 107-8 (-p2, 2026-09-27) = -p1 + the launch screen's bottom-right badge
+    // (res/uy.png, the 240x72 "Powered by GAMEFUSION" bitmap — the plugin's
+    // copy of the old host wine_logo slot) swapped for the BannerHub logo, and
+    // versionCode 107 -> 108 patched in the binary manifest so already-installed
+    // 107 plugins auto-update (the host only updates on remote > installed).
+    // versionName stays "107-7". -p1 kept on the release for rollback.
+    pluginVersion: '108',
+    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-107-8-bannerhub-v6-p2.apk',
+    md5: '23444c4a50464970ed3d1afd8db052f0',
+    sha256: '1060257dd3ea04b47d3f91ced55e0fd2083213132487689843ea574f369af929',
     fileSize: 27757319,
   },
 }
