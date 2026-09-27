@@ -114,16 +114,17 @@ const PCENGINE_PLUGIN_BY_SCHEMA = {
     updateType: 'plugin',
     pluginName: 'pcengine',
     schemaVersion: '7',
-    // 109-7 (-p4, 2026-09-27) = -p3 + the Component Manager loader: xjp/mhb.<init>
-    // reflectively runs the new classes2 helper xjp/bhinj, which merges the host's
-    // sp_bh_injected_components prefs (user-injected components, same JSON shape
-    // as sp_winemu_unified_resources) into the registry on EVERY :pcengine start
-    // (injected wins unless already Extracted/INSTALLED). versionCode 109 /
-    // versionName "109-7". -p3/-p1 kept on the release for rollback.
-    pluginVersion: '109',
-    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-109-7-bannerhub-v6-p4.apk',
-    md5: 'b1baa33785165f590d09d57f019dcb5a',
-    sha256: 'dac368dc6188931aa0dc7df20596fba83a6466eed912935d2cf0ea0d65e70fd2',
+    // 110-7 (-p5, 2026-09-27) = -p4 + picker patch: the PC-engine component
+    // pickers list ONLY catalog rows (nq6.b → getAllComponentList cache) and never
+    // join the registry, so injected components were registered but invisible.
+    // A classes2 helper (xjp/bhpick, reflection-invoked at the 8 picker sites in
+    // xe1/ue1/vv6/m8) appends registry entries of the picked type that are
+    // Extracted/INSTALLED and not in the catalog. Selection → launch path is by
+    // name (qr2.c), so injected rows launch like catalog ones. vc110 / "110-7".
+    pluginVersion: '110',
+    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-110-7-bannerhub-v6-p5.apk',
+    md5: '5067ea40a48a1132006cf3b182f7b43f',
+    sha256: '66d194e4ebad317c754d241856b4c45725cf551326ae4729f76dc6226029fe97',
     fileSize: 27757319,
   },
 }
