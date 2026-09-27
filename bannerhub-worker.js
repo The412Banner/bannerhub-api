@@ -114,18 +114,16 @@ const PCENGINE_PLUGIN_BY_SCHEMA = {
     updateType: 'plugin',
     pluginName: 'pcengine',
     schemaVersion: '7',
-    // 108-7 (-p3, 2026-09-27) = -p1 + the launch screen's bottom-right badge
-    // (res/uy.png, the 240x72 "Powered by GAMEFUSION" bitmap — the plugin's
-    // copy of the old host wine_logo slot) swapped for the BannerHub logo, and
-    // versionCode 107 -> 108 AND versionName "107-7" -> "108-7" patched in the
-    // binary manifest: the host requires versionName == "<versionCode>-<schema>"
-    // (-p2 bumped only the code and was refused with 插件版本名不匹配 expected=108-7
-    // actual=107-7, re-downloading 28 MB on every launch). Installed 107 plugins
-    // now auto-update. -p1 kept on the release for rollback.
-    pluginVersion: '108',
-    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-108-7-bannerhub-v6-p3.apk',
-    md5: 'ff4d0c667e3883bc1d36af02c20714c6',
-    sha256: 'fcee0e07526ce0094c829e8bc648ca204bcd9e3a16cdb98a35a51fa9cedee744',
+    // 109-7 (-p4, 2026-09-27) = -p3 + the Component Manager loader: xjp/mhb.<init>
+    // reflectively runs the new classes2 helper xjp/bhinj, which merges the host's
+    // sp_bh_injected_components prefs (user-injected components, same JSON shape
+    // as sp_winemu_unified_resources) into the registry on EVERY :pcengine start
+    // (injected wins unless already Extracted/INSTALLED). versionCode 109 /
+    // versionName "109-7". -p3/-p1 kept on the release for rollback.
+    pluginVersion: '109',
+    apkUrl: 'https://github.com/The412Banner/bannerhub-api/releases/download/pcengine-plugin-631/pcengine-109-7-bannerhub-v6-p4.apk',
+    md5: 'b1baa33785165f590d09d57f019dcb5a',
+    sha256: 'dac368dc6188931aa0dc7df20596fba83a6466eed912935d2cf0ea0d65e70fd2',
     fileSize: 27757319,
   },
 }
