@@ -2,6 +2,15 @@
 
 Chronological record of significant changes to the catalog data, the Cloudflare Worker, and the build system. Newest entries at the bottom.
 
+## 2026-09-27 — CHECKPOINT before the Component Manager / injector (option B)
+
+State to roll back to if the injector work goes wrong:
+- bannerhub-revanced: branch `feat/gog-rust-engine-631` @ `258b5cf` = tag **`rollback-631-pre12`** (pre12 APK in `/sdcard/Download/BannerHub-631-pre12/`, sha256 `58af392f…`). `gamehub-631-build` still @ `1f383ae` (pre7 line, tag `rollback-631-pre7`).
+- bannerhub-api: main @ `aa936e0` = tag **`rollback-631-plugin-p3`**; Worker deployed from it (schema 7 → `pcengine-108-7-bannerhub-v6-p3.apk`, md5 `ff4d0c66…`; schema 5 → -h1e 100; firmware 1.4.2). Older plugin builds (-p1 `0f03c851…`, plain 107-7 `72619fc5…`) stay on release `pcengine-plugin-631`.
+- Plugin build lineage: `~/pcengine-work/631/repack_p3.py` (dex swap + res/uy.png badge + AXML versionCode/versionName). Rule: bump versionCode AND versionName together as `<code>-<schema>`.
+
+Plan (option B): plugin repack -p4 adds one unconditional `mhb.r("sp_bh_injected_components", ComponentRepo, fn)` call after the unified store loads → user XML merged every start; host extension gets a Component Manager (inject from storage into usr/home/components/<name>/ + write COMPONENT:<name> record into the injected XML; list/remove; 5 categories) reached from Banner Tools. Recon: memory `project_bannerhub_v6_component_injector_631_recon`.
+
 ## 2026-09-27 — pcengine plugin 107-8 (-p2): BannerHub launch badge + auto-update versionCode
 
 - `pcengine-plugin-631` + `pcengine-107-8-bannerhub-v6-p2.apk` (27,757,319 B, md5 `23444c4a…`, sha256 `1060257d…`) = -p1 + `res/uy.png` (the 240×72 "Powered by GAMEFUSION" launch-screen bitmap, the plugin's copy of the old host `wine_logo` slot) replaced with the BannerHub logo, and the binary manifest `versionCode` 107→108 so installed 107 plugins auto-update. versionName stays 107-7; SCHEMA_VERSION 7 / ABI meta untouched; v6 cert.
