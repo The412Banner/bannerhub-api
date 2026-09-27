@@ -2,6 +2,12 @@
 
 Chronological record of significant changes to the catalog data, the Cloudflare Worker, and the build system. Newest entries at the bottom.
 
+## 2026-09-27 — status note before context compaction (Component Manager)
+
+- pre13 (`3699dfc`, staged) + plugin 109-7 (-p4, Worker `de6847a`) = Component Manager v1: `.tzst` archives + extracted folders only. Device test pending (test file `/sdcard/Download/inject-test/Injected_Turnip_V31_test.tzst`).
+- User requirement: parity with 3.8.1 means `.wcp` and `.zip` inputs too (the community formats; tzst is only our catalog's format). Next slice: unzip on device → extract into `usr/home/components/<name>/` in the plugin layout (driver `libvulkan_freedreno.so` + `meta.json`; DXVK/VKD3D `profile.json` + `system32/`/`syswow64/`; Box64/FEX dlls) → register `state:"Extracted"` — the folder path the -p4 loader already supports, so no plugin change needed.
+- Rollback points unchanged: revanced `rollback-631-pre12`, api `rollback-631-plugin-p3` (Worker → -p3).
+
 ## 2026-09-27 — pcengine plugin 109-7 (-p4): Component Manager injected-components loader
 
 - `pcengine-plugin-631` + `pcengine-109-7-bannerhub-v6-p4.apk` (27,757,319 B, md5 `b1baa337…`, sha256 `dac368dc…`) = -p3 + a hook in the plugin's registry manager constructor that, on every `:pcengine` start, loads the host's `sp_bh_injected_components` prefs (same JSON shape as `sp_winemu_unified_resources` values) through the plugin's own generic loader and registers each entry as a component (skipped if the registry already has that name Extracted/INSTALLED). Reflection-loaded helper class in classes2.dex because classes.dex is at the 65,535 method-ref cap. versionCode 109 / versionName 109-7.
