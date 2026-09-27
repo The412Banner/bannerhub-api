@@ -1033,6 +1033,53 @@ export default {
       // handler: unallowlisted paths get forwarded to landscape-api.vgabc.com,
       // which has never served this path. The patched client sends it with the
       // /v6/ prefix, which is stripped above, so is60 is true here.
+      // ── 6.x only: game heartbeat stub ─────────────────────────────────────
+      // The 6.3.1 pcengine plugin (and the 6.x host) still POST
+      // heartbeat/game/{start,update,end} (play-time tracking) with the current
+      // Bearer token. Proxied to XiaoJi with a BannerHub fake token that is a
+      // 401, and the plugin's TokenRefreshPlugin answers a 401 with
+      // onTokenInvalid() → it DELETES the auth_token row → the profile flow goes
+      // null → every download observer (keyed by userId) becomes emptyFlow →
+      // "Download observer ended before terminal state" / spinners that never
+      // finish. Device-diagnosed 2026-09-26 on a 6.3.1 host + 107-7-p1 plugin.
+      // Answer 200 ourselves. 5.x (real login, real token) keeps the passthrough.
+      if (is60 && url.pathname.startsWith('/heartbeat/game/')) {
+        return new Response(JSON.stringify({ code: 200, msg: 'Success', data: null, time }),
+          { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+      }
+
+      // ── 6.x only: getImagefsList ──────────────────────────────────────────
+      // Called by the 6.2+ plugin before getImagefsDetail; it used to fall
+      // through to XiaoJi (402 "Wrong signature") and the plugin then fell back
+      // to the detail call. Same row as getImagefsDetail below, in the list
+      // shape upstream uses (captured from landscape-api-oversea 2026-09-26:
+      // data:[{id,version,version_code,name,download_url,file_md5,file_size,
+      // file_name,logo,display_name,lang_param,blurb,upgrade_msg}]).
+      if (is60 && url.pathname === '/simulator/v2/getImagefsList') {
+        return new Response(JSON.stringify({
+          code: 200,
+          msg: 'Success',
+          data: [{
+            id: 1,
+            version: '1.4.2',
+            version_code: 32,
+            name: 'Firmware',
+            download_url: isPlugin
+              ? 'https://pub-6ce127a347574cd3a34fc64283ecbaca.r2.dev/imagefs_142.zst'
+              : 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/imagefs_142.zst',
+            file_md5: '6bcdc2568d26d6dbe90468fcdb4490ce',
+            file_size: '173024718',
+            file_name: 'imagefs.zst',
+            logo: 'https://github.com/The412Banner/bannerhub-api/releases/download/Components/45e60d211d35955bd045aabfded4e64b.png',
+            display_name: 'Firmware',
+            lang_param: '',
+            blurb: '',
+            upgrade_msg: '',
+          }],
+          time,
+        }), { headers: { 'Content-Type': 'application/json', ...corsHeaders } })
+      }
+
       if (url.pathname === '/game/mobile/v1/plugin/latest') {
         // ECHO plugin_name and schema_version back from the request.
         //
