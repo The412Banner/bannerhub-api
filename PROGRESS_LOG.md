@@ -2031,3 +2031,7 @@ deploy.
 - `f470ece` orphan-row self-heal in nameConflict → pre3 run `36337840754` (supersedes pre2).
 - pre3 GREEN → staged `/sdcard/Download/BannerHub-631-1.0.1-pre3/` sha256 `cd54a9e5…5588`.
 - ✅ 13:49 pre3: remove → re-inject (no prompt) → DOOM runs on the re-injected Turnip; prefix has 0 dangling links. 1.0.1-631 fixes device-proven; stable cut awaits user go.
+
+## 2026-09-27 — 🚀 1.0.1-631 STABLE DISPATCHED (user: "merge it and release 1.0.1 now" + "update the repo read me website and explore tab")
+- Fixes were committed straight to `gamehub-631-build` (`c7aa4c8` dangling-link sweep, `e9e45f7` fresh registry read, `f470ece` orphan self-heal) — nothing to merge. Notes commit `19de6fc`: README `## What's new in v1.0.1-631` (new first section "🩹 1.0.1: Component Manager removal fixes", TOC renamed), release.yml body (fix section on top of the 631 What's-new), Explore hero regenerated (7 headlines, 1.0.1 first). Dispatch `version=1.0.1-631 stable=true` → run `36338523208` on `19de6fc`.
+- Site prepared locally (v6.html 1.0.1 timeline entry, 1.0.0-631 de-latested, badges → v1.0.1-631, releases.json/curated.json/README) — pushed once the release exists.
