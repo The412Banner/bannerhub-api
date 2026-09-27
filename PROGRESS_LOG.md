@@ -2055,3 +2055,4 @@ deploy.
 
 ## 2026-09-27 — 🚀 1.0.2-631 STABLE DISPATCHED (user: "let's worry about privacy patch at a later time, push a 1.0.2 release")
 - Content = permission-rewrite fix `5f13aa0` only (privacy items deferred). Notes `f1bcd6d` (README What's new v1.0.2-631, release.yml section, Explore hero 8 headlines). Run `36347429779` stable=true. Site update committed locally, push after publish. Privacy backlog stays open: plugin -p7 loopback for device-perf telemetry; host stubs for ad-decisions + community websocket; Haima claim; fresh 6.3.1 capture.
+- **🏁 1.0.2-631 PUBLISHED** (run `36347429779` GREEN; tag `v1.0.2-631`, stable, Latest, 13 assets; body has the install-conflict section; Explore asset `1.0.2-631` / build `631010002`). Staged `/sdcard/Download/BannerHub-631-1.0.2-stable/BannerHub-V6-1.0.2-631-Patched-Normal.apk` sha256 `9c647b11…8a1a` (0 XiaoJi-named permissions). Site `f079c43` pushed + Pages built.
