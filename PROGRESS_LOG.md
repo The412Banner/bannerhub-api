@@ -2,6 +2,11 @@
 
 Chronological record of significant changes to the catalog data, the Cloudflare Worker, and the build system. Newest entries at the bottom.
 
+## 2026-09-27 — Component Manager v2 built (pre14)
+
+- bannerhub-revanced `f34f537` = pre14 (staged): manual inject of `.wcp` (tar zstd/xz/gzip/plain) and driver `.zip` with per-category layout mapping (vendored XZ decoder), plus the 3.8.1-style download screen over the same 7 sources (Arihany WCPHub, Kimchi/StevenMXZ/MTR/Whitebelyash drivers, Nightlies feed, Nightly builds). Registers via `sp_bh_injected_components`, read by plugin -p4 (109-7, live). Not device-tested.
+- Rollback unchanged: `rollback-631-pre12` (app), `rollback-631-plugin-p3` (Worker → -p3).
+
 ## 2026-09-27 — status note before context compaction (Component Manager)
 
 - pre13 (`3699dfc`, staged) + plugin 109-7 (-p4, Worker `de6847a`) = Component Manager v1: `.tzst` archives + extracted folders only. Device test pending (test file `/sdcard/Download/inject-test/Injected_Turnip_V31_test.tzst`).
