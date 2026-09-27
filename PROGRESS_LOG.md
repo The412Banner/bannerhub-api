@@ -2,6 +2,12 @@
 
 Chronological record of significant changes to the catalog data, the Cloudflare Worker, and the build system. Newest entries at the bottom.
 
+## 2026-09-27 — pcengine plugin 109-7 (-p4): Component Manager injected-components loader
+
+- `pcengine-plugin-631` + `pcengine-109-7-bannerhub-v6-p4.apk` (27,757,319 B, md5 `b1baa337…`, sha256 `dac368dc…`) = -p3 + a hook in the plugin's registry manager constructor that, on every `:pcengine` start, loads the host's `sp_bh_injected_components` prefs (same JSON shape as `sp_winemu_unified_resources` values) through the plugin's own generic loader and registers each entry as a component (skipped if the registry already has that name Extracted/INSTALLED). Reflection-loaded helper class in classes2.dex because classes.dex is at the 65,535 method-ref cap. versionCode 109 / versionName 109-7.
+- Worker `de6847a`: schema-7 manifest → 109/-p4. Schema 5 and firmware untouched. Rollback: tag `rollback-631-plugin-p3` (Worker → -p3).
+- App side (bannerhub-revanced `3699dfc`, pre13): Component Manager under Banner Tools → Components: inject `.tzst`/folders from storage, list, remove; writes the injected prefs + copies into the plugin's own component paths.
+
 ## 2026-09-27 — CHECKPOINT before the Component Manager / injector (option B)
 
 State to roll back to if the injector work goes wrong:
