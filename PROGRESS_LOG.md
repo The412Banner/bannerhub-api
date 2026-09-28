@@ -2057,3 +2057,9 @@ deploy.
 - Content = permission-rewrite fix `5f13aa0` only (privacy items deferred). Notes `f1bcd6d` (README What's new v1.0.2-631, release.yml section, Explore hero 8 headlines). Run `36347429779` stable=true. Site update committed locally, push after publish. Privacy backlog stays open: plugin -p7 loopback for device-perf telemetry; host stubs for ad-decisions + community websocket; Haima claim; fresh 6.3.1 capture.
 - **🏁 1.0.2-631 PUBLISHED** (run `36347429779` GREEN; tag `v1.0.2-631`, stable, Latest, 13 assets; body has the install-conflict section; Explore asset `1.0.2-631` / build `631010002`). Staged `/sdcard/Download/BannerHub-631-1.0.2-stable/BannerHub-V6-1.0.2-631-Patched-Normal.apk` sha256 `9c647b11…8a1a` (0 XiaoJi-named permissions). Site `f079c43` pushed + Pages built.
 - 🔬 GameHub Brasil V3 teardown (recon only, user request): third-party build on our 609 patch set; findings + port ranking → memory `reference_gamehub_brasil_v3_teardown`.
+
+## 2026-09-27 — END-OF-DAY SUMMARY (BannerHub v6 on 6.3.1)
+- Stables: 1.0.0-631 (port) → 1.0.1-631 (Component Manager removal fixes) → **1.0.2-631 = Latest** (permission rename fix). Plugin 111-7 (-p6) live; firmware 1.4.2; Worker `4b09d90`; site `f079c43`; Explore asset 1.0.2-631/631010002.
+- Device-proven: full injector loop (GPU zip + DXVK wcp + FEX wcp mapped at launch), remove/re-inject with no prompt, 609 GHL → 1.0.2 GHL in place.
+- Deferred/open: privacy backlog (plugin -p7, ad/websocket stubs, Haima claim, 6.3.1 capture); Steam chat/voice; 609→631 DB migration; Brasil V3 port candidates (recon only).
+- Side thread: Bannerlator 3.1.3-pre3 add-exe CME crash root-caused (255032b9 / 2.9.6) + fixed `79c972b` on feat/linux-gamescope-runtime; test pubg staged.
